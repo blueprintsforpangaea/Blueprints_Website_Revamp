@@ -1,0 +1,24 @@
+:root {
+  /* Colors — TODO: pull final palette from brand guide */
+  --color-bg: #ffffff;
+  --color-text: #111827;
+  --color-muted: #4b5563;
+  --color-primary: #0b5cff;     /* placeholder blue */
+  --color-primary-dark: #0846c0;
+  --color-accent: #ff7a00;
+
+  /* Type */
+  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Inter', var(--font-sans);
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2rem;
+  --space-6: 3rem;
+
+  /* Layout */
+  --max-content-width: 1200px;
+}
