@@ -1,15 +1,22 @@
 :root {
-  /* Colors — TODO: pull final palette from brand guide */
-  --color-bg: #ffffff;
-  --color-text: #111827;
-  --color-muted: #4b5563;
-  --color-primary: #0b5cff;     /* placeholder blue */
-  --color-primary-dark: #0846c0;
-  --color-accent: #ff7a00;
+  /* Brand palette — navy + light, pulled from the current site/brand boards */
+  --color-navy:        #1f2a5e;  /* primary brand navy */
+  --color-navy-deep:   #18224d;  /* darker navy panels */
+  --color-navy-darker: #0c1330;  /* near-black map / hero backdrop */
+  --color-blue:        #2746c9;  /* CTA / link blue */
+  --color-blue-dark:   #1b34a0;
+
+  --color-bg:          #ffffff;
+  --color-bg-alt:      #f3f5fb;  /* light section background */
+  --color-text:        #16203f;
+  --color-heading:     #1f2a5e;
+  --color-muted:       #5b6478;
+  --color-muted-light: #9aa3bd;  /* muted text on navy */
+  --color-border:      #e3e7f2;
 
   /* Type */
-  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-display: 'Inter', var(--font-sans);
+  --font-sans:    'Figtree', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Anton', 'Figtree', var(--font-sans);
 
   /* Spacing */
   --space-1: 0.25rem;
@@ -18,7 +25,13 @@
   --space-4: 1.5rem;
   --space-5: 2rem;
   --space-6: 3rem;
+  --space-7: 5rem;
 
   /* Layout */
-  --max-content-width: 1200px;
+  --max-content-width: 1180px;
+  --radius:    14px;
+  --radius-lg: 22px;
+  --radius-pill: 999px;
+  --shadow:    0 10px 30px rgba(18, 26, 60, 0.08);
+  --shadow-lg: 0 24px 60px rgba(18, 26, 60, 0.16);
 }

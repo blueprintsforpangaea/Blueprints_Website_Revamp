@@ -11,7 +11,6 @@ const NAV_ITEMS = [
 ];
 
 export default function Navbar() {
-  // TODO: mobile menu toggle state + scroll-aware styling
   return (
     <header className="navbar">
       <Link to="/" className="navbar__brand">Blueprints for Pangaea</Link>
@@ -22,7 +21,7 @@ export default function Navbar() {
           </NavLink>
         ))}
       </nav>
-      <Link to="/donate" className="navbar__cta">Donate</Link>
+      <Link to="/donate" className="navbar__cta btn btn--primary">Donate Now</Link>
     </header>
   );
 }
