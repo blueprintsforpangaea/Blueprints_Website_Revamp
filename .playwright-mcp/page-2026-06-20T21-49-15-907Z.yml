@@ -1,0 +1,798 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3]:
+      - banner [ref=e4]:
+        - generic [ref=e7]:
+          - link "home" [ref=e9] [cursor=pointer]:
+            - /url: /
+          - navigation [ref=e10]:
+            - generic [ref=e12]:
+              - generic: Platform
+              - img [ref=e13]
+            - generic [ref=e16]:
+              - generic: Solutions
+              - img [ref=e17]
+            - generic [ref=e20]:
+              - generic: Developers
+              - img [ref=e21]
+            - generic [ref=e24]:
+              - generic: Community
+              - img [ref=e25]
+            - generic [ref=e28]:
+              - generic: Resources
+              - img [ref=e29]
+          - generic "Get started" [ref=e34]:
+            - generic [ref=e35]: G
+            - generic [ref=e36]: e
+            - generic [ref=e37]: t
+            - generic [ref=e38]: s
+            - generic [ref=e39]: t
+            - generic [ref=e40]: a
+            - generic [ref=e41]: r
+            - generic [ref=e42]: t
+            - generic [ref=e43]: e
+            - generic [ref=e44]: d
+      - main [ref=e45]:
+        - generic [ref=e50]:
+          - heading "Gaming, evolved" [level=1] [ref=e53]
+          - generic [ref=e54]:
+            - paragraph [ref=e56]:
+              - generic [ref=e58]: Build immersive worlds with secure assets, real-time
+              - generic [ref=e60]: economies, and seamless player onboarding
+            - link "Build on Sui" [ref=e63] [cursor=pointer]:
+              - /url: https://docs.sui.io/concepts/gaming
+              - generic "Build on Sui" [ref=e64]:
+                - generic [ref=e65]: B
+                - generic [ref=e66]: u
+                - generic [ref=e67]: i
+                - generic [ref=e68]: l
+                - generic [ref=e69]: d
+                - generic [ref=e70]: o
+                - generic [ref=e71]: "n"
+                - generic [ref=e72]: S
+                - generic [ref=e73]: u
+                - generic [ref=e74]: i
+        - generic [ref=e97]:
+          - heading "Sui unlocks new possibilities in gaming" [level=2] [ref=e99]:
+            - generic [ref=e100]: Sui unlocks new
+            - generic [ref=e101]: possibilities in
+            - img [ref=e103]
+            - generic [ref=e123]: gaming
+          - generic [ref=e124]:
+            - img [ref=e125]
+            - generic [ref=e127]:
+              - generic [ref=e128]:
+                - generic [ref=e130]:
+                  - generic [ref=e133]: THE CHALLENGE
+                  - generic [ref=e134]:
+                    - heading "Gaming today is stagnating" [level=3] [ref=e136]
+                    - paragraph [ref=e138]: Unsatisfied players, saturated free-to-play, and P2E prioritizes profits over fun.
+                - generic [ref=e139]:
+                  - generic [ref=e140]:
+                    - heading "Closed economies" [level=4] [ref=e143]
+                    - paragraph [ref=e145]: Game items are only licenses. Value stays locked, resale is restricted, and assets can be lost.
+                  - generic [ref=e146]:
+                    - heading "Untrusted mechanics" [level=4] [ref=e149]
+                    - paragraph [ref=e151]: Players can’t verify how matchmaking, rewards, or anti-cheat work, leaving outcomes open to doubt.
+                  - generic [ref=e152]:
+                    - heading "Predictable gameplay" [level=4] [ref=e155]
+                    - paragraph [ref=e157]: With static NPCs and repetitive interactions, games lose the spontaneity that makes them exciting.
+                  - generic [ref=e158]:
+                    - heading "Shallow design" [level=4] [ref=e161]
+                    - paragraph [ref=e163]: Early P2E models centered on speculation and token, losing player’s trust with unfair gameplay.
+                - img [ref=e164]
+                - img [ref=e166]
+                - img [ref=e167]
+                - img [ref=e169]
+              - generic [ref=e171]:
+                - generic [ref=e173]:
+                  - generic [ref=e176]: THE SOLUTION
+                  - generic [ref=e177]:
+                    - heading "Play in a whole new way with Sui" [level=3] [ref=e179]
+                    - paragraph [ref=e181]: Sui combines usability, true asset ownership, and verifiable play to make games fun and fair.
+                - generic [ref=e182]:
+                  - generic [ref=e183]:
+                    - heading "True ownership" [level=4] [ref=e186]
+                    - paragraph [ref=e188]: Game assets live onchain, so what you earn or buy stays yours, forever.
+                  - generic [ref=e189]:
+                    - heading "Verifiable fairness" [level=4] [ref=e192]
+                    - paragraph [ref=e194]: Game outcomes run on transparent logic with randomness you can trust, not black-box systems.
+                  - generic [ref=e195]:
+                    - heading "Frictionless onboarding" [level=4] [ref=e198]
+                    - paragraph [ref=e200]: zkLogin and sponsored transactions let players start with familiar accounts, no wallets or gas fees.
+                  - generic [ref=e201]:
+                    - heading "Programmable game economies" [level=4] [ref=e204]
+                    - paragraph [ref=e206]: Assets, currencies, and rewards are managed onchain, enabling transparent, player-owned economies that evolve with gameplay.
+                - img [ref=e207]
+                - img [ref=e208]
+                - img [ref=e209]
+                - img [ref=e211]
+        - generic [ref=e216]:
+          - generic [ref=e217]:
+            - generic [ref=e218]: HOW IT WORKS
+            - img [ref=e219]
+            - generic [ref=e220]:
+              - text: Build
+              - generic [ref=e225]: games
+              - text: with the modular components of the Sui Stack
+          - generic [ref=e226]:
+            - generic [ref=e227]:
+              - link "Sui Delivers low-latency execution at scale and supports sponsored transactions so players can play instantly, without gas fees" [ref=e228] [cursor=pointer]:
+                - /url: https://sui.io/
+                - generic [ref=e229]:
+                  - generic [ref=e230]:
+                    - img [ref=e233]
+                    - generic [ref=e234]:
+                      - generic [ref=e235]:
+                        - img [ref=e236]
+                        - heading "Sui" [level=3] [ref=e238]
+                      - img [ref=e239]
+                  - paragraph [ref=e243]: Delivers low-latency execution at scale and supports sponsored transactions so players can play instantly, without gas fees
+              - link "Walrus Secures in-game assets with durability, ensuring items remain intact beyond the life of a game server" [ref=e248] [cursor=pointer]:
+                - /url: https://www.walrus.xyz/
+                - generic [ref=e249]:
+                  - generic [ref=e250]:
+                    - img [ref=e253]
+                    - generic [ref=e254]:
+                      - generic [ref=e255]:
+                        - img [ref=e256]
+                        - heading "Walrus" [level=3] [ref=e258]
+                      - img [ref=e259]
+                  - paragraph [ref=e263]: Secures in-game assets with durability, ensuring items remain intact beyond the life of a game server
+              - link "Seal Applies encryption and programmable access rules, enabling features like time-locked rewards" [ref=e268] [cursor=pointer]:
+                - /url: https://seal.mystenlabs.com/
+                - generic [ref=e269]:
+                  - generic [ref=e270]:
+                    - img [ref=e273]
+                    - generic [ref=e274]:
+                      - generic [ref=e275]:
+                        - img [ref=e276]
+                        - heading "Seal" [level=3] [ref=e294]
+                      - img [ref=e295]
+                  - paragraph [ref=e299]: Applies encryption and programmable access rules, enabling features like time-locked rewards
+              - link "Nautilus Verifies off-chain game logic on-chain, ensuring randomness, outcomes, and interactions are provably fair" [ref=e304] [cursor=pointer]:
+                - /url: /nautilus
+                - generic [ref=e305]:
+                  - generic [ref=e306]:
+                    - img [ref=e309]
+                    - generic [ref=e310]:
+                      - generic [ref=e311]:
+                        - img [ref=e312]
+                        - heading "Nautilus" [level=3] [ref=e314]
+                      - img [ref=e315]
+                  - paragraph [ref=e319]: Verifies off-chain game logic on-chain, ensuring randomness, outcomes, and interactions are provably fair
+              - link "zkLogin Allows players to sign in with familiar accounts like Google or Twitch, making onboarding secure, instant and natural" [ref=e324] [cursor=pointer]:
+                - /url: /zklogin
+                - generic [ref=e325]:
+                  - generic [ref=e326]:
+                    - img [ref=e329]
+                    - generic [ref=e330]:
+                      - generic [ref=e331]:
+                        - img [ref=e332]
+                        - heading "zkLogin" [level=3] [ref=e334]
+                      - img [ref=e335]
+                  - paragraph [ref=e339]: Allows players to sign in with familiar accounts like Google or Twitch, making onboarding secure, instant and natural
+            - generic [ref=e345]:
+              - generic [ref=e346]:
+                - img [ref=e347]
+                - img [ref=e348]
+                - img [ref=e349]
+                - img [ref=e350]
+              - link "Learn more" [ref=e353] [cursor=pointer]:
+                - /url: https://www.youtube.com/watch?v=GK-sPiFbxHA
+                - generic "Learn more" [ref=e354]:
+                  - generic [ref=e355]: L
+                  - generic [ref=e356]: e
+                  - generic [ref=e357]: a
+                  - generic [ref=e358]: r
+                  - generic [ref=e359]: "n"
+                  - generic [ref=e360]: m
+                  - generic [ref=e361]: o
+                  - generic [ref=e362]: r
+                  - generic [ref=e363]: e
+              - img [ref=e364]
+        - generic [ref=e368]:
+          - generic [ref=e369]:
+            - generic [ref=e370]: OPPORTUNITIES
+            - img [ref=e372]
+            - heading "Create new models of play, fun, and growth" [level=2] [ref=e374]
+          - generic [ref=e376]:
+            - generic [ref=e377]:
+              - generic [ref=e378]:
+                - heading "Build persistent game economies" [level=3] [ref=e381]
+                - img [ref=e382]
+              - paragraph [ref=e384]: Create worlds where items, progress, and achievements stay with players, beyond a single game.
+            - generic [ref=e385]:
+              - generic [ref=e386]:
+                - heading "Monetize with programmable assets" [level=3] [ref=e389]
+                - img [ref=e390]
+              - paragraph [ref=e391]: Design assets that evolve, carry history, and open new revenue models through ownership.
+            - generic [ref=e392]:
+              - generic [ref=e393]:
+                - heading "Lower the barrier to play" [level=3] [ref=e396]
+                - img [ref=e397]
+              - paragraph [ref=e398]: Players enter and stay immersed with seamless wallet onboarding and sponsored transactions.
+            - generic [ref=e399]:
+              - generic [ref=e400]:
+                - heading "Unbiased gameplay" [level=3] [ref=e403]
+                - img [ref=e404]
+              - paragraph [ref=e406]: Native on-chain randomness powered by threshold cryptography guarantees secure, unbiased results for chance-based game mechanics players can trust.
+            - generic [ref=e407]:
+              - generic [ref=e408]:
+                - heading "Enable real-time in-game payments" [level=3] [ref=e411]
+                - img [ref=e412]
+              - paragraph [ref=e413]: Power instant purchases, rewards, and peer-to-peer transactions with low-latency, onchain settlement.
+            - generic [ref=e414]:
+              - generic [ref=e415]:
+                - heading "Offer player-driven marketplaces" [level=3] [ref=e418]
+                - img [ref=e419]
+              - paragraph [ref=e420]: Enable communities to trade items, mods, or custom assets freely, giving value back to the players building culture.
+        - generic [ref=e424]:
+          - generic [ref=e425]:
+            - generic [ref=e426]: USE-CASES
+            - img [ref=e427]
+            - heading "Building next-gen games" [level=2] [ref=e428]
+          - generic [ref=e429]:
+            - img [ref=e431]
+            - generic [ref=e434]:
+              - group "1 / 7" [ref=e435]:
+                - generic [ref=e437]:
+                  - heading "Space survival MMO where players rebuild civilization." [level=3] [ref=e440]
+                  - link "Read blog" [ref=e442] [cursor=pointer]:
+                    - /url: https://blog.sui.io/ccp-games-eve-frontier-on-sui/
+                    - img [ref=e443]
+                    - generic [ref=e444]:
+                      - img [ref=e445]
+                      - generic "Read blog" [ref=e448]:
+                        - generic [ref=e449]: R
+                        - generic [ref=e450]: e
+                        - generic [ref=e451]: a
+                        - generic [ref=e452]: d
+                        - generic [ref=e453]: b
+                        - generic [ref=e454]: l
+                        - generic [ref=e455]: o
+                        - generic [ref=e456]: g
+              - group "2 / 7" [ref=e457]:
+                - generic [ref=e459]:
+                  - heading "A POP shooter with an extraction-based gameplay RPG core." [level=3] [ref=e462]
+                  - link "Read blog" [ref=e464] [cursor=pointer]:
+                    - /url: https://blog.sui.io/xociety-game-launch-announcement/
+                    - img [ref=e465]
+                    - generic [ref=e466]:
+                      - img [ref=e467]
+                      - generic "Read blog" [ref=e470]:
+                        - generic [ref=e471]: R
+                        - generic [ref=e472]: e
+                        - generic [ref=e473]: a
+                        - generic [ref=e474]: d
+                        - generic [ref=e475]: b
+                        - generic [ref=e476]: l
+                        - generic [ref=e477]: o
+                        - generic [ref=e478]: g
+              - group "3 / 7" [ref=e479]:
+                - generic [ref=e481]:
+                  - heading "A single-player and co-op PvE universe building game." [level=3] [ref=e484]
+                  - link "Read blog" [ref=e486] [cursor=pointer]:
+                    - /url: https://blog.sui.io/warped-universe-games-multi-genre-gameplay/
+                    - img [ref=e487]
+                    - generic [ref=e488]:
+                      - img [ref=e489]
+                      - generic "Read blog" [ref=e492]:
+                        - generic [ref=e493]: R
+                        - generic [ref=e494]: e
+                        - generic [ref=e495]: a
+                        - generic [ref=e496]: d
+                        - generic [ref=e497]: b
+                        - generic [ref=e498]: l
+                        - generic [ref=e499]: o
+                        - generic [ref=e500]: g
+              - group "4 / 7" [ref=e501]:
+                - generic [ref=e503]:
+                  - heading "Casual MMO party-action with social hubs, varied gameplay modes, and deep customization." [level=3] [ref=e506]
+                  - link "Read blog" [ref=e508] [cursor=pointer]:
+                    - /url: https://blog.sui.io/super-b-nimblebites-game-web3/
+                    - img [ref=e509]
+                    - generic [ref=e510]:
+                      - img [ref=e511]
+                      - generic "Read blog" [ref=e514]:
+                        - generic [ref=e515]: R
+                        - generic [ref=e516]: e
+                        - generic [ref=e517]: a
+                        - generic [ref=e518]: d
+                        - generic [ref=e519]: b
+                        - generic [ref=e520]: l
+                        - generic [ref=e521]: o
+                        - generic [ref=e522]: g
+              - group "5 / 7" [ref=e523]:
+                - generic [ref=e525]:
+                  - heading "Iconic sword-fighting duels return on mobile with legendary fighters, PvP, and skill-based combat." [level=3] [ref=e528]
+                  - link "Read blog" [ref=e530] [cursor=pointer]:
+                    - /url: https://blog.sui.io/samurai-shodown-r-mmorpg-snk-lumiwave/
+                    - img [ref=e531]
+                    - generic [ref=e532]:
+                      - img [ref=e533]
+                      - generic "Read blog" [ref=e536]:
+                        - generic [ref=e537]: R
+                        - generic [ref=e538]: e
+                        - generic [ref=e539]: a
+                        - generic [ref=e540]: d
+                        - generic [ref=e541]: b
+                        - generic [ref=e542]: l
+                        - generic [ref=e543]: o
+                        - generic [ref=e544]: g
+              - group "6 / 7" [ref=e545]:
+                - generic [ref=e547]:
+                  - heading "Iconic gameplay through fast, turn-based PvP cards." [level=3] [ref=e550]
+                  - link "Read blog" [ref=e552] [cursor=pointer]:
+                    - /url: https://blog.sui.io/samurai-shodown-r-mmorpg-snk-lumiwave/
+                    - img [ref=e553]
+                    - generic [ref=e554]:
+                      - img [ref=e555]
+                      - generic "Read blog" [ref=e558]:
+                        - generic [ref=e559]: R
+                        - generic [ref=e560]: e
+                        - generic [ref=e561]: a
+                        - generic [ref=e562]: d
+                        - generic [ref=e563]: b
+                        - generic [ref=e564]: l
+                        - generic [ref=e565]: o
+                        - generic [ref=e566]: g
+              - group "7 / 7" [ref=e567]:
+                - generic [ref=e569]:
+                  - heading "Cross-game ecosystem with Gold Striker and Striker League." [level=3] [ref=e572]
+                  - link "Read blog" [ref=e574] [cursor=pointer]:
+                    - /url: https://blog.sui.io/lineup-games-telegram-line-striker-league/
+                    - img [ref=e575]
+                    - generic [ref=e576]:
+                      - img [ref=e577]
+                      - generic "Read blog" [ref=e580]:
+                        - generic [ref=e581]: R
+                        - generic [ref=e582]: e
+                        - generic [ref=e583]: a
+                        - generic [ref=e584]: d
+                        - generic [ref=e585]: b
+                        - generic [ref=e586]: l
+                        - generic [ref=e587]: o
+                        - generic [ref=e588]: g
+        - generic [ref=e593]:
+          - img [ref=e594]
+          - generic [ref=e595]:
+            - generic [ref=e596]:
+              - heading "Tools for developers" [level=2] [ref=e597]
+              - link "Explore Sui’s game-related primitives" [ref=e598] [cursor=pointer]:
+                - /url: https://docs.sui.io/concepts/gaming
+                - generic [ref=e599]:
+                  - img [ref=e600]
+                  - generic "Explore Sui’s game-related primitives" [ref=e603]:
+                    - generic [ref=e604]: E
+                    - generic [ref=e605]: x
+                    - generic [ref=e606]: p
+                    - generic [ref=e607]: l
+                    - generic [ref=e608]: o
+                    - generic [ref=e609]: r
+                    - generic [ref=e610]: e
+                    - generic [ref=e611]: S
+                    - generic [ref=e612]: u
+                    - generic [ref=e613]: i
+                    - generic [ref=e614]: ’
+                    - generic [ref=e615]: s
+                    - generic [ref=e616]: g
+                    - generic [ref=e617]: a
+                    - generic [ref=e618]: m
+                    - generic [ref=e619]: e
+                    - generic [ref=e620]: "-"
+                    - generic [ref=e621]: r
+                    - generic [ref=e622]: e
+                    - generic [ref=e623]: l
+                    - generic [ref=e624]: a
+                    - generic [ref=e625]: t
+                    - generic [ref=e626]: e
+                    - generic [ref=e627]: d
+                    - generic [ref=e628]: p
+                    - generic [ref=e629]: r
+                    - generic [ref=e630]: i
+                    - generic [ref=e631]: m
+                    - generic [ref=e632]: i
+                    - generic [ref=e633]: t
+                    - generic [ref=e634]: i
+                    - generic [ref=e635]: v
+                    - generic [ref=e636]: e
+                    - generic [ref=e637]: s
+            - generic [ref=e638]:
+              - link "Sui CLI" [ref=e639] [cursor=pointer]:
+                - /url: https://docs.sui.io/guides/developer/getting-started/sui-install
+                - generic [ref=e640]:
+                  - img
+                  - heading "Sui CLI" [level=3] [ref=e641]
+                - img [ref=e642]
+              - link "Walrus CLI / API" [ref=e644] [cursor=pointer]:
+                - /url: https://docs.wal.app/usage/interacting.html
+                - generic [ref=e645]:
+                  - img
+                  - heading "Walrus CLI / API" [level=3] [ref=e646]
+                - img [ref=e647]
+              - link "Seal TS SDK" [ref=e649] [cursor=pointer]:
+                - /url: https://seal-docs.wal.app/GettingStarted/
+                - generic [ref=e650]:
+                  - img
+                  - heading "Seal TS SDK" [level=3] [ref=e651]
+                - img [ref=e652]
+              - link "Sui TS SDK" [ref=e654] [cursor=pointer]:
+                - /url: https://sdk.mystenlabs.com/typescript
+                - generic [ref=e655]:
+                  - img
+                  - heading "Sui TS SDK" [level=3] [ref=e656]
+                - img [ref=e657]
+              - link "BCS TS SDK" [ref=e659] [cursor=pointer]:
+                - /url: https://sdk.mystenlabs.com/bcs
+                - generic [ref=e660]:
+                  - img
+                  - heading "BCS TS SDK" [level=3] [ref=e661]
+                - img [ref=e662]
+              - link "Dapp kit TS SDK" [ref=e664] [cursor=pointer]:
+                - /url: https://sdk.mystenlabs.com/dapp-kit
+                - generic [ref=e665]:
+                  - img
+                  - heading "Dapp kit TS SDK" [level=3] [ref=e666]
+                - img [ref=e667]
+        - generic [ref=e672]:
+          - generic [ref=e673]:
+            - img [ref=e674]
+            - heading "Dive deeper into gaming on Sui" [level=2] [ref=e675]
+          - generic [ref=e678]:
+            - link "Gaming on Sui Read doc" [ref=e679] [cursor=pointer]:
+              - /url: https://docs.sui.io/concepts/gaming
+              - generic [ref=e680]:
+                - img [ref=e681]
+                - img [ref=e683]
+              - generic [ref=e684]:
+                - heading "Gaming on Sui" [level=3] [ref=e685]
+                - generic [ref=e687]: Read doc
+            - link "XOCIETY and Adidas Join Forces to Offer Limited Edition NFT skins Read blog" [ref=e688] [cursor=pointer]:
+              - /url: https://blog.sui.io/adidas-xociety-loot-boxes-nfts/
+              - generic [ref=e689]:
+                - img [ref=e690]
+                - img [ref=e692]
+              - generic [ref=e693]:
+                - heading "XOCIETY and Adidas Join Forces to Offer Limited Edition NFT skins" [level=3] [ref=e694]
+                - generic [ref=e696]: Read blog
+            - link "Sui’s Tooling Ecosystem Simplifies Web3 Integration for Game Developers Read blog" [ref=e697] [cursor=pointer]:
+              - /url: https://blog.sui.io/sui-tooling-simplifies-web3-game-development/
+              - generic [ref=e698]:
+                - img [ref=e699]
+                - img [ref=e701]
+              - generic [ref=e702]:
+                - heading "Sui’s Tooling Ecosystem Simplifies Web3 Integration for Game Developers" [level=3] [ref=e703]
+                - generic [ref=e705]: Read blog
+            - link "The State of Gaming on Sui Watch now" [ref=e706] [cursor=pointer]:
+              - /url: https://www.youtube.com/watch?v=gCiJ5kEPJ3g
+              - img [ref=e708]
+              - generic [ref=e709]:
+                - heading "The State of Gaming on Sui" [level=3] [ref=e710]
+                - generic [ref=e712]: Watch now
+    - generic [ref=e713]:
+      - contentinfo [ref=e714]:
+        - generic [ref=e717]:
+          - generic [ref=e718]:
+            - img [ref=e719]
+            - generic [ref=e720]:
+              - img [ref=e722]
+              - generic [ref=e725]:
+                - generic [ref=e726]:
+                  - heading "Platform/" [level=3] [ref=e728]
+                  - list [ref=e731]:
+                    - listitem [ref=e732]:
+                      - link "Introduction to Sui Stack" [ref=e733] [cursor=pointer]:
+                        - /url: /intro-to-sui
+                        - img [ref=e734]
+                        - generic [ref=e736]: Introduction to Sui Stack
+                    - listitem [ref=e737]:
+                      - link "Move" [ref=e738] [cursor=pointer]:
+                        - /url: /move
+                        - img [ref=e739]
+                        - generic [ref=e741]: Move
+                    - listitem [ref=e742]:
+                      - link "zkLogin" [ref=e743] [cursor=pointer]:
+                        - /url: /zklogin
+                        - img [ref=e744]
+                        - generic [ref=e746]: zkLogin
+                    - listitem [ref=e747]:
+                      - link "Passkey" [ref=e748] [cursor=pointer]:
+                        - /url: /passkey
+                        - img [ref=e749]
+                        - generic [ref=e751]: Passkey
+                    - listitem [ref=e752]:
+                      - link "Walrus" [ref=e753] [cursor=pointer]:
+                        - /url: https://www.walrus.xyz/
+                        - img [ref=e754]
+                        - generic [ref=e756]: Walrus
+                    - listitem [ref=e757]:
+                      - link "Seal" [ref=e758] [cursor=pointer]:
+                        - /url: https://seal.mystenlabs.com/
+                        - img [ref=e759]
+                        - generic [ref=e761]: Seal
+                    - listitem [ref=e762]:
+                      - link "Nautilus" [ref=e763] [cursor=pointer]:
+                        - /url: /nautilus
+                        - img [ref=e764]
+                        - generic [ref=e766]: Nautilus
+                    - listitem [ref=e767]:
+                      - link "SuiNS" [ref=e768] [cursor=pointer]:
+                        - /url: https://suins.io/
+                        - img [ref=e769]
+                        - generic [ref=e771]: SuiNS
+                    - listitem [ref=e772]:
+                      - link "Mysticeti" [ref=e773] [cursor=pointer]:
+                        - /url: /mysticeti
+                        - img [ref=e774]
+                        - generic [ref=e776]: Mysticeti
+                    - listitem [ref=e777]:
+                      - link "Hashi" [ref=e778] [cursor=pointer]:
+                        - /url: /hashi
+                        - img [ref=e779]
+                        - generic [ref=e781]: Hashi
+                    - listitem [ref=e782]:
+                      - link "DeepBook" [ref=e783] [cursor=pointer]:
+                        - /url: https://deepbook.tech/
+                        - img [ref=e784]
+                        - generic [ref=e786]: DeepBook
+                    - listitem [ref=e787]:
+                      - link "SUI circulation" [ref=e788] [cursor=pointer]:
+                        - /url: /token-schedule
+                        - img [ref=e789]
+                        - generic [ref=e791]: SUI circulation
+                    - listitem [ref=e792]:
+                      - link "SUI deflation" [ref=e793] [cursor=pointer]:
+                        - /url: /deflation
+                        - img [ref=e794]
+                        - generic [ref=e796]: SUI deflation
+                - generic [ref=e797]:
+                  - heading "Solutions/" [level=3] [ref=e799]
+                  - list [ref=e802]:
+                    - listitem [ref=e803]:
+                      - link "Institutions & capital markets" [ref=e804] [cursor=pointer]:
+                        - /url: /institutions-capital-markets
+                        - img [ref=e805]
+                        - generic [ref=e807]: Institutions & capital markets
+                    - listitem [ref=e808]:
+                      - link "AI" [ref=e809] [cursor=pointer]:
+                        - /url: /ai
+                        - img [ref=e810]
+                        - generic [ref=e812]: AI
+                    - listitem [ref=e813]:
+                      - link "DeFi" [ref=e814] [cursor=pointer]:
+                        - /url: /defi
+                        - img [ref=e815]
+                        - generic [ref=e817]: DeFi
+                    - listitem [ref=e818]:
+                      - link "Gaming" [ref=e819] [cursor=pointer]:
+                        - /url: /gaming
+                        - img [ref=e820]
+                        - generic [ref=e822]: Gaming
+                    - listitem [ref=e823]:
+                      - link "Payments" [ref=e824] [cursor=pointer]:
+                        - /url: /payments
+                        - img [ref=e825]
+                        - generic [ref=e827]: Payments
+                    - listitem [ref=e828]:
+                      - link "BTCfi on Sui" [ref=e829] [cursor=pointer]:
+                        - /url: /btcfi-bitcoin-defi-on-sui
+                        - img [ref=e830]
+                        - generic [ref=e832]: BTCfi on Sui
+                    - listitem [ref=e833]:
+                      - link "USDC" [ref=e834] [cursor=pointer]:
+                        - /url: /usdc
+                        - img [ref=e835]
+                        - generic [ref=e837]: USDC
+                - generic [ref=e838]:
+                  - generic [ref=e839]:
+                    - heading "Developers/" [level=3] [ref=e841]
+                    - list [ref=e844]:
+                      - listitem [ref=e845]:
+                        - link "Developer hub" [ref=e846] [cursor=pointer]:
+                          - /url: /developers
+                          - img [ref=e847]
+                          - generic [ref=e849]: Developer hub
+                      - listitem [ref=e850]:
+                        - link "Getting started" [ref=e851] [cursor=pointer]:
+                          - /url: https://docs.sui.io/guides/developer/getting-started
+                          - img [ref=e852]
+                          - generic [ref=e854]: Getting started
+                      - listitem [ref=e855]:
+                        - link "Docs" [ref=e856] [cursor=pointer]:
+                          - /url: https://docs.sui.io/
+                          - img [ref=e857]
+                          - generic [ref=e859]: Docs
+                      - listitem [ref=e860]:
+                        - link "Guides" [ref=e861] [cursor=pointer]:
+                          - /url: https://docs.sui.io/guides
+                          - img [ref=e862]
+                          - generic [ref=e864]: Guides
+                      - listitem [ref=e865]:
+                        - link "Hello World" [ref=e866] [cursor=pointer]:
+                          - /url: https://github.com/MystenLabs/sui-stack-hello-world
+                          - img [ref=e867]
+                          - generic [ref=e869]: Hello World
+                      - listitem [ref=e870]:
+                        - link "Tools" [ref=e871] [cursor=pointer]:
+                          - /url: https://github.com/sui-foundation/awesome-sui/tree/main
+                          - img [ref=e872]
+                          - generic [ref=e874]: Tools
+                      - listitem [ref=e875]:
+                        - link "Project ideas" [ref=e876] [cursor=pointer]:
+                          - /url: /project-ideas
+                          - img [ref=e877]
+                          - generic [ref=e879]: Project ideas
+                      - listitem [ref=e880]:
+                        - link "Hackathons" [ref=e881] [cursor=pointer]:
+                          - /url: https://www.deepsurge.xyz/
+                          - img [ref=e882]
+                          - generic [ref=e884]: Hackathons
+                      - listitem [ref=e885]:
+                        - link "Events and meetups" [ref=e886] [cursor=pointer]:
+                          - /url: https://luma.com/sui-network?period=past
+                          - img [ref=e887]
+                          - generic [ref=e889]: Events and meetups
+                      - listitem [ref=e890]:
+                        - link "Discord" [ref=e891] [cursor=pointer]:
+                          - /url: https://discord.com/invite/sui
+                          - img [ref=e892]
+                          - generic [ref=e894]: Discord
+                      - listitem [ref=e895]:
+                        - link "Developer forum" [ref=e896] [cursor=pointer]:
+                          - /url: https://forums.sui.io/
+                          - img [ref=e897]
+                          - generic [ref=e899]: Developer forum
+                      - listitem [ref=e900]:
+                        - link "Office hours" [ref=e901] [cursor=pointer]:
+                          - /url: https://cal.com/forms/08983b87-8001-4df6-896a-0d7b60acfd79
+                          - img [ref=e902]
+                          - generic [ref=e904]: Office hours
+                  - generic [ref=e905]:
+                    - heading "Community/" [level=3] [ref=e907]
+                    - list [ref=e910]:
+                      - listitem [ref=e911]:
+                        - link "Upcoming events" [ref=e912] [cursor=pointer]:
+                          - /url: https://luma.com/sui-network?period=past
+                          - img [ref=e913]
+                          - generic [ref=e915]: Upcoming events
+                      - listitem [ref=e916]:
+                        - link "Event recaps" [ref=e917] [cursor=pointer]:
+                          - /url: https://blog.sui.io/tag/events/
+                          - img [ref=e918]
+                          - generic [ref=e920]: Event recaps
+                      - listitem [ref=e921]:
+                        - link "SuiHub" [ref=e922] [cursor=pointer]:
+                          - /url: https://www.suihub.org/
+                          - img [ref=e923]
+                          - generic [ref=e925]: SuiHub
+                      - listitem [ref=e926]:
+                        - link "Online communities" [ref=e927] [cursor=pointer]:
+                          - /url: /community
+                          - img [ref=e928]
+                          - generic [ref=e930]: Online communities
+                - generic [ref=e931]:
+                  - generic [ref=e932]:
+                    - heading "Resources/" [level=3] [ref=e934]
+                    - list [ref=e937]:
+                      - listitem [ref=e938]:
+                        - link "Launch playbook" [ref=e939] [cursor=pointer]:
+                          - /url: /launch-on-sui
+                          - img [ref=e940]
+                          - generic [ref=e942]: Launch playbook
+                      - listitem [ref=e943]:
+                        - link "Founder starter pack" [ref=e944] [cursor=pointer]:
+                          - /url: /founder-starter-pack
+                          - img [ref=e945]
+                          - generic [ref=e947]: Founder starter pack
+                      - listitem [ref=e948]:
+                        - link "Builder FAQ" [ref=e949] [cursor=pointer]:
+                          - /url: /faq
+                          - img [ref=e950]
+                          - generic [ref=e952]: Builder FAQ
+                      - listitem [ref=e953]:
+                        - link "Programs & funding" [ref=e954] [cursor=pointer]:
+                          - /url: /programs-funding
+                          - img [ref=e955]
+                          - generic [ref=e957]: Programs & funding
+                      - listitem [ref=e958]:
+                        - link "Academic research awards" [ref=e959] [cursor=pointer]:
+                          - /url: https://suifoundation.notion.site/Sui-Ecosystem-Academic-Research-Awards-18537af41c6e80688ca0ff37cf2e617b
+                          - img [ref=e960]
+                          - generic [ref=e962]: Academic research awards
+                      - listitem [ref=e963]:
+                        - link "Blog" [ref=e964] [cursor=pointer]:
+                          - /url: https://blog.sui.io/
+                          - img [ref=e965]
+                          - generic [ref=e967]: Blog
+                      - listitem [ref=e968]:
+                        - link "Press center" [ref=e969] [cursor=pointer]:
+                          - /url: /press-center
+                          - img [ref=e970]
+                          - generic [ref=e972]: Press center
+                      - listitem [ref=e973]:
+                        - link "Research" [ref=e974] [cursor=pointer]:
+                          - /url: /research
+                          - img [ref=e975]
+                          - generic [ref=e977]: Research
+                      - listitem [ref=e978]:
+                        - link "Security" [ref=e979] [cursor=pointer]:
+                          - /url: /security
+                          - img [ref=e980]
+                          - generic [ref=e982]: Security
+                      - listitem [ref=e983]:
+                        - link "Validators" [ref=e984] [cursor=pointer]:
+                          - /url: /validators
+                          - img [ref=e985]
+                          - generic [ref=e987]: Validators
+                      - listitem [ref=e988]:
+                        - link "Bug bounty program" [ref=e989] [cursor=pointer]:
+                          - /url: /bug-bounty-program
+                          - img [ref=e990]
+                          - generic [ref=e992]: Bug bounty program
+                      - listitem [ref=e993]:
+                        - link "Network info" [ref=e994] [cursor=pointer]:
+                          - /url: /networkinfo
+                          - img [ref=e995]
+                          - generic [ref=e997]: Network info
+                      - listitem [ref=e998]:
+                        - link "Network status" [ref=e999] [cursor=pointer]:
+                          - /url: https://status.sui.io/
+                          - img [ref=e1000]
+                          - generic [ref=e1002]: Network status
+                      - listitem [ref=e1003]:
+                        - link "Incident history" [ref=e1004] [cursor=pointer]:
+                          - /url: https://status.sui.io/history
+                          - img [ref=e1005]
+                          - generic [ref=e1007]: Incident history
+                      - listitem [ref=e1008]:
+                        - link "Uptime" [ref=e1009] [cursor=pointer]:
+                          - /url: https://status.sui.io/uptime
+                          - img [ref=e1010]
+                          - generic [ref=e1012]: Uptime
+                  - generic [ref=e1013]:
+                    - heading "About/" [level=3] [ref=e1015]
+                    - list [ref=e1018]:
+                      - listitem [ref=e1019]:
+                        - link "About Sui Foundation" [ref=e1020] [cursor=pointer]:
+                          - /url: /about
+                          - img [ref=e1021]
+                          - generic [ref=e1023]: About Sui Foundation
+                      - listitem [ref=e1024]:
+                        - link "Brand kit" [ref=e1025] [cursor=pointer]:
+                          - /url: https://live.standards.site/sui-media-kit
+                          - img [ref=e1026]
+                          - generic [ref=e1028]: Brand kit
+                      - listitem [ref=e1029]:
+                        - link "Careers" [ref=e1030] [cursor=pointer]:
+                          - /url: https://jobs.ashbyhq.com/Sui%20Foundation
+                          - img [ref=e1031]
+                          - generic [ref=e1033]: Careers
+                      - listitem [ref=e1034]:
+                        - link "Terms of service" [ref=e1035] [cursor=pointer]:
+                          - /url: /terms
+                          - img [ref=e1036]
+                          - generic [ref=e1038]: Terms of service
+                      - listitem [ref=e1039]:
+                        - link "Privacy policy" [ref=e1040] [cursor=pointer]:
+                          - /url: /privacy-policy
+                          - img [ref=e1041]
+                          - generic [ref=e1043]: Privacy policy
+          - generic [ref=e1044]:
+            - generic [ref=e1045]:
+              - link [ref=e1046] [cursor=pointer]:
+                - /url: https://www.youtube.com/@Sui-Network
+                - img [ref=e1047]
+              - link [ref=e1050] [cursor=pointer]:
+                - /url: https://discord.com/invite/sui
+                - img [ref=e1051]
+              - link [ref=e1053] [cursor=pointer]:
+                - /url: https://www.linkedin.com/company/sui-foundation/
+                - img [ref=e1054]
+              - link [ref=e1056] [cursor=pointer]:
+                - /url: https://twitter.com/SuiNetwork
+                - img [ref=e1057]
+            - generic [ref=e1060]: ©2026 Copyright Sui Foundation. All rights reserved
+      - generic [ref=e1062]:
+        - img
+  - img "Cookie Manager Icon" [ref=e1065]

@@ -439,13 +439,90 @@ h1, h2, h3, h4 { color: var(--color-heading); margin: 0; }
 .cta__body { color: rgba(255,255,255,0.82); font-size: 1.1rem; max-width: 34rem; margin: 0 auto 2rem; }
 .cta__buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
-/* ---------- Press list ---------- */
-.press__list { list-style: none; padding: 0; margin: 0; max-width: 48rem; }
-.press__item { border-bottom: 1px solid var(--color-border); }
-.press__item a { display: grid; grid-template-columns: 1fr auto; gap: 0.25rem 1rem; padding: 1.1rem 0; align-items: baseline; }
-.press__outlet { font-weight: 700; color: var(--color-navy); font-size: 0.85rem; letter-spacing: 0.04em; text-transform: uppercase; }
-.press__headline { grid-column: 1 / -1; color: var(--color-text); }
-.press__date { color: var(--color-muted); font-size: 0.9rem; }
+/* ---------- Press grid ---------- */
+.press-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.press-card { text-decoration: none; color: inherit; }
+.press-card__media {
+  background: linear-gradient(135deg, var(--color-navy), var(--color-blue-dark));
+  position: relative;
+}
+.press-card__outlet-initial {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  color: rgba(255, 255, 255, 0.25);
+}
+.press-card__headline { font-size: 1rem; line-height: 1.35; margin-bottom: 0.5rem; }
+.press-card__excerpt {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  line-height: 1.55;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.press-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.press-card__read {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--color-blue);
+  white-space: nowrap;
+}
+.press-card:hover .press-card__read { text-decoration: underline; }
+
+/* ---------- Scroll-triggered animations ---------- */
+/* Easing: expo-out — snappy deceleration matching Sui.io's motion language */
+:root {
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --anim-duration: 0.6s;
+}
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(32px);
+  will-change: transform, opacity;
+  transition: opacity var(--anim-duration) var(--ease-out-expo),
+              transform var(--anim-duration) var(--ease-out-expo);
+}
+.fade-up.is-visible { opacity: 1; transform: translateY(0); }
+
+/* Cards: scale + rise together — the "pop" feel from Sui's card entries */
+.fade-pop {
+  opacity: 0;
+  transform: scale(0.95) translateY(20px);
+  will-change: transform, opacity;
+  transition: opacity 0.5s var(--ease-out-expo),
+              transform 0.5s var(--ease-out-expo);
+}
+.fade-pop.is-visible { opacity: 1; transform: scale(1) translateY(0); }
+
+/* Eyebrow labels / side text: slide in from the left */
+.fade-left {
+  opacity: 0;
+  transform: translateX(-24px);
+  will-change: transform, opacity;
+  transition: opacity var(--anim-duration) var(--ease-out-expo),
+              transform var(--anim-duration) var(--ease-out-expo);
+}
+.fade-left.is-visible { opacity: 1; transform: translateX(0); }
+
+/* Respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .fade-up, .fade-pop, .fade-left {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+}
 
 /* ---------- Footer ---------- */
 .footer {
@@ -492,11 +569,13 @@ h1, h2, h3, h4 { color: var(--color-heading); margin: 0; }
   .hero__art { display: none; }
   .partner-carousel { grid-template-columns: 1fr; }
   .shipments__grid { grid-template-columns: repeat(2, 1fr); }
+  .press-grid { grid-template-columns: repeat(2, 1fr); }
   .footer { grid-template-columns: 1fr 1fr; }
   .navbar__links { display: none; }
 }
 @media (max-width: 560px) {
   .hero-stats, .impact-stats { grid-template-columns: 1fr; gap: 1.25rem; }
   .shipments__grid { grid-template-columns: 1fr; }
+  .press-grid { grid-template-columns: 1fr; }
   .footer { grid-template-columns: 1fr; }
 }
