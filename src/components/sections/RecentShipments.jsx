@@ -1,8 +1,10 @@
+import { useScrollAnimation } from '../../hooks/useScrollAnimation.js';
 import { useState } from 'react';
 import { RECENT_SHIPMENTS, REGIONS, SHIPMENT_REGION_COUNTS } from '../../data/shipments.js';
 
 export default function RecentShipments() {
   const [region, setRegion] = useState('All');
+  const { ref, isVisible } = useScrollAnimation();
 
   const shipments =
     region === 'All'
@@ -10,7 +12,10 @@ export default function RecentShipments() {
       : RECENT_SHIPMENTS.filter((s) => s.region === region);
 
   return (
-    <section className="section">
+    <section
+      ref={ref}
+      className={`section reveal ${isVisible ? 'is-visible' : ''}`}
+    >
       <div className="container">
         <p className="eyebrow">Shipment History</p>
         <h2 className="section-title">Recent Shipments</h2>

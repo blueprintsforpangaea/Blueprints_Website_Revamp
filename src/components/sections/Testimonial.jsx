@@ -1,6 +1,13 @@
+import { useScrollAnimation } from '../../hooks/useScrollAnimation.js';
+
 export default function Testimonial() {
+  const { ref, isVisible } = useScrollAnimation();
+
   return (
-    <section className="section section--alt">
+    <section
+      ref={ref}
+      className={`section section--alt reveal ${isVisible ? 'is-visible' : ''}`}
+    >
       <div className="container testimonial">
         <blockquote className="testimonial__quote">
           “The supplies Blueprints for Pangaea delivered let us keep our doors

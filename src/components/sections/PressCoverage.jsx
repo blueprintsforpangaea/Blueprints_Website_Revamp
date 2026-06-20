@@ -1,8 +1,14 @@
+import { useScrollAnimation } from '../../hooks/useScrollAnimation.js';
 import { PRESS_ITEMS } from '../../data/press.js';
 
 export default function PressCoverage() {
+  const { ref, isVisible } = useScrollAnimation();
+
   return (
-    <section className="section">
+    <section
+      ref={ref}
+      className={`section reveal ${isVisible ? 'is-visible' : ''}`}
+    >
       <div className="container">
         <p className="eyebrow">In the News</p>
         <h2 className="section-title">In the Press</h2>

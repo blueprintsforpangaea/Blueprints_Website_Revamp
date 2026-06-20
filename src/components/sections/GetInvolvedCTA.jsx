@@ -1,8 +1,14 @@
 import { Link } from 'react-router-dom';
+import { useScrollAnimation } from '../../hooks/useScrollAnimation.js';
 
 export default function GetInvolvedCTA() {
+  const { ref, isVisible } = useScrollAnimation();
+
   return (
-    <section className="section section--navy">
+    <section
+      ref={ref}
+      className={`section section--navy reveal ${isVisible ? 'is-visible' : ''}`}
+    >
       <div className="container cta">
         <h2 className="cta__title">Join the Movement</h2>
         <p className="cta__body">

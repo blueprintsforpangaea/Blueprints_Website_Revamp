@@ -1,12 +1,17 @@
 import { useState } from 'react';
+import { useScrollAnimation } from '../../hooks/useScrollAnimation.js';
 import { IMPACT_STATS } from '../../data/stats.js';
 import { REGIONS } from '../../data/shipments.js';
 
 export default function GlobalImpact() {
   const [region, setRegion] = useState('All');
+  const { ref, isVisible } = useScrollAnimation();
 
   return (
-    <section className="section section--navy">
+    <section
+      ref={ref}
+      className={`section section--navy reveal ${isVisible ? 'is-visible' : ''}`}
+    >
       <div className="container">
         <h2 className="section-title">Our Global Impact</h2>
 

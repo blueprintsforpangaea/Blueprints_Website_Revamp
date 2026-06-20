@@ -1,15 +1,20 @@
 import { useState } from 'react';
+import { useScrollAnimation } from '../../hooks/useScrollAnimation.js';
 import { PARTNERSHIPS } from '../../data/partnerships.js';
 
 export default function FeaturedPartnerships() {
   const [index, setIndex] = useState(0);
   const count = PARTNERSHIPS.length;
   const partner = PARTNERSHIPS[index];
+  const { ref, isVisible } = useScrollAnimation();
 
   const go = (delta) => setIndex((i) => (i + delta + count) % count);
 
   return (
-    <section className="section section--alt">
+    <section
+      ref={ref}
+      className={`section section--alt reveal ${isVisible ? 'is-visible' : ''}`}
+    >
       <div className="container">
         <p className="eyebrow">Our Partners</p>
         <h2 className="section-title">Featured Partnerships</h2>

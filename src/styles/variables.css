@@ -1,18 +1,18 @@
 :root {
-  /* Brand palette — navy + light, pulled from the current site/brand boards */
-  --color-navy:        #1f2a5e;  /* primary brand navy */
-  --color-navy-deep:   #18224d;  /* darker navy panels */
-  --color-navy-darker: #0c1330;  /* near-black map / hero backdrop */
-  --color-blue:        #2746c9;  /* CTA / link blue */
-  --color-blue-dark:   #1b34a0;
+  /* Brand palette — lighter blue direction */
+  --color-navy:        #27406f;
+  --color-navy-deep:   #20355d;
+  --color-navy-darker: #13213f;
+  --color-blue:        #5fa8ff;
+  --color-blue-dark:   #3581e6;
 
   --color-bg:          #ffffff;
-  --color-bg-alt:      #f3f5fb;  /* light section background */
-  --color-text:        #16203f;
-  --color-heading:     #1f2a5e;
-  --color-muted:       #5b6478;
-  --color-muted-light: #9aa3bd;  /* muted text on navy */
-  --color-border:      #e3e7f2;
+  --color-bg-alt:      #f4f8ff;
+  --color-text:        #1c2b4e;
+  --color-heading:     #27406f;
+  --color-muted:       #5f6f8f;
+  --color-muted-light: #b5c2de;
+  --color-border:      #dbe5f7;
 
   /* Type */
   --font-sans:    'Figtree', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
@@ -32,6 +32,6 @@
   --radius:    14px;
   --radius-lg: 22px;
   --radius-pill: 999px;
-  --shadow:    0 10px 30px rgba(18, 26, 60, 0.08);
-  --shadow-lg: 0 24px 60px rgba(18, 26, 60, 0.16);
+  --shadow:    0 12px 30px rgba(38, 63, 112, 0.08);
+  --shadow-lg: 0 24px 60px rgba(38, 63, 112, 0.16);
 }

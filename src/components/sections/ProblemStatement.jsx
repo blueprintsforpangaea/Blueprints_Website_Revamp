@@ -1,8 +1,14 @@
+import { useScrollAnimation } from '../../hooks/useScrollAnimation.js';
 import { Link } from 'react-router-dom';
 
 export default function ProblemStatement() {
+  const { ref, isVisible } = useScrollAnimation();
+
   return (
-    <section className="section section--alt">
+    <section
+      ref={ref}
+      className={`section section--alt reveal ${isVisible ? 'is-visible' : ''}`}
+    >
       <div className="container problem__grid">
         <div>
           <h2 className="problem__title">
