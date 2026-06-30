@@ -1,38 +1,73 @@
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { HERO_STATS } from '../../data/stats.js';
+import { motion, useScroll, useTransform } from 'framer-motion';
+
+const ease = [0.22, 1, 0.36, 1];
+const container = { hidden: {}, show: { transition: { staggerChildren: 0.1, delayChildren: 0.15 } } };
+const item = {
+  hidden: { opacity: 0, y: 28 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.85, ease } },
+};
 
 export default function Hero() {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
+  const imgY = useTransform(scrollYProgress, [0, 1], ['0%', '22%']);
+  const imgScale = useTransform(scrollYProgress, [0, 1], [1.04, 1.16]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ['0%', '-30%']);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+
   return (
-    <section className="hero">
-      <div className="container hero__inner">
-        <div className="hero__content">
-          <p className="hero__eyebrow">Blueprints for Pangaea</p>
-          <h1 className="hero__title">
-            Saving Lives<br />One Box<br />at a Time
-          </h1>
-          <p className="hero__subtitle">
-            We rescue surplus medical supplies from U.S. hospitals and
-            redistribute them to clinics and communities that need them most —
-            here at home and around the world.
-          </p>
-          <div className="hero__ctas">
-            <Link to="/donate" className="btn btn--primary">Donate Today</Link>
-            <Link to="/get-involved" className="btn btn--ghost">Get Involved</Link>
-          </div>
-        </div>
-        <div className="hero__art" aria-hidden="true">📦</div>
+    <section className="hero" ref={ref}>
+      <div className="hero__media" aria-hidden="true">
+        <motion.img
+          className="hero__img"
+          src="/boxes.jpg"
+          alt=""
+          loading="eager"
+          fetchPriority="high"
+          style={{ y: imgY, scale: imgScale }}
+        />
+        <div className="hero__scrim" />
       </div>
 
-      <div className="container">
-        <div className="hero-stats">
-          {HERO_STATS.map((stat) => (
-            <div key={stat.label} className="hero-stat">
-              <div className="hero-stat__value">{stat.value}</div>
-              <span className="hero-stat__label">{stat.label}</span>
-            </div>
-          ))}
-        </div>
-      </div>
+      <motion.div className="container hero__container" style={{ y: contentY, opacity: contentOpacity }}>
+        <motion.div className="hero__content" variants={container} initial="hidden" animate="show">
+          <motion.span className="hero__eyebrow" variants={item}>
+            Est. 2013 — University of Michigan
+          </motion.span>
+
+          <motion.h1 className="hero__title" variants={item}>
+            Saving lives,<br />one box<br />at a time.
+          </motion.h1>
+
+          <motion.p className="hero__subtitle" variants={item}>
+            Every year, mountains of sealed, in-date medical supplies are thrown
+            out. We rescue them — and get them to clinics that have run out, across
+            15+ countries.
+          </motion.p>
+
+          <motion.div className="hero__ctas" variants={item}>
+            <Link to="/donate" className="btn btn--white btn--lg">
+              Donate <span className="arrow">→</span>
+            </Link>
+            <Link to="/impact" className="btn btn--ghost btn--lg">See our impact</Link>
+          </motion.div>
+        </motion.div>
+
+        <motion.div
+          className="hero__footer"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.7, ease }}
+        >
+          <span className="hero__scroll">Scroll to explore</span>
+          <div className="hero__proof">
+            <strong>$9,077,500</strong>
+            <span>in medical supplies redistributed to date</span>
+          </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

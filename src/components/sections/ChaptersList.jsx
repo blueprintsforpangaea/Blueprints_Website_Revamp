@@ -1,24 +1,23 @@
-import { CHAPTERS } from '../../data/chapters.js';
 import { Link } from 'react-router-dom';
+import Reveal from '../ui/Reveal.jsx';
+import { CHAPTERS } from '../../data/chapters.js';
 
 export default function ChaptersList() {
-  // 11 chapters total — UMich HQ flagged separately.
   return (
-    <section className="chapters">
-      <h2 className="chapters__title">Our Chapters</h2>
-      <div className="chapters__grid">
-        {CHAPTERS.map((chapter) => (
+    <div className="grid-3">
+      {CHAPTERS.map((chapter, i) => (
+        <Reveal key={chapter.slug} delay={(i % 3) * 0.06}>
           <Link
             to={`/chapters/${chapter.slug}`}
-            key={chapter.slug}
             className={`chapter-card ${chapter.isHQ ? 'chapter-card--hq' : ''}`}
+            style={{ display: 'block', height: '100%' }}
           >
-            <h3>{chapter.name}</h3>
-            <p>{chapter.location}</p>
             {chapter.isHQ && <span className="chapter-card__badge">HQ</span>}
+            <h3>{chapter.name}</h3>
+            <span className="chapter-card__loc">📍 {chapter.location}</span>
           </Link>
-        ))}
-      </div>
-    </section>
+        </Reveal>
+      ))}
+    </div>
   );
 }

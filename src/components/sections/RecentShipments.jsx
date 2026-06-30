@@ -1,10 +1,9 @@
-import { useScrollAnimation } from '../../hooks/useScrollAnimation.js';
 import { useState } from 'react';
+import Reveal from '../ui/Reveal.jsx';
 import { RECENT_SHIPMENTS, REGIONS, SHIPMENT_REGION_COUNTS } from '../../data/shipments.js';
 
 export default function RecentShipments() {
   const [region, setRegion] = useState('All');
-  const { ref, isVisible } = useScrollAnimation();
 
   const shipments =
     region === 'All'
@@ -12,42 +11,42 @@ export default function RecentShipments() {
       : RECENT_SHIPMENTS.filter((s) => s.region === region);
 
   return (
-    <section
-      ref={ref}
-      className={`section reveal ${isVisible ? 'is-visible' : ''}`}
-    >
+    <section className="section">
       <div className="container">
-        <p className="eyebrow">Shipment History</p>
-        <h2 className="section-title">Recent Shipments</h2>
+        <Reveal className="section-head section-head--center">
+          <span className="eyebrow eyebrow--center">Shipment History</span>
+          <h2 className="section-title">Recent shipments</h2>
+          <p>A running record of supplies delivered by our chapters — filter by region.</p>
+        </Reveal>
 
-        <div className="region-filter region-filter--light">
+        <div className="filter-pills">
           {REGIONS.map((r) => (
             <button
               key={r}
-              className={`region-pill ${region === r ? 'is-active' : ''}`}
+              className={`filter-pill ${region === r ? 'is-active' : ''}`}
               onClick={() => setRegion(r)}
             >
-              {r === 'All' ? 'All' : r}
+              {r === 'All' ? 'All Regions' : r}
               {SHIPMENT_REGION_COUNTS[r] != null && (
-                <span className="region-pill__count">{SHIPMENT_REGION_COUNTS[r]}</span>
+                <span className="filter-pill__count">{SHIPMENT_REGION_COUNTS[r]}</span>
               )}
             </button>
           ))}
         </div>
 
-        <div className="shipments__grid">
-          {shipments.map((s) => (
-            <article key={s.id} className="card">
-              <div className="card__media" aria-hidden="true">
-                <span className="card__badge">{s.chapter}</span>
+        <div className="grid-4">
+          {shipments.map((s, i) => (
+            <Reveal as="article" className="ship-card" key={s.id} delay={(i % 4) * 0.08}>
+              <div className="ship-card__media" aria-hidden="true">
+                <span className="ship-card__badge">{s.chapter}</span>
                 {s.partner}
               </div>
-              <div className="card__content">
-                <h3 className="card__title">{s.partner}</h3>
-                <p className="card__subtitle">{s.destination}</p>
-                <span className="card__date">{s.date}</span>
+              <div className="ship-card__content">
+                <h3 className="ship-card__title">{s.partner}</h3>
+                <p className="ship-card__sub">{s.destination}</p>
+                <span className="ship-card__date">{s.date}</span>
               </div>
-            </article>
+            </Reveal>
           ))}
         </div>
       </div>

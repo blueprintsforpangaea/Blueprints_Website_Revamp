@@ -1,24 +1,22 @@
 import { Link } from 'react-router-dom';
-import { useScrollAnimation } from '../../hooks/useScrollAnimation.js';
+import Reveal from '../ui/Reveal.jsx';
 
 export default function GetInvolvedCTA() {
-  const { ref, isVisible } = useScrollAnimation();
-
   return (
-    <section
-      ref={ref}
-      className={`section section--navy reveal ${isVisible ? 'is-visible' : ''}`}
-    >
-      <div className="container cta">
-        <h2 className="cta__title">Join the Movement</h2>
-        <p className="cta__body">
-          Students, hospitals, and supporters — there's a way for everyone to
-          help redirect surplus supplies to the people who need them.
-        </p>
-        <div className="cta__buttons">
-          <Link to="/get-involved" className="btn btn--ghost">Get Involved</Link>
-          <Link to="/donate" className="btn btn--primary">Donate Today</Link>
-        </div>
+    <section className="section">
+      <div className="container">
+        <Reveal className="cta-banner">
+          <div className="cta-banner__glow" />
+          <h2>Join the movement</h2>
+          <p>
+            Every box redirected is a life touched. Fund a shipment, donate surplus
+            supplies, or bring a chapter to your campus — and help us reach the next clinic.
+          </p>
+          <div className="cta-banner__buttons">
+            <Link to="/donate" className="btn btn--primary btn--lg">Donate Today</Link>
+            <Link to="/get-involved" className="btn btn--ghost btn--lg">Get Involved</Link>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

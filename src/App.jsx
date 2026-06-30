@@ -1,10 +1,14 @@
 import Layout from './components/layout/Layout.jsx';
+import ScrollToTop from './components/layout/ScrollToTop.jsx';
 import AppRoutes from './routes/AppRoutes.jsx';
 
 export default function App() {
   return (
-    <Layout>
-      <AppRoutes />
-    </Layout>
+    <>
+      <ScrollToTop />
+      <Layout>
+        <AppRoutes />
+      </Layout>
+    </>
   );
 }

@@ -1,24 +1,50 @@
 :root {
-  /* Brand palette — lighter blue direction */
-  --color-navy:        #27406f;
-  --color-navy-deep:   #20355d;
-  --color-navy-darker: #13213f;
-  --color-blue:        #5fa8ff;
-  --color-blue-dark:   #3581e6;
+  /* ---------- Brand palette ---------- */
+  /* Inspired by blueprintsforpangaea.org — deep navy ink + signature blue */
+  --ink:            #0a1f33;  /* primary text / deepest navy */
+  --navy:           #0e2a47;
+  --navy-deep:      #081a2e;
+  --navy-darker:    #050f1c;
 
-  --color-bg:          #ffffff;
-  --color-bg-alt:      #f4f8ff;
-  --color-text:        #1c2b4e;
-  --color-heading:     #27406f;
-  --color-muted:       #5f6f8f;
-  --color-muted-light: #b5c2de;
-  --color-border:      #dbe5f7;
+  /* Accent ramp — kept the --teal* names to avoid churn, but resolves to the
+     brand BLUE so the whole site reads navy/blue, never green. */
+  --teal:           #2e6be6;  /* signature accent (brand blue) */
+  --teal-bright:    #5b9bff;  /* lighter blue — for dark surfaces */
+  --teal-deep:      #1c4fc0;  /* deep blue — buttons, links */
 
-  /* Type */
-  --font-sans:    'Figtree', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-display: 'Anton', 'Figtree', var(--font-sans);
+  --blue:           #2e6be6;
+  --blue-deep:      #1c4fc0;
+  --sky:            #7fb2ff;
 
-  /* Spacing */
+  /* ---------- Surfaces ---------- */
+  --bg:             #ffffff;
+  --bg-soft:        #f4f8fb;
+  --bg-tint:        #eef4fe;  /* faint blue wash */
+  --surface:        #ffffff;
+
+  /* ---------- Text ---------- */
+  --text:           #1d2c40;
+  --heading:        #0c2440;
+  --muted:          #5a6b82;
+  --muted-soft:     #8395ad;
+  --on-dark:        rgba(255, 255, 255, 0.92);
+  --on-dark-muted:  rgba(206, 224, 242, 0.72);
+
+  --line:           #e3ebf3;
+  --line-strong:    #d2deec;
+
+  /* ---------- Gradients ---------- */
+  --grad-accent:    linear-gradient(120deg, var(--teal-bright) 0%, var(--teal-deep) 100%);
+  --grad-accent-soft: linear-gradient(120deg, rgba(46,107,230,0.16), rgba(28,79,192,0.16));
+  --grad-ink:       linear-gradient(160deg, #0e2a47 0%, #081a2e 60%, #050f1c 100%);
+
+  /* ---------- Type ---------- */
+  --font-sans:    'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  /* Tight grotesque for display headlines; photography carries the character. */
+  --font-display: 'Archivo', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono:    ui-monospace, 'SFMono-Regular', 'Menlo', monospace;
+
+  /* ---------- Spacing ---------- */
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 1rem;
@@ -26,12 +52,23 @@
   --space-5: 2rem;
   --space-6: 3rem;
   --space-7: 5rem;
+  --space-8: 7rem;
 
-  /* Layout */
-  --max-content-width: 1180px;
-  --radius:    14px;
-  --radius-lg: 22px;
+  /* ---------- Layout ---------- */
+  --max-content-width: 1200px;
+  --max-narrow: 760px;
+  --radius-sm: 10px;
+  --radius:    16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
   --radius-pill: 999px;
-  --shadow:    0 12px 30px rgba(38, 63, 112, 0.08);
-  --shadow-lg: 0 24px 60px rgba(38, 63, 112, 0.16);
+
+  /* ---------- Elevation (restrained, editorial) ---------- */
+  --shadow-sm: 0 1px 2px rgba(12, 36, 64, 0.04);
+  --shadow:    0 6px 20px rgba(12, 36, 64, 0.07);
+  --shadow-lg: 0 18px 44px rgba(12, 36, 64, 0.10);
+  --shadow-teal: 0 6px 16px rgba(28, 79, 192, 0.18);
+
+  /* ---------- Motion ---------- */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }

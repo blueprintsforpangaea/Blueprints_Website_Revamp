@@ -1,46 +1,48 @@
-import { useState } from 'react';
-import { useScrollAnimation } from '../../hooks/useScrollAnimation.js';
+import { Link } from 'react-router-dom';
+import Reveal from '../ui/Reveal.jsx';
 import { IMPACT_STATS } from '../../data/stats.js';
-import { REGIONS } from '../../data/shipments.js';
+import { REGION_SUMMARY } from '../../data/destinations.js';
 
 export default function GlobalImpact() {
-  const [region, setRegion] = useState('All');
-  const { ref, isVisible } = useScrollAnimation();
-
   return (
-    <section
-      ref={ref}
-      className={`section section--navy reveal ${isVisible ? 'is-visible' : ''}`}
-    >
+    <section className="section section--ink">
       <div className="container">
-        <h2 className="section-title">Our Global Impact</h2>
+        <Reveal className="section-head section-head--center">
+          <span className="eyebrow eyebrow--center">Our Global Impact</span>
+          <h2 className="section-title">Reaching every corner of the map</h2>
+          <p>What began at one university warehouse now reaches clinics across five continents.</p>
+        </Reveal>
 
-        <div className="impact-stats">
+        <Reveal className="stat-band" delay={0.1}>
           {IMPACT_STATS.map((stat) => (
-            <div key={stat.label} className="impact-stat">
-              <div className="impact-stat__value">{stat.value}</div>
-              <span className="impact-stat__label">{stat.label}</span>
-              <span className="impact-stat__sub">{stat.sub}</span>
+            <div key={stat.label} className="stat-tile">
+              <div className="stat-tile__value">{stat.value}</div>
+              <span className="stat-tile__label">{stat.label}</span>
+              <span className="stat-tile__sub">{stat.sub}</span>
             </div>
           ))}
-        </div>
+        </Reveal>
 
-        <div className="region-filter">
-          {REGIONS.map((r) => (
-            <button
-              key={r}
-              className={`region-pill ${region === r ? 'is-active' : ''}`}
-              onClick={() => setRegion(r)}
+        <Reveal className="grid-3" delay={0.2} style={{ marginTop: '3rem' }}>
+          {REGION_SUMMARY.slice(0, 3).map((r) => (
+            <div
+              className="feature-card"
+              key={r.region}
+              style={{ background: 'rgba(255,255,255,0.04)', borderColor: 'rgba(255,255,255,0.1)' }}
             >
-              {r === 'All' ? 'All Regions' : r}
-            </button>
+              <div className="feature-card__count">
+                {r.countries}<span>{r.countries === 1 ? 'country' : 'countries'}</span>
+              </div>
+              <h3 style={{ color: '#fff' }}>{r.region}</h3>
+              <p style={{ color: 'var(--on-dark-muted)' }}>{r.blurb}</p>
+            </div>
           ))}
-        </div>
+        </Reveal>
 
-        <div className="impact-map" role="img" aria-label="World map of regions served">
-          {region === 'All'
-            ? 'Interactive impact map — highlighting all 15+ countries served'
-            : `Highlighting our work across ${region}`}
+        <div style={{ textAlign: 'center', marginTop: '3rem' }}>
+          <Link to="/impact" className="btn btn--white btn--lg">
+            See the Interactive Globe <span className="arrow">→</span>
+          </Link>
         </div>
       </div>
     </section>
