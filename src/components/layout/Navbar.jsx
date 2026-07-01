@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
+import logoFull from '../../assets/logos/blueprints-logo-1.png';
 
 const NAV_ITEMS = [
   { to: '/mission', label: 'Mission' },
@@ -29,8 +30,7 @@ export default function Navbar() {
     <header className={`navbar ${scrolled ? 'is-scrolled' : ''}`}>
       <div className="navbar__inner">
         <Link to="/" className="navbar__brand" aria-label="Blueprints for Pangaea — home">
-          <span className="navbar__logo">B</span>
-          <span className="navbar__brand-text">Blueprints<br />for Pangaea</span>
+          <img className="navbar__logo-img" src={logoFull} alt="Blueprints for Pangaea" />
         </Link>
 
         <nav className="navbar__links">

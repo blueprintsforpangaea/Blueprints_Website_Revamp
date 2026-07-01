@@ -1,42 +1,53 @@
 :root {
-  /* ---------- Brand palette ---------- */
-  /* Inspired by blueprintsforpangaea.org — deep navy ink + signature blue */
-  --ink:            #0a1f33;  /* primary text / deepest navy */
-  --navy:           #0e2a47;
-  --navy-deep:      #081a2e;
-  --navy-darker:    #050f1c;
+  /* ============================================================
+     BRAND PALETTE — single source of truth.
+     Always build UI from these six colors (or the on-palette
+     tints derived from them below). Do not introduce new hues.
+     ============================================================ */
+  --c-blue:        #0069f3;  /* Medium Blue 1 — primary / CTAs / links */
+  --c-blue-dark:   #0035a2;  /* Dark Blue 1   — hovers, deep accents */
+  --c-blue-light:  #cbdbff;  /* Light Blue 1  — tints, accents on dark */
+  --c-navy:        #000e3f;  /* Dark Blue 2   — deepest ink, dark sections */
+  --c-indigo:      #373c82;  /* Dark Blue 3   — secondary / decorative */
+  --c-white:       #ffffff;  /* White */
 
-  /* Accent ramp — kept the --teal* names to avoid churn, but resolves to the
-     brand BLUE so the whole site reads navy/blue, never green. */
-  --teal:           #2e6be6;  /* signature accent (brand blue) */
-  --teal-bright:    #5b9bff;  /* lighter blue — for dark surfaces */
-  --teal-deep:      #1c4fc0;  /* deep blue — buttons, links */
+  /* ---------- Accent ramp (semantic names kept to avoid churn) ---------- */
+  --teal:           var(--c-blue);        /* signature accent */
+  --teal-bright:    var(--c-blue-light);  /* lighter accent on dark surfaces */
+  --teal-deep:      var(--c-blue-dark);   /* deep accent — buttons, links */
+  --blue:           var(--c-blue);
+  --blue-deep:      var(--c-blue-dark);
+  --sky:            var(--c-blue-light);
 
-  --blue:           #2e6be6;
-  --blue-deep:      #1c4fc0;
-  --sky:            #7fb2ff;
+  /* ---------- Dark navies ---------- */
+  --ink:            var(--c-navy);        /* primary text / deepest navy */
+  --navy:           var(--c-blue-dark);
+  --navy-deep:      var(--c-navy);
+  --navy-darker:    var(--c-navy);
 
   /* ---------- Surfaces ---------- */
-  --bg:             #ffffff;
-  --bg-soft:        #f4f8fb;
-  --bg-tint:        #eef4fe;  /* faint blue wash */
-  --surface:        #ffffff;
+  --bg:             var(--c-white);
+  --bg-soft:        color-mix(in srgb, var(--c-blue-light) 28%, var(--c-white));
+  --bg-tint:        color-mix(in srgb, var(--c-blue-light) 55%, var(--c-white));  /* faint blue wash */
+  --surface:        var(--c-white);
 
   /* ---------- Text ---------- */
-  --text:           #1d2c40;
-  --heading:        #0c2440;
-  --muted:          #5a6b82;
-  --muted-soft:     #8395ad;
+  --text:           color-mix(in srgb, var(--c-navy) 88%, var(--c-white));
+  --heading:        var(--c-navy);
+  --muted:          color-mix(in srgb, var(--c-indigo) 72%, var(--c-white));
+  --muted-soft:     color-mix(in srgb, var(--c-indigo) 45%, var(--c-white));
   --on-dark:        rgba(255, 255, 255, 0.92);
-  --on-dark-muted:  rgba(206, 224, 242, 0.72);
+  --on-dark-muted:  color-mix(in srgb, var(--c-blue-light) 72%, transparent);
 
-  --line:           #e3ebf3;
-  --line-strong:    #d2deec;
+  --line:           color-mix(in srgb, var(--c-blue-light) 42%, var(--c-white));
+  --line-strong:    color-mix(in srgb, var(--c-blue-light) 70%, var(--c-white));
 
   /* ---------- Gradients ---------- */
-  --grad-accent:    linear-gradient(120deg, var(--teal-bright) 0%, var(--teal-deep) 100%);
-  --grad-accent-soft: linear-gradient(120deg, rgba(46,107,230,0.16), rgba(28,79,192,0.16));
-  --grad-ink:       linear-gradient(160deg, #0e2a47 0%, #081a2e 60%, #050f1c 100%);
+  --grad-accent:      linear-gradient(120deg, var(--c-blue) 0%, var(--c-blue-dark) 100%);
+  --grad-accent-soft: linear-gradient(120deg,
+                        color-mix(in srgb, var(--c-blue) 16%, transparent),
+                        color-mix(in srgb, var(--c-blue-dark) 16%, transparent));
+  --grad-ink:         linear-gradient(160deg, var(--c-indigo) 0%, var(--c-navy) 62%, var(--c-navy) 100%);
 
   /* ---------- Type ---------- */
   --font-sans:    'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
@@ -55,6 +66,7 @@
   --space-8: 7rem;
 
   /* ---------- Layout ---------- */
+  --nav-h: 5.75rem;   /* ~92px: 64px logo + 0.85rem top/bottom padding */
   --max-content-width: 1200px;
   --max-narrow: 760px;
   --radius-sm: 10px;
@@ -63,11 +75,11 @@
   --radius-xl: 32px;
   --radius-pill: 999px;
 
-  /* ---------- Elevation (restrained, editorial) ---------- */
-  --shadow-sm: 0 1px 2px rgba(12, 36, 64, 0.04);
-  --shadow:    0 6px 20px rgba(12, 36, 64, 0.07);
-  --shadow-lg: 0 18px 44px rgba(12, 36, 64, 0.10);
-  --shadow-teal: 0 6px 16px rgba(28, 79, 192, 0.18);
+  /* ---------- Elevation (navy-tinted) ---------- */
+  --shadow-sm: 0 1px 2px rgba(0, 14, 63, 0.05);
+  --shadow:    0 6px 20px rgba(0, 14, 63, 0.08);
+  --shadow-lg: 0 18px 44px rgba(0, 14, 63, 0.12);
+  --shadow-teal: 0 6px 16px rgba(0, 53, 162, 0.20);
 
   /* ---------- Motion ---------- */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);

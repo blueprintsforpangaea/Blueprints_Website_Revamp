@@ -4,9 +4,9 @@ import { HQ, DESTINATIONS } from '../../data/destinations.js';
 // react-globe.gl pulls in three.js — lazy-load so it never blocks first paint.
 const Globe = lazy(() => import('react-globe.gl'));
 
-// Brand palette (navy/blue) — matches the live Blueprints for Pangaea site.
-const SKY = '#7fb2ff';   // light brand blue — HQ marker + atmosphere
-const BLUE = '#2e6be6';  // signature brand blue — destination clinics
+// Brand palette — see src/styles/variables.css (Light Blue 1 / Medium Blue 1).
+const SKY = '#cbdbff';   // Light Blue 1 — HQ marker + atmosphere
+const BLUE = '#0069f3';  // Medium Blue 1 — destination clinics
 
 function GlobeCanvas({ size }) {
   const globeRef = useRef(null);
@@ -74,7 +74,7 @@ function GlobeCanvas({ size }) {
       ringsData={[HQ]}
       ringLat="lat"
       ringLng="lng"
-      ringColor={() => (t) => `rgba(127,178,255,${1 - t})`}
+      ringColor={() => (t) => `rgba(203,219,255,${1 - t})`}
       ringMaxRadius={5}
       ringPropagationSpeed={2.4}
       ringRepeatPeriod={900}

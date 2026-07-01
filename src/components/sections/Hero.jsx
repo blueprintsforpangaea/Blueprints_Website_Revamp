@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import heroBg from '../../assets/images/hero-bg.jpg';
 
 const ease = [0.22, 1, 0.36, 1];
 const container = { hidden: {}, show: { transition: { staggerChildren: 0.1, delayChildren: 0.15 } } };
@@ -12,8 +13,8 @@ const item = {
 export default function Hero() {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
-  const imgY = useTransform(scrollYProgress, [0, 1], ['0%', '22%']);
-  const imgScale = useTransform(scrollYProgress, [0, 1], [1.04, 1.16]);
+  const imgY = useTransform(scrollYProgress, [0, 1], ['0%', '10%']);
+  const imgScale = useTransform(scrollYProgress, [0, 1], [1, 1.05]);
   const contentY = useTransform(scrollYProgress, [0, 1], ['0%', '-30%']);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
@@ -22,7 +23,7 @@ export default function Hero() {
       <div className="hero__media" aria-hidden="true">
         <motion.img
           className="hero__img"
-          src="/boxes.jpg"
+          src={heroBg}
           alt=""
           loading="eager"
           fetchPriority="high"

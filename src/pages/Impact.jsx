@@ -26,13 +26,13 @@ export default function Impact() {
 
               <div className="globe-legend">
                 <span className="globe-legend__item">
-                  <span className="globe-legend__dot" style={{ background: '#7fb2ff' }} /> HQ · Ann Arbor
+                  <span className="globe-legend__dot" style={{ background: '#cbdbff' }} /> HQ · Ann Arbor
                 </span>
                 <span className="globe-legend__item">
-                  <span className="globe-legend__dot" style={{ background: '#2e6be6' }} /> Destination clinics
+                  <span className="globe-legend__dot" style={{ background: '#0069f3' }} /> Destination clinics
                 </span>
                 <span className="globe-legend__item">
-                  <span className="globe-legend__dot" style={{ background: 'linear-gradient(90deg,#7fb2ff,#2e6be6)' }} /> Active shipment routes
+                  <span className="globe-legend__dot" style={{ background: 'linear-gradient(90deg,#cbdbff,#0069f3)' }} /> Active shipment routes
                 </span>
               </div>
 

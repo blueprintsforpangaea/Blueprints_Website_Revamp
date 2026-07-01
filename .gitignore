@@ -4,3 +4,7 @@ dist
 .env
 .env.local
 *.log
+
+# Raw, full-size image originals (HEIC + multi-MB camera files).
+# Kept locally as a backup; commit only the web-optimized versions.
+src/assets/images/_originals/
