@@ -2,8 +2,13 @@ import { Link } from 'react-router-dom';
 import PageHeader from '../components/layout/PageHeader.jsx';
 import Reveal from '../components/ui/Reveal.jsx';
 import { PRESS_ITEMS } from '../data/press.js';
+import { usePageMeta } from '../hooks/usePageMeta.js';
 
 export default function Press() {
+  usePageMeta(
+    'Press',
+    'News coverage of Blueprints for Pangaea — students rescuing surplus medical supplies and the fight against medical waste.',
+  );
   return (
     <article>
       <PageHeader eyebrow="Press" title="In the news">

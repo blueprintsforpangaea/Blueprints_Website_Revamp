@@ -1,8 +1,12 @@
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
+import { TOTALS } from '../../data/stats.js';
 
 const ease = [0.22, 1, 0.36, 1];
+// Wheel/trackpad scrolling arrives in discrete jumps; the spring smooths
+// scrollYProgress so scroll-linked transforms glide instead of stepping.
+const springConfig = { stiffness: 120, damping: 30, restDelta: 0.001 };
 const container = { hidden: {}, show: { transition: { staggerChildren: 0.1, delayChildren: 0.15 } } };
 const item = {
   hidden: { opacity: 0, y: 28 },
@@ -12,10 +16,11 @@ const item = {
 export default function Hero() {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
-  const imgY = useTransform(scrollYProgress, [0, 1], ['0%', '22%']);
-  const imgScale = useTransform(scrollYProgress, [0, 1], [1.04, 1.16]);
-  const contentY = useTransform(scrollYProgress, [0, 1], ['0%', '-30%']);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+  const progress = useSpring(scrollYProgress, springConfig);
+  const imgY = useTransform(progress, [0, 1], ['0%', '22%']);
+  const imgScale = useTransform(progress, [0, 1], [1.04, 1.16]);
+  const contentY = useTransform(progress, [0, 1], ['0%', '-30%']);
+  const contentOpacity = useTransform(progress, [0, 0.7], [1, 0]);
 
   return (
     <section className="hero" ref={ref}>
@@ -25,7 +30,7 @@ export default function Hero() {
           src="/boxes.jpg"
           alt=""
           loading="eager"
-          fetchPriority="high"
+          fetchpriority="high"
           style={{ y: imgY, scale: imgScale }}
         />
         <div className="hero__scrim" />
@@ -44,7 +49,7 @@ export default function Hero() {
           <motion.p className="hero__subtitle" variants={item}>
             Every year, mountains of sealed, in-date medical supplies are thrown
             out. We rescue them — and get them to clinics that have run out, across
-            15+ countries.
+            {' '}{TOTALS.countries}+ countries.
           </motion.p>
 
           <motion.div className="hero__ctas" variants={item}>
@@ -63,7 +68,7 @@ export default function Hero() {
         >
           <span className="hero__scroll">Scroll to explore</span>
           <div className="hero__proof">
-            <strong>$9,077,500</strong>
+            <strong>{TOTALS.dollarsExact}</strong>
             <span>in medical supplies redistributed to date</span>
           </div>
         </motion.div>

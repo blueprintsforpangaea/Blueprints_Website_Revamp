@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 import PageHeader from '../components/layout/PageHeader.jsx';
+import { usePageMeta } from '../hooks/usePageMeta.js';
 
 export default function NotFound() {
+  usePageMeta('Page Not Found');
   return (
     <article>
       <PageHeader eyebrow="404" title="This page took a wrong turn">

@@ -1,20 +1,27 @@
 import { Link } from 'react-router-dom';
 import PageHeader from '../components/layout/PageHeader.jsx';
 import Reveal from '../components/ui/Reveal.jsx';
+import Icon from '../components/ui/Icon.jsx';
+import { usePageMeta } from '../hooks/usePageMeta.js';
+import { TOTALS } from '../data/stats.js';
 
 const ORG_PATHS = [
-  { icon: '🏥', title: 'Receive Supplies', body: 'Run a clinic, hospital, or relief program? Apply to receive vetted, in-date medical supplies at no cost.' },
-  { icon: '📦', title: 'Donate Surplus', body: 'Have unused inventory headed for disposal? Let us recover it and route it to where it’s needed.' },
-  { icon: '🤝', title: 'Co-Deliver Relief', body: 'Partner on joint shipments and logistics to reach the communities you already serve.' },
+  { icon: 'cross', title: 'Receive Supplies', body: 'Run a clinic, hospital, or relief program? Apply to receive vetted, in-date medical supplies at no cost.' },
+  { icon: 'box', title: 'Donate Surplus', body: 'Have unused inventory headed for disposal? Let us recover it and route it to where it’s needed.' },
+  { icon: 'truck', title: 'Co-Deliver Relief', body: 'Partner on joint shipments and logistics to reach the communities you already serve.' },
 ];
 
 const STUDENT_PATHS = [
-  { icon: '🎓', title: 'Join a Chapter', body: 'Plug into one of 11 university chapters and start moving supplies this semester.' },
-  { icon: '🚀', title: 'Start a Chapter', body: 'Bring Blueprints to your campus. We’ll give you the playbook, network, and support.' },
-  { icon: '🧰', title: 'Volunteer & Intern', body: 'Sort, catalog, and ship at the warehouse — or apply for our high-school summer internship.' },
+  { icon: 'gradcap', title: 'Join a Chapter', body: `Plug into one of ${TOTALS.chapters} university chapters and start moving supplies this semester.` },
+  { icon: 'rocket', title: 'Start a Chapter', body: 'Bring Blueprints to your campus. We’ll give you the playbook, network, and support.' },
+  { icon: 'heart', title: 'Volunteer & Intern', body: 'Sort, catalog, and ship at the warehouse — or apply for our high-school summer internship.' },
 ];
 
 export default function GetInvolved() {
+  usePageMeta(
+    'Get Involved',
+    'Partner with us, join or start a university chapter, or volunteer — three clear ways to turn surplus medical supplies into care.',
+  );
   return (
     <article>
       <PageHeader eyebrow="Get Involved" title="Find your way in">
@@ -53,7 +60,7 @@ export default function GetInvolved() {
           <div className="grid-3">
             {ORG_PATHS.map((p, i) => (
               <Reveal as="div" className="pathway-card" key={p.title} delay={(i % 3) * 0.08}>
-                <div className="pathway-card__icon">{p.icon}</div>
+                <div className="pathway-card__icon"><Icon name={p.icon} /></div>
                 <h3>{p.title}</h3>
                 <p>{p.body}</p>
                 <Link to="/get-involved" className="link-arrow">Get in touch <span className="arrow">→</span></Link>
@@ -74,7 +81,7 @@ export default function GetInvolved() {
           <div className="grid-3">
             {STUDENT_PATHS.map((p, i) => (
               <Reveal as="div" className="pathway-card" key={p.title} delay={(i % 3) * 0.08}>
-                <div className="pathway-card__icon">{p.icon}</div>
+                <div className="pathway-card__icon"><Icon name={p.icon} /></div>
                 <h3>{p.title}</h3>
                 <p>{p.body}</p>
                 <Link to="/chapters" className="link-arrow">See chapters <span className="arrow">→</span></Link>
@@ -90,7 +97,7 @@ export default function GetInvolved() {
           <Reveal className="cta-banner">
             <div className="cta-banner__glow" />
             <h2>Prefer to give?</h2>
-            <p>$10 ships a box. $30 stocks a clinic shelf. Every dollar funds the logistics that turn surplus into care.</p>
+            <p>${TOTALS.boxCost} ships a box of rescued medical supplies. Every dollar funds the logistics that turn surplus into care.</p>
             <div className="cta-banner__buttons">
               <Link to="/donate" className="btn btn--primary btn--lg">Donate Now</Link>
               <Link to="/gala" className="btn btn--ghost btn--lg">Attend the Gala</Link>

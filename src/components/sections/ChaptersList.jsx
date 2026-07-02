@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import Reveal from '../ui/Reveal.jsx';
+import Icon from '../ui/Icon.jsx';
 import { CHAPTERS } from '../../data/chapters.js';
 
 export default function ChaptersList() {
@@ -14,7 +15,7 @@ export default function ChaptersList() {
           >
             {chapter.isHQ && <span className="chapter-card__badge">HQ</span>}
             <h3>{chapter.name}</h3>
-            <span className="chapter-card__loc">📍 {chapter.location}</span>
+            <span className="chapter-card__loc"><Icon name="pin" size={15} /> {chapter.location}</span>
           </Link>
         </Reveal>
       ))}

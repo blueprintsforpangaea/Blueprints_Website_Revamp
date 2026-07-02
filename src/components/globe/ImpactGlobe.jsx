@@ -69,7 +69,7 @@ function GlobeCanvas({ size }) {
       pointColor="color"
       pointAltitude={0.012}
       pointRadius="size"
-      pointLabel={(d) => (d.isHQ ? '📍 Ann Arbor — HQ' : `📦 ${d.name}`)}
+      pointLabel={(d) => (d.isHQ ? 'Ann Arbor — HQ' : d.name)}
       // Pulsing HQ ring
       ringsData={[HQ]}
       ringLat="lat"
@@ -128,7 +128,7 @@ export default function ImpactGlobe() {
         <div className="globe-fallback">
           <div>
             <strong style={{ display: 'block', color: '#fff', fontSize: '1.1rem', marginBottom: '0.5rem' }}>
-              16 destinations · 5 continents
+              {DESTINATIONS.length} destinations · 5 continents
             </strong>
             From Ann Arbor to clinics worldwide — interactive globe requires WebGL.
           </div>

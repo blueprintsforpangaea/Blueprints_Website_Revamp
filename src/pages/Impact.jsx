@@ -1,11 +1,17 @@
 import { Link } from 'react-router-dom';
 import Reveal from '../components/ui/Reveal.jsx';
+import Icon from '../components/ui/Icon.jsx';
 import ImpactGlobe from '../components/globe/ImpactGlobe.jsx';
 import RecentShipments from '../components/sections/RecentShipments.jsx';
 import { IMPACT_STATS } from '../data/stats.js';
 import { DESTINATIONS, REGION_SUMMARY } from '../data/destinations.js';
+import { usePageMeta } from '../hooks/usePageMeta.js';
 
 export default function Impact() {
+  usePageMeta(
+    'Our Impact',
+    'Explore the interactive globe of shipments — every arc is rescued medical supplies reaching a clinic across 15+ countries and 5 continents.',
+  );
   return (
     <article className="page--impact">
       {/* ---------- Globe hero ---------- */}
@@ -38,9 +44,7 @@ export default function Impact() {
 
               <div className="dest-chips">
                 {DESTINATIONS.filter((d) => d.region !== 'USA').map((d) => (
-                  <span className="dest-chip" key={d.city}>
-                    <span className="flag">{d.flag}</span>{d.country}
-                  </span>
+                  <span className="dest-chip" key={d.city}>{d.country}</span>
                 ))}
               </div>
             </Reveal>
@@ -78,7 +82,7 @@ export default function Impact() {
           <div className="grid-3">
             {REGION_SUMMARY.map((r, i) => (
               <Reveal as="div" className="feature-card" key={r.region} delay={(i % 3) * 0.08}>
-                <div className="feature-card__icon">🌐</div>
+                <div className="feature-card__icon"><Icon name="globe" /></div>
                 <h3>{r.region}</h3>
                 <p style={{ marginBottom: '0.75rem' }}>{r.blurb}</p>
                 <span className="tag">{r.countries} {r.countries === 1 ? 'country / region' : 'countries'}</span>

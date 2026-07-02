@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import PageHeader from '../components/layout/PageHeader.jsx';
 import Reveal from '../components/ui/Reveal.jsx';
+import { usePageMeta } from '../hooks/usePageMeta.js';
+import { TOTALS } from '../data/stats.js';
 
 const VALUES = [
   { num: '01', title: 'Dignity First', body: 'Every community deserves quality care. We deliver supplies with respect, never as charity-for-show.' },
@@ -17,6 +19,10 @@ const STEPS = [
 ];
 
 export default function Mission() {
+  usePageMeta(
+    'Our Mission',
+    'We recover unused medical supplies from areas of surplus and redistribute them to resource-limited communities — saving lives one box at a time.',
+  );
   return (
     <article>
       <PageHeader eyebrow="Our Mission" title="Redistributing surplus into care">
@@ -42,7 +48,7 @@ export default function Mission() {
             <div className="media-frame">
               <div className="media-frame__pattern" />
               <div className="media-frame__stat">
-                <div className="big">$9M+</div>
+                <div className="big">{TOTALS.dollarsDisplay}</div>
                 <span className="cap">Supplies redistributed to date</span>
               </div>
             </div>

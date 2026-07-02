@@ -1,8 +1,12 @@
 // Thin API layer — point at backend or third-party services here.
 
-export async function createDonation({ amount }) {
-  // TODO: hand off to Stripe Checkout or your payment provider.
-  throw new Error('createDonation not implemented');
+export async function createDonation({ amount, frequency = 'once' }) {
+  // TODO: hand off to Stripe Checkout / Donorbox / Givebutter.
+  // Simulated success so the full confirmation flow can be designed and
+  // tested end-to-end before the payment provider is wired in. The UI
+  // shows a "demo checkout" notice until this is replaced.
+  await new Promise((resolve) => setTimeout(resolve, 900));
+  return { ok: true, amount, frequency, simulated: true };
 }
 
 export async function submitContactForm(payload) {

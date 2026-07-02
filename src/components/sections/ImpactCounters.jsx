@@ -1,33 +1,36 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { animate, useInView } from 'framer-motion';
+import { TOTALS } from '../../data/stats.js';
 
 const STATS = [
-  { to: 9077500, prefix: '$', label: 'In medical supplies redistributed' },
-  { to: 20000, suffix: '+', label: 'Pounds delivered, and counting' },
-  { to: 15, suffix: '+', label: 'Countries across five continents' },
-  { to: 11, label: 'University chapters nationwide' },
+  { to: TOTALS.dollarsRedistributed, prefix: '$', label: 'In medical supplies redistributed' },
+  { to: TOTALS.poundsDelivered, suffix: '+', label: 'Pounds delivered, and counting' },
+  { to: TOTALS.countries, suffix: '+', label: `Countries across ${TOTALS.continents} continents` },
+  { to: TOTALS.chapters, label: 'University chapters nationwide' },
 ];
 
 function Counter({ to, prefix = '', suffix = '' }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-120px' });
-  const [val, setVal] = useState(0);
 
+  // Write straight to the DOM node — a setState here re-renders React on
+  // every animation frame for every counter at once.
   useEffect(() => {
     if (!inView) return;
+    const node = ref.current;
     const controls = animate(0, to, {
       duration: 2.1,
       ease: [0.22, 1, 0.36, 1],
-      onUpdate: (v) => setVal(v),
+      onUpdate: (v) => {
+        node.textContent = `${prefix}${Math.round(v).toLocaleString('en-US')}${suffix}`;
+      },
     });
-    return controls.stop;
-  }, [inView, to]);
+    return () => controls.stop();
+  }, [inView, to, prefix, suffix]);
 
   return (
     <span ref={ref} className="counter__value">
-      {prefix}
-      {Math.round(val).toLocaleString('en-US')}
-      {suffix}
+      {prefix}0{suffix}
     </span>
   );
 }

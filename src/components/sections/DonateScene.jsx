@@ -1,11 +1,13 @@
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
+import { TOTALS } from '../../data/stats.js';
 
 export default function DonateScene() {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
-  const imgY = useTransform(scrollYProgress, [0, 1], ['-12%', '12%']);
+  const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 30, restDelta: 0.001 });
+  const imgY = useTransform(progress, [0, 1], ['-12%', '12%']);
 
   return (
     <section className="donate-scene" ref={ref}>
@@ -32,7 +34,7 @@ export default function DonateScene() {
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
         >
-          $35 sends a box.<br />A box can save a life.
+          ${TOTALS.boxCost} sends a box.<br />A box can save a life.
         </motion.h2>
 
         <motion.p

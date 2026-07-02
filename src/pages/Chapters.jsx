@@ -3,9 +3,15 @@ import PageHeader from '../components/layout/PageHeader.jsx';
 import ChaptersList from '../components/sections/ChaptersList.jsx';
 import Reveal from '../components/ui/Reveal.jsx';
 import { CHAPTERS } from '../data/chapters.js';
+import { usePageMeta } from '../hooks/usePageMeta.js';
+import { TOTALS } from '../data/stats.js';
 
 export default function Chapters() {
   const { chapterSlug } = useParams();
+  usePageMeta(
+    'Chapters',
+    `${TOTALS.chapters} student-run university chapters keep rescued medical supplies moving nationwide. Find yours or start a new one.`,
+  );
 
   if (chapterSlug) {
     const chapter = CHAPTERS.find((c) => c.slug === chapterSlug);
@@ -15,7 +21,7 @@ export default function Chapters() {
 
   return (
     <article>
-      <PageHeader eyebrow="Our Network" title="11 chapters, one mission">
+      <PageHeader eyebrow="Our Network" title={`${TOTALS.chapters} chapters, one mission`}>
         From our University of Michigan headquarters to campuses coast to coast, student-run chapters
         keep supplies moving. Find yours — or start a new one.
       </PageHeader>
@@ -40,7 +46,7 @@ function ChapterDetail({ chapter }) {
   return (
     <article>
       <PageHeader eyebrow={chapter.isHQ ? 'Headquarters' : 'Chapter'} title={chapter.name}>
-        📍 {chapter.location}
+        {chapter.location}
       </PageHeader>
       <section className="section">
         <div className="container narrow">

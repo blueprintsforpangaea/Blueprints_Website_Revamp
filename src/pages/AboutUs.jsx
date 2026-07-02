@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import PageHeader from '../components/layout/PageHeader.jsx';
 import Reveal from '../components/ui/Reveal.jsx';
 import { LEADERSHIP } from '../data/team.js';
+import { usePageMeta } from '../hooks/usePageMeta.js';
 
 const TIMELINE = [
   { year: '2013', text: 'Founded at the University of Michigan to rescue surplus medical supplies from local hospitals.' },
@@ -22,6 +23,10 @@ const TEAM = LEADERSHIP.length
     ];
 
 export default function AboutUs() {
+  usePageMeta(
+    'About Us',
+    'Founded at the University of Michigan in 2013, Blueprints for Pangaea is one of the largest student-run medical supply redistribution networks in the country.',
+  );
   return (
     <article>
       <PageHeader eyebrow="About Us" title="A student movement with a global reach">
