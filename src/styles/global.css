@@ -492,8 +492,8 @@ h1, h2, h3, h4, h5 { color: var(--heading); line-height: 1.12; font-weight: 700;
 .testimonial__mark { font-family: var(--font-display); font-size: 4rem; line-height: 0.5; color: var(--teal); }
 .testimonial__quote { font-weight: 600; font-size: clamp(1.4rem, 3vw, 2.05rem); line-height: 1.32; letter-spacing: -0.02em; margin: 1rem auto 1.75rem; color: var(--heading); }
 .section--ink .testimonial__quote { color: #fff; }
-.testimonial__author { display: flex; align-items: center; justify-content: center; gap: 0.85rem; }
-.testimonial__avatar { width: 50px; height: 50px; border-radius: 50%; background: var(--grad-accent); display:grid; place-items:center; color:#fff; font-weight:800; }
+.testimonial__author { display: flex; flex-direction: column; align-items: center; gap: 0.2rem; padding-top: 1.4rem; position: relative; }
+.testimonial__author::before { content: ''; width: 2.5rem; height: 2px; background: var(--blue); position: absolute; top: 0; }
 .testimonial__name { font-weight: 800; color: var(--heading); }
 .section--ink .testimonial__name { color: #fff; }
 .testimonial__role { color: var(--muted); font-size: 0.9rem; }
@@ -724,7 +724,7 @@ h1, h2, h3, h4, h5 { color: var(--heading); line-height: 1.12; font-weight: 700;
    ============================================================ */
 
 /* ---- Problem scene (pinned reveal) ---- */
-.scene--problem { position: relative; height: 240vh; background: var(--bg-soft); color: var(--text); }
+.scene--problem { position: relative; height: 200vh; background: var(--bg-soft); color: var(--text); }
 .scene--problem::before {
   content: ''; position: absolute; inset: 0; pointer-events: none;
   background: radial-gradient(60% 50% at 50% 38%, rgba(46,107,230,0.10), transparent 70%);
@@ -756,29 +756,25 @@ h1, h2, h3, h4, h5 { color: var(--heading); line-height: 1.12; font-weight: 700;
 .mission-stmt__title span { display: inline-block; }
 .mission-stmt__sub { margin: 1.75rem 0 1.5rem; max-width: 38rem; font-size: 1.12rem; color: var(--muted); }
 
-/* ---- Process (vertical scroll sequence) ---- */
-.process { position: relative; background: var(--bg-soft); color: var(--heading); }
-.process__sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-start; }
-.process__head { position: relative; z-index: 3; padding-top: clamp(2.2rem, 8vh, 4.5rem); flex-shrink: 0; }
-.process__title { font-family: var(--font-display); font-weight: 800; letter-spacing: -0.03em; line-height: 0.95; font-size: clamp(1.9rem, 5vw, 3.6rem); margin-top: 0.6rem; color: var(--heading); }
-.process__viewport { position: relative; flex: 1; min-height: 0; overflow: hidden; }
-.process__track { display: flex; flex-direction: column; width: 100%; height: 100%; will-change: transform; }
-.process__panel { flex: 0 0 100%; width: 100%; height: 100%; display: flex; align-items: center; }
-.process__panel-inner { position: relative; width: 100%; display: flex; align-items: center; }
-.process__ghost {
-  position: absolute; right: -0.5rem; top: 50%; transform: translateY(-50%); z-index: 0; pointer-events: none;
-  font-family: var(--font-display); font-weight: 900; line-height: 1; letter-spacing: -0.04em;
-  font-size: clamp(12rem, 38vw, 40rem); color: rgba(46,107,230,0.08);
+/* ---- Process (how we work) ---- */
+.process { background: var(--bg-soft); padding: clamp(5rem, 12vh, 8.5rem) 0; }
+.process__grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(2.5rem, 6vw, 6rem); align-items: start; }
+.process__head { position: sticky; top: 7rem; }
+.process__title { font-family: var(--font-display); font-weight: 800; letter-spacing: -0.03em; line-height: 0.95; font-size: clamp(1.9rem, 4.4vw, 3.4rem); margin-top: 0.6rem; color: var(--heading); }
+.process__lede { margin-top: 1.2rem; max-width: 24rem; color: var(--muted); font-size: 1.05rem; line-height: 1.6; }
+.process__steps { list-style: none; margin: 0; padding: 0; }
+.process-step {
+  display: grid; grid-template-columns: minmax(4.5rem, auto) 1fr;
+  gap: clamp(1.2rem, 3vw, 2.4rem); padding: clamp(1.8rem, 3.5vh, 2.6rem) 0;
+  border-top: 1px solid var(--line-strong);
 }
-.process__copy { position: relative; z-index: 1; max-width: 36rem; }
-.process__index { font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; color: var(--blue); }
-.process__step-title { font-family: var(--font-display); font-weight: 800; letter-spacing: -0.03em; font-size: clamp(2.4rem, 6vw, 4.5rem); line-height: 1; margin: 0.7rem 0 1.2rem; color: var(--heading); }
-.process__step-body { font-size: clamp(1.05rem, 1.5vw, 1.25rem); line-height: 1.6; color: var(--muted); }
-.process__bar {
-  position: absolute; right: clamp(1.1rem, 3vw, 2.5rem); top: 50%; transform: translateY(-50%);
-  height: min(44vh, 20rem); width: 3px; border-radius: 3px; background: rgba(46,107,230,0.15); z-index: 2;
+.process-step:first-child { border-top: none; padding-top: 0.4rem; }
+.process-step__num {
+  font-family: var(--font-display); font-weight: 800; line-height: 0.9; letter-spacing: -0.03em;
+  font-size: clamp(2.2rem, 3.4vw, 3.2rem); color: rgba(46,107,230,0.32); font-variant-numeric: tabular-nums;
 }
-.process__bar span { display: block; width: 100%; background: var(--blue); border-radius: 3px; max-height: 100%; }
+.process-step__title { font-family: var(--font-display); font-weight: 800; letter-spacing: -0.02em; font-size: clamp(1.4rem, 2.2vw, 1.9rem); color: var(--heading); margin-bottom: 0.55rem; }
+.process-step__body { color: var(--muted); font-size: 1.02rem; line-height: 1.65; max-width: 34rem; }
 
 /* ---- Impact counters ---- */
 .counters { background: var(--ink); color: #fff; padding: clamp(5rem, 12vh, 9rem) 0; }
@@ -804,10 +800,8 @@ h1, h2, h3, h4, h5 { color: var(--heading); line-height: 1.12; font-weight: 700;
 
 @media (max-width: 900px) {
   .counters__grid { grid-template-columns: repeat(2, 1fr); }
-  .process__panel-inner { display: block; }
-  .process__copy { max-width: 100%; }
-  .process__step-body { overflow-wrap: break-word; }
-  .process__panel { align-items: center; }
+  .process__grid { grid-template-columns: 1fr; }
+  .process__head { position: static; }
 }
 @media (max-width: 560px) {
   .counters__grid { grid-template-columns: 1fr 1fr; gap: 1.5rem 1rem; }

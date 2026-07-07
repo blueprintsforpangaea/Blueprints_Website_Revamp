@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import Reveal from '../ui/Reveal.jsx';
-import { IMPACT_STATS } from '../../data/stats.js';
 import { REGION_SUMMARY } from '../../data/destinations.js';
 
 export default function GlobalImpact() {
@@ -13,17 +12,7 @@ export default function GlobalImpact() {
           <p>What began at one university warehouse now reaches clinics across five continents.</p>
         </Reveal>
 
-        <Reveal className="stat-band" delay={0.1}>
-          {IMPACT_STATS.map((stat) => (
-            <div key={stat.label} className="stat-tile">
-              <div className="stat-tile__value">{stat.value}</div>
-              <span className="stat-tile__label">{stat.label}</span>
-              <span className="stat-tile__sub">{stat.sub}</span>
-            </div>
-          ))}
-        </Reveal>
-
-        <Reveal className="grid-3" delay={0.2} style={{ marginTop: '3rem' }}>
+        <Reveal className="grid-3" delay={0.1} style={{ marginTop: '3rem' }}>
           {REGION_SUMMARY.slice(0, 3).map((r) => (
             <div
               className="feature-card"

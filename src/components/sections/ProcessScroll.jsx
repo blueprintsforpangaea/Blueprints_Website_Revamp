@@ -1,5 +1,6 @@
-import { useRef } from 'react';
-import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
+
+const ease = [0.22, 1, 0.36, 1];
 
 const STEPS = [
   { n: '01', t: 'Partner', b: 'We build relationships with hospitals and suppliers sitting on surplus, in-date medical inventory they can no longer use.' },
@@ -9,44 +10,36 @@ const STEPS = [
 ];
 
 export default function ProcessScroll() {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] });
-  // Spring-smoothed so the slide between panels glides instead of stepping
-  // with each wheel tick.
-  const progress = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
-  // Linear mapping: panels track the scrollbar 1:1, so motion never stalls or lurches.
-  // Percent is relative to the track (one viewport tall), so -100% = one panel.
-  const y = useTransform(progress, [0, 1], ['0%', `-${(STEPS.length - 1) * 100}%`]);
-  const barH = useTransform(progress, [0, 1], ['25%', '100%']);
-
   return (
-    <section className="process" ref={ref} style={{ height: `${STEPS.length * 100}vh` }}>
-      <div className="process__sticky">
-        <div className="container process__head">
+    <section className="process">
+      <div className="container process__grid">
+        <header className="process__head">
           <span className="eyebrow">How we work</span>
           <h2 className="process__title">From surplus<br />to saved lives.</h2>
-        </div>
+          <p className="process__lede">
+            Four steps stand between a hospital&rsquo;s surplus shelf and a clinic
+            that has run out.
+          </p>
+        </header>
 
-        <div className="process__viewport">
-          <motion.div className="process__track" style={{ y }}>
-            {STEPS.map((s) => (
-              <article className="process__panel" key={s.n}>
-                <div className="container process__panel-inner">
-                  <span className="process__ghost" aria-hidden="true">{s.n}</span>
-                  <div className="process__copy">
-                    <span className="process__index">{s.n} / 04</span>
-                    <h3 className="process__step-title">{s.t}</h3>
-                    <p className="process__step-body">{s.b}</p>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </motion.div>
-        </div>
-
-        <div className="process__bar" aria-hidden="true">
-          <motion.span style={{ height: barH }} />
-        </div>
+        <ol className="process__steps">
+          {STEPS.map((s, i) => (
+            <motion.li
+              className="process-step"
+              key={s.n}
+              initial={{ opacity: 0, y: 26 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.6, ease, delay: 0.06 * i }}
+            >
+              <span className="process-step__num" aria-hidden="true">{s.n}</span>
+              <div>
+                <h3 className="process-step__title">{s.t}</h3>
+                <p className="process-step__body">{s.b}</p>
+              </div>
+            </motion.li>
+          ))}
+        </ol>
       </div>
     </section>
   );

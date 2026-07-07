@@ -9,8 +9,10 @@ export default function ProblemScene() {
 
   // Scale + opacity only — animating filter: blur() on this huge
   // gradient-clipped number forces a full repaint every scroll frame.
-  const numScale = useTransform(progress, [0, 0.55], [0.82, 1.05]);
-  const numOpacity = useTransform(progress, [0, 0.12, 0.8, 1], [0, 1, 1, 0.25]);
+  const numScale = useTransform(progress, [0, 0.55], [0.9, 1.05]);
+  // Starts ghosted (not invisible) so the scene never reads as an empty frame
+  // while it's still entering the viewport.
+  const numOpacity = useTransform(progress, [0, 0.06, 0.85, 1], [0.2, 1, 1, 0.3]);
 
   const beat1 = useTransform(progress, [0.04, 0.16, 0.42, 0.52], [0, 1, 1, 0]);
   const beat2 = useTransform(progress, [0.5, 0.62, 0.92, 1], [0, 1, 1, 1]);
