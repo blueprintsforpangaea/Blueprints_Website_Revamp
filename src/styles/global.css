@@ -152,18 +152,66 @@ h1, h2, h3, h4 { color: var(--color-heading); margin: 0; }
 }
 .hero__ctas { display: flex; flex-wrap: wrap; gap: 1rem; }
 .hero__art {
+  position: relative;
   aspect-ratio: 4 / 3;
   border-radius: var(--radius-lg);
   background:
     linear-gradient(135deg, rgba(143,166,255,0.25), rgba(12,19,48,0.6)),
     repeating-linear-gradient(45deg, rgba(255,255,255,0.04) 0 18px, transparent 18px 36px);
   border: 1px solid rgba(255,255,255,0.12);
+  overflow: hidden;
+}
+.hero__art::before,
+.hero__art::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.hero__art::before {
+  width: min(58%, 16rem);
+  height: min(42%, 10rem);
+  bottom: 24%;
+  border: 2px solid rgba(255,255,255,0.28);
+  border-radius: 10px;
+  background: rgba(255,255,255,0.06);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.18);
+}
+.hero__art::after {
+  width: min(58%, 16rem);
+  height: 2px;
+  bottom: calc(24% + min(21%, 5rem));
+  background: rgba(255,255,255,0.24);
+  box-shadow: 0 -3.2rem 0 rgba(255,255,255,0.2);
+}
+.problem__art {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, #2746c9, #18224d);
+  box-shadow: var(--shadow);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-display);
-  font-size: 4rem;
-  color: rgba(255,255,255,0.18);
+  overflow: hidden;
+}
+.problem__art::before {
+  content: "";
+  width: min(46%, 12rem);
+  aspect-ratio: 1;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+}
+.problem__art::after {
+  content: "";
+  position: absolute;
+  width: min(22%, 5.5rem);
+  height: 2px;
+  background: rgba(255,255,255,0.35);
+  transform: rotate(-35deg);
+  box-shadow:
+    3rem 3.1rem 0 rgba(255,255,255,0.25),
+    -3rem -3.1rem 0 rgba(255,255,255,0.25);
 }
 
 /* Hero stat strip */
@@ -210,19 +258,6 @@ h1, h2, h3, h4 { color: var(--color-heading); margin: 0; }
 }
 .problem__title strong { color: var(--color-blue); }
 .problem__body { font-size: 1.1rem; color: var(--color-muted); margin-bottom: 1.75rem; }
-.problem__art {
-  aspect-ratio: 4 / 3;
-  border-radius: var(--radius-lg);
-  background: linear-gradient(135deg, #2746c9, #18224d);
-  box-shadow: var(--shadow);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(255,255,255,0.25);
-  font-family: var(--font-display);
-  font-size: 3rem;
-}
-
 /* ---------- Global Impact ---------- */
 .impact-stats {
   display: grid;

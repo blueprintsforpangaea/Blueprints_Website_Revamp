@@ -20,7 +20,7 @@ export default function Hero() {
             <Link to="/get-involved" className="btn btn--ghost">Get Involved</Link>
           </div>
         </div>
-        <div className="hero__art" aria-hidden="true">📦</div>
+        <div className="hero__art" aria-hidden="true" />
       </div>
 
       <div className="container">

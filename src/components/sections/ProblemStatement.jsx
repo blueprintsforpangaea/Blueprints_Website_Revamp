@@ -17,7 +17,7 @@ export default function ProblemStatement() {
           </p>
           <Link to="/mission" className="btn btn--primary">Learn How</Link>
         </div>
-        <div className="problem__art" aria-hidden="true">♻️</div>
+        <div className="problem__art" aria-hidden="true" />
       </div>
     </section>
   );
