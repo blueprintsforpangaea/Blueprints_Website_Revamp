@@ -1,3 +1,4 @@
+// Demo: pushing a change from Claude Code
 export default function Card({ title, subtitle, body, image, footer }) {
   return (
     <article className="card">
