@@ -1,8 +1,9 @@
 import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 
 export default function ProblemScene() {
   const ref = useRef(null);
+  const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] });
 
   const numScale = useTransform(scrollYProgress, [0, 0.55], [0.82, 1.05]);
@@ -15,30 +16,40 @@ export default function ProblemScene() {
   const lineW = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
 
   return (
-    <section className="scene scene--problem" ref={ref}>
+    <section
+      className={`scene scene--problem curve-top${reduceMotion ? ' scene--static' : ''}`}
+      ref={ref}
+    >
       <div className="scene__sticky">
         <div className="container scene__inner">
-          <span className="scene__kicker">The problem</span>
+          <span className="scene__kicker">A problem we can actually fix</span>
 
-          <motion.div className="scene__bignum" style={{ scale: numScale, opacity: numOpacity, filter }}>
+          <motion.div
+            className="scene__bignum"
+            style={reduceMotion ? undefined : { scale: numScale, opacity: numOpacity, filter }}
+          >
             5,000,000
           </motion.div>
-          <span className="scene__unit">tons of medical supplies wasted every year</span>
+          <span className="scene__unit">
+            tons of perfectly good medical supplies are discarded every year
+          </span>
 
-          <div className="scene__beats">
-            <motion.p className="scene__beat" style={{ opacity: beat1 }}>
-              Sealed. In&#8209;date. Perfectly usable. Thrown out because of hospital
-              inventory rules.
+          <div className={`scene__beats${reduceMotion ? ' scene__beats--static' : ''}`}>
+            <motion.p className="scene__beat" style={reduceMotion ? undefined : { opacity: beat1 }}>
+              Sealed. In&#8209;date. Never used. Thrown out only because hospital
+              inventory rules say they must be.
             </motion.p>
-            <motion.p className="scene__beat" style={{ opacity: beat2 }}>
-              Meanwhile, clinics here and around the world run out of the basics they
-              need to keep people alive.
+            <motion.p className="scene__beat" style={reduceMotion ? undefined : { opacity: beat2 }}>
+              Meanwhile, clinics nearby and around the world run short of the
+              basics. That&rsquo;s the gap we close — together.
             </motion.p>
           </div>
 
-          <div className="scene__progress" aria-hidden="true">
-            <motion.span style={{ width: lineW }} />
-          </div>
+          {!reduceMotion && (
+            <div className="scene__progress" aria-hidden="true">
+              <motion.span style={{ width: lineW }} />
+            </div>
+          )}
         </div>
       </div>
     </section>

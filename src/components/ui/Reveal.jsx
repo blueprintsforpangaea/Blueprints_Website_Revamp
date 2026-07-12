@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 
 // Lightweight scroll-into-view wrapper used across the site for a
 // consistent, professional entrance animation.
@@ -12,10 +12,11 @@ export default function Reveal({
   ...rest
 }) {
   const MotionTag = motion[as] || motion.div;
+  const reduceMotion = useReducedMotion();
   return (
     <MotionTag
       className={className}
-      initial={{ opacity: 0, y }}
+      initial={{ opacity: 0, y: reduceMotion ? 0 : y }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once, margin: '-80px' }}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay }}

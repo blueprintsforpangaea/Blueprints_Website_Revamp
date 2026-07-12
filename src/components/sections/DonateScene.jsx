@@ -1,16 +1,26 @@
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
+import donatePhoto from '../../assets/images/efd3cc03-681e-468b-8608-f746800f9dc2dsc-0260.jpg';
+
+const ease = [0.22, 1, 0.36, 1];
 
 export default function DonateScene() {
   const ref = useRef(null);
+  const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
   const imgY = useTransform(scrollYProgress, [0, 1], ['-12%', '12%']);
 
   return (
-    <section className="donate-scene" ref={ref}>
+    <section className="donate-scene curve-top" ref={ref}>
       <div className="donate-scene__media" aria-hidden="true">
-        <motion.img src="/boxes.jpg" alt="" className="donate-scene__img" style={{ y: imgY }} />
+        <motion.img
+          src={donatePhoto}
+          alt=""
+          className="donate-scene__img"
+          loading="lazy"
+          style={reduceMotion ? undefined : { y: imgY }}
+        />
         <div className="donate-scene__scrim" />
       </div>
 
@@ -20,7 +30,7 @@ export default function DonateScene() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.7, ease }}
         >
           Your part in this
         </motion.span>
@@ -30,9 +40,9 @@ export default function DonateScene() {
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
+          transition={{ duration: 0.8, ease, delay: 0.08 }}
         >
-          $35 sends a box.<br />A box can save a life.
+          $35 sends a box of care.
         </motion.h2>
 
         <motion.p
@@ -40,11 +50,11 @@ export default function DonateScene() {
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.16 }}
+          transition={{ duration: 0.8, ease, delay: 0.16 }}
         >
-          We&rsquo;re student-run, which means almost every dollar goes straight to
-          recovering and shipping supplies. Fund the next delivery to a clinic that
-          has run out.
+          We&rsquo;re student-run, so nearly every dollar goes straight into
+          rescuing and shipping supplies. Your gift funds the next delivery —
+          and helps a clinic say yes to the next patient who walks in.
         </motion.p>
 
         <motion.div
@@ -52,12 +62,12 @@ export default function DonateScene() {
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.24 }}
+          transition={{ duration: 0.8, ease, delay: 0.24 }}
         >
           <Link to="/donate" className="btn btn--white btn--lg">
             Donate now <span className="arrow">→</span>
           </Link>
-          <Link to="/get-involved" className="btn btn--ghost btn--lg">Other ways to help</Link>
+          <Link to="/get-involved" className="btn btn--ghost btn--lg">More ways to help</Link>
         </motion.div>
       </div>
     </section>

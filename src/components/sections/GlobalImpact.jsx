@@ -5,12 +5,16 @@ import { REGION_SUMMARY } from '../../data/destinations.js';
 
 export default function GlobalImpact() {
   return (
-    <section className="section section--ink">
+    <section className="section section--ink curve-top">
       <div className="container">
         <Reveal className="section-head section-head--center">
-          <span className="eyebrow eyebrow--center">Our Global Impact</span>
-          <h2 className="section-title">Reaching every corner of the map</h2>
-          <p>What began at one university warehouse now reaches clinics across five continents.</p>
+          <span className="eyebrow eyebrow--center">Our global reach</span>
+          <h2 className="section-title">Care that travels well.</h2>
+          <p>
+            What began in one campus warehouse now reaches clinics on five
+            continents — carried there by students, partners, and supporters
+            like you.
+          </p>
         </Reveal>
 
         <Reveal className="stat-band" delay={0.1}>
@@ -23,27 +27,27 @@ export default function GlobalImpact() {
           ))}
         </Reveal>
 
-        <Reveal className="grid-3" delay={0.2} style={{ marginTop: '3rem' }}>
-          {REGION_SUMMARY.slice(0, 3).map((r) => (
-            <div
-              className="feature-card"
+        <div className="grid-3" style={{ marginTop: '3rem' }}>
+          {REGION_SUMMARY.slice(0, 3).map((r, i) => (
+            <Reveal
+              className="feature-card feature-card--onink"
               key={r.region}
-              style={{ background: 'rgba(255,255,255,0.04)', borderColor: 'rgba(255,255,255,0.1)' }}
+              delay={0.12 + i * 0.08}
             >
               <div className="feature-card__count">
                 {r.countries}<span>{r.countries === 1 ? 'country' : 'countries'}</span>
               </div>
-              <h3 style={{ color: '#fff' }}>{r.region}</h3>
-              <p style={{ color: 'var(--on-dark-muted)' }}>{r.blurb}</p>
-            </div>
+              <h3>{r.region}</h3>
+              <p>{r.blurb}</p>
+            </Reveal>
           ))}
-        </Reveal>
-
-        <div style={{ textAlign: 'center', marginTop: '3rem' }}>
-          <Link to="/impact" className="btn btn--white btn--lg">
-            See the Interactive Globe <span className="arrow">→</span>
-          </Link>
         </div>
+
+        <Reveal style={{ textAlign: 'center', marginTop: '3rem' }} delay={0.2}>
+          <Link to="/impact" className="btn btn--white btn--lg">
+            Explore the interactive globe <span className="arrow">→</span>
+          </Link>
+        </Reveal>
       </div>
     </section>
   );

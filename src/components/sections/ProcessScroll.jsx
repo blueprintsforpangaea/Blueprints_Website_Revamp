@@ -1,15 +1,59 @@
 import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
+import imgPartner from '../../assets/images/dsc04163.jpg';
+import imgRescue from '../../assets/images/img-2678.jpg';
+import imgVerify from '../../assets/images/img-2753.jpg';
+import imgDeliver from '../../assets/images/9fdcc1e7-5bd6-44dc-8afe-dd642b4a08cadsc-0258.jpg';
 
 const STEPS = [
-  { n: '01', t: 'Partner', b: 'We build relationships with hospitals and suppliers sitting on surplus, in-date medical inventory they can no longer use.' },
-  { n: '02', t: 'Rescue', b: 'Student volunteers recover the supplies by hand — before a single sealed box ever reaches the waste stream.' },
-  { n: '03', t: 'Verify', b: 'Every item is sorted, inspected, and cataloged against safe-redistribution standards. Nothing ships unchecked.' },
-  { n: '04', t: 'Deliver', b: 'Supplies reach vetted clinics and relief partners — free of charge — at home and across 15+ countries.' },
+  {
+    n: '01',
+    t: 'Partner',
+    img: imgPartner,
+    alt: 'Hospital and community health leaders speaking on a panel at a Blueprints event',
+    b: 'Hospitals and suppliers hand us the sealed, in-date surplus they can no longer use — instead of sending it to a landfill.',
+  },
+  {
+    n: '02',
+    t: 'Rescue',
+    img: imgRescue,
+    alt: 'A volunteer wheeling a cart of donated supplies through the warehouse',
+    b: 'Student volunteers pick up every donation by hand, giving good supplies a second chance at doing good.',
+  },
+  {
+    n: '03',
+    t: 'Sort & check',
+    img: imgVerify,
+    alt: 'Volunteers inspecting a wrapped pallet of donated medical supplies',
+    b: 'Together we sort, inspect, and catalog every item against safe-redistribution standards — so everything we send is ready to use.',
+  },
+  {
+    n: '04',
+    t: 'Deliver',
+    img: imgDeliver,
+    alt: 'Volunteers loading boxes of medical supplies into a delivery van',
+    b: 'Supplies arrive — completely free — at clinics down the street and across 15+ countries.',
+  },
 ];
+
+function StepPanel({ step }) {
+  return (
+    <div className="container process__panel-inner">
+      <div className="process__copy">
+        <span className="process__index">{step.n} / 04</span>
+        <h3 className="process__step-title">{step.t}</h3>
+        <p className="process__step-body">{step.b}</p>
+      </div>
+      <figure className="process__photo">
+        <img src={step.img} alt={step.alt} loading="lazy" />
+      </figure>
+    </div>
+  );
+}
 
 export default function ProcessScroll() {
   const ref = useRef(null);
+  const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] });
   // Dwell on each panel, then slide quickly to the next (plateaus = readable steps).
   const x = useTransform(
@@ -19,25 +63,34 @@ export default function ProcessScroll() {
   );
   const barW = useTransform(scrollYProgress, [0, 1], ['25%', '100%']);
 
+  if (reduceMotion) {
+    return (
+      <section className="process process--static curve-top">
+        <div className="container process__head">
+          <span className="eyebrow">How we help</span>
+          <h2 className="process__title">Four steps,<br />powered by people.</h2>
+        </div>
+        {STEPS.map((s) => (
+          <article className="process__panel" key={s.n}>
+            <StepPanel step={s} />
+          </article>
+        ))}
+      </section>
+    );
+  }
+
   return (
-    <section className="process" ref={ref} style={{ height: `${STEPS.length * 100}vh` }}>
+    <section className="process curve-top" ref={ref} style={{ height: `${STEPS.length * 100}vh` }}>
       <div className="process__sticky">
         <div className="container process__head">
-          <span className="eyebrow">How we work</span>
-          <h2 className="process__title">From surplus<br />to saved lives.</h2>
+          <span className="eyebrow">How we help</span>
+          <h2 className="process__title">Four steps,<br />powered by people.</h2>
         </div>
 
         <motion.div className="process__track" style={{ x }}>
           {STEPS.map((s) => (
             <article className="process__panel" key={s.n}>
-              <div className="container process__panel-inner">
-                <span className="process__ghost" aria-hidden="true">{s.n}</span>
-                <div className="process__copy">
-                  <span className="process__index">{s.n} / 04</span>
-                  <h3 className="process__step-title">{s.t}</h3>
-                  <p className="process__step-body">{s.b}</p>
-                </div>
-              </div>
+              <StepPanel step={s} />
             </article>
           ))}
         </motion.div>
