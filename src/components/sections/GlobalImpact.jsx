@@ -5,7 +5,7 @@ import { REGION_SUMMARY } from '../../data/destinations.js';
 
 export default function GlobalImpact() {
   return (
-    <section className="section section--ink curve-top">
+    <section className="section section--soft">
       <div className="container">
         <Reveal className="section-head section-head--center">
           <span className="eyebrow eyebrow--center">Our global reach</span>
@@ -30,7 +30,7 @@ export default function GlobalImpact() {
         <div className="grid-3" style={{ marginTop: '3rem' }}>
           {REGION_SUMMARY.slice(0, 3).map((r, i) => (
             <Reveal
-              className="feature-card feature-card--onink"
+              className="feature-card"
               key={r.region}
               delay={0.12 + i * 0.08}
             >
@@ -44,7 +44,7 @@ export default function GlobalImpact() {
         </div>
 
         <Reveal style={{ textAlign: 'center', marginTop: '3rem' }} delay={0.2}>
-          <Link to="/impact" className="btn btn--white btn--lg">
+          <Link to="/impact" className="btn btn--dark btn--lg">
             Explore the interactive globe <span className="arrow">→</span>
           </Link>
         </Reveal>

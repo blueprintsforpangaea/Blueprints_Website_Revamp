@@ -25,29 +25,27 @@
   --navy-deep:      var(--c-navy);
   --navy-darker:    var(--c-navy);
 
-  /* ---------- Surfaces ---------- */
+  /* ---------- Surfaces (ada-style: light, calm, near-neutral) ---------- */
   --bg:             var(--c-white);
-  --bg-soft:        color-mix(in srgb, var(--c-blue-light) 28%, var(--c-white));
-  --bg-tint:        color-mix(in srgb, var(--c-blue-light) 55%, var(--c-white));  /* faint blue wash */
+  --bg-soft:        color-mix(in srgb, var(--c-navy) 3.5%, var(--c-white));   /* quiet gray band */
+  --bg-tint:        color-mix(in srgb, var(--c-blue-light) 32%, var(--c-white)); /* faint blue — small UI + CTA card only */
   --surface:        var(--c-white);
 
   /* ---------- Text ---------- */
   --text:           color-mix(in srgb, var(--c-navy) 88%, var(--c-white));
   --heading:        var(--c-navy);
-  --muted:          color-mix(in srgb, var(--c-indigo) 72%, var(--c-white));
-  --muted-soft:     color-mix(in srgb, var(--c-indigo) 45%, var(--c-white));
+  --muted:          color-mix(in srgb, var(--c-navy) 58%, var(--c-white));
+  --muted-soft:     color-mix(in srgb, var(--c-navy) 38%, var(--c-white));
   --on-dark:        rgba(255, 255, 255, 0.92);
   --on-dark-muted:  color-mix(in srgb, var(--c-blue-light) 72%, transparent);
 
-  --line:           color-mix(in srgb, var(--c-blue-light) 42%, var(--c-white));
-  --line-strong:    color-mix(in srgb, var(--c-blue-light) 70%, var(--c-white));
+  --line:           color-mix(in srgb, var(--c-navy) 9%, var(--c-white));
+  --line-strong:    color-mix(in srgb, var(--c-navy) 16%, var(--c-white));
 
-  /* ---------- Gradients ---------- */
-  --grad-accent:      linear-gradient(120deg, var(--c-blue) 0%, var(--c-blue-dark) 100%);
-  --grad-accent-soft: linear-gradient(120deg,
-                        color-mix(in srgb, var(--c-blue) 16%, transparent),
-                        color-mix(in srgb, var(--c-blue-dark) 16%, transparent));
-  --grad-ink:         linear-gradient(160deg, var(--c-indigo) 0%, var(--c-navy) 62%, var(--c-navy) 100%);
+  /* ---------- Accent surfaces (flat — the accent is one blue, not a gradient) ---------- */
+  --grad-accent:      var(--c-blue);
+  --grad-accent-soft: color-mix(in srgb, var(--c-blue) 9%, var(--c-white));
+  --grad-ink:         var(--c-navy);
 
   /* ---------- Type ---------- */
   --font-sans:    'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
@@ -75,11 +73,11 @@
   --radius-xl: 32px;
   --radius-pill: 999px;
 
-  /* ---------- Elevation (navy-tinted) ---------- */
+  /* ---------- Elevation (soft, low-contrast) ---------- */
   --shadow-sm: 0 1px 2px rgba(0, 14, 63, 0.05);
-  --shadow:    0 6px 20px rgba(0, 14, 63, 0.08);
-  --shadow-lg: 0 18px 44px rgba(0, 14, 63, 0.12);
-  --shadow-teal: 0 6px 16px rgba(0, 53, 162, 0.20);
+  --shadow:    0 4px 14px rgba(0, 14, 63, 0.06);
+  --shadow-lg: 0 12px 32px rgba(0, 14, 63, 0.09);
+  --shadow-teal: none;
 
   /* ---------- Motion ---------- */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);

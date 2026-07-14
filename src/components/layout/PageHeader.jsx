@@ -4,8 +4,6 @@ import { motion } from 'framer-motion';
 export default function PageHeader({ eyebrow, title, children }) {
   return (
     <header className="page-header">
-      <div className="page-header__grid" />
-      <div className="page-header__glow" />
       <div className="container">
         <motion.div
           className="page-header__inner"
