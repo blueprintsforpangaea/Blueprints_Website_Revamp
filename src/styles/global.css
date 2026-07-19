@@ -564,8 +564,8 @@ h1, h2, h3, h4 { color: var(--color-heading); margin: 0; }
   z-index: 1;
   left: 50%;
   top: 50%;
-  width: 3rem;
-  height: 3rem;
+  width: 3.4rem;
+  height: 3.4rem;
   transform: translate(-50%, -50%);
   align-items: center;
   background: var(--color-navy);
@@ -573,7 +573,7 @@ h1, h2, h3, h4 { color: var(--color-heading); margin: 0; }
   border-radius: 50%;
   color: #fff;
   display: flex;
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   font-weight: 700;
   justify-content: center;
   letter-spacing: 0.02em;
@@ -628,7 +628,7 @@ h1, h2, h3, h4 { color: var(--color-heading); margin: 0; }
   .chapters__item { min-height: 0; padding: 0.5rem 0; justify-content: flex-end; }
   .chapters__item:nth-child(even) { justify-content: flex-end; }
   .chapters__link { width: calc(100% - 3.5rem); gap: 0.75rem; min-height: 5.75rem; padding: 1rem; }
-  .chapters__year { left: 1.5rem; width: 2.65rem; height: 2.65rem; font-size: 0.62rem; }
+  .chapters__year { left: 1.5rem; width: 3rem; height: 3rem; font-size: 0.66rem; }
   .chapters__identity { gap: 0.8rem; }
   .chapters__name { font-size: 1rem; }
 }
