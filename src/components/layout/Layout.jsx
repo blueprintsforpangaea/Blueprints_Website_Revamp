@@ -5,7 +5,7 @@ export default function Layout({ children }) {
   return (
     <div className="app-shell">
       <Navbar />
-      <main className="app-main">{children}</main>
+      <main className="app-main app-main--full-width">{children}</main>
       <Footer />
     </div>
   );

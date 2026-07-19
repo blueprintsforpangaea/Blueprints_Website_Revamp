@@ -12,7 +12,7 @@ export default function Chapters() {
   }
 
   return (
-    <article className="page page--chapters">
+    <article className="page page--chapters page--full-width">
       <h1>Our Chapters</h1>
       <ChaptersList />
     </article>

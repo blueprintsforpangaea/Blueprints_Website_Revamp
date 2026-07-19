@@ -12,7 +12,7 @@ const NAV_ITEMS = [
 
 export default function Navbar() {
   return (
-    <header className="navbar">
+    <header className="navbar navbar--full-width">
       <Link to="/" className="navbar__brand">Blueprints for Pangaea</Link>
       <nav className="navbar__links">
         {NAV_ITEMS.map((item) => (
