@@ -1,10 +1,10 @@
 :root {
-  /* Brand palette — navy + light, pulled from the current site/brand boards */
-  --color-navy:        #1f2a5e;  /* primary brand navy */
-  --color-navy-deep:   #18224d;  /* darker navy panels */
-  --color-navy-darker: #0c1330;  /* near-black map / hero backdrop */
-  --color-blue:        #2746c9;  /* CTA / link blue */
-  --color-blue-dark:   #1b34a0;
+  /* Brand palette — navy + light, per the 2026 landing page redesign */
+  --color-navy:        #0035a2;  /* primary brand navy */
+  --color-navy-deep:   #002878;  /* darker navy panels */
+  --color-navy-darker: #001440;  /* near-black map / hero backdrop */
+  --color-blue:        #0069f3;  /* CTA / link blue */
+  --color-blue-dark:   #0035a2;
 
   --color-bg:          #ffffff;
   --color-bg-alt:      #f3f5fb;  /* light section background */
@@ -15,8 +15,8 @@
   --color-border:      #e3e7f2;
 
   /* Type */
-  --font-sans:    'Figtree', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-display: 'Anton', 'Figtree', var(--font-sans);
+  --font-sans:    'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Inter', var(--font-sans);
 
   /* Spacing */
   --space-1: 0.25rem;

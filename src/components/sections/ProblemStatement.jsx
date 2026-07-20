@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import vanLoading from '../../assets/home/van-loading.jpg';
 
 export default function ProblemStatement() {
   return (
@@ -6,18 +7,18 @@ export default function ProblemStatement() {
       <div className="container problem__grid">
         <div>
           <h2 className="problem__title">
-            Every year, over <strong>5 million tons</strong> of medical
+            Every year, over 5 million tons of medical
             supplies, much of it unused, are wasted
           </h2>
           <p className="problem__body">
-            Meanwhile, clinics across the country and around the world lack the
-            basic equipment they need to care for patients. We bridge that gap —
-            recovering in-date, usable supplies before they hit the landfill and
-            getting them to the people who need them.
+            At Blueprints for Pangaea, we work to reallocate essential
+            supplies from areas of surplus to communities in need.
           </p>
           <Link to="/mission" className="btn btn--primary">Learn How</Link>
         </div>
-        <div className="problem__art" aria-hidden="true" />
+        <div className="problem__art">
+          <img src={vanLoading} alt="Volunteers loading boxes of medical supplies into a delivery van" />
+        </div>
       </div>
     </section>
   );

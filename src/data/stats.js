@@ -1,8 +1,25 @@
-// Headline hero stats (the X/X/X strip under the hero).
+// Headline hero stats (the stat card strip under the hero, with a fast count-up ticker).
 export const HERO_STATS = [
-  { label: 'Pounds of Medical Supplies Delivered', value: '20K+' },
-  { label: 'Countries Reached',                    value: '15+' },
-  { label: 'Chapters Across the Nation',           value: '11' },
+  {
+    format: 'currency',
+    value: 9077500.09,
+    label: 'Worth of Medical Supplies',
+    sub: 'Redistributed to communities in need',
+  },
+  {
+    format: 'plain',
+    value: 15,
+    suffix: '+',
+    label: 'Countries Reached',
+    sub: 'B4P has donated medical supplies to locations worldwide',
+  },
+  {
+    format: 'plain',
+    value: 10,
+    suffix: '+',
+    label: 'National Chapters',
+    sub: 'Across the nation',
+  },
 ];
 
 // "Our Global Impact" stats (navy section).

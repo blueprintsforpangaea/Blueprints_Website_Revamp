@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { createDonation } from '../utils/api.js';
 
 // Manages donation form state (preset amount, custom amount, submit status).
-export function useDonationForm() {
-  const [amount, setAmount] = useState(20);
+export function useDonationForm(initialAmount = 20) {
+  const [amount, setAmount] = useState(initialAmount);
   const [custom, setCustom] = useState('');
   const [status, setStatus] = useState('');
 

@@ -1,5 +1,7 @@
 import Hero from '../components/sections/Hero.jsx';
 import ProblemStatement from '../components/sections/ProblemStatement.jsx';
+import ChapterLogos from '../components/sections/ChapterLogos.jsx';
+import DonateCTA from '../components/sections/DonateCTA.jsx';
 import GlobalImpact from '../components/sections/GlobalImpact.jsx';
 import FeaturedPartnerships from '../components/sections/FeaturedPartnerships.jsx';
 import RecentShipments from '../components/sections/RecentShipments.jsx';
@@ -12,6 +14,8 @@ export default function Home() {
     <>
       <Hero />
       <ProblemStatement />
+      <ChapterLogos />
+      <DonateCTA />
       <GlobalImpact />
       <FeaturedPartnerships />
       <RecentShipments />
