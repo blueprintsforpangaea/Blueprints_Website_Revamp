@@ -582,9 +582,22 @@ h1, h2, h3, h4, h5 { color: var(--heading); line-height: 1.12; font-weight: 700;
    CHAPTERS
    ============================================================ */
 .chapter-card {
-  position: relative; background: #fff; border: 1px solid var(--line); border-radius: var(--radius-lg);
+  position: relative; display: block; height: 100%;
+  background: #fff; border: 1px solid var(--line); border-radius: var(--radius-lg);
   padding: 1.5rem 1.5rem 1.4rem; transition: transform 0.22s var(--ease), box-shadow 0.22s, border-color 0.22s;
 }
+.chapter-card__seal {
+  display: flex; align-items: center; justify-content: center;
+  width: 54px; height: 54px; margin-bottom: 1.1rem;
+}
+.chapter-card__seal img { width: 100%; height: 100%; object-fit: contain; }
+.chapter-card--hq .chapter-card__seal { filter: brightness(0) invert(1); }
+.chapter-card__lead {
+  display: block; margin-top: 0.9rem; padding-top: 0.9rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.85rem; color: var(--muted);
+}
+.chapter-card--hq .chapter-card__lead { border-top-color: rgba(255,255,255,0.16); color: var(--on-dark-muted); }
 .chapter-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--teal); }
 .chapter-card--hq { background: var(--grad-ink); color: #fff; border-color: transparent; }
 .chapter-card--hq h3 { color: #fff; }

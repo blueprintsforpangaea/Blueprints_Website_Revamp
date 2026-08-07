@@ -10,11 +10,16 @@ export default function ChaptersList() {
           <Link
             to={`/chapters/${chapter.slug}`}
             className={`chapter-card ${chapter.isHQ ? 'chapter-card--hq' : ''}`}
-            style={{ display: 'block', height: '100%' }}
           >
             {chapter.isHQ && <span className="chapter-card__badge">HQ</span>}
+            {chapter.logo && (
+              <span className="chapter-card__seal">
+                <img src={chapter.logo} alt="" loading="lazy" />
+              </span>
+            )}
             <h3>{chapter.name}</h3>
-            <span className="chapter-card__loc">📍 {chapter.location}</span>
+            <span className="chapter-card__loc">{chapter.location}</span>
+            {chapter.lead && <span className="chapter-card__lead">{chapter.lead}</span>}
           </Link>
         </Reveal>
       ))}
