@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import Reveal from '../ui/Reveal.jsx';
+import { TOTALS } from '../../data/stats.js';
 
 export default function AudienceSplit() {
   return (
@@ -13,7 +14,6 @@ export default function AudienceSplit() {
 
         <div className="audience">
           <Reveal as="div" className="audience-card audience-card--orgs">
-            <div className="audience-card__glow" />
             <span className="audience-card__tag">For Nonprofits & Healthcare Orgs</span>
             <h3>Partner With Us</h3>
             <ul className="audience-card__list">
@@ -27,11 +27,10 @@ export default function AudienceSplit() {
           </Reveal>
 
           <Reveal as="div" className="audience-card audience-card--students" delay={0.12}>
-            <div className="audience-card__glow" />
             <span className="audience-card__tag">For Students</span>
             <h3>Join the Global Team</h3>
             <ul className="audience-card__list">
-              <li>Join one of 11 university chapters</li>
+              <li>Join one of {TOTALS.chapters} university chapters</li>
               <li>Start a new chapter on your campus</li>
               <li>Lead real logistics with global impact</li>
             </ul>

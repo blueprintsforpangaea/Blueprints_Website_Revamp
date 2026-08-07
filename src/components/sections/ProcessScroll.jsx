@@ -4,6 +4,7 @@ import imgPartner from '../../assets/images/dsc04163.jpg';
 import imgRescue from '../../assets/images/img-2678.jpg';
 import imgVerify from '../../assets/images/img-2753.jpg';
 import imgDeliver from '../../assets/images/9fdcc1e7-5bd6-44dc-8afe-dd642b4a08cadsc-0258.jpg';
+import { TOTALS } from '../../data/stats.js';
 
 const STEPS = [
   {
@@ -32,7 +33,7 @@ const STEPS = [
     t: 'Deliver',
     img: imgDeliver,
     alt: 'Volunteers loading boxes of medical supplies into a delivery van',
-    b: 'Supplies arrive — completely free — at clinics down the street and across 15+ countries.',
+    b: `Supplies arrive — completely free — at clinics down the street and across ${TOTALS.countries}+ countries.`,
   },
 ];
 

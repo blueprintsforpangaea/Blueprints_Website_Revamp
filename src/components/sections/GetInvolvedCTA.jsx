@@ -6,7 +6,6 @@ export default function GetInvolvedCTA() {
     <section className="section">
       <div className="container">
         <Reveal className="cta-banner">
-          <div className="cta-banner__glow" />
           <h2>Join the movement</h2>
           <p>
             Every box redirected is a life touched. Fund a shipment, donate surplus

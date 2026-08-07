@@ -1,11 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
 import { animate, useInView, useReducedMotion } from 'framer-motion';
+import { TOTALS } from '../../data/stats.js';
 
+// Every figure derives from TOTALS — see src/data/stats.js.
 const STATS = [
-  { to: 9077500, prefix: '$', label: 'in rescued supplies delivered to clinics that need them' },
-  { to: 20000, suffix: '+', label: 'pounds carried — box by box, hand to hand' },
-  { to: 15, suffix: '+', label: 'countries reached across five continents' },
-  { to: 11, label: 'student chapters nationwide, and growing' },
+  {
+    to: Math.round(TOTALS.suppliesValue),
+    prefix: '$',
+    label: 'in rescued supplies delivered to clinics that need them',
+  },
+  { to: TOTALS.countries, suffix: '+', label: 'countries reached across five continents' },
+  { to: TOTALS.chapters, label: 'student chapters nationwide, and growing' },
+  { to: TOTALS.members, suffix: '+', label: 'students running the supply chain' },
 ];
 
 function Counter({ to, prefix = '', suffix = '' }) {

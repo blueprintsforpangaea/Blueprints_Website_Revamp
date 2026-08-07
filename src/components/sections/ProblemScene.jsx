@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
+import { TOTALS } from '../../data/stats.js';
 
 export default function ProblemScene() {
   const ref = useRef(null);
@@ -28,7 +29,7 @@ export default function ProblemScene() {
             className="scene__bignum"
             style={reduceMotion ? undefined : { scale: numScale, opacity: numOpacity, filter }}
           >
-            5,000,000
+            {TOTALS.wasteTons.toLocaleString('en-US')}
           </motion.div>
           <span className="scene__unit">
             tons of perfectly good medical supplies are discarded every year

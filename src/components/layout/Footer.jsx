@@ -1,56 +1,67 @@
 import { Link } from 'react-router-dom';
+import logoFull from '../../assets/logos/blueprints-logo-1.png';
+import { ORG, SOCIALS, DOCUMENTS, DONATE_URL } from '../../data/site.js';
+import { TOTALS } from '../../data/stats.js';
 
 export default function Footer() {
   return (
     <div className="footer-wrap">
       <footer className="footer">
-        <div className="footer__col">
-          <div className="footer__brand">
-            <span className="navbar__logo">B</span>
-            <span className="footer__brand-name">Blueprints for Pangaea</span>
-          </div>
+        <div className="footer__col footer__col--brand">
+          <img className="footer__logo" src={logoFull} alt={ORG.name} />
           <p className="footer__about">
-            A student-powered nonprofit rescuing surplus medical supplies and
-            redistributing them to clinics and communities worldwide. Saving
-            lives, one box at a time.
+            A student-led {ORG.taxStatus} recovering surplus medical supplies and redistributing
+            them to clinics and communities worldwide. Founded {ORG.founded} at the{' '}
+            {ORG.foundedAt}.
           </p>
           <div className="footer__socials">
-            <a className="footer__social" href="#" aria-label="Instagram">IG</a>
-            <a className="footer__social" href="#" aria-label="LinkedIn">in</a>
-            <a className="footer__social" href="#" aria-label="Facebook">f</a>
-            <a className="footer__social" href="#" aria-label="Email">@</a>
+            {SOCIALS.map((s) => (
+              <a
+                key={s.label}
+                className="footer__social"
+                href={s.url}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {s.label}
+              </a>
+            ))}
           </div>
         </div>
 
         <div className="footer__col">
           <h4>Explore</h4>
-          <Link to="/mission">Our Mission</Link>
-          <Link to="/impact">Global Impact</Link>
-          <Link to="/about">About Us</Link>
+          <Link to="/mission">Our mission</Link>
+          <Link to="/impact">Global impact</Link>
+          <Link to="/about">About us</Link>
           <Link to="/chapters">Chapters</Link>
           <Link to="/press">Press</Link>
         </div>
 
         <div className="footer__col">
-          <h4>Get Involved</h4>
-          <Link to="/get-involved">Join a Chapter</Link>
-          <Link to="/get-involved">Partner With Us</Link>
-          <Link to="/donate">Donate</Link>
-          <Link to="/gala">Annual Gala</Link>
+          <h4>Get involved</h4>
+          <Link to="/get-involved#recruitment">Join at headquarters</Link>
+          <Link to="/get-involved#chapter">Start a chapter</Link>
+          <Link to="/get-involved#supplies">Donate supplies</Link>
+          <Link to="/gala">Annual gala</Link>
+          <a href={DONATE_URL} target="_blank" rel="noreferrer">Donate</a>
         </div>
 
         <div className="footer__col">
-          <h4>Stay in the loop</h4>
-          <p>Impact updates from the warehouse to the field.</p>
-          <form className="footer__newsletter" onSubmit={(e) => e.preventDefault()}>
-            <input type="email" placeholder="you@email.com" aria-label="Email address" />
-            <button type="submit">Join</button>
-          </form>
-          <p style={{ marginTop: '1rem' }}>contact@blueprintsforpangaea.org</p>
+          <h4>Contact</h4>
+          <a href={`mailto:${ORG.email}`}>{ORG.email}</a>
+          <span className="footer__quiet">{ORG.hq}</span>
+          <h4 style={{ marginTop: '1.75rem' }}>Documents</h4>
+          {DOCUMENTS.map((d) => (
+            <a key={d.label} href={d.url} target="_blank" rel="noreferrer">{d.label}</a>
+          ))}
         </div>
       </footer>
+
       <div className="footer__bottom">
-        © {new Date().getFullYear()} Blueprints for Pangaea · A 501(c)(3) nonprofit · Headquartered at the University of Michigan
+        <span>
+          © {new Date().getFullYear()} {ORG.name} · {ORG.taxStatus} · Est. {TOTALS.founded}
+        </span>
       </div>
     </div>
   );

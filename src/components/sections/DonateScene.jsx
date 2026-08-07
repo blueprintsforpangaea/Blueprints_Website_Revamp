@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import donatePhoto from '../../assets/images/efd3cc03-681e-468b-8608-f746800f9dc2dsc-0260.jpg';
+import { TOTALS } from '../../data/stats.js';
 
 const ease = [0.22, 1, 0.36, 1];
 
@@ -42,7 +43,7 @@ export default function DonateScene() {
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.8, ease, delay: 0.08 }}
         >
-          $35 sends a box of care.
+          Supplies are free.<br />Freight is not.
         </motion.h2>
 
         <motion.p
@@ -52,9 +53,10 @@ export default function DonateScene() {
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.8, ease, delay: 0.16 }}
         >
-          We&rsquo;re student-run, so nearly every dollar goes straight into
-          rescuing and shipping supplies. Your gift funds the next delivery —
-          and helps a clinic say yes to the next patient who walks in.
+          Hospitals give us the surplus. What it costs to store a pallet, verify
+          it, and put it on a truck is the part that needs funding — and that
+          is where a gift goes. {TOTALS.suppliesValueExact} in supplies has
+          reached clinics this way.
         </motion.p>
 
         <motion.div

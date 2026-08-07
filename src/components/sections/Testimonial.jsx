@@ -1,5 +1,10 @@
 import Reveal from '../ui/Reveal.jsx';
 import clinicPhoto from '../../assets/images/12dd519c-c348-407b-b191-8031453d39c2-1-105-c.jpg';
+import { PRESS_ITEMS } from '../../data/press.js';
+
+// A real, sourced quote — not a composed one. Attribution and link
+// come from the press record so they stay verifiable.
+const SOURCE = PRESS_ITEMS.find((p) => p.id === 'msu-today-sandler');
 
 export default function Testimonial() {
   return (
@@ -8,25 +13,28 @@ export default function Testimonial() {
         <Reveal className="testimonial-split__media">
           <img
             src={clinicPhoto}
-            alt="A Blueprints volunteer hand-delivering a box of medical supplies at Hope Clinic"
+            alt="Blueprints volunteers handling boxes of recovered medical supplies"
             loading="lazy"
           />
           <span className="testimonial-split__caption">
-            Delivery day at Hope Clinic — Ypsilanti, Michigan
+            Supplies staged for delivery to a partner clinic
           </span>
         </Reveal>
 
         <Reveal className="testimonial-split__body" delay={0.12}>
           <div className="testimonial__mark" aria-hidden="true">&ldquo;</div>
           <blockquote className="testimonial__quote">
-            The supplies Blueprints for Pangaea delivered let us keep our doors
-            open — and our care free — for the families who count on us.
+            Originally, I wanted to join a student organization because I felt it was a simple way
+            to make a difference.
           </blockquote>
           <div className="testimonial__author">
-            <div className="testimonial__avatar" aria-hidden="true">HC</div>
+            <div className="testimonial__avatar" aria-hidden="true">MS</div>
             <div>
-              <div className="testimonial__name">Clinic Partner</div>
-              <div className="testimonial__role">Hope Clinic · Ypsilanti, MI</div>
+              <div className="testimonial__name">Max Sandler</div>
+              <div className="testimonial__role">
+                Michigan State chapter · via{' '}
+                <a href={SOURCE.url} target="_blank" rel="noreferrer">MSUToday</a>
+              </div>
             </div>
           </div>
         </Reveal>

@@ -1,20 +1,70 @@
-// Headline hero stats (the X/X/X strip under the hero).
+// ============================================================
+// TOTALS — the single source of truth for every number on the
+// site. Never hardcode a statistic in a component; derive it
+// from here so one edit updates every surface.
+//
+// Provenance / conflicts resolved (live site, Aug 2026):
+//  · suppliesValue: $9,077,500.09 appears on the home and impact
+//    pages and is the most specific figure published. The Mission
+//    page's Operations blurb says "over $8 million" — that is
+//    department-scoped and older, so it is not used as the total.
+//  · chapters: the About Us page states "11 Active Chapters &
+//    150+ Members". The home page's "10+ National Chapters" is
+//    the older, rounded-down phrasing. 11 is used.
+//    Rutgers is not a 12th chapter — Rutgers students lead the
+//    Greater New Jersey chapter. UC Berkeley is an emerging 2025
+//    chapter and is tracked in chapters.js, not in this count.
+//  · wasteTons: 5 million tons ≈ 10 billion pounds of unused
+//    medical supplies discarded by the U.S. system each year.
+// ============================================================
+
+export const TOTALS = {
+  suppliesValue: 9_077_500.09,
+  suppliesValueExact: '$9,077,500.09',
+  suppliesValueShort: '$9M+',
+  countries: 15,
+  chapters: 11,
+  members: 150,
+  founded: 2013,
+  wasteTons: 5_000_000,
+  wastePounds: 10_000_000_000,
+  // Project C.U.R.E. partnership, expanded winter 2017.
+  projectCureValue: 2_000_000,
+  projectCureSince: 2017,
+};
+
+const yearsOfImpact = new Date().getFullYear() - TOTALS.founded;
+
+// Hero strip — three headline proof points.
 export const HERO_STATS = [
-  { label: 'Pounds of Medical Supplies Delivered', value: '20K+' },
-  { label: 'Countries Reached',                    value: '15+' },
-  { label: 'Chapters Across the Nation',           value: '11' },
+  { value: TOTALS.suppliesValueShort, label: 'In medical supplies redistributed' },
+  { value: `${TOTALS.countries}+`,    label: 'Countries reached' },
+  { value: `${TOTALS.chapters}`,      label: 'University chapters' },
 ];
 
-// "Our Global Impact" stats (navy section).
+// "Our Global Impact" band.
 export const IMPACT_STATS = [
-  { value: '12+',  label: 'Years of Impact',                sub: 'Founded 2013' },
-  { value: '15+',  label: 'Countries Reached',              sub: 'Across 5 continents' },
-  { value: '$9M+', label: 'Medical Supplies Redistributed', sub: '$9,077,500.09 and counting' },
+  {
+    value: TOTALS.suppliesValueShort,
+    label: 'Medical supplies redistributed',
+    sub: `${TOTALS.suppliesValueExact} and counting`,
+  },
+  {
+    value: `${TOTALS.countries}+`,
+    label: 'Countries reached',
+    sub: 'Across five continents',
+  },
+  {
+    value: `${yearsOfImpact}+`,
+    label: 'Years of impact',
+    sub: `Founded ${TOTALS.founded} at the University of Michigan`,
+  },
 ];
 
-// Kept for the legacy <Stats /> / <StatCounter /> components.
+// Animated count-ups (<StatCounter />).
 export const HEADLINE_STATS = [
-  { label: 'Supplies redistributed', value: 9.07, prefix: '$', suffix: 'M+' },
-  { label: 'Countries served',       value: 15,   prefix: '',  suffix: '+' },
-  { label: 'National chapters',      value: 11,   prefix: '',  suffix: '+' },
+  { label: 'Supplies redistributed', value: 9.07,               prefix: '$', suffix: 'M+' },
+  { label: 'Countries served',       value: TOTALS.countries,   prefix: '',  suffix: '+' },
+  { label: 'University chapters',    value: TOTALS.chapters,    prefix: '',  suffix: '' },
+  { label: 'Student members',        value: TOTALS.members,     prefix: '',  suffix: '+' },
 ];

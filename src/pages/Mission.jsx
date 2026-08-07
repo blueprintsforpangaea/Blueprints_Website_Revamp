@@ -1,81 +1,59 @@
 import { Link } from 'react-router-dom';
 import PageHeader from '../components/layout/PageHeader.jsx';
 import Reveal from '../components/ui/Reveal.jsx';
-
-const VALUES = [
-  { num: '01', title: 'Dignity First', body: 'Every community deserves quality care. We deliver supplies with respect, never as charity-for-show.' },
-  { num: '02', title: 'Zero Waste', body: 'Usable supplies belong in clinics, not landfills. Sustainability is built into our model.' },
-  { num: '03', title: 'Student-Led', body: 'Real responsibility in students’ hands — logistics, partnerships, and impact, all run by young leaders.' },
-  { num: '04', title: 'Radical Transparency', body: 'We track and report what we ship, where it goes, and the value delivered — down to the dollar.' },
-];
-
-const STEPS = [
-  { num: '01', title: 'Partner', body: 'Relationships with hospitals and suppliers with surplus, in-date inventory.' },
-  { num: '02', title: 'Collect', body: 'Volunteers recover usable supplies before they enter the waste stream.' },
-  { num: '03', title: 'Verify', body: 'Each item sorted, inspected, and cataloged for safe redistribution.' },
-  { num: '04', title: 'Ship', body: 'Delivered to vetted clinics and relief partners worldwide.' },
-];
+import { DEPARTMENTS, PIPELINE } from '../data/departments.js';
+import { TOTALS } from '../data/stats.js';
 
 export default function Mission() {
   return (
     <article>
-      <PageHeader eyebrow="Our Mission" title="Redistributing surplus into care">
-        Blueprints for Pangaea recovers unused medical supplies from areas of surplus and
-        redistributes them to resource-limited communities — saving lives one box at a time.
+      <PageHeader eyebrow="Our mission" title="Reallocating surplus into care">
+        Blueprints for Pangaea is a nonprofit medical surplus recovery organization that
+        reallocates unused medical supplies from areas of surplus to communities in need.
       </PageHeader>
 
+      {/* ---------- The contradiction we exist to solve ---------- */}
       <section className="section">
         <div className="container split">
           <Reveal className="prose">
-            <span className="eyebrow">The Vision</span>
-            <h2 className="section-title" style={{ margin: '1rem 0 1.5rem' }}>A world where no clinic goes without.</h2>
+            <span className="eyebrow">The problem</span>
+            <h2 className="section-title" style={{ margin: '1rem 0 1.5rem' }}>
+              Two facts that should not coexist.
+            </h2>
             <p>
-              More than <strong>5 million tons</strong> of medical supplies are wasted every year while
-              clinics around the world lack the basics. That contradiction is the problem we exist to solve.
+              Around the world, billions of people lack access to basic medical supplies and
+              equipment. Meanwhile the U.S. healthcare system discards over{' '}
+              <strong>5 million tons</strong> — roughly <strong>10 billion pounds</strong> — of
+              unused medical supplies every year.
             </p>
             <p>
-              We imagine a global network where surplus flows efficiently to need — where a box of sutures
-              destined for a landfill instead reaches a surgeon who needs it, anywhere on earth.
+              Through our growing network of university chapters and high school clubs, we collect
+              that surplus and redistribute it to underserved communities locally and
+              internationally.
             </p>
           </Reveal>
           <Reveal delay={0.15}>
             <div className="media-frame">
               <div className="media-frame__pattern" />
               <div className="media-frame__stat">
-                <div className="big">$9M+</div>
-                <span className="cap">Supplies redistributed to date</span>
+                <div className="big">{(TOTALS.wastePounds / 1_000_000_000).toFixed(0)}B</div>
+                <span className="cap">Pounds of unused supplies discarded each year in the U.S.</span>
               </div>
             </div>
           </Reveal>
         </div>
       </section>
 
+      {/* ---------- The four-step pipeline ---------- */}
       <section className="section section--soft">
         <div className="container">
           <Reveal className="section-head section-head--center">
-            <span className="eyebrow eyebrow--center">Our Values</span>
-            <h2 className="section-title">What we stand for</h2>
-          </Reveal>
-          <div className="grid-4">
-            {VALUES.map((v, i) => (
-              <Reveal as="div" className="value-card" key={v.num} delay={(i % 4) * 0.08}>
-                <div className="value-card__num">{v.num}</div>
-                <h3>{v.title}</h3>
-                <p>{v.body}</p>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container">
-          <Reveal className="section-head section-head--center">
-            <span className="eyebrow eyebrow--center">How We Work</span>
-            <h2 className="section-title">The pipeline</h2>
+            <span className="eyebrow eyebrow--center">How we work</span>
+            <h2 className="section-title">From surplus to shipment</h2>
+            <p>Four steps, run end to end by students.</p>
           </Reveal>
           <div className="steps">
-            {STEPS.map((s, i) => (
+            {PIPELINE.map((s, i) => (
               <Reveal as="div" className="step" key={s.num} delay={i * 0.1}>
                 <div className="step__num">{s.num}</div>
                 <div className="step__line" />
@@ -84,8 +62,57 @@ export default function Mission() {
               </Reveal>
             ))}
           </div>
-          <div style={{ textAlign: 'center', marginTop: '3rem' }}>
-            <Link to="/impact" className="btn btn--dark btn--lg">See Where It Goes <span className="arrow">→</span></Link>
+        </div>
+      </section>
+
+      {/* ---------- Departments ---------- */}
+      <section className="section">
+        <div className="container">
+          <Reveal className="section-head section-head--center">
+            <span className="eyebrow eyebrow--center">Our departments</span>
+            <h2 className="section-title">Four teams, one supply chain</h2>
+            <p>
+              Every member joins a department. Each one owns a distinct part of the work — and
+              ships projects of its own.
+            </p>
+          </Reveal>
+
+          <div className="dept-list">
+            {DEPARTMENTS.map((d, i) => (
+              <Reveal as="section" className="dept" key={d.id} delay={(i % 2) * 0.08}>
+                <div className="dept__head">
+                  <h3 className="dept__name">{d.name}</h3>
+                  <p className="dept__charter">{d.charter}</p>
+                </div>
+
+                <div className="dept__body">
+                  <div className="dept__block">
+                    <span className="dept__label">What the team owns</span>
+                    <ul className="dept__responsibilities">
+                      {d.responsibilities.map((r) => (
+                        <li key={r}>{r}</li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="dept__block">
+                    <span className="dept__label">Recent projects</span>
+                    {d.projects.map((p) => (
+                      <div className="dept__project" key={p.name}>
+                        <strong>{p.name}</strong>
+                        <p>{p.detail}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          <div style={{ textAlign: 'center', marginTop: '3.5rem' }}>
+            <Link to="/impact" className="btn btn--dark btn--lg">
+              See where it goes <span className="arrow">→</span>
+            </Link>
           </div>
         </div>
       </section>

@@ -8,6 +8,13 @@ const Globe = lazy(() => import('react-globe.gl'));
 const SKY = '#cbdbff';   // Light Blue 1 — HQ marker + atmosphere
 const BLUE = '#0069f3';  // Medium Blue 1 — destination clinics
 
+// The HQ appears in DESTINATIONS too (it receives local shipments);
+// exclude it when drawing arcs so we don't draw Ann Arbor → Ann Arbor.
+const HQ_CITY = 'Ann Arbor, MI';
+
+// Distinct countries/territories with a documented delivery.
+const COUNTRY_COUNT = new Set(DESTINATIONS.map((d) => d.country)).size;
+
 function GlobeCanvas({ size }) {
   const globeRef = useRef(null);
 
@@ -28,7 +35,7 @@ function GlobeCanvas({ size }) {
 
   const arcs = useMemo(
     () =>
-      DESTINATIONS.filter((d) => d.region !== 'USA' || d.city !== 'Ann Arbor, MI').map((d) => ({
+      DESTINATIONS.filter((d) => d.city !== HQ_CITY).map((d) => ({
         startLat: HQ.lat,
         startLng: HQ.lng,
         endLat: d.lat,
@@ -69,7 +76,7 @@ function GlobeCanvas({ size }) {
       pointColor="color"
       pointAltitude={0.012}
       pointRadius="size"
-      pointLabel={(d) => (d.isHQ ? '📍 Ann Arbor — HQ' : `📦 ${d.name}`)}
+      pointLabel={(d) => (d.isHQ ? 'Ann Arbor — Headquarters' : d.name)}
       // Pulsing HQ ring
       ringsData={[HQ]}
       ringLat="lat"
@@ -128,9 +135,9 @@ export default function ImpactGlobe() {
         <div className="globe-fallback">
           <div>
             <strong style={{ display: 'block', color: '#fff', fontSize: '1.1rem', marginBottom: '0.5rem' }}>
-              16 destinations · 5 continents
+              {DESTINATIONS.length} destinations · {COUNTRY_COUNT} countries
             </strong>
-            From Ann Arbor to clinics worldwide — interactive globe requires WebGL.
+            From Ann Arbor to clinics worldwide — the interactive globe requires WebGL.
           </div>
         </div>
       ) : (
