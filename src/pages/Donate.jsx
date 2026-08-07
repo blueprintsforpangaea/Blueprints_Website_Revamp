@@ -18,7 +18,10 @@ export default function Donate() {
 
   const chosen = custom ? Number(custom) : amount;
   const valid = Number.isFinite(chosen) && chosen > 0;
-  // Givebutter reads an `amount` query param to pre-fill checkout.
+  // Givebutter accepts an `amount` param, but only pre-selects values
+  // already configured on the campaign — a custom amount won't carry.
+  // So we pass it along and let checkout confirm, rather than
+  // promising the figure survives the handoff.
   const href = valid ? `${DONATE_URL}?amount=${chosen}` : DONATE_URL;
 
   return (
@@ -70,11 +73,11 @@ export default function Donate() {
               className="btn btn--primary btn--lg"
               style={{ width: '100%', justifyContent: 'center' }}
             >
-              {valid ? `Continue with $${chosen}` : 'Continue to Givebutter'}
-              <span className="arrow">→</span>
+              Continue to Givebutter <span className="arrow">→</span>
             </a>
 
             <p className="donate-card__fine">
+              {valid && `You'll confirm your $${chosen} gift on the next step. `}
               Contributions are tax-deductible to the extent allowed by law. Givebutter issues your
               receipt.
             </p>

@@ -71,12 +71,14 @@ function ChapterDetail({ chapter }) {
               <img className="chapter-detail__seal" src={chapter.logo} alt="" />
             )}
 
+            {/* Chapters that haven't published a description get the one
+                fact we do have, rather than an invented sentence. */}
             {chapter.blurb ? (
               <p className="lead">{chapter.blurb}</p>
             ) : (
               <p className="lead">
-                Our {chapter.name} chapter joined the network in {chapter.since} and is building
-                its local partnerships and first shipments now.
+                {chapter.name} joined the Blueprints network in {chapter.since}. Reach out to the
+                chapter directly to learn what they're working on.
               </p>
             )}
 

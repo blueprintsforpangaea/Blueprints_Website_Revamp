@@ -43,32 +43,34 @@ export const DESTINATIONS = [
   { city: 'Miami, FL',       country: 'United States',      region: 'United States', lat: 25.7617,  lng: -80.1918 },
 ];
 
-// Region rollups shown beside the globe. `countries` counts the
-// distinct countries/territories above, so the two stay in sync.
+// Distinct countries/territories with a delivery in a given region.
+// Derived, never hand-counted — the rollups below cannot drift out of
+// sync with DESTINATIONS.
+const countryCount = (region) =>
+  new Set(
+    DESTINATIONS.filter((d) => d.region === region).map((d) => d.country),
+  ).size;
+
+// Region rollups shown beside the globe.
 export const REGION_SUMMARY = [
   {
     region: 'The Americas',
-    countries: 6,
     blurb: 'Clinics and health ministries across Latin America and the Caribbean.',
   },
   {
     region: 'Africa',
-    countries: 2,
     blurb: 'Hospital networks in Nigeria and Ghana, including a 60-pallet delivery.',
   },
   {
     region: 'Asia',
-    countries: 3,
     blurb: 'Earthquake and pandemic relief through SAMS and regional partners.',
   },
   {
     region: 'Europe',
-    countries: 1,
     blurb: 'Wartime medical aid for Ukraine.',
   },
   {
     region: 'United States',
-    countries: 1,
     blurb: 'Free clinics, shelters, and street-medicine teams in our chapter cities.',
   },
-];
+].map((r) => ({ ...r, countries: countryCount(r.region) }));
