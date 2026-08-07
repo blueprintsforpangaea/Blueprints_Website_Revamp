@@ -3,6 +3,7 @@ import PageHeader from '../components/layout/PageHeader.jsx';
 import ChaptersList from '../components/sections/ChaptersList.jsx';
 import Reveal from '../components/ui/Reveal.jsx';
 import { CHAPTERS, EMERGING_CHAPTERS } from '../data/chapters.js';
+import { logoFor } from '../assets/chapters/logos.js';
 import { TOTALS } from '../data/stats.js';
 
 export default function Chapters() {
@@ -67,8 +68,8 @@ function ChapterDetail({ chapter }) {
       <section className="section">
         <div className="container split">
           <Reveal className="prose">
-            {chapter.logo && (
-              <img className="chapter-detail__seal" src={chapter.logo} alt="" />
+            {logoFor(chapter.slug) && (
+              <img className="chapter-detail__seal" src={logoFor(chapter.slug)} alt="" />
             )}
 
             {/* Chapters that haven't published a description get the one

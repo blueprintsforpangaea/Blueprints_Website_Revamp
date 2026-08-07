@@ -1,14 +1,3 @@
-import umichLogo from '../assets/chapters/umich.png';
-import msuLogo from '../assets/chapters/msu.png';
-import osuLogo from '../assets/chapters/osu.png';
-import wayneStateLogo from '../assets/chapters/wayne-state.png';
-import uscLogo from '../assets/chapters/usc.png';
-import washuLogo from '../assets/chapters/washu.png';
-import santaClaraLogo from '../assets/chapters/santa-clara.png';
-import nyuLogo from '../assets/chapters/nyu.png';
-import miamiMedLogo from '../assets/chapters/miami-med.png';
-import unomahaLogo from '../assets/chapters/unomaha.png';
-import greaterNjLogo from '../assets/chapters/greater-nj.png';
 
 // ============================================================
 // 11 active chapters. Every `since` year, member count, blurb,
@@ -19,6 +8,9 @@ import greaterNjLogo from '../assets/chapters/greater-nj.png';
 // the Greater New Jersey chapter. UC Berkeley is an emerging
 // 2025 chapter with no page yet (see EMERGING_CHAPTERS).
 //
+// Seals live in src/assets/chapters/logos.js, keyed by slug, so this
+// module stays pure data importable outside the bundler.
+//
 // Fields are intentionally optional: a chapter that has not
 // published a member count or shipment value simply omits it
 // rather than carrying a placeholder.
@@ -28,7 +20,6 @@ export const CHAPTERS = [
     slug: 'umich',
     name: 'University of Michigan',
     location: 'Ann Arbor, MI',
-    logo: umichLogo,
     since: 2013,
     isHQ: true,
     lead: 'Aakash Gummidela, Chief Executive Officer',
@@ -49,7 +40,6 @@ export const CHAPTERS = [
     slug: 'msu',
     name: 'Michigan State University',
     location: 'East Lansing, MI',
-    logo: msuLogo,
     since: 2016,
     members: '15–20',
     lead: 'Maya Marina, President',
@@ -63,7 +53,6 @@ export const CHAPTERS = [
     slug: 'osu',
     name: 'Ohio State University',
     location: 'Columbus, OH',
-    logo: osuLogo,
     since: 2016,
     members: '25–30',
     lead: 'Siddharth Varman & Naomi Mukka, Presidents',
@@ -79,7 +68,6 @@ export const CHAPTERS = [
     slug: 'wayne-state',
     name: 'Wayne State University',
     location: 'Detroit, MI',
-    logo: wayneStateLogo,
     since: 2017,
     members: '~50',
     lead: 'Deidre Nicole Crockett, President',
@@ -93,7 +81,6 @@ export const CHAPTERS = [
     slug: 'usc',
     name: 'University of Southern California',
     location: 'Los Angeles, CA',
-    logo: uscLogo,
     since: 2020,
     members: '~36',
     valueShipped: '$2,134,415.78',
@@ -110,7 +97,6 @@ export const CHAPTERS = [
     slug: 'washu',
     name: 'Washington University in St. Louis',
     location: 'St. Louis, MO',
-    logo: washuLogo,
     since: 2022,
     members: '~40',
     lead: 'Alina Alqazaha, President',
@@ -123,7 +109,6 @@ export const CHAPTERS = [
     slug: 'santa-clara',
     name: 'Santa Clara University',
     location: 'Santa Clara, CA',
-    logo: santaClaraLogo,
     since: 2023,
     members: '~20',
     lead: 'Senit Ghile, President',
@@ -137,7 +122,6 @@ export const CHAPTERS = [
     slug: 'nyu',
     name: 'New York University',
     location: 'New York, NY',
-    logo: nyuLogo,
     since: 2024,
     lead: 'Keya Chhabra, President',
     email: 'kc5125@nyu.edu',
@@ -147,7 +131,6 @@ export const CHAPTERS = [
     slug: 'miami-med',
     name: 'University of Miami Medical School',
     location: 'Miami, FL',
-    logo: miamiMedLogo,
     since: 2023,
     members: '9',
     lead: 'Alex Pedowitz, President',
@@ -163,7 +146,6 @@ export const CHAPTERS = [
     slug: 'unomaha',
     name: 'University of Nebraska Omaha',
     location: 'Omaha, NE',
-    logo: unomahaLogo,
     since: 2025,
     lead: 'Abby Lauder & Amina Hussain, Presidents',
     email: 'contact@b4pglobal.org',
@@ -173,7 +155,6 @@ export const CHAPTERS = [
     slug: 'greater-nj',
     name: 'Greater New Jersey',
     location: 'New Jersey',
-    logo: greaterNjLogo,
     since: 2020,
     valueShipped: '$15,000+',
     lead: 'Pranav Manchiraju, President',

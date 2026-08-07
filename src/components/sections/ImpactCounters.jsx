@@ -4,14 +4,10 @@ import { TOTALS } from '../../data/stats.js';
 
 // Every figure derives from TOTALS — see src/data/stats.js.
 const STATS = [
-  {
-    to: Math.round(TOTALS.suppliesValue),
-    prefix: '$',
-    label: 'in rescued supplies delivered to clinics that need them',
-  },
-  { to: TOTALS.countries, suffix: '+', label: 'countries reached across five continents' },
-  { to: TOTALS.chapters, label: 'student chapters nationwide, and growing' },
-  { to: TOTALS.members, suffix: '+', label: 'students running the supply chain' },
+  { to: Math.round(TOTALS.suppliesValue), prefix: '$', label: 'In supplies redistributed' },
+  { to: TOTALS.countries, suffix: '+', label: 'Countries reached' },
+  { to: TOTALS.chapters, label: 'University chapters' },
+  { to: TOTALS.members, suffix: '+', label: 'Student members' },
 ];
 
 function Counter({ to, prefix = '', suffix = '' }) {
@@ -48,8 +44,8 @@ export default function ImpactCounters() {
     <section className="counters curve-top">
       <div className="container">
         <div className="counters__head">
-          <span className="eyebrow eyebrow--center">By the numbers</span>
-          <h2 className="counters__title">Small acts add up.<br />Here&rsquo;s the proof.</h2>
+          <span className="eyebrow">Impact to date</span>
+          <h2 className="counters__title">Where the work has landed.</h2>
         </div>
         <div className="counters__grid">
           {STATS.map((s) => (

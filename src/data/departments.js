@@ -110,29 +110,35 @@ export const DEPARTMENTS = [
   },
 ];
 
-// The four-step supply chain, verbatim from the Mission page.
+// The four-step supply chain. `body` is verbatim from the Mission page
+// and is what that page renders; `short` is the one-line version used
+// on the landing page, where the full text is more than it needs.
 export const PIPELINE = [
   {
     num: '01',
     title: 'Partner',
+    short: 'Chapters partner with university medical centers and local clinics that have surplus.',
     body:
       'Our chapters at universities across the country partner with affiliated university medical centers and other local clinics to collect surplus medical supplies.',
   },
   {
     num: '02',
     title: 'Collect',
+    short: 'Supplies come to a warehouse, where students inventory and store them.',
     body:
       'These supplies are transported to one of our storage warehouses, where they are inventoried and stored until a sufficient quantity for shipment has been collected.',
   },
   {
     num: '03',
     title: 'Verify',
+    short: 'Every item is checked for quality and integrity, then sorted for shipment.',
     body:
       'We work with nonprofit partners to verify medical supply quality and integrity. Supplies are then sorted and prepared for shipment.',
   },
   {
     num: '04',
     title: 'Ship',
+    short: 'We arrange transport, and the supplies arrive free to the communities that need them.',
     body:
       'Blueprints for Pangaea — independently or via a nonprofit partner — arranges transport. These shipments are sent to communities in need across the globe.',
   },

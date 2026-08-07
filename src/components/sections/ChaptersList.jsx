@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import Reveal from '../ui/Reveal.jsx';
 import { CHAPTERS } from '../../data/chapters.js';
+import { logoFor } from '../../assets/chapters/logos.js';
 
 export default function ChaptersList() {
   return (
@@ -12,9 +13,9 @@ export default function ChaptersList() {
             className={`chapter-card ${chapter.isHQ ? 'chapter-card--hq' : ''}`}
           >
             {chapter.isHQ && <span className="chapter-card__badge">HQ</span>}
-            {chapter.logo && (
+            {logoFor(chapter.slug) && (
               <span className="chapter-card__seal">
-                <img src={chapter.logo} alt="" loading="lazy" />
+                <img src={logoFor(chapter.slug)} alt="" loading="lazy" />
               </span>
             )}
             <h3>{chapter.name}</h3>
