@@ -2,6 +2,7 @@ import { useParams, Link } from 'react-router-dom';
 import PageHeader from '../components/layout/PageHeader.jsx';
 import ChaptersList from '../components/sections/ChaptersList.jsx';
 import Reveal from '../components/ui/Reveal.jsx';
+import EmailLink from '../components/ui/EmailLink.jsx';
 import { CHAPTERS, EMERGING_CHAPTERS } from '../data/chapters.js';
 import { logoFor } from '../assets/chapters/logos.js';
 import { TOTALS } from '../data/stats.js';
@@ -91,10 +92,9 @@ function ChapterDetail({ chapter }) {
             )}
 
             {chapter.email && (
-              <div className="btn-row">
-                <a href={`mailto:${chapter.email}`} className="btn btn--dark">
-                  Email this chapter
-                </a>
+              <div className="chapter-detail__block">
+                <h3 className="label">Email this chapter</h3>
+                <EmailLink email={chapter.email} />
               </div>
             )}
           </Reveal>

@@ -42,12 +42,11 @@ export const ROUTES = [
   { id: 'hon', from: campus('osu'), to: city('Tegucigalpa') },
   { id: 'nga-usc', from: campus('usc'), to: city('Lagos') },
   { id: 'nga-wsu', from: campus('wayne-state'), to: city('Lagos') },
-  { id: 'syr', from: campus('umich'), to: city('Aleppo') },
 ];
 
 // Every other international delivery, drawn from headquarters for
 // the overview step.
-const FEATURED_CITIES = new Set(['Tegucigalpa', 'Lagos', 'Aleppo']);
+const FEATURED_CITIES = new Set(['Tegucigalpa', 'Lagos']);
 export const OTHER_ROUTES = DESTINATIONS.filter(
   (d) => d.region !== 'United States' && !FEATURED_CITIES.has(d.city),
 ).map((d) => ({
@@ -61,7 +60,7 @@ export const OTHER_ROUTES = DESTINATIONS.filter(
 // moves only as fast as you read. drift: 0 = Pangaea, 1 = today.
 // scale: 1 = whole globe. arcs: how much of each route is drawn.
 // pins: chapter dots. focus: routes that get a label.
-const ALL_ARCS = { hon: 1, 'nga-usc': 1, 'nga-wsu': 1, syr: 1, all: 1 };
+const ALL_ARCS = { hon: 1, 'nga-usc': 1, 'nga-wsu': 1, all: 1 };
 // Phones: the same story played on its own, in seconds, once the
 // globe scrolls into view (a pinned globe doesn't fit a phone).
 export const FILM = [
@@ -70,14 +69,14 @@ export const FILM = [
   { at: 5, drift: 1, lon: -40, lat: 22, scale: 1 },
   { at: 7.5, drift: 1, lon: -90, lat: 37, scale: 2.1, pins: 1 },
   { at: 9, drift: 1, lon: -90, lat: 37, scale: 2.1, pins: 1 },
-  { at: 12, drift: 1, lon: -32, lat: 24, scale: 1, pins: 0.7, arcs: ALL_ARCS, focus: ['hon', 'nga-usc', 'syr'] },
-  { at: 14, drift: 1, lon: -32, lat: 24, scale: 1, pins: 0.7, arcs: ALL_ARCS, focus: ['hon', 'nga-usc', 'syr'], spin: 0.4 },
+  { at: 12, drift: 1, lon: -32, lat: 24, scale: 1, pins: 0.7, arcs: ALL_ARCS, focus: ['hon', 'nga-usc', 'nga-wsu'] },
+  { at: 14, drift: 1, lon: -32, lat: 24, scale: 1, pins: 0.7, arcs: ALL_ARCS, focus: ['hon', 'nga-usc', 'nga-wsu'], spin: 0.4 },
 ];
 
 export const STEPS = [
   { id: 'hero', drift: 0, lon: -5, lat: 6, scale: 1, spin: 1 },
   { id: 'how', drift: 1, lon: -90, lat: 37, scale: 2.3, pins: 1 },
-  { id: 'where', drift: 1, lon: -32, lat: 24, scale: 1, pins: 0.7, arcs: ALL_ARCS, focus: ['hon', 'nga-usc', 'syr'] },
+  { id: 'where', drift: 1, lon: -32, lat: 24, scale: 1, pins: 0.7, arcs: ALL_ARCS, focus: ['hon', 'nga-usc', 'nga-wsu'] },
   { id: 'help', drift: 0, lon: -5, lat: 6, scale: 1, pins: 0.7, arcs: ALL_ARCS, spin: 1 },
 ];
 

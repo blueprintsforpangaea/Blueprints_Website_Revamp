@@ -1,6 +1,13 @@
 import { ORG } from './site.js';
 import { DEPARTMENT_LIST } from './departments.js';
 
+// Where volunteers sign up for a warehouse shift. Every volunteer
+// link on the site reads this one value. Paste the Calendly link
+// here; until then it falls back to the old SignUpGenius page.
+export const CALENDLY_URL = '';
+const SIGNUPGENIUS_URL = 'https://www.signupgenius.com/go/10C054BA4AA2AA1FBCF8-58352664-blueprints#/';
+export const VOLUNTEER_URL = CALENDLY_URL || SIGNUPGENIUS_URL;
+
 // ============================================================
 // The six real ways in, with the actual application forms.
 // Order matches the live Get Involved page.
@@ -35,7 +42,7 @@ export const PATHWAYS = [
     body:
       'Sort and catalog donated supplies at the warehouse. No experience needed, and B4P members run every session. Dress warmly.',
     cta: 'Sign up to volunteer',
-    url: 'https://www.signupgenius.com/go/10C054BA4AA2AA1FBCF8-58352664-blueprints#/',
+    url: VOLUNTEER_URL,
   },
   {
     id: 'internship',
@@ -73,9 +80,12 @@ export const PATHWAYS = [
 export const INTERNSHIP = {
   title: 'High School Summer Internship',
   commitment: '10–15 hours per week · hybrid or virtual',
-  eligibility: 'High schoolers at least 16 years old as of June 1',
+  eligibility: 'High school students or rising college freshmen',
   compensation: 'Unpaid',
-  deadline: 'June 15, 2026 · 11:59 PM',
+  // Set `open` to true and update `applications` when the form reopens.
+  open: false,
+  applications: 'Reopening SP/SU 2027',
+  closedNote: 'Applications reopen in SP/SU 2027.',
   url: 'https://forms.gle/WZF94ze2WRebMKTN7',
 };
 

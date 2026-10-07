@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom';
 import PageHeader from '../components/layout/PageHeader.jsx';
 import Reveal from '../components/ui/Reveal.jsx';
-import { DEPARTMENTS, DEPARTMENT_COUNT_WORD, PIPELINE } from '../data/departments.js';
-import { C_SUITE, VICE_PRESIDENTS } from '../data/team.js';
+import { DEPARTMENTS, PIPELINE } from '../data/departments.js';
 import { TOTALS } from '../data/stats.js';
 import vanPhoto from '../assets/images/efd3cc03-681e-468b-8608-f746800f9dc2dsc-0260.jpg';
 
-const ROSTER = [...C_SUITE, ...VICE_PRESIDENTS];
-const leadsFor = (dept) =>
-  (dept.leads || []).map((role) => ROSTER.find((p) => p.role === role)).filter(Boolean);
+// Departments with published copy get a card; the rest are named in
+// one line until their teams write a description.
+const DESCRIBED = DEPARTMENTS.filter((d) => d.charter);
+const UNDESCRIBED = DEPARTMENTS.filter((d) => !d.charter);
 
 export default function Mission() {
   return (
@@ -67,56 +67,35 @@ export default function Mission() {
         <div className="container">
           <Reveal className="section-head">
             <h2 className="section-title">Our departments</h2>
-            <p>
-              Every member at headquarters joins one of {DEPARTMENT_COUNT_WORD} departments.
-            </p>
           </Reveal>
 
-          <div className="dept-list">
-            {DEPARTMENTS.map((d) => {
-              const leads = leadsFor(d);
-              return (
-                <Reveal as="section" className="dept" key={d.id}>
-                  <div className="dept__head">
-                    <h3 className="dept__name">{d.name}</h3>
-                    {d.charter && <p className="dept__charter">{d.charter}</p>}
-                    {leads.length > 0 && (
-                      <p className="dept__lead">
-                        {leads.map((p) => `${p.name}, ${p.role}`).join(' · ')}
-                      </p>
-                    )}
-                  </div>
-
-                  {(d.responsibilities || d.projects) && (
-                    <div className="dept__body">
-                      {d.responsibilities && (
-                        <div>
-                          <h4 className="label">Responsible for</h4>
-                          <ul className="dept__responsibilities">
-                            {d.responsibilities.map((r) => (
-                              <li key={r}>{r}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-
-                      {d.projects && (
-                        <div>
-                          <h4 className="label">Recent projects</h4>
-                          {d.projects.map((p) => (
-                            <div className="dept__project" key={p.name}>
-                              <strong>{p.name}</strong>
-                              <p>{p.detail}</p>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </Reveal>
-              );
-            })}
+          <div className="dept-grid">
+            {DESCRIBED.map((d, i) => (
+              <Reveal as="section" className="dept" key={d.id} delay={(i % 2) * 0.06}>
+                <h3 className="dept__name">{d.name}</h3>
+                <p className="dept__charter">{d.charter}</p>
+                {d.responsibilities && (
+                  <p className="dept__line">
+                    <strong>Responsible for:</strong> {d.responsibilities.join(', ')}.
+                  </p>
+                )}
+                {d.projects && (
+                  <ul className="dept__projects">
+                    {d.projects.map((p) => (
+                      <li key={p.name}><strong>{p.name}.</strong> {p.detail}</li>
+                    ))}
+                  </ul>
+                )}
+              </Reveal>
+            ))}
           </div>
+
+          {UNDESCRIBED.length > 0 && (
+            <p className="dept-more">
+              Headquarters also has {new Intl.ListFormat('en').format(UNDESCRIBED.map((d) => d.name))}{' '}
+              {UNDESCRIBED.length > 1 ? 'departments' : 'department'}.
+            </p>
+          )}
 
           <div className="page-next">
             <Link to="/impact" className="link-arrow">

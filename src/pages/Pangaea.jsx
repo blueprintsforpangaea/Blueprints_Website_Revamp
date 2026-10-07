@@ -19,7 +19,7 @@ const PROCESS = [
 const SHIPMENTS = [
   ['Honduras', 'A shipment every month, run by our Ohio State chapter.'],
   ['Nigeria', 'More than 60 pallets, worth over $573,000, in July 2025.'],
-  ['Syria', 'Three shipments, including 3,000 pounds after the 2023 earthquake.'],
+  ['Ghana', 'A 20-foot container of medical aid, with the Ghana Ministry of Health.'],
 ];
 
 export default function Pangaea() {

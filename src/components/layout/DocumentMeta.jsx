@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { metaForPath } from '../../routes/meta.js';
+import { ORG } from '../../data/site.js';
 
 const SITE = 'https://www.blueprintsforpangaea.org';
 
@@ -24,7 +25,8 @@ export default function DocumentMeta() {
   useEffect(() => {
     const { title, description } = metaForPath(pathname);
 
-    document.title = title;
+    // The tab always reads just the organization's name.
+    document.title = ORG.name;
     setMeta('meta[name="description"]', 'name', description);
     setMeta('meta[property="og:title"]', 'property', title);
     setMeta('meta[property="og:description"]', 'property', description);
