@@ -40,7 +40,8 @@ export default function Pangaea() {
             </p>
             <p>
               Our name and logo come from Pangaea, the one landmass that held every continent about
-              200 million years ago. Scroll and the map follows along.
+              200 million years ago.{' '}
+              <span className="pg-wide-only">Scroll and the map follows along.</span>
             </p>
           </div>
         </aside>
