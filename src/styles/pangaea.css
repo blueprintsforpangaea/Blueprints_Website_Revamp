@@ -75,7 +75,7 @@
 .pg-list strong { color: var(--pg-ink); font-weight: 800; }
 .pg-list--num li { display: grid; grid-template-columns: 2rem 1fr; }
 .pg-list__num { font-weight: 800; color: var(--pg-ink); }
-.pg-link { display: inline-block; margin-top: 1rem; }
+.pg-link { display: inline-block; margin-top: 0.75rem; padding-block: 0.4rem; }
 .pg-small { font-size: 1.05rem; }
 
 /* ---------- small screens: map band pinned under the nav ---------- */
