@@ -92,14 +92,6 @@ export const SHIPMENTS = [
 
   // ---------- Asia ----------
   {
-    id: 'syria',
-    place: 'Syria',
-    region: 'Asia',
-    partner: 'Syrian American Medical Society',
-    figure: '16+ pallets',
-    detail: 'Three shipments, including 3,000 lbs sent after the earthquake in northern Syria.',
-  },
-  {
     id: 'india',
     place: 'India',
     region: 'Asia',

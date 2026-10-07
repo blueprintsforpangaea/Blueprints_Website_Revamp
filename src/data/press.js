@@ -75,7 +75,7 @@ export const PRESS_ITEMS = [
     id: 'overseas-hospitals',
     headline: 'Students send supplies to overseas hospitals',
     excerpt:
-      'Coverage of the 3,000 pounds of medical supplies sent to northern Syria after the earthquake, and shipments to Hospital General de México.',
+      'Coverage of our shipments to hospitals overseas, including Hospital General de México.',
   },
   {
     id: 'college-towns',

@@ -26,7 +26,6 @@ export const DESTINATIONS = [
   { city: 'Tegucigalpa',     country: 'Honduras',           region: 'The Americas',  lat: 14.0723,  lng: -87.1921 },
 
   // ---------- Asia ----------
-  { city: 'Aleppo',          country: 'Syria',              region: 'Asia',          lat: 36.2021,  lng: 37.1343 },
   { city: 'Ahmedabad',       country: 'India',              region: 'Asia',          lat: 23.0225,  lng: 72.5714 },
   { city: 'Yangon',          country: 'Myanmar',            region: 'Asia',          lat: 16.8409,  lng: 96.1735 },
 
@@ -63,7 +62,7 @@ export const REGION_SUMMARY = [
   },
   {
     region: 'Asia',
-    blurb: 'Earthquake and pandemic relief through SAMS and regional partners.',
+    blurb: 'Pandemic relief for India and dental supplies for Myanmar.',
   },
   {
     region: 'Europe',

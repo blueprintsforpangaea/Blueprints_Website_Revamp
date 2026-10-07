@@ -29,7 +29,6 @@ const LABEL = {
   Ecuador: [-10, 5, 'end'],
   Ghana: [-10, 16, 'end'],
   Nigeria: [10, 16, 'start'],
-  Syria: [10, 5, 'start'],
   Ukraine: [10, -4, 'start'],
   India: [10, 5, 'start'],
   Myanmar: [10, 5, 'start'],

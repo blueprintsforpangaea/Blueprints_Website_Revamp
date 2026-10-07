@@ -13,14 +13,6 @@ export const PARTNERSHIPS = [
     stat: 'Over $2M in supplies reallocated together',
   },
   {
-    id: 'sams',
-    name: 'Syrian American Medical Society',
-    est: '2022',
-    description:
-      'SAMS delivers medical relief to displaced communities. Our shipments help stock the field clinics and hospitals it operates in crisis settings.',
-    stat: 'Three shipments · 16+ pallets',
-  },
-  {
     id: 'drugaid',
     name: 'DrugAID Africa',
     est: '2024',
