@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { geoOrthographic, geoPath, geoGraticule, geoGraticule10, geoInterpolate, geoDistance } from 'd3-geo';
 import { plateMatrices, plateGeometry, movePoint, LOGO, PLATE_COLOR } from './plates.js';
-import { STEPS, ROUTES, OTHER_ROUTES, CHAPTER_PINS } from './story.js';
+import { STEPS, FILM, ROUTES, OTHER_ROUTES, CHAPTER_PINS } from './story.js';
 
 const RAD = Math.PI / 180;
 // Navy ink on warm drafting paper.
@@ -95,7 +95,9 @@ function label(ctx, x, y, text, sub, alpha, dir = 1) {
  * state of whichever step you're reading. Scrolling is never
  * intercepted, and the page is only as long as its text.
  */
-export default function DriftGlobe({ stepsRef, yearsRef }) {
+// `film`: play FILM once on first view instead of following scroll
+// (phones). Changing `playKey` replays it.
+export default function DriftGlobe({ stepsRef, yearsRef, film = false, playKey = 0 }) {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -105,9 +107,12 @@ export default function DriftGlobe({ stepsRef, yearsRef }) {
     const proj = geoOrthographic().clipAngle(90).precision(0.4);
     const path = geoPath(proj, ctx);
 
-    let w = 0, h = 0, dpr = 1, visible = true, raf = 0, last = performance.now();
+    let w = 0, h = 0, dpr = 1, raf = 0, last = performance.now();
+    // A film waits for its visibility check before starting.
+    let visible = !film;
     let anchors = [], spinOffset = 0, yearsShown = '';
     let geoCache = { drift: -1, geo: null, mats: null };
+    let filmStart = null;
     const cur = blend(STEPS[0], STEPS[0], 0);
 
     const measure = () => {
@@ -130,6 +135,15 @@ export default function DriftGlobe({ stepsRef, yearsRef }) {
       });
     };
 
+    const filmAt = (t) => {
+      const end = FILM[FILM.length - 1];
+      if (reduce || t >= end.at) return blend(end, end, 0);
+      let i = 0;
+      while (i < FILM.length - 2 && t >= FILM[i + 1].at) i++;
+      const a = FILM[i], b = FILM[i + 1];
+      return blend(a, b, smooth(Math.max(0, Math.min(1, (t - a.at) / (b.at - a.at)))));
+    };
+
     const target = () => {
       const y = window.scrollY;
       const n = Math.min(anchors.length, STEPS.length) - 1;
@@ -147,7 +161,13 @@ export default function DriftGlobe({ stepsRef, yearsRef }) {
       last = now;
       if (!visible || !w) return;
 
-      const tg = target();
+      let tg;
+      if (film) {
+        if (filmStart === null) filmStart = now;
+        tg = filmAt((now - filmStart) / 1000);
+      } else {
+        tg = target();
+      }
 
       // Spin where the timeline asks; otherwise settle back to the
       // nearest full turn so the globe lands where the frame wants it.
@@ -234,6 +254,7 @@ export default function DriftGlobe({ stepsRef, yearsRef }) {
       };
 
       // ---- routes ----
+      const labels = [];
       for (const route of ALL_ROUTES) {
         const prog = cur.arcs[route.group || route.id] || 0;
         if (prog < 0.002) continue;
@@ -276,10 +297,13 @@ export default function DriftGlobe({ stepsRef, yearsRef }) {
           ctx.arc(head.x, head.y, rr, 0, Math.PI * 2);
           ctx.fill();
         }
-        if (focus && prog > 0.9) {
-          const end = at(route.to);
-          if (end.visible) label(ctx, end.x, end.y, route.to.label, null, (prog - 0.9) * 10, end.x + 130 > w ? -1 : 1);
-        }
+        if (focus && prog > 0.9) labels.push([route, prog]);
+      }
+
+      // Labels last, so no line is drawn across them.
+      for (const [route, prog] of labels) {
+        const end = at(route.to);
+        if (end.visible) label(ctx, end.x, end.y, route.to.label, null, (prog - 0.9) * 10, end.x + 130 > w ? -1 : 1);
       }
 
       // ---- chapter pins ----
@@ -327,7 +351,8 @@ export default function DriftGlobe({ stepsRef, yearsRef }) {
     window.addEventListener('resize', measure);
     document.fonts?.ready.then(measure);
     if (stepsRef?.current) ro.observe(stepsRef.current);
-    const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting; });
+    // The film starts once nearly all of the globe is on screen.
+    const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting && (!film || e.intersectionRatio >= 0.8 || filmStart !== null); }, { threshold: [0, 0.8] });
     io.observe(canvas.parentElement);
     raf = requestAnimationFrame(draw);
 
@@ -337,7 +362,7 @@ export default function DriftGlobe({ stepsRef, yearsRef }) {
       io.disconnect();
       window.removeEventListener('resize', measure);
     };
-  }, [stepsRef, yearsRef]);
+  }, [stepsRef, yearsRef, film, playKey]);
 
   return <canvas ref={canvasRef} className="pg-canvas" aria-hidden="true" />;
 }

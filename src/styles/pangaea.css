@@ -48,6 +48,12 @@
 .pg-caption { padding-top: 0.75rem; border-top: 1.5px solid var(--pg-ink); }
 .pg-caption p { font-size: 1.05rem; }
 .pg-caption p + p { margin-top: 0.3rem; }
+.pg-caption__row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.pg-replay {
+  font: inherit; font-size: 1rem; font-weight: 700; color: var(--pg-ink); flex: none;
+  background: none; border: 1.5px solid var(--pg-ink); border-radius: var(--radius);
+  padding: 0.5rem 0.9rem; cursor: pointer;
+}
 .pg-caption__time strong { color: var(--pg-ink); font-variant-numeric: tabular-nums; }
 
 .pg-steps { grid-column: 1; grid-row: 1; }
