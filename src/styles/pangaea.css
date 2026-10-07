@@ -75,24 +75,20 @@
 .pg-list strong { color: var(--pg-ink); font-weight: 800; }
 .pg-list--num li { display: grid; grid-template-columns: 2rem 1fr; }
 .pg-list__num { font-weight: 800; color: var(--pg-ink); }
-.pg-link { display: inline-block; margin-top: 1rem; }
+.pg-link { display: inline-block; margin-top: 0.75rem; padding-block: 0.4rem; }
 .pg-small { font-size: 1.05rem; }
 
-/* ---------- small screens: map band pinned under the nav ---------- */
+/* ---------- small screens: no pinning. The globe sits in the page
+   after the opening text, with its caption, and scrolls away normally. */
 @media (max-width: 899px) {
-  .pg-story { grid-template-columns: 1fr; gap: 0; }
+  .pg-story { display: flex; flex-direction: column; }
+  .pg-steps { display: contents; }
+  .pg-step { order: 2; }
+  .pg-step--hero { order: 0; min-height: 0; border-top: 0; }
+  .pg-step:last-child { min-height: 0; }
+  .pg-wide-only { display: none; }
   .pg-aside {
-    grid-column: 1; grid-row: 1; z-index: 5;
-    height: 38svh; padding: 0.5rem 0;
-    background: var(--pg-paper);
+    order: 1; position: static; height: auto; padding: 0 0 2rem;
   }
-  .pg-caption { display: none; }
-  .pg-globe {
-    margin: 0 calc(-1 * var(--pg-gutter));
-    -webkit-mask-image: linear-gradient(to bottom, #000 85%, transparent);
-    mask-image: linear-gradient(to bottom, #000 85%, transparent);
-  }
-  .pg-steps { grid-row: 2; }
-  .pg-step--hero { min-height: 0; border-top: 0; }
-  .pg-step:last-child { min-height: 50svh; }
+  .pg-globe { flex: none; aspect-ratio: 1; margin: 0 calc(-1 * var(--pg-gutter)); -webkit-mask-image: none; mask-image: none; }
 }
