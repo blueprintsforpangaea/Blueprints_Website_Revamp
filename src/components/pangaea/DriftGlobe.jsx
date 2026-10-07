@@ -69,26 +69,6 @@ function haloText(ctx, text, x, y) {
   ctx.fillText(text, x, y);
 }
 
-function label(ctx, x, y, text, sub, alpha, dir = 1) {
-  const dx = 26 * dir, dy = -22;
-  ctx.globalAlpha = alpha;
-  ctx.strokeStyle = `rgba(${INK}, 0.7)`;
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.moveTo(x, y);
-  ctx.lineTo(x + dx, y + dy);
-  ctx.lineTo(x + dx + 14 * dir, y + dy);
-  ctx.stroke();
-  ctx.textAlign = dir > 0 ? 'left' : 'right';
-  ctx.font = `700 17px ${FONT}`;
-  haloText(ctx, text, x + dx + 18 * dir, y + dy + 6);
-  if (sub) {
-    ctx.font = `400 15px ${FONT}`;
-    haloText(ctx, sub, x + dx + 18 * dir, y + dy + 24);
-  }
-  ctx.globalAlpha = 1;
-}
-
 /**
  * The Pangaea globe. Sits beside the page text and follows it: each
  * child of `stepsRef` is one step, and the globe eases toward the
@@ -254,7 +234,6 @@ export default function DriftGlobe({ stepsRef, yearsRef, film = false, playKey =
       };
 
       // ---- routes ----
-      const labels = [];
       for (const route of ALL_ROUTES) {
         const prog = cur.arcs[route.group || route.id] || 0;
         if (prog < 0.002) continue;
@@ -297,13 +276,6 @@ export default function DriftGlobe({ stepsRef, yearsRef, film = false, playKey =
           ctx.arc(head.x, head.y, rr, 0, Math.PI * 2);
           ctx.fill();
         }
-        if (focus && prog > 0.9) labels.push([route, prog]);
-      }
-
-      // Labels last, so no line is drawn across them.
-      for (const [route, prog] of labels) {
-        const end = at(route.to);
-        if (end.visible) label(ctx, end.x, end.y, route.to.label, null, (prog - 0.9) * 10, end.x + 130 > w ? -1 : 1);
       }
 
       // ---- chapter pins ----

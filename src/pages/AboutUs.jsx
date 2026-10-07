@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import PageHeader from '../components/layout/PageHeader.jsx';
 import Reveal from '../components/ui/Reveal.jsx';
 import { LEADERSHIP_GROUPS } from '../data/team.js';
+import { headshotFor } from '../assets/team/headshots.js';
 import { TOTALS } from '../data/stats.js';
 import { ORG } from '../data/site.js';
 
@@ -18,21 +19,30 @@ const TIMELINE = [
   },
   {
     year: '2017',
-    text: 'Expanded our partnership with Project C.U.R.E., which fixed a shipping bottleneck.',
+    text: 'Expanded our partnerships, which helped us ship more, and more often.',
   },
   {
     year: '2020',
-    text: 'During COVID-19: PPE for Michigan hospitals, 12 pallets for India, and about 700 face shields for Ann Arbor healthcare facilities.',
+    text: 'During COVID-19, we sent PPE to Michigan hospitals, supplies to India, and face shields to Ann Arbor healthcare facilities.',
   },
   {
     year: '2023',
-    text: 'Sent 3,000 pounds of supplies to northern Syria with the Syrian American Medical Society after the earthquake.',
+    text: 'Santa Clara University and the University of Miami Medical School started chapters.',
   },
   {
     year: '2025',
     text: 'Sent more than 60 pallets, worth over $573,000, to Nigeria. The University of Nebraska Omaha became our eleventh chapter.',
   },
 ];
+
+// A photo when team.js has one, otherwise the person's initials in
+// the same frame, so the grid looks finished while photos come in.
+function Headshot({ person }) {
+  const src = headshotFor(person.name);
+  if (src) return <img className="person__photo" src={src} alt="" loading="lazy" />;
+  const initials = person.name.split(/\s+/).map((w) => w[0]).slice(0, 2).join('');
+  return <span className="person__photo person__photo--empty" aria-hidden="true">{initials}</span>;
+}
 
 export default function AboutUs() {
   return (
@@ -78,26 +88,33 @@ export default function AboutUs() {
         <div className="container">
           <Reveal className="section-head">
             <h2 className="section-title">Leadership</h2>
-            <p>
-              More than 30 analysts also work across the departments.
-            </p>
           </Reveal>
 
           {LEADERSHIP_GROUPS.map((group, gi) => (
             <div className="team-group" key={group.id}>
               <Reveal className="team-group__head" delay={gi * 0.05}>
                 <h3>{group.title}</h3>
-                <span className="team-group__rule" />
-                <span className="team-group__count">{group.people.length}</span>
               </Reveal>
-              <ul className="roster">
-                {group.people.map((m, i) => (
-                  <Reveal as="li" className="roster__row" key={m.name} delay={Math.min(i, 6) * 0.04} y={14}>
-                    <span className="roster__name">{m.name}</span>
-                    <span className="roster__role">{m.role}</span>
-                  </Reveal>
-                ))}
-              </ul>
+              {group.headshots ? (
+                <ul className="people">
+                  {group.people.map((m, i) => (
+                    <Reveal as="li" className="person" key={m.name} delay={Math.min(i, 6) * 0.04} y={14}>
+                      <Headshot person={m} />
+                      <span className="person__name">{m.name}</span>
+                      <span className="person__role">{m.role}</span>
+                    </Reveal>
+                  ))}
+                </ul>
+              ) : (
+                <ul className="roster">
+                  {group.people.map((m, i) => (
+                    <Reveal as="li" className="roster__row" key={m.name} delay={Math.min(i, 6) * 0.04} y={14}>
+                      <span className="roster__name">{m.name}</span>
+                      <span className="roster__role">{m.role}</span>
+                    </Reveal>
+                  ))}
+                </ul>
+              )}
             </div>
           ))}
         </div>
