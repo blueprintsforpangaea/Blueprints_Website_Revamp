@@ -9,7 +9,7 @@ export const PARTNERSHIPS = [
     name: 'Project C.U.R.E.',
     est: '2017',
     description:
-      'The largest distributor of donated medical supplies to resource-limited communities worldwide. Our partnership expanded in winter 2017 as Blueprints grew, letting us resolve a shipping bottleneck by routing excess supplies through their network.',
+      'Project C.U.R.E. is the largest distributor of donated medical supplies to resource-limited communities worldwide. We expanded our partnership in winter 2017. Routing surplus through their network fixed a shipping bottleneck we had as we grew.',
     stat: 'Over $2M in supplies reallocated together',
   },
   {

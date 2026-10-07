@@ -137,7 +137,7 @@ export default function ImpactGlobe() {
             <strong style={{ display: 'block', color: '#fff', fontSize: '1.1rem', marginBottom: '0.5rem' }}>
               {DESTINATIONS.length} destinations · {COUNTRY_COUNT} countries
             </strong>
-            From Ann Arbor to clinics worldwide — the interactive globe requires WebGL.
+            Your browser can’t show the interactive globe. The full list of shipments is below.
           </div>
         </div>
       ) : (
@@ -146,7 +146,7 @@ export default function ImpactGlobe() {
             <div className="globe-loading">
               <div>
                 <div className="globe-spinner" />
-                Spinning up the globe…
+                Loading the map…
               </div>
             </div>
           }

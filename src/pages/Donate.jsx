@@ -8,8 +8,8 @@ import { SHIPMENTS } from '../data/shipments.js';
 // The live site's own suggested amounts.
 const PRESET_AMOUNTS = [10, 20, 30];
 
-// Real deliveries with published valuations — what giving actually
-// buys, rather than invented per-dollar equivalences.
+// Real deliveries with published valuations, rather than invented
+// per-dollar equivalences.
 const FUNDED = SHIPMENTS.filter((s) => s.value).slice(0, 4);
 
 export default function Donate() {
@@ -26,17 +26,16 @@ export default function Donate() {
 
   return (
     <article>
-      <PageHeader eyebrow="Support our work" title="Fund the next shipment">
-        Supplies reach us for free. Freight, storage, and logistics do not — that's what your gift
-        pays for. Blueprints for Pangaea is a {ORG.taxStatus}.
+      <PageHeader title="Donate">
+        {ORG.name} is a {ORG.taxStatus}, so your donation is tax-deductible.
       </PageHeader>
 
       <section className="section">
         <div className="container donate-grid">
           <Reveal as="div" className="donate-card">
-            <h3 style={{ marginBottom: '0.35rem' }}>Choose an amount</h3>
-            <p className="donate-card__note">
-              Giving is handled by Givebutter, our payment processor.
+            <h2 className="donate-card__title">Choose an amount</h2>
+            <p className="muted small">
+              Payments go through Givebutter.
             </p>
 
             <div className="donate-amounts">
@@ -71,29 +70,22 @@ export default function Donate() {
               target="_blank"
               rel="noreferrer"
               className="btn btn--primary btn--lg"
-              style={{ width: '100%', justifyContent: 'center' }}
+              style={{ width: '100%' }}
             >
-              Continue to Givebutter <span className="arrow">→</span>
+              Continue to payment
             </a>
 
             <p className="donate-card__fine">
-              {valid && `You'll confirm your $${chosen} gift on the next step. `}
-              Contributions are tax-deductible to the extent allowed by law. Givebutter issues your
+              {valid && `You’ll confirm your $${chosen} gift on the next page. `}
+              Donations are tax-deductible to the extent allowed by law. Givebutter will email your
               receipt.
             </p>
           </Reveal>
 
           <Reveal delay={0.12}>
-            <span className="eyebrow">What giving funds</span>
-            <h2
-              className="section-title"
-              style={{ fontSize: 'clamp(1.6rem,3vw,2.2rem)', margin: '1rem 0 1rem' }}
-            >
-              Deliveries you've already paid for
-            </h2>
-            <p style={{ color: 'var(--muted)', marginBottom: '1.75rem' }}>
-              Every shipment below moved because someone covered the logistics.{' '}
-              {TOTALS.suppliesValueExact} in supplies has reached communities this way.
+            <h2 className="section-title section-title--sm">Some of our larger shipments</h2>
+            <p className="muted" style={{ margin: '0.75rem 0 1.75rem' }}>
+              {TOTALS.suppliesValueExact} worth of supplies redistributed so far.
             </p>
 
             <div className="donate-impact-list">
@@ -102,15 +94,15 @@ export default function Donate() {
                   <span className="amt">{s.value}</span>
                   <p>
                     <strong>{s.place}</strong>
-                    {s.partner ? ` · ${s.partner}` : ''}
-                    {s.detail ? ` — ${s.detail}` : ''}
+                    {s.partner ? `, with ${s.partner}. ` : '. '}
+                    {s.detail}
                   </p>
                 </div>
               ))}
             </div>
 
-            <p style={{ marginTop: '1.75rem', fontSize: '0.9rem', color: 'var(--muted)' }}>
-              Prefer to give supplies instead of funds, or have questions? Email{' '}
+            <p className="muted small" style={{ marginTop: '1.75rem' }}>
+              To give supplies instead, or with any questions, email{' '}
               <a href={`mailto:${ORG.email}`}>{ORG.email}</a>.
             </p>
           </Reveal>

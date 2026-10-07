@@ -17,9 +17,9 @@ export default function Chapters() {
 
   return (
     <article>
-      <PageHeader eyebrow="Our network" title={`${TOTALS.chapters} chapters, one mission`}>
-        From our University of Michigan headquarters to campuses coast to coast,{' '}
-        {TOTALS.members}+ students keep supplies moving. Find yours — or start a new one.
+      <PageHeader title="Our chapters">
+        {TOTALS.chapters} chapters and {TOTALS.members}+ students. Headquarters is the founding
+        chapter at the University of Michigan.
       </PageHeader>
       <section className="section">
         <div className="container">
@@ -34,17 +34,15 @@ export default function Chapters() {
             </Reveal>
           )}
 
-          <Reveal className="cta-banner" delay={0.1} style={{ marginTop: '3.5rem' }}>
-            <h2>Don't see your school?</h2>
-            <p>
-              Bring Blueprints for Pangaea to your campus. We'll hand you the playbook and connect
-              you to the network.
-            </p>
-            <div className="cta-banner__buttons">
-              <Link to="/get-involved#chapter" className="btn btn--primary btn--lg">
-                Start a chapter
-              </Link>
+          <Reveal className="note-row" delay={0.1}>
+            <div>
+              <h2>Don’t see your school?</h2>
+              <p>
+                Start one. An expansion manager from headquarters meets with new chapters every
+                week.
+              </p>
             </div>
+            <Link to="/get-involved#chapter" className="btn btn--dark">Start a chapter</Link>
           </Reveal>
         </div>
       </section>
@@ -61,12 +59,14 @@ function ChapterDetail({ chapter }) {
 
   return (
     <article>
-      <PageHeader eyebrow={chapter.isHQ ? 'Headquarters' : 'Chapter'} title={chapter.name}>
+      <PageHeader
+        title={chapter.name}
+      >
         {chapter.location}
       </PageHeader>
 
       <section className="section">
-        <div className="container split">
+        <div className="container split split--top">
           <Reveal className="prose">
             {logoFor(chapter.slug) && (
               <img className="chapter-detail__seal" src={logoFor(chapter.slug)} alt="" />
@@ -85,21 +85,18 @@ function ChapterDetail({ chapter }) {
 
             {chapter.highlight && (
               <div className="chapter-detail__highlight">
-                <span className="chapter-detail__highlight-label">Highlight</span>
+                <h3 className="label">Highlight</h3>
                 <p>{chapter.highlight}</p>
               </div>
             )}
 
-            <div style={{ marginTop: '2rem', display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-              {chapter.email && (
+            {chapter.email && (
+              <div className="btn-row">
                 <a href={`mailto:${chapter.email}`} className="btn btn--dark">
-                  Contact this chapter
+                  Email this chapter
                 </a>
-              )}
-              <Link to="/chapters" className="btn btn--outline">
-                <span className="arrow arrow--back">←</span> All chapters
-              </Link>
-            </div>
+              </div>
+            )}
           </Reveal>
 
           <Reveal delay={0.12}>
@@ -116,14 +113,14 @@ function ChapterDetail({ chapter }) {
 
             {chapter.lead && (
               <div className="chapter-detail__block">
-                <h3 className="side-head">Chapter lead</h3>
+                <h3 className="label">Chapter lead</h3>
                 <p>{chapter.lead}</p>
               </div>
             )}
 
             {chapter.partners?.length > 0 && (
               <div className="chapter-detail__block">
-                <h3 className="side-head">Partners</h3>
+                <h3 className="label">Partners</h3>
                 <ul className="plain-list">
                   {chapter.partners.map((p) => (
                     <li key={p}>{p}</li>
@@ -134,7 +131,7 @@ function ChapterDetail({ chapter }) {
 
             {chapter.instagram && (
               <div className="chapter-detail__block">
-                <h3 className="side-head">Follow along</h3>
+                <h3 className="label">Instagram</h3>
                 <a
                   href={`https://www.instagram.com/${chapter.instagram}/`}
                   target="_blank"
@@ -146,6 +143,9 @@ function ChapterDetail({ chapter }) {
             )}
           </Reveal>
         </div>
+        <div className="container page-next">
+          <Link to="/chapters" className="link-arrow">See all chapters <span className="arrow">→</span></Link>
+        </div>
       </section>
     </article>
   );
@@ -154,14 +154,12 @@ function ChapterDetail({ chapter }) {
 function ChapterNotFound() {
   return (
     <article>
-      <PageHeader eyebrow="404" title="Chapter not found">
-        We couldn't find that chapter.
+      <PageHeader title="Chapter not found">
+        We couldn’t find that chapter. It may have moved or been renamed.
       </PageHeader>
-      <section className="section">
-        <div className="container narrow">
-          <Link to="/chapters" className="btn btn--dark">
-            <span className="arrow arrow--back">←</span> Back to all chapters
-          </Link>
+      <section className="section section--tight">
+        <div className="container">
+          <Link to="/chapters" className="link-arrow">See all chapters <span className="arrow">→</span></Link>
         </div>
       </section>
     </article>

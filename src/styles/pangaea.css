@@ -1,0 +1,98 @@
+/* ============================================================
+   PANGAEA CONCEPT PAGE — a blueprint drawing of the earth, in
+   navy ink on warm drafting paper. Written for readers of any
+   age: large type, dark text on light paper, no small caps.
+   The globe plays its story on its own, so the page stays short:
+   one screen for what we do, then two compact bands.
+   ============================================================ */
+.pg {
+  --pg-paper: var(--bg);
+  --pg-ink: var(--c-navy);
+  --pg-text: var(--text);
+  --pg-rule: var(--line);
+  --pg-font: var(--font-sans);
+  --pg-gutter: clamp(1.25rem, 5vw, 5rem);
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+.pg h1, .pg h2, .pg h3, .pg .btn { font-family: var(--pg-font); }
+.pg .btn { font-size: 1.1rem; }
+.pg a:not(.btn) { color: var(--pg-ink); font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
+.pg a:not(.btn):hover { text-decoration-thickness: 2px; }
+
+/* ---------- layout: text column + sticky globe column ---------- */
+.pg { --pg-nav-h: var(--nav-h); }
+.pg-story {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: clamp(1.5rem, 4vw, 4rem); padding: 0 var(--pg-gutter);
+}
+.pg-aside {
+  grid-column: 2; grid-row: 1; align-self: start;
+  position: sticky; top: var(--pg-nav-h);
+  height: calc(100svh - var(--pg-nav-h));
+  display: flex; flex-direction: column; justify-content: center; gap: 0.75rem;
+  padding: 1.5rem 0;
+}
+.pg-globe {
+  position: relative; flex: 1 1 auto; min-height: 0;
+  /* Run to the right edge of the screen, and fade where the map meets
+     the text column and the top and bottom, instead of a hard crop
+     when it zooms in. */
+  margin-right: calc(-1 * var(--pg-gutter));
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 10%), linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to right, transparent, #000 10%), linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent);
+  mask-composite: intersect;
+}
+
+.pg-caption { padding-top: 0.75rem; border-top: 1.5px solid var(--pg-ink); }
+.pg-caption p { font-size: 1.05rem; }
+.pg-caption p + p { margin-top: 0.3rem; }
+.pg-caption__time strong { color: var(--pg-ink); font-variant-numeric: tabular-nums; }
+
+.pg-steps { grid-column: 1; grid-row: 1; }
+.pg-step { padding: clamp(3rem, 7vh, 5rem) 0; border-top: 1.5px solid var(--pg-ink); }
+.pg-step--hero {
+  border-top: 0; min-height: calc(100svh - var(--pg-nav-h));
+  display: flex; flex-direction: column; justify-content: center;
+}
+.pg-step:last-child { min-height: 60svh; }
+
+.pg-title {
+  color: var(--pg-ink); font-weight: 800;
+  font-size: clamp(2.2rem, 4.2vw, 3.5rem); line-height: 1.1; letter-spacing: 0;
+}
+.pg-step h2 { color: var(--pg-ink); font-weight: 800; font-size: clamp(1.7rem, 2.8vw, 2.2rem); line-height: 1.15; }
+.pg-step > p { margin-top: 0.9rem; max-width: 34rem; }
+.pg-step__second { margin-top: 2.5rem; }
+.pg-step__btn { margin-top: 1rem; }
+.pg-facts { display: flex; flex-wrap: wrap; gap: 0.4rem 1.5rem; margin-top: 1.25rem; }
+.pg-facts strong { color: var(--pg-ink); font-weight: 800; font-variant-numeric: tabular-nums; }
+.pg-ctas { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.75rem; }
+
+.pg-list { margin-top: 1rem; border-top: 1px solid var(--pg-rule); }
+.pg-list li { padding: 0.7rem 0; border-bottom: 1px solid var(--pg-rule); }
+.pg-list strong { color: var(--pg-ink); font-weight: 800; }
+.pg-list--num li { display: grid; grid-template-columns: 2rem 1fr; }
+.pg-list__num { font-weight: 800; color: var(--pg-ink); }
+.pg-link { display: inline-block; margin-top: 1rem; }
+.pg-small { font-size: 1.05rem; }
+
+/* ---------- small screens: map band pinned under the nav ---------- */
+@media (max-width: 899px) {
+  .pg-story { grid-template-columns: 1fr; gap: 0; }
+  .pg-aside {
+    grid-column: 1; grid-row: 1; z-index: 5;
+    height: 38svh; padding: 0.5rem 0;
+    background: var(--pg-paper);
+  }
+  .pg-caption { display: none; }
+  .pg-globe {
+    margin: 0 calc(-1 * var(--pg-gutter));
+    -webkit-mask-image: linear-gradient(to bottom, #000 85%, transparent);
+    mask-image: linear-gradient(to bottom, #000 85%, transparent);
+  }
+  .pg-steps { grid-row: 2; }
+  .pg-step--hero { min-height: 0; border-top: 0; }
+  .pg-step:last-child { min-height: 50svh; }
+}

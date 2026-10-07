@@ -2,9 +2,9 @@
 // The real shipment record, from the Impact and chapter pages.
 // Values and weights are quoted only where the site publishes
 // them — entries without a figure omit it rather than estimate.
+// `figure` is the headline number for shipments with no dollar
+// value; it restates the published detail, never a new estimate.
 // ============================================================
-
-export const REGIONS = ['All', 'United States', 'The Americas', 'Africa', 'Asia', 'Europe'];
 
 export const SHIPMENTS = [
   // ---------- Africa ----------
@@ -33,7 +33,8 @@ export const SHIPMENTS = [
     place: 'Ghana',
     region: 'Africa',
     partner: 'Ghana Ministry of Health',
-    detail: 'A 20-foot container of medical aid delivered through a Ministry of Health partnership.',
+    figure: 'A 20-foot container',
+    detail: 'A full container of medical aid, delivered through a partnership with the Ministry of Health.',
   },
 
   // ---------- The Americas ----------
@@ -43,14 +44,14 @@ export const SHIPMENTS = [
     region: 'The Americas',
     partner: 'Día de la Mujer',
     value: '$61,000+',
-    detail: 'Supplies delivered in partnership with Día de la Mujer.',
   },
   {
     id: 'mexico',
     place: 'Mexico',
     region: 'The Americas',
     partner: 'Colgate-Palmolive & Chiricahua Community Health',
-    detail: 'Over 2,000 lbs of supplies, including deliveries to Hospital General de México.',
+    figure: '2,000+ lbs',
+    detail: 'Supplies for Chiricahua Community Health, including deliveries to Hospital General de México.',
   },
   {
     id: 'guatemala',
@@ -95,8 +96,8 @@ export const SHIPMENTS = [
     place: 'Syria',
     region: 'Asia',
     partner: 'Syrian American Medical Society',
-    detail:
-      'Three shipments totaling 16+ pallets, including 3,000 lbs sent after the northern Syria earthquake.',
+    figure: '16+ pallets',
+    detail: 'Three shipments, including 3,000 lbs sent after the earthquake in northern Syria.',
   },
   {
     id: 'india',
@@ -119,7 +120,7 @@ export const SHIPMENTS = [
     region: 'Europe',
     partner: 'U-M Ukrainian Club',
     value: '$40,000+',
-    detail: 'Wartime medical aid assembled with the University of Michigan Ukrainian Club.',
+    detail: 'Wartime medical aid.',
   },
 
   // ---------- United States ----------
@@ -200,7 +201,10 @@ export const SHIPMENTS = [
   },
 ];
 
-// Home page shows a short slice; Impact shows all of them.
-export const RECENT_SHIPMENTS = SHIPMENTS.filter((s) =>
-  ['nigeria-2025', 'syria', 'ukraine', 'delonis', 'puerto-rico', 'honduras'].includes(s.id),
-);
+const byId = (ids) => ids.map((id) => SHIPMENTS.find((s) => s.id === id));
+
+// The home page shows three. The Impact page highlights these six.
+export const RECENT_SHIPMENTS = byId(['nigeria-2025', 'syria', 'ukraine']);
+export const FEATURED_SHIPMENTS = byId([
+  'nigeria-2025', 'syria', 'ghana', 'food-gatherers', 'ukraine', 'mexico',
+]);

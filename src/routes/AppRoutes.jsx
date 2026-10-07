@@ -9,11 +9,14 @@ import Gala from '../pages/Gala.jsx';
 import Donate from '../pages/Donate.jsx';
 import Chapters from '../pages/Chapters.jsx';
 import NotFound from '../pages/NotFound.jsx';
+import Pangaea from '../pages/Pangaea.jsx';
 
 export default function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      {/* The Pangaea globe page is the home page on this branch. */}
+      <Route path="/" element={<Pangaea />} />
+      <Route path="/classic" element={<Home />} />
       <Route path="/mission" element={<Mission />} />
       <Route path="/impact" element={<Impact />} />
       <Route path="/about" element={<AboutUs />} />
@@ -23,6 +26,7 @@ export default function AppRoutes() {
       <Route path="/donate" element={<Donate />} />
       <Route path="/chapters" element={<Chapters />} />
       <Route path="/chapters/:chapterSlug" element={<Chapters />} />
+      <Route path="/pangaea" element={<Pangaea />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

@@ -3,12 +3,11 @@ import { NavLink, Link, useLocation } from 'react-router-dom';
 import logoFull from '../../assets/logos/blueprints-logo-1.png';
 
 const NAV_ITEMS = [
-  { to: '/mission', label: 'Mission' },
+  { to: '/mission', label: 'What we do' },
   { to: '/impact', label: 'Impact' },
-  { to: '/about', label: 'About' },
   { to: '/chapters', label: 'Chapters' },
-  { to: '/press', label: 'Press' },
-  { to: '/get-involved', label: 'Get Involved' },
+  { to: '/about', label: 'About' },
+  { to: '/get-involved', label: 'Get involved' },
 ];
 
 export default function Navbar() {
@@ -17,7 +16,7 @@ export default function Navbar() {
   const location = useLocation();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
+    const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
@@ -29,11 +28,11 @@ export default function Navbar() {
   return (
     <header className={`navbar ${scrolled ? 'is-scrolled' : ''}`}>
       <div className="navbar__inner">
-        <Link to="/" className="navbar__brand" aria-label="Blueprints for Pangaea — home">
-          <img className="navbar__logo-img" src={logoFull} alt="Blueprints for Pangaea" />
+        <Link to="/" className="navbar__brand" aria-label="Blueprints for Pangaea home">
+          <img className="navbar__logo" src={logoFull} alt="Blueprints for Pangaea" />
         </Link>
 
-        <nav className="navbar__links">
+        <nav className="navbar__links" aria-label="Main">
           {NAV_ITEMS.map((item) => (
             <NavLink key={item.to} to={item.to} className="navbar__link">
               {item.label}
@@ -42,26 +41,25 @@ export default function Navbar() {
         </nav>
 
         <div className="navbar__actions">
-          <Link to="/get-involved" className="btn btn--dark btn--sm">Partner With Us</Link>
           <Link to="/donate" className="btn btn--primary btn--sm">Donate</Link>
           <button
             className={`navbar__toggle ${open ? 'is-open' : ''}`}
             onClick={() => setOpen((o) => !o)}
-            aria-label="Toggle navigation menu"
+            aria-label={open ? 'Close menu' : 'Open menu'}
             aria-expanded={open}
           >
-            <span /><span /><span />
+            <span /><span />
           </button>
         </div>
       </div>
 
       {open && (
-        <div className="mobile-menu">
+        <nav className="mobile-menu" aria-label="Main">
           {NAV_ITEMS.map((item) => (
             <NavLink key={item.to} to={item.to}>{item.label}</NavLink>
           ))}
-          <Link to="/donate" className="btn btn--primary">Donate Now</Link>
-        </div>
+          <NavLink to="/press">Press</NavLink>
+        </nav>
       )}
     </header>
   );

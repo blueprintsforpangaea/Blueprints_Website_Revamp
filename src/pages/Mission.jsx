@@ -1,117 +1,126 @@
 import { Link } from 'react-router-dom';
 import PageHeader from '../components/layout/PageHeader.jsx';
 import Reveal from '../components/ui/Reveal.jsx';
-import { DEPARTMENTS, PIPELINE } from '../data/departments.js';
+import { DEPARTMENTS, DEPARTMENT_COUNT_WORD, PIPELINE } from '../data/departments.js';
+import { C_SUITE, VICE_PRESIDENTS } from '../data/team.js';
 import { TOTALS } from '../data/stats.js';
+import vanPhoto from '../assets/images/efd3cc03-681e-468b-8608-f746800f9dc2dsc-0260.jpg';
+
+const ROSTER = [...C_SUITE, ...VICE_PRESIDENTS];
+const leadsFor = (dept) =>
+  (dept.leads || []).map((role) => ROSTER.find((p) => p.role === role)).filter(Boolean);
 
 export default function Mission() {
   return (
     <article>
-      <PageHeader eyebrow="Our mission" title="Reallocating surplus into care">
-        Blueprints for Pangaea is a nonprofit medical surplus recovery organization that
-        reallocates unused medical supplies from areas of surplus to communities in need.
+      <PageHeader title="What we do">
+        Blueprints for Pangaea is a medical surplus recovery organization. We reallocate
+        essential medical supplies from areas of surplus to communities in need.
       </PageHeader>
 
-      {/* ---------- The contradiction we exist to solve ---------- */}
       <section className="section">
         <div className="container split">
           <Reveal className="prose">
-            <span className="eyebrow">The problem</span>
-            <h2 className="section-title" style={{ margin: '1rem 0 1.5rem' }}>
-              Two facts that should not coexist.
-            </h2>
+            <h2 className="section-title">The problem</h2>
             <p>
-              Around the world, billions of people lack access to basic medical supplies and
-              equipment. Meanwhile the U.S. healthcare system discards over{' '}
-              <strong>5 million tons</strong> — roughly <strong>10 billion pounds</strong> — of
-              unused medical supplies every year.
+              Billions of people around the world lack basic medical supplies and equipment. At the
+              same time, the U.S. healthcare system discards over{' '}
+              <strong>{(TOTALS.wasteTons / 1_000_000).toFixed(0)} million tons</strong> of unused
+              medical supplies every year. That’s roughly{' '}
+              {(TOTALS.wastePounds / 1_000_000_000).toFixed(0)} billion pounds.
             </p>
             <p>
-              Through our growing network of university chapters and high school clubs, we collect
-              that surplus and redistribute it to underserved communities locally and
-              internationally.
+              Our university chapters and high school clubs collect some of that surplus and ship
+              it to clinics and hospitals, in the U.S. and overseas.
             </p>
           </Reveal>
-          <Reveal delay={0.15}>
-            <div className="media-frame">
-              <div className="media-frame__pattern" />
-              <div className="media-frame__stat">
-                <div className="big">{(TOTALS.wastePounds / 1_000_000_000).toFixed(0)}B</div>
-                <span className="cap">Pounds of unused supplies discarded each year in the U.S.</span>
-              </div>
-            </div>
+          <Reveal delay={0.1}>
+            <figure className="photo">
+              <img
+                src={vanPhoto}
+                alt="Three Blueprints volunteers sitting in a van loaded with boxes of supplies"
+                loading="lazy"
+              />
+            </figure>
           </Reveal>
         </div>
       </section>
 
-      {/* ---------- The four-step pipeline ---------- */}
       <section className="section section--soft">
         <div className="container">
-          <Reveal className="section-head section-head--center">
-            <span className="eyebrow eyebrow--center">How we work</span>
-            <h2 className="section-title">From surplus to shipment</h2>
-            <p>Four steps, run end to end by students.</p>
+          <Reveal className="section-head">
+            <h2 className="section-title">How a shipment happens</h2>
           </Reveal>
-          <div className="steps">
+          <ol className="steps">
             {PIPELINE.map((s, i) => (
-              <Reveal as="div" className="step" key={s.num} delay={i * 0.1}>
-                <div className="step__num">{s.num}</div>
-                <div className="step__line" />
+              <Reveal as="li" className="step" key={s.num} delay={i * 0.06}>
+                <span className="step__num">{i + 1}</span>
                 <h3>{s.title}</h3>
                 <p>{s.body}</p>
               </Reveal>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
 
-      {/* ---------- Departments ---------- */}
       <section className="section">
         <div className="container">
-          <Reveal className="section-head section-head--center">
-            <span className="eyebrow eyebrow--center">Our departments</span>
-            <h2 className="section-title">Four teams, one supply chain</h2>
+          <Reveal className="section-head">
+            <h2 className="section-title">Our departments</h2>
             <p>
-              Every member joins a department. Each one owns a distinct part of the work — and
-              ships projects of its own.
+              Every member at headquarters joins one of {DEPARTMENT_COUNT_WORD} departments.
             </p>
           </Reveal>
 
           <div className="dept-list">
-            {DEPARTMENTS.map((d, i) => (
-              <Reveal as="section" className="dept" key={d.id} delay={(i % 2) * 0.08}>
-                <div className="dept__head">
-                  <h3 className="dept__name">{d.name}</h3>
-                  <p className="dept__charter">{d.charter}</p>
-                </div>
-
-                <div className="dept__body">
-                  <div className="dept__block">
-                    <span className="dept__label">What the team owns</span>
-                    <ul className="dept__responsibilities">
-                      {d.responsibilities.map((r) => (
-                        <li key={r}>{r}</li>
-                      ))}
-                    </ul>
+            {DEPARTMENTS.map((d) => {
+              const leads = leadsFor(d);
+              return (
+                <Reveal as="section" className="dept" key={d.id}>
+                  <div className="dept__head">
+                    <h3 className="dept__name">{d.name}</h3>
+                    {d.charter && <p className="dept__charter">{d.charter}</p>}
+                    {leads.length > 0 && (
+                      <p className="dept__lead">
+                        {leads.map((p) => `${p.name}, ${p.role}`).join(' · ')}
+                      </p>
+                    )}
                   </div>
 
-                  <div className="dept__block">
-                    <span className="dept__label">Recent projects</span>
-                    {d.projects.map((p) => (
-                      <div className="dept__project" key={p.name}>
-                        <strong>{p.name}</strong>
-                        <p>{p.detail}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </Reveal>
-            ))}
+                  {(d.responsibilities || d.projects) && (
+                    <div className="dept__body">
+                      {d.responsibilities && (
+                        <div>
+                          <h4 className="label">Responsible for</h4>
+                          <ul className="dept__responsibilities">
+                            {d.responsibilities.map((r) => (
+                              <li key={r}>{r}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      {d.projects && (
+                        <div>
+                          <h4 className="label">Recent projects</h4>
+                          {d.projects.map((p) => (
+                            <div className="dept__project" key={p.name}>
+                              <strong>{p.name}</strong>
+                              <p>{p.detail}</p>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </Reveal>
+              );
+            })}
           </div>
 
-          <div style={{ textAlign: 'center', marginTop: '3.5rem' }}>
-            <Link to="/impact" className="btn btn--dark btn--lg">
-              See where it goes <span className="arrow">→</span>
+          <div className="page-next">
+            <Link to="/impact" className="link-arrow">
+              See where the supplies have gone <span className="arrow">→</span>
             </Link>
           </div>
         </div>

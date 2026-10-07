@@ -6,7 +6,7 @@ import imgCollect from '../../assets/images/img-2678.jpg';
 import imgVerify from '../../assets/images/img-2753.jpg';
 import imgShip from '../../assets/images/9fdcc1e7-5bd6-44dc-8afe-dd642b4a08cadsc-0258.jpg';
 
-// One photo per step. The order matches PIPELINE.
+// One photo per step, in PIPELINE order.
 const PHOTOS = [
   { src: imgPartner, alt: 'Hospital and community health leaders speaking at a Blueprints event' },
   { src: imgCollect, alt: 'A volunteer wheeling a cart of donated supplies through the warehouse' },
@@ -16,31 +16,29 @@ const PHOTOS = [
 
 export default function HowItWorks() {
   return (
-    <section className="section">
+    <section className="section section--soft">
       <div className="container">
-        <Reveal className="section-head">
-          <span className="eyebrow">How it works</span>
-          <h2 className="section-title">Four steps, run by students.</h2>
+        <Reveal className="section-head section-head--split">
+          <h2 className="section-title">How we work</h2>
+          <Link to="/mission" className="link-arrow">
+            More detail <span className="arrow">→</span>
+          </Link>
         </Reveal>
 
-        <div className="flow">
+        <ol className="flow">
           {PIPELINE.map((step, i) => (
-            <Reveal as="article" className="flow__step" key={step.num} delay={i * 0.07}>
+            <Reveal as="li" className="flow__step" key={step.num} delay={i * 0.06}>
               <figure className="flow__photo">
                 <img src={PHOTOS[i].src} alt={PHOTOS[i].alt} loading="lazy" />
               </figure>
-              <span className="flow__num">{step.num}</span>
-              <h3>{step.title}</h3>
+              <h3>
+                <span className="flow__num">{i + 1}</span>
+                {step.title}
+              </h3>
               <p>{step.short}</p>
             </Reveal>
           ))}
-        </div>
-
-        <Reveal className="flow__more" delay={0.1}>
-          <Link to="/mission" className="link-arrow">
-            How the supply chain works in detail <span className="arrow">→</span>
-          </Link>
-        </Reveal>
+        </ol>
       </div>
     </section>
   );

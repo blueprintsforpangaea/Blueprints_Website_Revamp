@@ -11,73 +11,42 @@
   --c-indigo:      #373c82;  /* Dark Blue 3   — secondary / decorative */
   --c-white:       #ffffff;  /* White */
 
-  /* ---------- Accent ramp (semantic names kept to avoid churn) ---------- */
-  --teal:           var(--c-blue);        /* signature accent */
-  --teal-bright:    var(--c-blue-light);  /* lighter accent on dark surfaces */
-  --teal-deep:      var(--c-blue-dark);   /* deep accent — buttons, links */
-  --blue:           var(--c-blue);
-  --blue-deep:      var(--c-blue-dark);
-  --sky:            var(--c-blue-light);
+  --ink:            var(--c-navy);
 
-  /* ---------- Dark navies ---------- */
-  --ink:            var(--c-navy);        /* primary text / deepest navy */
-  --navy:           var(--c-blue-dark);
-  --navy-deep:      var(--c-navy);
-  --navy-darker:    var(--c-navy);
-
-  /* ---------- Surfaces (ada-style: light, calm, near-neutral) ---------- */
-  --bg:             var(--c-white);
-  --bg-soft:        color-mix(in srgb, var(--c-navy) 3.5%, var(--c-white));   /* quiet gray band */
-  --bg-tint:        color-mix(in srgb, var(--c-blue-light) 32%, var(--c-white)); /* faint blue — small UI + CTA card only */
+  /* ---------- Neutrals ----------
+     Warm, not blue-tinted. Navy is kept for headings and dark
+     sections; bright blue is reserved for Donate buttons. */
+  /* Warm drafting paper, from the Pangaea redesign. */
+  --bg:             #f6f4f0;
+  --bg-soft:        #ece8df;
+  --paper-grid:     rgba(0, 14, 63, 0.05);
+  --bg-tint:        color-mix(in srgb, var(--c-blue-light) 32%, var(--c-white));
   --surface:        var(--c-white);
 
-  /* ---------- Text ---------- */
-  --text:           color-mix(in srgb, var(--c-navy) 88%, var(--c-white));
+  --text:           #2b2c30;
   --heading:        var(--c-navy);
-  --muted:          color-mix(in srgb, var(--c-navy) 58%, var(--c-white));
-  --muted-soft:     color-mix(in srgb, var(--c-navy) 38%, var(--c-white));
+  --muted:          #4c4e54;
+  --muted-soft:     #6b6d73;
+  --link:           var(--c-blue-dark);
   --on-dark:        rgba(255, 255, 255, 0.92);
-  --on-dark-muted:  color-mix(in srgb, var(--c-blue-light) 72%, transparent);
+  --on-dark-muted:  rgba(255, 255, 255, 0.72);
 
-  --line:           color-mix(in srgb, var(--c-navy) 9%, var(--c-white));
-  --line-strong:    color-mix(in srgb, var(--c-navy) 16%, var(--c-white));
-
-  /* ---------- Accent surfaces (flat — the accent is one blue, not a gradient) ---------- */
-  --grad-accent:      var(--c-blue);
-  --grad-accent-soft: color-mix(in srgb, var(--c-blue) 9%, var(--c-white));
-  --grad-ink:         var(--c-navy);
+  --line:           rgba(0, 14, 63, 0.16);
+  --line-strong:    rgba(0, 14, 63, 0.4);
 
   /* ---------- Type ---------- */
-  --font-sans:    'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  /* Tight grotesque for display headlines; photography carries the character. */
-  --font-display: 'Archivo', 'Inter', system-ui, -apple-system, sans-serif;
-  --font-mono:    ui-monospace, 'SFMono-Regular', 'Menlo', monospace;
-
-  /* ---------- Spacing ---------- */
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 1rem;
-  --space-4: 1.5rem;
-  --space-5: 2rem;
-  --space-6: 3rem;
-  --space-7: 5rem;
-  --space-8: 7rem;
+  /* Lexend everywhere: designed for easier reading, with plain,
+     wide letterforms. Headlines use its 700–800 weights. */
+  --font-sans:    'Lexend', 'Source Sans 3', system-ui, sans-serif;
+  --font-display: 'Lexend', 'Source Sans 3', system-ui, sans-serif;
 
   /* ---------- Layout ---------- */
-  --nav-h: 5.75rem;   /* ~92px: 64px logo + 0.85rem top/bottom padding */
+  --nav-h: 4.5rem;
   --max-content-width: 1200px;
-  --max-narrow: 760px;
-  --radius-sm: 10px;
-  --radius:    16px;
-  --radius-lg: 24px;
-  --radius-xl: 32px;
-  --radius-pill: 999px;
-
-  /* ---------- Elevation (soft, low-contrast) ---------- */
-  --shadow-sm: 0 1px 2px rgba(0, 14, 63, 0.05);
-  --shadow:    0 4px 14px rgba(0, 14, 63, 0.06);
-  --shadow-lg: 0 12px 32px rgba(0, 14, 63, 0.09);
-  --shadow-teal: none;
+  --max-narrow: 720px;
+  --radius-sm: 2px;
+  --radius:    3px;
+  --radius-lg: 4px;
 
   /* ---------- Motion ---------- */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);

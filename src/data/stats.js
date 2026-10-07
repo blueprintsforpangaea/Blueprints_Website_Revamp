@@ -21,7 +21,7 @@
 export const TOTALS = {
   suppliesValue: 9_077_500.09,
   suppliesValueExact: '$9,077,500.09',
-  suppliesValueShort: '$9M+',
+  suppliesValueShort: '$9 million+',
   countries: 15,
   chapters: 11,
   members: 150,
@@ -35,19 +35,12 @@ export const TOTALS = {
 
 const yearsOfImpact = new Date().getFullYear() - TOTALS.founded;
 
-// Hero strip — three headline proof points.
-export const HERO_STATS = [
-  { value: TOTALS.suppliesValueShort, label: 'In medical supplies redistributed' },
-  { value: `${TOTALS.countries}+`,    label: 'Countries reached' },
-  { value: `${TOTALS.chapters}`,      label: 'University chapters' },
-];
-
 // "Our Global Impact" band.
 export const IMPACT_STATS = [
   {
     value: TOTALS.suppliesValueShort,
     label: 'Medical supplies redistributed',
-    sub: `${TOTALS.suppliesValueExact} and counting`,
+    sub: `${TOTALS.suppliesValueExact} to date`,
   },
   {
     value: `${TOTALS.countries}+`,
@@ -59,12 +52,4 @@ export const IMPACT_STATS = [
     label: 'Years of impact',
     sub: `Founded ${TOTALS.founded} at the University of Michigan`,
   },
-];
-
-// Animated count-ups (<StatCounter />).
-export const HEADLINE_STATS = [
-  { label: 'Supplies redistributed', value: 9.07,               prefix: '$', suffix: 'M+' },
-  { label: 'Countries served',       value: TOTALS.countries,   prefix: '',  suffix: '+' },
-  { label: 'University chapters',    value: TOTALS.chapters,    prefix: '',  suffix: '' },
-  { label: 'Student members',        value: TOTALS.members,     prefix: '',  suffix: '+' },
 ];
