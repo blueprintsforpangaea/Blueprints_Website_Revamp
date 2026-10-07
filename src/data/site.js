@@ -11,7 +11,8 @@ export const ORG = {
   foundedAt: 'University of Michigan',
   founder: 'Ben Rathi',
   hq: 'Ann Arbor, MI',
-  taxStatus: '501(c)(3) nonprofit',
+  // Word joiners keep "501(c)(3)" from breaking across lines.
+  taxStatus: '501\u2060(c)\u2060(3) nonprofit',
   // B4P's sector term for what it does — used verbatim on the live site.
   classification: 'medical surplus recovery organization (MSRO)',
   email: 'contact@b4pglobal.org',

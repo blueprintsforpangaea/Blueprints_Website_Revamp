@@ -53,6 +53,3 @@ export const LEADERSHIP_GROUPS = [
   { id: 'expansion', title: 'Expansion Managers', people: EXPANSION_MANAGERS },
   { id: 'board',     title: 'Board of Directors', people: BOARD },
 ];
-
-// Kept for backwards compatibility with anything importing LEADERSHIP.
-export const LEADERSHIP = C_SUITE;

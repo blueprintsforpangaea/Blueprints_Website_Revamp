@@ -1,4 +1,5 @@
-import { DONATE_URL, ORG } from './site.js';
+import { ORG } from './site.js';
+import { DEPARTMENT_LIST } from './departments.js';
 
 // ============================================================
 // The six real ways in, with the actual application forms.
@@ -12,7 +13,7 @@ export const PATHWAYS = [
     audience: 'students',
     title: 'Become a member at headquarters',
     body:
-      'Join the Ann Arbor team across Operations, Development, Expansion, Finance, or Technology. Recruitment runs each semester.',
+      `Join the Ann Arbor team in ${DEPARTMENT_LIST}. Recruitment runs each semester.`,
     cta: 'See recruitment',
     to: '/get-involved#recruitment',
   },
@@ -22,7 +23,7 @@ export const PATHWAYS = [
     audience: 'students',
     title: 'Start a university chapter',
     body:
-      'Bring Blueprints to your campus. Three interviews, one to two months, and a dedicated expansion manager once you launch.',
+      'Three interviews over one to two months. Once you launch, an expansion manager meets with your chapter every week.',
     cta: 'Start a chapter',
     url: 'https://docs.google.com/forms/d/e/1FAIpQLScuMFnvbCJuHMaKY-ZKl95_i69SFd-hoTTkD82A9nFxw3UGJw/viewform',
   },
@@ -32,7 +33,7 @@ export const PATHWAYS = [
     audience: 'everyone',
     title: 'Volunteer with us',
     body:
-      'Sort, organize, and catalog donated supplies at the warehouse. No experience needed — B4P members guide every session. Dress warmly.',
+      'Sort and catalog donated supplies at the warehouse. No experience needed, and B4P members run every session. Dress warmly.',
     cta: 'Sign up to volunteer',
     url: 'https://www.signupgenius.com/go/10C054BA4AA2AA1FBCF8-58352664-blueprints#/',
   },
@@ -42,7 +43,7 @@ export const PATHWAYS = [
     audience: 'students',
     title: 'High school summer internship',
     body:
-      'A project-based summer working alongside analysts on partnerships, inventory, fundraising, media, and outreach — closing with a community project you design and present to leadership.',
+      'A project-based summer working with our analysts on partnerships, inventory, fundraising, media, and outreach. It ends with a community project you design and present to leadership.',
     cta: 'Apply now',
     url: 'https://forms.gle/WZF94ze2WRebMKTN7',
   },
@@ -52,9 +53,9 @@ export const PATHWAYS = [
     audience: 'everyone',
     title: 'Donate to headquarters',
     body:
-      'Fund the logistics that move surplus into care. Blueprints for Pangaea is a 501(c)(3) nonprofit.',
+      'Give online through Givebutter. Blueprints for Pangaea is a 501\u2060(c)\u2060(3) nonprofit.',
     cta: 'Donate',
-    url: DONATE_URL,
+    to: '/donate',
   },
   {
     id: 'supplies',
@@ -62,7 +63,7 @@ export const PATHWAYS = [
     audience: 'organizations',
     title: 'Donate supplies',
     body:
-      'Hospitals, clinics, and suppliers: give new life to unused inventory instead of discarding it.',
+      'For hospitals, clinics, and suppliers with unused inventory.',
     cta: 'See what we accept',
     to: '/get-involved#supplies',
   },
@@ -90,7 +91,7 @@ export const SUPPLIES_ACCEPTED = [
 ];
 
 export const SUPPLIES_DECLINED = [
-  'Expired items — medications, PPE, dressings',
+  'Expired items, including medications, PPE, and dressings',
   'Opened or partially used items',
   'Controlled substances or pharmaceuticals',
   'Hazardous or biohazardous materials',
@@ -107,7 +108,7 @@ export const MEMBER_FAQ = [
   },
   {
     q: 'Do you have restrictions on majors?',
-    a: 'No — we pride ourselves on our diversity in majors and perspectives.',
+    a: 'No. We pride ourselves on our diversity in majors and perspectives.',
   },
   {
     q: 'What is the time commitment?',
@@ -122,7 +123,7 @@ export const MEMBER_FAQ = [
 export const CHAPTER_FAQ = [
   {
     q: 'What does the application process look like?',
-    a: 'Three interviews — personality, chapter viability, and leadership. The full process takes one to two months.',
+    a: 'Three interviews: personality, chapter viability, and leadership. The full process takes one to two months.',
   },
   {
     q: 'How much contact will we have with HQ?',
@@ -134,7 +135,7 @@ export const CHAPTER_FAQ = [
   },
   {
     q: 'How large should a chapter be?',
-    a: 'We recommend fewer than 30 students per chapter — in our experience that is the optimal size.',
+    a: 'We recommend fewer than 30 students per chapter. In our experience, that size works best.',
   },
 ];
 

@@ -61,7 +61,7 @@ export const CHAPTERS = [
     blurb:
       'Committed to addressing global and local healthcare disparities through sustainable medical redistribution and educational outreach. The chapter runs monthly supply shipments to Honduras and supports free clinics locally.',
     highlight:
-      'Wellness Within Reach — a mental-health awareness project started at Ohio State that produces brochures of local clinics and resources, since adopted by other chapters.',
+      'Wellness Within Reach, a mental health awareness project started at Ohio State. It produces brochures listing local clinics and resources, and other chapters have since adopted it.',
     partners: ['Ronald McDonald House', 'Island Pacific Academy alumni'],
   },
   {

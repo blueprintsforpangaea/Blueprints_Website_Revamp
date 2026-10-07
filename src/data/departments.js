@@ -1,13 +1,26 @@
 // ============================================================
-// The four departments, verbatim from the Mission page.
-// Each has its charter, its standing responsibilities, and two
-// past projects the department actually shipped.
+// The six headquarters departments, in the order leadership lists
+// them. Operations, Development, Expansion, and Finance are
+// verbatim from the Mission page. Technology and Internal are not
+// described on the live site yet, so they carry only a name.
+// Fill in `charter`, `responsibilities`, and `projects` once the
+// teams provide real copy. Never write placeholder descriptions.
+//
+// `leads` are exact role titles from team.js. Only confirmed
+// leadership is listed: the CTO leads Technology (confirmed by the
+// CTO), and each other department lists only its VP until its
+// chief is confirmed.
 // ============================================================
 
 export const DEPARTMENTS = [
   {
+    id: 'technology',
+    leads: ['Chief Technology Officer', 'VP of Technology'],
+    name: 'Technology',
+  },
+  {
     id: 'operations',
-    num: '01',
+    leads: ['VP of Operations'],
     name: 'Operations',
     charter:
       'Operations manages the backbone of Blueprints for Pangaea: our supply chain. From sourcing and storing medical supplies to ensuring they reach communities in need, Operations turns our mission into measurable impact.',
@@ -22,7 +35,7 @@ export const DEPARTMENTS = [
       {
         name: 'Infrastructure Overhaul',
         detail:
-          'Systematized the warehouse workflow end to end — categorized inventorying and a shelving system that made stock legible at a glance.',
+          'Reorganized the warehouse workflow, with categorized inventory and a shelving system that shows what’s in stock at a glance.',
       },
       {
         name: 'App Development',
@@ -33,7 +46,7 @@ export const DEPARTMENTS = [
   },
   {
     id: 'development',
-    num: '02',
+    leads: ['VP of Development'],
     name: 'Development',
     charter:
       "Development leads Blueprints for Pangaea's public image, outreach, and engagement. We focus on growing awareness of our mission through creative storytelling, digital strategy, and community collaboration.",
@@ -53,13 +66,13 @@ export const DEPARTMENTS = [
       {
         name: 'Social Media Transformation',
         detail:
-          'Built an Instagram multimedia series — reels and branded materials — to carry the mission past our own campuses.',
+          'Built an Instagram series of reels and branded posts to reach people beyond our own campuses.',
       },
     ],
   },
   {
     id: 'expansion',
-    num: '03',
+    leads: ['VP of Expansion'],
     name: 'Expansion',
     charter:
       "Expansion drives Blueprints for Pangaea's national growth and sustainability. We ensure that each chapter — current or emerging — has the tools, structure, and guidance to operate effectively and uphold Blueprints' mission.",
@@ -85,12 +98,12 @@ export const DEPARTMENTS = [
   },
   {
     id: 'finance',
-    num: '04',
+    leads: ['VP of Finance'],
     name: 'Finance',
     charter:
       'Finance ensures the long-term sustainability and growth of Blueprints for Pangaea by securing the resources that power our mission. Through fundraising, partnerships, and data-driven strategy, Finance maintains the financial foundation that allows every chapter to thrive.',
     responsibilities: [
-      'Grants — 10 to 12 annually',
+      'Grants (10 to 12 a year)',
       'Fundraising',
       'Corporate sponsorships & partnerships',
       'Financial planning & reporting',
@@ -108,7 +121,22 @@ export const DEPARTMENTS = [
       },
     ],
   },
+  {
+    id: 'internal',
+    leads: ['VP of Internal'],
+    name: 'Internal',
+  },
 ];
+
+const NUMBER_WORDS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+
+// "six", for use in running copy.
+export const DEPARTMENT_COUNT_WORD = NUMBER_WORDS[DEPARTMENTS.length] ?? String(DEPARTMENTS.length);
+
+// "Technology, Operations, …, or Internal", for use in running copy.
+export const DEPARTMENT_LIST = new Intl.ListFormat('en', { type: 'disjunction' }).format(
+  DEPARTMENTS.map((d) => d.name),
+);
 
 // The four-step supply chain. `body` is verbatim from the Mission page
 // and is what that page renders; `short` is the one-line version used
@@ -131,14 +159,14 @@ export const PIPELINE = [
   {
     num: '03',
     title: 'Verify',
-    short: 'Every item is checked for quality and integrity, then sorted for shipment.',
+    short: 'Supplies are checked for quality and prepared for shipment.',
     body:
       'We work with nonprofit partners to verify medical supply quality and integrity. Supplies are then sorted and prepared for shipment.',
   },
   {
     num: '04',
     title: 'Ship',
-    short: 'We arrange transport, and the supplies arrive free to the communities that need them.',
+    short: 'We arrange transport to the clinic or partner receiving them.',
     body:
       'Blueprints for Pangaea — independently or via a nonprofit partner — arranges transport. These shipments are sent to communities in need across the globe.',
   },

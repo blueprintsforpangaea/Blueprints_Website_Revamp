@@ -13,13 +13,13 @@ const ROUTES = {
     description: `A student-led ${ORG.taxStatus} recovering surplus medical supplies from hospitals and redistributing them to clinics in ${TOTALS.countries}+ countries.`,
   },
   '/mission': {
-    title: `Our mission — ${SUFFIX}`,
+    title: `What we do — ${SUFFIX}`,
     description:
-      'The U.S. healthcare system discards over 5 million tons of unused medical supplies a year. We reallocate that surplus to communities that need it.',
+      'The U.S. healthcare system discards over 5 million tons of unused medical supplies a year. Our chapters collect some of it and ship it to clinics that are short on supplies.',
   },
   '/impact': {
-    title: `Global impact — ${SUFFIX}`,
-    description: `${TOTALS.suppliesValueExact} in medical supplies redistributed across ${TOTALS.countries}+ countries. Explore every documented shipment.`,
+    title: `Impact — ${SUFFIX}`,
+    description: `${TOTALS.suppliesValueExact} in medical supplies redistributed to ${TOTALS.countries}+ countries, with a record of every documented shipment.`,
   },
   '/about': {
     title: `About us — ${SUFFIX}`,
@@ -27,12 +27,12 @@ const ROUTES = {
   },
   '/chapters': {
     title: `Our chapters — ${SUFFIX}`,
-    description: `${TOTALS.chapters} university chapters keeping medical supplies moving, from our Ann Arbor headquarters to campuses coast to coast.`,
+    description: `${TOTALS.chapters} university chapters and ${TOTALS.members}+ students, with headquarters at the University of Michigan in Ann Arbor.`,
   },
   '/press': {
     title: `Press — ${SUFFIX}`,
     description:
-      'Coverage of our students, our shipments, and the fight against medical waste.',
+      'News coverage of our students, our shipments, and medical waste.',
   },
   '/get-involved': {
     title: `Get involved — ${SUFFIX}`,
@@ -46,7 +46,7 @@ const ROUTES = {
   },
   '/donate': {
     title: `Donate — ${SUFFIX}`,
-    description: `Supplies reach us free; freight does not. Fund the logistics that turn hospital surplus into care. ${ORG.name} is a ${ORG.taxStatus}.`,
+    description: `Give online through Givebutter. ${ORG.name} is a ${ORG.taxStatus}, so gifts are tax-deductible.`,
   },
 };
 

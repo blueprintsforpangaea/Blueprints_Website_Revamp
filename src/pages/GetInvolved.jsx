@@ -12,29 +12,28 @@ import {
   EXPANSION_CONTACT,
 } from '../data/involvement.js';
 import { ORG } from '../data/site.js';
+import { DEPARTMENT_COUNT_WORD, DEPARTMENT_LIST } from '../data/departments.js';
 
-// Who each path is for — more useful as a structural label than an
-// index number would be, since these six are alternatives, not steps.
-const AUDIENCE_LABEL = {
-  students: 'Students',
-  organizations: 'Hospitals & clinics',
-  everyone: 'Anyone',
-};
+const pathway = (id) => PATHWAYS.find((p) => p.id === id);
+const chapterFormUrl = pathway('chapter').url;
+const volunteer = pathway('volunteer');
 
-function PathwayCta({ item, variant = 'outline' }) {
-  if (item.url) {
-    return (
-      <a href={item.url} target="_blank" rel="noreferrer" className={`btn btn--${variant}`}>
-        {item.cta} <span className="arrow">→</span>
-      </a>
-    );
-  }
-  return (
-    <a href={item.to} className={`btn btn--${variant}`}>
-      {item.cta} <span className="arrow">→</span>
-    </a>
-  );
-}
+// A short index instead of a full list: each option below already
+// has its own section, so the top of the page only points to them.
+const INDEX = [
+  {
+    who: 'Students',
+    links: [
+      { label: 'Join headquarters', to: '#recruitment' },
+      { label: 'Start a chapter', to: '#chapter' },
+      { label: 'High school internship', to: '#internship' },
+    ],
+  },
+  {
+    who: 'Hospitals and clinics',
+    links: [{ label: 'Donate supplies', to: '#supplies' }],
+  },
+];
 
 function Faq({ items }) {
   return (
@@ -52,30 +51,34 @@ function Faq({ items }) {
 export default function GetInvolved() {
   return (
     <article>
-      <PageHeader eyebrow="Get involved" title="How to get involved">
-        Six ways in — whether you're a student, a high schooler, a hospital with surplus, or
-        someone with an afternoon free.
-      </PageHeader>
+      <PageHeader title="Get involved" />
 
-      {/* ---------- The six pathways ---------- */}
-      <section className="section">
+      <section className="section section--tight">
         <div className="container">
-          <div className="pathway-list">
-            {PATHWAYS.map((p, i) => (
-              <Reveal as="article" className="pathway-row" key={p.id} delay={(i % 3) * 0.06}>
-                <span className={`pathway-row__who pathway-row__who--${p.audience}`}>
-                  {AUDIENCE_LABEL[p.audience]}
-                </span>
-                <div className="pathway-row__body">
-                  <h3>{p.title}</h3>
-                  <p>{p.body}</p>
-                </div>
-                <div className="pathway-row__action">
-                  <PathwayCta item={p} variant={p.id === 'donate' ? 'primary' : 'outline'} />
-                </div>
-              </Reveal>
+          <Reveal className="gi-index">
+            {INDEX.map((group) => (
+              <div className="gi-index__group" key={group.who}>
+                <h2 className="label">{group.who}</h2>
+                <ul>
+                  {group.links.map((l) => (
+                    <li key={l.label}>
+                      <a href={l.to} className="link-arrow">
+                        {l.label} <span className="arrow">→</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ))}
-          </div>
+            <div className="gi-index__group">
+              <h2 className="label">Anyone</h2>
+              <p>
+                {volunteer.body}{' '}
+                <a href={volunteer.url} target="_blank" rel="noreferrer">Sign up for a shift</a>.
+              </p>
+              <Link to="/donate" className="btn btn--primary btn--sm">Donate</Link>
+            </div>
+          </Reveal>
         </div>
       </section>
 
@@ -83,28 +86,19 @@ export default function GetInvolved() {
       <section className="section section--soft" id="recruitment">
         <div className="container split">
           <Reveal className="prose">
-            <span className="eyebrow">For students</span>
-            <h2 className="section-title" style={{ margin: '1rem 0 1.5rem' }}>
-              Become a member at headquarters
-            </h2>
+            <h2 className="section-title">Become a member at headquarters</h2>
             <p>
-              Members join one of four departments — Operations, Development, Expansion, or
-              Finance — and commit roughly 5–7 hours a week. Recruitment runs each semester at the
+              Members join one of {DEPARTMENT_COUNT_WORD} departments ({DEPARTMENT_LIST}) and put in
+              about 5 to 7 hours a week. Recruitment runs each semester at the
               University of Michigan, with mass meetings, a departments night, and an application
               workshop before applications close.
             </p>
-            <p>
-              No GPA requirement, no major restrictions. What matters is an interest in the
-              intersection of health and business.
-            </p>
-            <div style={{ marginTop: '1.5rem' }}>
-              <Link to="/mission" className="btn btn--dark">
-                Meet the departments <span className="arrow">→</span>
-              </Link>
-            </div>
+            <Link to="/mission" className="link-arrow">
+              Read about the departments <span className="arrow">→</span>
+            </Link>
           </Reveal>
           <Reveal delay={0.12}>
-            <h3 className="side-head">Common questions</h3>
+            <h3 className="label">Common questions</h3>
             <Faq items={MEMBER_FAQ} />
           </Reveal>
         </div>
@@ -112,53 +106,55 @@ export default function GetInvolved() {
 
       {/* ---------- Start a chapter ---------- */}
       <section className="section" id="chapter">
-        <div className="container">
-          <Reveal className="section-head section-head--center">
-            <span className="eyebrow eyebrow--center">For student leaders</span>
+        <div className="container split split--top">
+          <Reveal className="prose">
             <h2 className="section-title">Start a chapter</h2>
             <p>
-              Four stages over one to two months. Once you launch, a dedicated expansion manager
-              meets with your chapter weekly.
+              The application has four stages and takes one to two months. Once you launch, an
+              expansion manager meets with your chapter every week.
+            </p>
+            <ol className="mini-steps">
+              {CHAPTER_STEPS.map((s) => (
+                <li key={s.num}>
+                  <strong>{s.title}.</strong> {s.body}
+                </li>
+              ))}
+            </ol>
+            <div className="btn-row">
+              <a href={chapterFormUrl} target="_blank" rel="noreferrer" className="btn btn--dark">
+                Start a chapter
+              </a>
+            </div>
+          </Reveal>
+          <Reveal delay={0.12}>
+            <h3 className="label">Common questions</h3>
+            <Faq items={CHAPTER_FAQ} />
+            <p className="muted small" style={{ marginTop: '1rem' }}>
+              Anything else goes to{' '}
+              <a href={`mailto:${EXPANSION_CONTACT}`}>{EXPANSION_CONTACT}</a>.
             </p>
           </Reveal>
-
-          <div className="steps">
-            {CHAPTER_STEPS.map((s, i) => (
-              <Reveal as="div" className="step" key={s.num} delay={i * 0.1}>
-                <div className="step__num">{s.num}</div>
-                <div className="step__line" />
-                <h3>{s.title}</h3>
-                <p>{s.body}</p>
-              </Reveal>
-            ))}
-          </div>
-
-          <div className="container narrow" style={{ marginTop: '3.5rem', padding: 0 }}>
-            <Reveal>
-              <Faq items={CHAPTER_FAQ} />
-              <p style={{ marginTop: '1.5rem', color: 'var(--muted)', fontSize: '0.92rem' }}>
-                Chapter questions go to <a href={`mailto:${EXPANSION_CONTACT}`}>{EXPANSION_CONTACT}</a>.
-              </p>
-            </Reveal>
-          </div>
         </div>
       </section>
 
       {/* ---------- High school internship ---------- */}
       <section className="section section--soft" id="internship">
-        <div className="container narrow">
-          <Reveal>
-            <span className="eyebrow">For high schoolers</span>
-            <h2 className="section-title" style={{ margin: '1rem 0 1.25rem' }}>
-              {INTERNSHIP.title}
-            </h2>
-            <p className="lead">
-              An intensive, project-based summer working alongside our analysts on partnerships,
-              inventory processes, fundraising strategy, media, and school outreach. Every intern
-              also designs a community project of their own and presents it to leadership on the
-              final day.
+        <div className="container split split--top">
+          <Reveal className="prose">
+            <h2 className="section-title">High school summer internship</h2>
+            <p>
+              Interns spend the summer on projects with our analysts in partnerships, inventory,
+              fundraising, media, and school outreach. Each intern also designs a community project
+              and presents it to leadership on the last day.
             </p>
+            <div className="btn-row">
+              <a href={INTERNSHIP.url} target="_blank" rel="noreferrer" className="btn btn--dark">
+                Apply for the internship
+              </a>
+            </div>
+          </Reveal>
 
+          <Reveal delay={0.1}>
             <dl className="spec-list">
               <div>
                 <dt>Commitment</dt>
@@ -177,16 +173,6 @@ export default function GetInvolved() {
                 <dd>{INTERNSHIP.deadline}</dd>
               </div>
             </dl>
-
-            <a
-              href={INTERNSHIP.url}
-              target="_blank"
-              rel="noreferrer"
-              className="btn btn--dark btn--lg"
-              style={{ marginTop: '2rem' }}
-            >
-              Apply now <span className="arrow">→</span>
-            </a>
           </Reveal>
         </div>
       </section>
@@ -194,13 +180,8 @@ export default function GetInvolved() {
       {/* ---------- Supply donations ---------- */}
       <section className="section" id="supplies">
         <div className="container">
-          <Reveal className="section-head section-head--center">
-            <span className="eyebrow eyebrow--center">For hospitals & clinics</span>
-            <h2 className="section-title">Give new life to unused supplies</h2>
-            <p>
-              We partner with hospitals, clinics, and suppliers to collect surplus. Instead of
-              being discarded, these materials are reallocated to underserved communities.
-            </p>
+          <Reveal className="section-head">
+            <h2 className="section-title">Donating medical supplies</h2>
           </Reveal>
 
           <div className="supply-split">
@@ -222,10 +203,10 @@ export default function GetInvolved() {
             </Reveal>
           </div>
 
-          <Reveal style={{ textAlign: 'center', marginTop: '2.5rem' }}>
-            <p style={{ color: 'var(--muted)', fontSize: '0.92rem' }}>
-              These lists apply to our Ann Arbor headquarters. To arrange a pickup or ask about an
-              item, email <a href={`mailto:${ORG.email}`}>{ORG.email}</a>.
+          <Reveal>
+            <p className="muted small" style={{ marginTop: '2rem' }}>
+              These lists apply to our Ann Arbor headquarters. To arrange a pickup or ask about a
+              specific item, email <a href={`mailto:${ORG.email}`}>{ORG.email}</a>.
             </p>
           </Reveal>
         </div>

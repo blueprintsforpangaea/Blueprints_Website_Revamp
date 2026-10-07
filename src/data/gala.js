@@ -14,7 +14,7 @@ export const GALA = {
   venue: 'Tauber Colloquium, Ross School of Business',
   city: 'Ann Arbor, MI',
   intro:
-    'An evening connecting students with the business and healthcare professionals shaping the field — part reception, part competition, part research showcase.',
+    'An evening for students to meet business and healthcare professionals. There’s a reception, a pitch competition, and a research showcase.',
 };
 
 export const GALA_TRACKS = [

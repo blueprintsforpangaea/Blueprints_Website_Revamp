@@ -5,90 +5,81 @@ import { LEADERSHIP_GROUPS } from '../data/team.js';
 import { TOTALS } from '../data/stats.js';
 import { ORG } from '../data/site.js';
 
-// Every entry below maps to a documented shipment, partnership, or
-// chapter founding. Nothing here is an approximation.
+// Every entry maps to a documented shipment, partnership, or chapter
+// founding on the live site.
 const TIMELINE = [
   {
     year: '2013',
-    text: 'Founded at the University of Michigan after Ben Rathi visits a hospital in Nepal short of basic supplies — then watches those same supplies thrown out back home.',
+    text: 'Ben Rathi started Blueprints at U-M after visiting a hospital in Nepal that was short on basic supplies, and then seeing the same supplies thrown out at home.',
   },
   {
     year: '2016',
-    text: 'First international partnership, with Seeds of Hope in the Dominican Republic. Michigan State and Ohio State become the first chapters beyond Ann Arbor.',
+    text: 'First international partnership, with Seeds of Hope in the Dominican Republic. Michigan State and Ohio State became the first chapters outside Ann Arbor.',
   },
   {
     year: '2017',
-    text: 'The Project C.U.R.E. partnership expands, resolving a shipping bottleneck and opening a route for surplus at scale.',
+    text: 'Expanded our partnership with Project C.U.R.E., which fixed a shipping bottleneck.',
   },
   {
     year: '2020',
-    text: 'COVID-19 response: PPE to Michigan hospitals, a 12-pallet shipment to India, and roughly 700 face shields to Ann Arbor facilities.',
+    text: 'During COVID-19: PPE for Michigan hospitals, 12 pallets for India, and about 700 face shields for Ann Arbor healthcare facilities.',
   },
   {
     year: '2023',
-    text: '3,000 pounds of supplies sent to northern Syria with SAMS after the earthquake.',
+    text: 'Sent 3,000 pounds of supplies to northern Syria with the Syrian American Medical Society after the earthquake.',
   },
   {
     year: '2025',
-    text: `A 60-pallet, $573,000 delivery to Nigeria — and an eleventh chapter at the University of Nebraska Omaha.`,
+    text: 'Sent more than 60 pallets, worth over $573,000, to Nigeria. The University of Nebraska Omaha became our eleventh chapter.',
   },
 ];
 
 export default function AboutUs() {
   return (
     <article>
-      <PageHeader eyebrow="About us" title="A student movement with a global reach">
-        Founded at the University of Michigan, we're a student-driven {ORG.taxStatus} working to
-        make a tangible impact on healthcare sustainability.
+      <PageHeader title="About us">
+        Blueprints for Pangaea started at the University of Michigan in {ORG.founded}. We’re a
+        student-run {ORG.taxStatus} that works with hospitals and suppliers to keep usable medical
+        supplies out of the trash.
       </PageHeader>
 
-      {/* ---------- What "student-led" actually means ---------- */}
       <section className="section">
-        <div className="container split">
+        <div className="container split split--top">
           <Reveal className="prose">
-            <span className="eyebrow">Our story</span>
-            <h2 className="section-title" style={{ margin: '1rem 0 1.5rem' }}>
-              We're a student-led nonprofit — but what does that really mean?
+            <h2 className="section-title">
+              Run by students
             </h2>
             <p>
-              It means students run the supply chain. They negotiate the hospital partnerships,
-              inventory the warehouse, verify what's safe to ship, book the freight, and answer
-              for the numbers afterward.
+              Students handle every step: they set up hospital partnerships, keep the warehouse
+              inventory, check what’s safe to ship, arrange transport, and track the numbers.
             </p>
             <p>
-              What began as boxes in a campus storage room is now {TOTALS.chapters} chapters and{' '}
-              {TOTALS.members}+ members moving supplies across five continents — while giving
-              students real responsibility in public health, logistics, and leadership.
+              We have {TOTALS.chapters} chapters and {TOTALS.members}+ members, and we’ve
+              shipped to {TOTALS.countries}+ countries.
             </p>
-            <div style={{ marginTop: '1.5rem' }}>
-              <Link to="/get-involved" className="btn btn--dark">
-                Join the team <span className="arrow">→</span>
-              </Link>
-            </div>
+            <Link to="/get-involved" className="link-arrow">
+              Join us <span className="arrow">→</span>
+            </Link>
           </Reveal>
-          <Reveal delay={0.15}>
-            <div className="timeline">
+          <Reveal delay={0.1}>
+            <ol className="timeline">
               {TIMELINE.map((t) => (
-                <div className="timeline__item" key={t.year}>
-                  <div className="timeline__dot" />
-                  <div className="timeline__year">{t.year}</div>
+                <li className="timeline__item" key={t.year}>
+                  <span className="timeline__year">{t.year}</span>
                   <p>{t.text}</p>
-                </div>
+                </li>
               ))}
-            </div>
+            </ol>
           </Reveal>
         </div>
       </section>
 
-      {/* ---------- Leadership ---------- */}
       <section className="section section--soft">
         <div className="container">
-          <Reveal className="section-head section-head--center">
-            <span className="eyebrow eyebrow--center">Leadership</span>
-            <h2 className="section-title">The people behind the boxes</h2>
+          <Reveal className="section-head">
+            <h2 className="section-title">Leadership</h2>
             <p>
-              A national team of students, expansion managers, and directors keeping supplies
-              moving and chapters thriving — supported by a corps of 30+ analysts.
+              More than 30 analysts also work across the departments.
             </p>
           </Reveal>
 

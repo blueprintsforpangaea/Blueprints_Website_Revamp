@@ -6,11 +6,10 @@ import { ORG } from '../data/site.js';
 export default function Gala() {
   return (
     <article>
-      <PageHeader eyebrow={`${GALA.year} Blueprints Gala`} title={GALA.name}>
+      <PageHeader title={GALA.name}>
         {GALA.intro}
       </PageHeader>
 
-      {/* ---------- When / where ---------- */}
       <section className="section section--tight">
         <div className="container">
           <Reveal className="event-bar">
@@ -31,13 +30,10 @@ export default function Gala() {
         </div>
       </section>
 
-      {/* ---------- Three ways to take part ---------- */}
       <section className="section">
         <div className="container">
-          <Reveal className="section-head section-head--center">
-            <span className="eyebrow eyebrow--center">Take part</span>
-            <h2 className="section-title">Three ways in</h2>
-            <p>Attend the reception, pitch a venture, or present your research.</p>
+          <Reveal className="section-head">
+            <h2 className="section-title">Ways to take part</h2>
           </Reveal>
 
           <div className="grid-3">
@@ -48,7 +44,6 @@ export default function Gala() {
                 key={t.id}
                 delay={(i % 3) * 0.08}
               >
-                <span className="track-card__num">{t.num}</span>
                 <h3>{t.name}</h3>
                 <p>{t.body}</p>
                 {t.deadline && (
@@ -60,7 +55,7 @@ export default function Gala() {
                   href={t.url}
                   target="_blank"
                   rel="noreferrer"
-                  className={`btn ${t.primary ? 'btn--primary' : 'btn--outline'}`}
+                  className={`btn ${t.primary ? 'btn--dark' : 'btn--outline'}`}
                 >
                   {t.cta}
                 </a>
@@ -70,18 +65,17 @@ export default function Gala() {
         </div>
       </section>
 
-      {/* ---------- Sponsors ---------- */}
       <section className="section section--soft">
-        <div className="container narrow" style={{ textAlign: 'center' }}>
+        <div className="container narrow center">
           <Reveal>
-            <span className="eyebrow eyebrow--center">With support from</span>
+            <h2 className="label">Sponsors</h2>
             <div className="sponsor-row">
               {GALA_SPONSORS.map((s) => (
                 <span className="sponsor-row__name" key={s}>{s}</span>
               ))}
             </div>
-            <p style={{ marginTop: '2rem', color: 'var(--muted)' }}>
-              Interested in sponsoring the {GALA.year} gala? Reach out at{' '}
+            <p className="muted" style={{ marginTop: '2rem' }}>
+              Interested in sponsoring the {GALA.year} gala? Email{' '}
               <a href={`mailto:${ORG.email}`}>{ORG.email}</a>.
             </p>
           </Reveal>
