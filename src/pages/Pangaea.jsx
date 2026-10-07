@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import DriftGlobe from '../components/pangaea/DriftGlobe.jsx';
 import { TOTALS } from '../data/stats.js';
@@ -25,6 +25,18 @@ const SHIPMENTS = [
 export default function Pangaea() {
   const yearsRef = useRef(null);
   const stepsRef = useRef(null);
+  const [playKey, setPlayKey] = useState(0);
+  // Phones get the globe's story as a short film instead of following
+  // scroll; same breakpoint as the stylesheet.
+  const [isPhone, setIsPhone] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(max-width: 899px)').matches,
+  );
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 899px)');
+    const on = () => setIsPhone(mq.matches);
+    mq.addEventListener('change', on);
+    return () => mq.removeEventListener('change', on);
+  }, []);
 
   return (
     <div className="pg">
@@ -32,12 +44,19 @@ export default function Pangaea() {
         {/* The globe stays in view and follows whichever section you're reading. */}
         <aside className="pg-aside" aria-label="Map">
           <div className="pg-globe">
-            <DriftGlobe stepsRef={stepsRef} yearsRef={yearsRef} />
+            <DriftGlobe stepsRef={stepsRef} yearsRef={yearsRef} film={isPhone} playKey={playKey} />
           </div>
           <div className="pg-caption">
-            <p className="pg-caption__time">
-              Map: <strong ref={yearsRef}>About 200 million years ago</strong>
-            </p>
+            <div className="pg-caption__row">
+              <p className="pg-caption__time">
+                Map: <strong ref={yearsRef}>About 200 million years ago</strong>
+              </p>
+              {isPhone && (
+                <button type="button" className="pg-replay" onClick={() => setPlayKey((k) => k + 1)}>
+                  Play again
+                </button>
+              )}
+            </div>
             <p>
               Our name and logo come from Pangaea, the one landmass that held every continent about
               200 million years ago.{' '}
