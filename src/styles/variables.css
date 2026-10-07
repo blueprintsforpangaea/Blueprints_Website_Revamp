@@ -16,26 +16,29 @@
   /* ---------- Neutrals ----------
      Warm, not blue-tinted. Navy is kept for headings and dark
      sections; bright blue is reserved for Donate buttons. */
-  --bg:             var(--c-white);
-  --bg-soft:        #f6f4f0;
+  /* Warm drafting paper, from the Pangaea redesign. */
+  --bg:             #f6f4f0;
+  --bg-soft:        #ece8df;
+  --paper-grid:     rgba(0, 14, 63, 0.05);
   --bg-tint:        color-mix(in srgb, var(--c-blue-light) 32%, var(--c-white));
   --surface:        var(--c-white);
 
-  --text:           #26272b;
+  --text:           #2b2c30;
   --heading:        var(--c-navy);
-  --muted:          #5e6066;
-  --muted-soft:     #8b8d92;
+  --muted:          #4c4e54;
+  --muted-soft:     #6b6d73;
   --link:           var(--c-blue-dark);
   --on-dark:        rgba(255, 255, 255, 0.92);
   --on-dark-muted:  rgba(255, 255, 255, 0.72);
 
-  --line:           #e7e4de;
-  --line-strong:    #d4d0c8;
+  --line:           rgba(0, 14, 63, 0.16);
+  --line-strong:    rgba(0, 14, 63, 0.4);
 
   /* ---------- Type ---------- */
-  --font-sans:    'Source Sans 3', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  /* Headlines in Libre Franklin; body in Source Sans 3. */
-  --font-display: 'Libre Franklin', system-ui, -apple-system, sans-serif;
+  /* Lexend everywhere: designed for easier reading, with plain,
+     wide letterforms. Headlines use its 700–800 weights. */
+  --font-sans:    'Lexend', 'Source Sans 3', system-ui, sans-serif;
+  --font-display: 'Lexend', 'Source Sans 3', system-ui, sans-serif;
 
   /* ---------- Layout ---------- */
   --nav-h: 4.5rem;

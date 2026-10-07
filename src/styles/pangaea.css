@@ -2,119 +2,97 @@
    PANGAEA CONCEPT PAGE — a blueprint drawing of the earth, in
    navy ink on warm drafting paper. Written for readers of any
    age: large type, dark text on light paper, no small caps.
-   Type is Atkinson Hyperlegible Next, designed by the Braille
-   Institute for low-vision readers.
-   The globe is a sticky canvas; the story scrolls over it in
-   normal document flow.
+   The globe plays its story on its own, so the page stays short:
+   one screen for what we do, then two compact bands.
    ============================================================ */
 .pg {
-  --pg-paper: #f6f4f0;
+  --pg-paper: var(--bg);
   --pg-ink: var(--c-navy);
-  --pg-text: #2b2c30;
-  --pg-line: rgba(0, 14, 63, 0.05);
-  --pg-font: 'Atkinson Hyperlegible Next', 'Source Sans 3', system-ui, sans-serif;
-  font-family: var(--pg-font);
-  background-color: var(--pg-paper);
-  background-image:
-    linear-gradient(var(--pg-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--pg-line) 1px, transparent 1px);
-  background-size: 32px 32px;
-  color: var(--pg-text);
+  --pg-text: var(--text);
+  --pg-rule: var(--line);
+  --pg-font: var(--font-sans);
+  --pg-gutter: clamp(1.25rem, 5vw, 5rem);
+  font-size: 1.2rem;
+  line-height: 1.6;
 }
 .pg h1, .pg h2, .pg h3, .pg .btn { font-family: var(--pg-font); }
+.pg .btn { font-size: 1.1rem; }
+.pg a:not(.btn) { color: var(--pg-ink); font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
+.pg a:not(.btn):hover { text-decoration-thickness: 2px; }
 
-/* ---------- nav ---------- */
-.pg-nav {
-  position: fixed; inset: 0 0 auto 0; z-index: 20;
-  display: flex; align-items: center; gap: 2rem;
-  padding: 0.9rem clamp(1.25rem, 4vw, 3rem);
-  background: var(--pg-paper); border-bottom: 1px solid rgba(0, 14, 63, 0.15);
+/* ---------- layout: text column + sticky globe column ---------- */
+.pg { --pg-nav-h: var(--nav-h); }
+.pg-story {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: clamp(1.5rem, 4vw, 4rem); padding: 0 var(--pg-gutter);
 }
-.pg-nav__brand { font-weight: 800; font-size: 1.15rem; color: var(--pg-ink); margin-right: auto; }
-.pg-nav__links { display: flex; gap: 1.75rem; }
-.pg-nav__links a { color: var(--pg-text); font-weight: 700; font-size: 1.05rem; }
-.pg-nav__links a:hover { color: var(--pg-ink); text-decoration: underline; text-underline-offset: 4px; }
+.pg-aside {
+  grid-column: 2; grid-row: 1; align-self: start;
+  position: sticky; top: var(--pg-nav-h);
+  height: calc(100svh - var(--pg-nav-h));
+  display: flex; flex-direction: column; justify-content: center; gap: 0.75rem;
+  padding: 1.5rem 0;
+}
+.pg-globe {
+  position: relative; flex: 1 1 auto; min-height: 0;
+  /* Run to the right edge of the screen, and fade where the map meets
+     the text column and the top and bottom, instead of a hard crop
+     when it zooms in. */
+  margin-right: calc(-1 * var(--pg-gutter));
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 10%), linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to right, transparent, #000 10%), linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent);
+  mask-composite: intersect;
+}
 
-/* ---------- stage ---------- */
-.pg-story { position: relative; }
-.pg-stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
-.pg-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.pg-caption { padding-top: 0.75rem; border-top: 1.5px solid var(--pg-ink); }
+.pg-caption p { font-size: 1.05rem; }
+.pg-caption p + p { margin-top: 0.3rem; }
+.pg-caption__time strong { color: var(--pg-ink); font-variant-numeric: tabular-nums; }
 
-.pg-titleblock {
-  position: absolute; right: clamp(1rem, 3vw, 2rem); bottom: clamp(1rem, 3vw, 2rem);
-  display: grid; grid-template-columns: 1fr auto; min-width: 18rem;
-  border: 1.5px solid var(--pg-ink); background: var(--pg-paper);
-  font-size: 1rem; color: var(--pg-text);
+.pg-steps { grid-column: 1; grid-row: 1; }
+.pg-step { padding: clamp(3rem, 7vh, 5rem) 0; border-top: 1.5px solid var(--pg-ink); }
+.pg-step--hero {
+  border-top: 0; min-height: calc(100svh - var(--pg-nav-h));
+  display: flex; flex-direction: column; justify-content: center;
 }
-.pg-titleblock > div { padding: 0.5rem 0.8rem; }
-.pg-titleblock__name { font-weight: 700; color: var(--pg-ink); }
-.pg-titleblock__sheet { border-left: 1.5px solid var(--pg-ink); font-variant-numeric: tabular-nums; }
-.pg-titleblock__time { grid-column: 1 / -1; border-top: 1.5px solid var(--pg-ink); font-variant-numeric: tabular-nums; }
-
-/* ---------- steps ---------- */
-.pg-steps { position: relative; z-index: 1; margin-top: -100vh; margin-top: -100svh; }
-.pg-step {
-  min-height: 80vh; min-height: 80svh;
-  display: flex; align-items: center;
-  padding: 6.5rem clamp(1.25rem, 6vw, 6rem) 5rem;
-  pointer-events: none;
-}
-.pg-step__text {
-  max-width: 30rem; pointer-events: auto;
-  /* A paper-coloured halo keeps text readable over the map lines. */
-  text-shadow: 0 0 10px var(--pg-paper), 0 0 4px var(--pg-paper), 0 0 2px var(--pg-paper);
-}
-.pg-step h2 {
-  color: var(--pg-ink); font-weight: 800;
-  font-size: clamp(1.9rem, 3.3vw, 2.6rem); line-height: 1.15; letter-spacing: 0;
-}
-.pg-step h3 { color: var(--pg-ink); font-weight: 800; font-size: 1.3rem; }
-.pg-step p { margin-top: 1rem; color: var(--pg-text); font-size: 1.25rem; line-height: 1.6; }
-.pg-step a:not(.btn) { color: var(--pg-ink); font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
+.pg-step:last-child { min-height: 60svh; }
 
 .pg-title {
   color: var(--pg-ink); font-weight: 800;
-  font-size: clamp(2.3rem, 4.4vw, 3.6rem); line-height: 1.1; letter-spacing: 0;
+  font-size: clamp(2.2rem, 4.2vw, 3.5rem); line-height: 1.1; letter-spacing: 0;
 }
-.pg-cue { margin-top: 2.5rem !important; font-size: 1.1rem !important; font-weight: 700; color: var(--pg-ink) !important; }
-.pg-cue span { display: inline-block; animation: pg-bob 2s ease-in-out infinite; }
-@keyframes pg-bob { 50% { transform: translateY(4px); } }
-@media (prefers-reduced-motion: reduce) { .pg-cue span { animation: none; } }
-
-.pg-step--hero { min-height: 100vh; min-height: 100svh; }
-.pg-facts { display: flex; flex-wrap: wrap; gap: 0.4rem 1.5rem; margin-top: 1.25rem; font-size: 1.15rem; }
+.pg-step h2 { color: var(--pg-ink); font-weight: 800; font-size: clamp(1.7rem, 2.8vw, 2.2rem); line-height: 1.15; }
+.pg-step > p { margin-top: 0.9rem; max-width: 34rem; }
+.pg-step__second { margin-top: 2.5rem; }
+.pg-step__btn { margin-top: 1rem; }
+.pg-facts { display: flex; flex-wrap: wrap; gap: 0.4rem 1.5rem; margin-top: 1.25rem; }
 .pg-facts strong { color: var(--pg-ink); font-weight: 800; font-variant-numeric: tabular-nums; }
-.pg-ships { margin-top: 1rem; border-top: 1.5px solid var(--pg-ink); }
-.pg-ships li { padding: 0.75rem 0; border-bottom: 1px solid rgba(0, 14, 63, 0.2); font-size: 1.15rem; line-height: 1.5; }
-.pg-ships strong { color: var(--pg-ink); font-weight: 800; }
-
-.pg-link { display: inline-block; margin-top: 1.25rem; font-size: 1.15rem; }
-
-.pg-process { margin-top: 1.25rem; border-top: 1.5px solid var(--pg-ink); }
-.pg-process li {
-  display: grid; grid-template-columns: 2.25rem 1fr; align-items: baseline;
-  padding: 0.8rem 0; border-bottom: 1px solid rgba(0, 14, 63, 0.2);
-}
-.pg-process__num { font-weight: 800; font-size: 1.25rem; color: var(--pg-ink); }
-.pg-process p { margin-top: 0 !important; }
-
-.pg-step .btn { text-shadow: none; font-size: 1.1rem; }
 .pg-ctas { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.75rem; }
 
-.pg-help { display: grid; gap: 1.75rem; margin-top: 1.75rem; }
-.pg-help > div { padding-top: 1.25rem; border-top: 1.5px solid var(--pg-ink); }
-.pg-help p { margin-top: 0.5rem; }
-.pg-help .btn { margin-top: 1rem; }
-.pg-more { margin-top: 2rem !important; }
+.pg-list { margin-top: 1rem; border-top: 1px solid var(--pg-rule); }
+.pg-list li { padding: 0.7rem 0; border-bottom: 1px solid var(--pg-rule); }
+.pg-list strong { color: var(--pg-ink); font-weight: 800; }
+.pg-list--num li { display: grid; grid-template-columns: 2rem 1fr; }
+.pg-list__num { font-weight: 800; color: var(--pg-ink); }
+.pg-link { display: inline-block; margin-top: 1rem; }
+.pg-small { font-size: 1.05rem; }
 
-/* ---------- small screens: globe on top, text below ---------- */
+/* ---------- small screens: map band pinned under the nav ---------- */
 @media (max-width: 899px) {
-  .pg-nav__links, .pg-titleblock { display: none; }
-  .pg-step { align-items: flex-end; padding: 0 0 2rem; }
-  .pg-step__text {
-    max-width: none; width: 100%;
-    background: var(--pg-paper); padding: 1.25rem 1.25rem 1.5rem;
-    border-top: 1.5px solid var(--pg-ink); text-shadow: none;
+  .pg-story { grid-template-columns: 1fr; gap: 0; }
+  .pg-aside {
+    grid-column: 1; grid-row: 1; z-index: 5;
+    height: 38svh; padding: 0.5rem 0;
+    background: var(--pg-paper);
   }
-  .pg-step p { font-size: 1.15rem; }
+  .pg-caption { display: none; }
+  .pg-globe {
+    margin: 0 calc(-1 * var(--pg-gutter));
+    -webkit-mask-image: linear-gradient(to bottom, #000 85%, transparent);
+    mask-image: linear-gradient(to bottom, #000 85%, transparent);
+  }
+  .pg-steps { grid-row: 2; }
+  .pg-step--hero { min-height: 0; border-top: 0; }
+  .pg-step:last-child { min-height: 50svh; }
 }

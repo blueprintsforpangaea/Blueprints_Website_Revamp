@@ -68,7 +68,7 @@ export default function Gala() {
       <section className="section section--soft">
         <div className="container narrow center">
           <Reveal>
-            <h2 className="label">Sponsors</h2>
+            <h2 className="section-title section-title--sm">Sponsors</h2>
             <div className="sponsor-row">
               {GALA_SPONSORS.map((s) => (
                 <span className="sponsor-row__name" key={s}>{s}</span>

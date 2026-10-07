@@ -194,3 +194,12 @@ export function movePoint(lon, lat, plate, mats) {
 }
 
 export { FIT_BY_ID };
+
+// Land is coloured like the logo: each continent one of its three
+// blues (sampled from blueprints-logo-4.png), with neighbours never
+// sharing a shade. Used by the globe and the flat map.
+export const LOGO = { navy: '#001a49', dark: '#0038a3', bright: '#0069f2' };
+export const PLATE_COLOR = {
+  afr: LOGO.navy, nam: LOGO.dark, sam: LOGO.bright, eur: LOGO.bright,
+  ant: LOGO.dark, ind: LOGO.bright, aus: LOGO.navy, mad: LOGO.dark,
+};

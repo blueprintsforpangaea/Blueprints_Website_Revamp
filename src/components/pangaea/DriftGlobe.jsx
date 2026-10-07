@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
-import { geoOrthographic, geoPath, geoGraticule10, geoInterpolate, geoDistance } from 'd3-geo';
-import { plateMatrices, plateGeometry, movePoint } from './plates.js';
+import { geoOrthographic, geoPath, geoGraticule, geoGraticule10, geoInterpolate, geoDistance } from 'd3-geo';
+import { plateMatrices, plateGeometry, movePoint, LOGO, PLATE_COLOR } from './plates.js';
 import { STEPS, ROUTES, OTHER_ROUTES, CHAPTER_PINS } from './story.js';
 
 const RAD = Math.PI / 180;
@@ -8,9 +8,13 @@ const RAD = Math.PI / 180;
 const INK = '0, 14, 63';
 const SKY = '55, 60, 130';
 const PAPER = '246, 244, 240';
-const FONT = '"Atkinson Hyperlegible Next", system-ui, sans-serif';
+const FONT = 'Lexend, system-ui, sans-serif';
 const SPIN_SPEED = 5; // degrees per second on the spinning steps
 const GRATICULE = geoGraticule10();
+// The logo's grid: wider spacing, drawn in white over the land only.
+const LAND_GRID = geoGraticule().step([20, 20])();
+
+
 const ALL_ROUTES = [...ROUTES, ...OTHER_ROUTES.map((r) => ({ ...r, group: 'all' }))];
 
 const smooth = (t) => t * t * (3 - 2 * t);
@@ -18,17 +22,25 @@ const lerp = (a, b, t) => a + (b - a) * t;
 const angleDiff = (a, b) => ((((b - a) % 360) + 540) % 360) - 180;
 
 // Interpolate two steps. Missing arc keys count as 0.
+// When the continents drift apart, run it in order: drift, then turn
+// toward the next place, then zoom in. You never see a zoomed-in,
+// half-drifted map or a close-up of empty ocean.
+const phase = (t, from, to) => smooth(Math.max(0, Math.min(1, (t - from) / (to - from))));
 function blend(a, b, t) {
+  const apart = b.drift > a.drift;
+  const td = apart ? phase(t, 0, 0.5) : t;
+  const tv = apart ? phase(t, 0.35, 0.8) : t;
+  const tz = apart ? phase(t, 0.6, 1) : t;
   const arcs = {};
   for (const k of new Set([...Object.keys(a.arcs || {}), ...Object.keys(b.arcs || {})])) {
     arcs[k] = lerp(a.arcs?.[k] || 0, b.arcs?.[k] || 0, t);
   }
   return {
-    drift: lerp(a.drift, b.drift, t),
-    lon: a.lon + angleDiff(a.lon, b.lon) * t,
-    lat: lerp(a.lat, b.lat, t),
-    scale: lerp(a.scale, b.scale, t),
-    pins: lerp(a.pins || 0, b.pins || 0, t),
+    drift: lerp(a.drift, b.drift, td),
+    lon: a.lon + angleDiff(a.lon, b.lon) * tv,
+    lat: lerp(a.lat, b.lat, tv),
+    scale: lerp(a.scale, b.scale, tz),
+    pins: lerp(a.pins || 0, b.pins || 0, tv),
     spin: lerp(a.spin || 0, b.spin || 0, t),
     arcs,
     focus: t < 0.5 ? a.focus : b.focus,
@@ -45,19 +57,6 @@ function lift(lon, lat, h, view) {
   const k = 1 + h;
   const visible = z > 0 || Math.hypot(x, y) * k > 1;
   return { x: view.cx + view.r * x * k, y: view.cy - view.r * y * k, visible };
-}
-
-function hatch() {
-  const c = document.createElement('canvas');
-  c.width = c.height = 8;
-  const g = c.getContext('2d');
-  g.strokeStyle = `rgba(${INK}, 0.2)`;
-  g.lineWidth = 1;
-  g.beginPath();
-  g.moveTo(0, 8);
-  g.lineTo(8, 0);
-  g.stroke();
-  return c;
 }
 
 // Text with a paper-coloured outline so it stays readable over map lines.
@@ -91,25 +90,25 @@ function label(ctx, x, y, text, sub, alpha, dir = 1) {
 }
 
 /**
- * The sticky globe behind the Pangaea page. Reads scroll position
- * against the step sections and eases toward the matching state.
- * Scrolling is never intercepted; the globe only follows it.
+ * The Pangaea globe. Sits beside the page text and follows it: each
+ * child of `stepsRef` is one step, and the globe eases toward the
+ * state of whichever step you're reading. Scrolling is never
+ * intercepted, and the page is only as long as its text.
  */
-export default function DriftGlobe({ sectionsRef, onStep, yearsRef }) {
+export default function DriftGlobe({ stepsRef, yearsRef }) {
   const canvasRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const pattern = ctx.createPattern(hatch(), 'repeat');
     const proj = geoOrthographic().clipAngle(90).precision(0.4);
     const path = geoPath(proj, ctx);
 
-    let w = 0, h = 0, dpr = 1, anchors = [], visible = true, raf = 0, last = performance.now();
-    let spinOffset = 0, stepShown = -1, yearsShown = '';
+    let w = 0, h = 0, dpr = 1, visible = true, raf = 0, last = performance.now();
+    let anchors = [], spinOffset = 0, yearsShown = '';
     let geoCache = { drift: -1, geo: null, mats: null };
-    const cur = { ...blend(STEPS[0], STEPS[0], 0) };
+    const cur = blend(STEPS[0], STEPS[0], 0);
 
     const measure = () => {
       const rect = canvas.parentElement.getBoundingClientRect();
@@ -118,22 +117,28 @@ export default function DriftGlobe({ sectionsRef, onStep, yearsRef }) {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
-      const els = Array.from(sectionsRef.current?.children || []);
-      anchors = els.map((el) => {
+      // A step is "reached" when its middle crosses the middle of the
+      // screen. Clamp to the bottom of the page so the last step is
+      // always reachable, however short it is.
+      const story = stepsRef?.current?.parentElement;
+      const storyBottom = story ? story.getBoundingClientRect().bottom + window.scrollY : 0;
+      const maxScroll = Math.max(0, storyBottom - window.innerHeight);
+      anchors = Array.from(stepsRef?.current?.children || []).map((el, i) => {
+        if (i === 0) return 0;
         const r = el.getBoundingClientRect();
-        return r.top + window.scrollY + r.height / 2 - window.innerHeight / 2;
+        return Math.min(maxScroll, r.top + window.scrollY + r.height / 2 - window.innerHeight / 2);
       });
     };
 
     const target = () => {
       const y = window.scrollY;
-      if (!anchors.length || y <= anchors[0]) return { state: blend(STEPS[0], STEPS[0], 0), pos: 0 };
       const n = Math.min(anchors.length, STEPS.length) - 1;
-      if (y >= anchors[n]) return { state: blend(STEPS[n], STEPS[n], 0), pos: n };
+      if (n < 1 || y <= anchors[0]) return blend(STEPS[0], STEPS[0], 0);
+      if (y >= anchors[n]) return blend(STEPS[n], STEPS[n], 0);
       let i = 0;
       while (i < n - 1 && y >= anchors[i + 1]) i++;
-      const t = (y - anchors[i]) / (anchors[i + 1] - anchors[i]);
-      return { state: blend(STEPS[i], STEPS[i + 1], smooth(t)), pos: i + t };
+      const span = Math.max(1, anchors[i + 1] - anchors[i]);
+      return blend(STEPS[i], STEPS[i + 1], smooth((y - anchors[i]) / span));
     };
 
     const draw = (now) => {
@@ -142,16 +147,11 @@ export default function DriftGlobe({ sectionsRef, onStep, yearsRef }) {
       last = now;
       if (!visible || !w) return;
 
-      const { state: tg, pos } = target();
-      const step = Math.round(pos);
-      if (step !== stepShown) {
-        stepShown = step;
-        onStep?.(step);
-      }
+      const tg = target();
 
-      // Spin on the bookend steps; otherwise settle back to the nearest
-      // full turn so the globe lands where the step wants it.
-      if (!reduce && tg.spin > 0.95) spinOffset += dt * SPIN_SPEED;
+      // Spin where the timeline asks; otherwise settle back to the
+      // nearest full turn so the globe lands where the frame wants it.
+      if (!reduce && tg.spin > 0.02) spinOffset += dt * SPIN_SPEED * tg.spin;
       else spinOffset += (Math.round(spinOffset / 360) * 360 - spinOffset) * Math.min(1, dt * 2.5);
 
       const k = reduce ? 1 : 1 - Math.exp(-dt * 5);
@@ -172,46 +172,15 @@ export default function DriftGlobe({ sectionsRef, onStep, yearsRef }) {
       }
 
       // ---- layout ----
-      const wide = w >= 900;
-      const cx = wide ? w * 0.64 : w / 2;
-      const cy = wide ? h * 0.52 : h * 0.34;
-      const r0 = wide ? Math.min(h * 0.4, w * 0.3) : Math.min(w * 0.44, h * 0.29);
-      // Zoom a little less on narrow screens so the whole U.S. fits.
-      const r = r0 * (wide ? cur.scale : 1 + (cur.scale - 1) * 0.75);
+      const wide = w >= 520;
+      const cx = w / 2;
+      const cy = h / 2;
+      const r = Math.min(w, h) * 0.4 * cur.scale;
       const view = { lon: cur.lon, lat: cur.lat, cx, cy, r };
       proj.translate([cx, cy]).scale(r).rotate([-cur.lon, -cur.lat]);
 
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, w, h);
-
-      // ---- drafting marks: construction ring + centre lines ----
-      const ringAlpha = Math.max(0, Math.min(1, (1.6 - cur.scale) / 0.5));
-      if (ringAlpha > 0) {
-        ctx.globalAlpha = ringAlpha;
-        ctx.strokeStyle = `rgba(${SKY}, 0.35)`;
-        ctx.lineWidth = 1;
-        ctx.setLineDash([2, 6]);
-        ctx.beginPath();
-        ctx.arc(cx, cy, r * 1.09, 0, Math.PI * 2);
-        ctx.stroke();
-        ctx.setLineDash([]);
-        for (let d = 0; d < 360; d += 10) {
-          const a = (d + cur.lon) * RAD;
-          const len = d % 30 === 0 ? 10 : 5;
-          ctx.beginPath();
-          ctx.moveTo(cx + Math.cos(a) * r * 1.09, cy + Math.sin(a) * r * 1.09);
-          ctx.lineTo(cx + Math.cos(a) * (r * 1.09 + len), cy + Math.sin(a) * (r * 1.09 + len));
-          ctx.stroke();
-        }
-        ctx.strokeStyle = `rgba(${SKY}, 0.3)`;
-        for (const [ax, ay] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
-          ctx.beginPath();
-          ctx.moveTo(cx + ax * r * 1.14, cy + ay * r * 1.14);
-          ctx.lineTo(cx + ax * r * 1.24, cy + ay * r * 1.24);
-          ctx.stroke();
-        }
-        ctx.globalAlpha = 1;
-      }
 
       // ---- sphere + graticule ----
       ctx.beginPath();
@@ -235,14 +204,27 @@ export default function DriftGlobe({ sectionsRef, onStep, yearsRef }) {
         geoCache = { drift: driftKey, mats, geo: plateGeometry(mats) };
       }
       const { geo, mats } = geoCache;
+      for (const g of geo) {
+        ctx.beginPath();
+        path(g);
+        ctx.fillStyle = PLATE_COLOR[g.id] || LOGO.navy;
+        ctx.fill();
+      }
+      ctx.save();
       ctx.beginPath();
       for (const g of geo) path(g);
-      ctx.fillStyle = `rgba(${INK}, 0.04)`;
-      ctx.fill();
-      ctx.fillStyle = pattern;
-      ctx.fill();
-      ctx.strokeStyle = `rgba(${INK}, 0.88)`;
-      ctx.lineWidth = 1;
+      ctx.clip();
+      ctx.beginPath();
+      path(LAND_GRID);
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.85)';
+      ctx.lineWidth = 1.1;
+      ctx.stroke();
+      ctx.restore();
+      // White seams between continents, as in the logo.
+      ctx.beginPath();
+      for (const g of geo) path(g);
+      ctx.strokeStyle = '#fff';
+      ctx.lineWidth = 1.2;
       ctx.lineJoin = 'round';
       ctx.stroke();
 
@@ -263,8 +245,7 @@ export default function DriftGlobe({ sectionsRef, onStep, yearsRef }) {
         const peak = Math.min(0.3, (dist / Math.PI) * 0.55);
         const focus = cur.focus?.includes(route.id);
         const n = 72;
-        ctx.strokeStyle = focus ? `rgb(${INK})` : `rgba(${SKY}, 0.6)`;
-        ctx.lineWidth = focus ? 2.4 : 1.2;
+        const lineW = focus ? 2.4 : 1.3;
         ctx.beginPath();
         let pen = false, head = null;
         for (let i = 0; i <= n; i++) {
@@ -277,16 +258,27 @@ export default function DriftGlobe({ sectionsRef, onStep, yearsRef }) {
           pen = true;
           head = pt;
         }
+        // White casing first, so the line reads over blue land and paper alike.
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.9)';
+        ctx.lineWidth = lineW + 2.5;
+        ctx.stroke();
+        ctx.strokeStyle = focus ? `rgb(${INK})` : `rgba(${INK}, 0.6)`;
+        ctx.lineWidth = lineW;
         ctx.stroke();
         if (head) {
+          const rr = prog > 0.98 ? 3 : 2.4;
+          ctx.fillStyle = '#fff';
+          ctx.beginPath();
+          ctx.arc(head.x, head.y, rr + 1.5, 0, Math.PI * 2);
+          ctx.fill();
           ctx.fillStyle = `rgb(${INK})`;
           ctx.beginPath();
-          ctx.arc(head.x, head.y, prog > 0.98 ? 2.6 : 2, 0, Math.PI * 2);
+          ctx.arc(head.x, head.y, rr, 0, Math.PI * 2);
           ctx.fill();
         }
         if (focus && prog > 0.9) {
           const end = at(route.to);
-          if (end.visible) label(ctx, end.x, end.y, route.to.label, null, (prog - 0.9) * 10, end.x > w * 0.82 ? -1 : 1);
+          if (end.visible) label(ctx, end.x, end.y, route.to.label, null, (prog - 0.9) * 10, end.x + 130 > w ? -1 : 1);
         }
       }
 
@@ -297,9 +289,14 @@ export default function DriftGlobe({ sectionsRef, onStep, yearsRef }) {
           const p = at(pin);
           if (!p.visible) continue;
           ctx.globalAlpha = cur.pins;
+          const pr = pin.hq ? 5 : 3.2;
+          ctx.fillStyle = '#fff';
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, pr + 1.8, 0, Math.PI * 2);
+          ctx.fill();
           ctx.fillStyle = `rgb(${INK})`;
           ctx.beginPath();
-          ctx.arc(p.x, p.y, pin.hq ? 5 : 3.2, 0, Math.PI * 2);
+          ctx.arc(p.x, p.y, pr, 0, Math.PI * 2);
           ctx.fill();
           if (pin.hq) {
             ctx.strokeStyle = `rgba(${INK}, ${0.25 + 0.5 * (1 - pulse)})`;
@@ -327,9 +324,9 @@ export default function DriftGlobe({ sectionsRef, onStep, yearsRef }) {
     measure();
     const ro = new ResizeObserver(measure);
     ro.observe(canvas.parentElement);
-    if (sectionsRef.current) ro.observe(sectionsRef.current);
     window.addEventListener('resize', measure);
     document.fonts?.ready.then(measure);
+    if (stepsRef?.current) ro.observe(stepsRef.current);
     const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting; });
     io.observe(canvas.parentElement);
     raf = requestAnimationFrame(draw);
@@ -340,7 +337,7 @@ export default function DriftGlobe({ sectionsRef, onStep, yearsRef }) {
       io.disconnect();
       window.removeEventListener('resize', measure);
     };
-  }, [sectionsRef, onStep, yearsRef]);
+  }, [stepsRef, yearsRef]);
 
   return <canvas ref={canvasRef} className="pg-canvas" aria-hidden="true" />;
 }

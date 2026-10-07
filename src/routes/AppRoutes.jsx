@@ -14,7 +14,9 @@ import Pangaea from '../pages/Pangaea.jsx';
 export default function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      {/* The Pangaea globe page is the home page on this branch. */}
+      <Route path="/" element={<Pangaea />} />
+      <Route path="/classic" element={<Home />} />
       <Route path="/mission" element={<Mission />} />
       <Route path="/impact" element={<Impact />} />
       <Route path="/about" element={<AboutUs />} />

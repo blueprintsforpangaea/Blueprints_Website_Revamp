@@ -56,17 +56,16 @@ export const OTHER_ROUTES = DESTINATIONS.filter(
   to: { lat: d.lat, lng: d.lng, label: d.country, plate: plateOf(d.country, d.lng, d.lat) },
 }));
 
-// Globe state per step. Between steps every number is interpolated
-// against scroll position, so the globe moves only as fast as you
-// scroll. drift: 0 = Pangaea, 1 = today. scale: 1 = whole globe.
-// arcs: how much of each route is drawn. pins: chapter dots.
-// focus: which route endpoint gets a label.
+// Globe state for each section of the page, in order. Between
+// sections every value eases against scroll position, so the globe
+// moves only as fast as you read. drift: 0 = Pangaea, 1 = today.
+// scale: 1 = whole globe. arcs: how much of each route is drawn.
+// pins: chapter dots. focus: routes that get a label.
+const ALL_ARCS = { hon: 1, 'nga-usc': 1, 'nga-wsu': 1, syr: 1, all: 1 };
 export const STEPS = [
-  { id: 'hero', sheet: 'What we do', drift: 0, lon: 0, lat: -8, scale: 1, spin: 1 },
-  { id: 'name', sheet: 'Our name', drift: 0.55, lon: -14, lat: 6, scale: 1 },
-  { id: 'waste', sheet: 'The problem', drift: 1, lon: -40, lat: 22, scale: 1.05 },
-  { id: 'chapters', sheet: 'Our chapters', drift: 1, lon: -92, lat: 37, scale: 2.7, pins: 1 },
-  { id: 'process', sheet: 'How it works', drift: 1, lon: -86, lat: 38, scale: 2.1, pins: 1 },
-  { id: 'shipments', sheet: 'Where it goes', drift: 1, lon: -32, lat: 24, scale: 1, pins: 0.6, arcs: { hon: 1, 'nga-usc': 1, 'nga-wsu': 1, syr: 1, all: 1 }, focus: ['hon', 'nga-usc', 'syr'] },
-  { id: 'together', sheet: 'How to help', drift: 0, lon: 0, lat: -8, scale: 1, pins: 0.6, arcs: { hon: 1, 'nga-usc': 1, 'nga-wsu': 1, syr: 1, all: 1 }, spin: 1 },
+  { id: 'hero', drift: 0, lon: -5, lat: 6, scale: 1, spin: 1 },
+  { id: 'how', drift: 1, lon: -90, lat: 37, scale: 2.3, pins: 1 },
+  { id: 'where', drift: 1, lon: -32, lat: 24, scale: 1, pins: 0.7, arcs: ALL_ARCS, focus: ['hon', 'nga-usc', 'syr'] },
+  { id: 'help', drift: 0, lon: -5, lat: 6, scale: 1, pins: 0.7, arcs: ALL_ARCS, spin: 1 },
 ];
+

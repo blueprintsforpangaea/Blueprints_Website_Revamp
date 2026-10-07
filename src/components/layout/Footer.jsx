@@ -1,15 +1,19 @@
 import { Link } from 'react-router-dom';
 import { ORG, SOCIALS, DOCUMENTS } from '../../data/site.js';
+import logo from '../../assets/logos/blueprints-logo-1.png';
 
 export default function Footer() {
   return (
     <footer className="footer">
       <div className="container">
         <div className="footer__top">
-          <p className="footer__about">
-            {ORG.name} is a student-led {ORG.taxStatus} based in {ORG.hq}. Founded in{' '}
-            {ORG.founded} at the {ORG.foundedAt}.
-          </p>
+          <div>
+            <img className="footer__logo" src={logo} alt="Blueprints for Pangaea" />
+            <p className="footer__about">
+              {ORG.name} is a student-led {ORG.taxStatus} based in {ORG.hq}. Founded in{' '}
+              {ORG.founded} at the {ORG.foundedAt}.
+            </p>
+          </div>
 
           <div className="footer__cols">
             <div className="footer__col">

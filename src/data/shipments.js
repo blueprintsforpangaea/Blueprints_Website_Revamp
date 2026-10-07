@@ -203,10 +203,8 @@ export const SHIPMENTS = [
 
 const byId = (ids) => ids.map((id) => SHIPMENTS.find((s) => s.id === id));
 
-// The home page shows three. The Impact page shows these six as
-// highlights and the rest as a short list underneath.
+// The home page shows three. The Impact page highlights these six.
 export const RECENT_SHIPMENTS = byId(['nigeria-2025', 'syria', 'ukraine']);
 export const FEATURED_SHIPMENTS = byId([
   'nigeria-2025', 'syria', 'ghana', 'food-gatherers', 'ukraine', 'mexico',
 ]);
-export const OTHER_SHIPMENTS = SHIPMENTS.filter((s) => !FEATURED_SHIPMENTS.includes(s));

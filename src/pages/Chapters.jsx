@@ -60,12 +60,6 @@ function ChapterDetail({ chapter }) {
   return (
     <article>
       <PageHeader
-        eyebrow={
-          <>
-            <Link to="/chapters">Chapters</Link>
-            {chapter.isHQ && <span> / Headquarters</span>}
-          </>
-        }
         title={chapter.name}
       >
         {chapter.location}
@@ -148,6 +142,9 @@ function ChapterDetail({ chapter }) {
               </div>
             )}
           </Reveal>
+        </div>
+        <div className="container page-next">
+          <Link to="/chapters" className="link-arrow">See all chapters <span className="arrow">→</span></Link>
         </div>
       </section>
     </article>
