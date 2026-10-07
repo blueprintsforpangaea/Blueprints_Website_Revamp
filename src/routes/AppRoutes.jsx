@@ -9,6 +9,7 @@ import Gala from '../pages/Gala.jsx';
 import Donate from '../pages/Donate.jsx';
 import Chapters from '../pages/Chapters.jsx';
 import NotFound from '../pages/NotFound.jsx';
+import Pangaea from '../pages/Pangaea.jsx';
 
 export default function AppRoutes() {
   return (
@@ -23,6 +24,7 @@ export default function AppRoutes() {
       <Route path="/donate" element={<Donate />} />
       <Route path="/chapters" element={<Chapters />} />
       <Route path="/chapters/:chapterSlug" element={<Chapters />} />
+      <Route path="/pangaea" element={<Pangaea />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
