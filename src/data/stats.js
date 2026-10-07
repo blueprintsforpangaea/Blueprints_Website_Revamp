@@ -21,7 +21,7 @@
 export const TOTALS = {
   suppliesValue: 9_077_500.09,
   suppliesValueExact: '$9,077,500.09',
-  suppliesValueShort: '$9M+',
+  suppliesValueShort: '$9 million+',
   countries: 15,
   chapters: 11,
   members: 150,

@@ -60,7 +60,7 @@ export default function Impact() {
             <Reveal className="stat-row stat-row--stack" delay={0.1}>
               <div className="stat">
                 <div className="stat__value">
-                  ${(TOTALS.projectCureValue / 1_000_000).toFixed(0)}M+
+                  ${(TOTALS.projectCureValue / 1_000_000).toFixed(0)} million+
                 </div>
                 <div className="stat__label">in supplies reallocated together</div>
               </div>
