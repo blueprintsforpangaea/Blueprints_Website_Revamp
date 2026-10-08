@@ -273,6 +273,7 @@ h1, h2, h3, h4 {
   position: absolute; pointer-events: none;
   width: clamp(200px, 24vw, 320px); height: auto;
   right: max(1.5rem, calc((100% - var(--max-content-width)) / 2 + 1.5rem)); top: 50%; transform: translateY(-50%);
+  opacity: 0.5;
 }
 .page-header .container { position: relative; }
 .page-header__inner { max-width: 46rem; }
