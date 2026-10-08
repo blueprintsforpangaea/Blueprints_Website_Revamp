@@ -14,12 +14,8 @@ body {
   font-family: var(--font-sans);
   font-size: 1.15rem;
   color: var(--text);
-  /* Drafting paper: warm ground with a faint navy grid. */
+  /* Plain warm paper. */
   background-color: var(--bg);
-  background-image:
-    linear-gradient(var(--paper-grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--paper-grid) 1px, transparent 1px);
-  background-size: 32px 32px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -267,7 +263,20 @@ h1, h2, h3, h4 {
 /* ============================================================
    INTERIOR PAGE HEADER
    ============================================================ */
-.page-header { padding: clamp(3.5rem, 8vw, 6rem) 0 clamp(2.5rem, 5vw, 3.5rem); border-bottom: 1px solid var(--line); }
+.page-header {
+  position: relative; overflow: hidden;
+  padding: clamp(3.5rem, 8vw, 6rem) 0 clamp(2.5rem, 5vw, 3.5rem); border-bottom: 1px solid var(--line);
+}
+/* The latitude and longitude lines from the logo's globe, faint, in
+   the corner of every page header. */
+.page-header::before {
+  content: ''; position: absolute; pointer-events: none;
+  width: clamp(320px, 42vw, 620px); aspect-ratio: 1;
+  right: clamp(-200px, -8vw, -60px); top: 50%; transform: translateY(-50%);
+  background: url('../assets/globe-lines.svg') center / contain no-repeat;
+  opacity: 0.13;
+}
+.page-header .container { position: relative; }
 .page-header__inner { max-width: 46rem; }
 .page-header h1 {
   font-family: var(--font-display); font-weight: 700;
@@ -684,3 +693,4 @@ h1, h2, h3, h4 {
   .hero__ctas .btn, .closing__ctas .btn { flex: 1 1 auto; }
   .timeline__item { grid-template-columns: 1fr; gap: 0.2rem; }
 }
+@media (max-width: 700px) { .page-header::before { opacity: 0.07; } }

@@ -19,7 +19,6 @@
   /* Warm drafting paper, from the Pangaea redesign. */
   --bg:             #f6f4f0;
   --bg-soft:        #ece8df;
-  --paper-grid:     rgba(0, 14, 63, 0.05);
   --bg-tint:        color-mix(in srgb, var(--c-blue-light) 32%, var(--c-white));
   --surface:        var(--c-white);
 
