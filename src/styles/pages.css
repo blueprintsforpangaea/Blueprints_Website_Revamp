@@ -1,0 +1,153 @@
+/* ============================================================
+   PAGE SIGNATURES — each interior page leads with one element
+   only it has, so the pages don't read as copies of each other.
+   What we do: the route. Chapters: the U.S. map. About: the
+   timeline. Get involved: the "I am a…" choices. Donate: the
+   navy band with the running total.
+   ============================================================ */
+
+/* ---------- shared: one dark band per page ---------- */
+.band-navy { background: var(--c-navy); color: var(--on-dark); padding: clamp(3.5rem, 8vw, 6rem) 0; }
+.band-navy h1, .band-navy h2, .band-navy h3 { color: var(--c-white); }
+.band-navy a:not(.btn) { color: var(--c-blue-light); }
+.band-navy__split { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(2rem, 6vw, 5rem); align-items: center; }
+.band-navy__text h2 { font-size: clamp(1.6rem, 2.6vw, 2.1rem); margin-bottom: 1rem; }
+.band-navy__text p { font-size: 1.12rem; color: var(--on-dark); }
+
+/* A single oversized number with its caption underneath. */
+.big-figure strong {
+  display: block; font-weight: 800; line-height: 0.95; letter-spacing: -0.02em;
+  font-size: clamp(3.5rem, 9vw, 7.5rem); font-variant-numeric: tabular-nums;
+}
+.big-figure span { display: block; margin-top: 1rem; font-size: clamp(1.1rem, 1.8vw, 1.35rem); max-width: 26rem; }
+.band-navy .big-figure strong { color: var(--c-white); }
+.band-navy .big-figure span { color: var(--on-dark-muted); }
+
+/* ---------- What we do: the route ---------- */
+.route-section { padding: clamp(3rem, 6vw, 4.5rem) 0 clamp(4rem, 8vw, 6rem); }
+.route-section .section-title { margin-bottom: clamp(1.75rem, 3vw, 2.5rem); }
+.route { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(1.25rem, 2.5vw, 2rem); }
+/* The line runs through the numbered stops, left to right. */
+.route__line {
+  position: absolute; left: 1.4rem; right: 0; top: calc(1.4rem - 1.5px); height: 3px;
+  background: var(--c-navy); transform-origin: left center;
+}
+.route__line::after {
+  content: ''; position: absolute; right: -2px; top: 50%; transform: translateY(-50%);
+  border: 8px solid transparent; border-left: 12px solid var(--c-navy); border-right: 0;
+}
+.route__stop { position: relative; display: flex; flex-direction: column; }
+.route__node {
+  position: relative; z-index: 1; display: grid; place-items: center;
+  width: 2.8rem; height: 2.8rem; border-radius: 50%;
+  background: var(--c-navy); color: var(--c-white); font-weight: 800; font-size: 1.2rem;
+  box-shadow: 0 0 0 6px var(--bg);
+}
+.route__photo { order: 1; margin-top: 1.25rem; }
+.route__photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius); }
+.route__title { order: 2; margin-top: 1rem; font-size: clamp(1.5rem, 2.4vw, 1.9rem); font-weight: 800; }
+.route__stop p { order: 3; margin-top: 0.35rem; color: var(--text); }
+
+@media (max-width: 820px) {
+  .band-navy__split { grid-template-columns: 1fr; }
+  /* The route turns to run top to bottom. */
+  .route { grid-template-columns: 1fr; gap: 2rem; padding-left: 4rem; }
+  .route__line { left: 1.4rem; right: auto; top: 0; bottom: 0; width: 3px; height: auto; transform-origin: center top; }
+  .route__line::after { right: auto; left: 50%; top: auto; bottom: -2px; transform: translateX(-50%); border: 8px solid transparent; border-top: 12px solid var(--c-navy); border-bottom: 0; }
+  .route__node { position: absolute; left: -4rem; top: 0; }
+  .route__photo { margin-top: 0.75rem; }
+  .route__title { order: 0; margin-top: 0.2rem; }
+}
+
+/* White button for use on the navy band. */
+.btn--light { background: var(--c-white); color: var(--c-navy); }
+.btn--light:hover { background: var(--c-blue-light); }
+.band-navy__split > :last-child:has(> .btn) { justify-self: end; }
+
+/* ---------- Chapters: the U.S. map ---------- */
+.chapmap-section { padding: clamp(1.5rem, 4vw, 3rem) 0 0; }
+.chapmap-section__hint { margin-top: 0.75rem; color: var(--muted); }
+.chapmap { margin: 0 auto; max-width: 980px; }
+.chapmap svg { width: 100%; height: auto; display: block; overflow: visible; --u: 1; }
+.chapmap__grid { fill: none; stroke: rgba(255, 255, 255, 0.35); stroke-width: 0.8; vector-effect: non-scaling-stroke; }
+.chapmap__pin { r: calc(7px * var(--u)); fill: var(--c-white); stroke: var(--c-navy); stroke-width: 3; vector-effect: non-scaling-stroke; }
+.chapmap__pin--hq { r: calc(10px * var(--u)); fill: var(--c-blue); stroke: var(--c-white); }
+.chapmap__leader { stroke: var(--c-navy); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.chapmap__label {
+  font-size: calc(17px * var(--u)); font-weight: 700; fill: var(--c-navy);
+  paint-order: stroke; stroke: var(--bg); stroke-width: calc(5px * var(--u)); stroke-linejoin: round;
+}
+.chapmap__place { cursor: pointer; }
+.chapmap__place:hover .chapmap__label, .chapmap__place:focus-visible .chapmap__label { text-decoration: underline; }
+.chapmap__place:hover .chapmap__pin { fill: var(--c-blue-light); }
+.chapmap__place:focus-visible { outline: none; }
+@media (max-width: 700px) {
+  /* Too tight for every name on a phone; the list below names them. */
+  .chapmap__label, .chapmap__leader { display: none; }
+  .chapmap-section .container { padding-inline: 0.5rem; }
+  .chapmap-section__hint { padding-inline: 1rem; }
+}
+
+/* ---------- About: the years ---------- */
+.years-section { padding: clamp(2rem, 4vw, 3rem) 0 clamp(4rem, 8vw, 6rem); }
+.years__item {
+  display: grid; grid-template-columns: minmax(9rem, 16rem) minmax(0, 40rem); gap: clamp(1rem, 4vw, 3rem);
+  align-items: baseline; padding: clamp(1.25rem, 2.5vw, 2rem) 0; border-top: 1px solid var(--line-strong);
+}
+.years__item:last-child { border-bottom: 1px solid var(--line-strong); }
+.years__year {
+  font-weight: 800; color: var(--c-navy); line-height: 1; letter-spacing: -0.02em;
+  font-size: clamp(3rem, 7vw, 5.5rem); font-variant-numeric: tabular-nums;
+}
+.years__item p { font-size: clamp(1.1rem, 1.6vw, 1.3rem); color: var(--text); }
+
+.band-navy__split--top { align-items: start; }
+.figures { display: grid; gap: 1.25rem; }
+.figures li { font-size: 1.15rem; color: var(--on-dark-muted); }
+.figures strong {
+  display: block; font-size: clamp(2.8rem, 6vw, 4.5rem); line-height: 1; font-weight: 800;
+  color: var(--c-white); font-variant-numeric: tabular-nums;
+}
+.photo-strip { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: clamp(2.5rem, 5vw, 3.5rem); }
+.photo-strip img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius); }
+
+@media (max-width: 700px) {
+  .years__item { grid-template-columns: 1fr; gap: 0.4rem; }
+  .figures { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; }
+  .figures li { font-size: 0.95rem; }
+  .figures strong { font-size: 2.2rem; }
+  .photo-strip { grid-template-columns: 1fr 1fr; }
+  .photo-strip img:first-child { grid-column: 1 / -1; }
+}
+
+/* ---------- Get involved: the three choices ---------- */
+.choose-section { padding: clamp(1.5rem, 3vw, 2.5rem) 0 clamp(3.5rem, 7vw, 5rem); }
+.choose { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
+.choose__card {
+  display: flex; flex-direction: column; padding: clamp(1.5rem, 3vw, 2.25rem);
+  background: var(--surface); border: 1px solid var(--line-strong); border-radius: var(--radius-lg);
+}
+.choose__who { font-size: clamp(1.6rem, 2.6vw, 2.1rem); font-weight: 800; line-height: 1.15; }
+.choose__body { margin-top: 0.75rem; font-size: 1.08rem; color: var(--text); }
+.choose__links { margin-top: auto; padding-top: 1.5rem; display: grid; gap: 0.15rem; }
+.choose__links a {
+  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+  padding: 0.7rem 0; border-top: 1px solid var(--line); font-weight: 700; font-size: 1.08rem; color: var(--c-navy);
+}
+.choose__links a:hover { color: var(--c-blue-dark); }
+.choose__card--dark { background: var(--c-navy); border-color: var(--c-navy); }
+.choose__card--dark .choose__who { color: var(--c-white); }
+.choose__card--dark .choose__body { color: var(--on-dark); }
+.choose__card--dark .choose__links a { color: var(--c-white); border-color: rgba(255, 255, 255, 0.25); }
+.choose__card--dark .choose__links a:hover { color: var(--c-blue-light); }
+@media (max-width: 900px) { .choose { grid-template-columns: 1fr; } }
+
+/* ---------- Donate: the navy opening ---------- */
+.donate-band { padding-top: clamp(3rem, 7vw, 5rem); }
+.donate-band__title { font-size: clamp(1.4rem, 2.2vw, 1.75rem); font-weight: 700; color: var(--on-dark-muted); margin-bottom: 1.25rem; }
+.donate-band__note { margin-top: 2rem; color: var(--on-dark-muted); font-size: 1.05rem; }
+.donate-band .donate-card { background: var(--surface); color: var(--text); border-color: transparent; }
+.donate-band .donate-card h2 { color: var(--heading); }
+.donate-impact-list { margin-top: 1.5rem; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 clamp(2rem, 5vw, 4rem); }
+@media (max-width: 820px) { .donate-impact-list { grid-template-columns: 1fr; } }
+.donate-band .big-figure strong { white-space: nowrap; font-size: clamp(2.8rem, 6.5vw, 5.5rem); }

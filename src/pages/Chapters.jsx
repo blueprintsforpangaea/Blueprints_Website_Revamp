@@ -1,6 +1,7 @@
 import { useParams, Link } from 'react-router-dom';
 import PageHeader from '../components/layout/PageHeader.jsx';
 import ChaptersList from '../components/sections/ChaptersList.jsx';
+import ChapterMap from '../components/pangaea/ChapterMap.jsx';
 import Reveal from '../components/ui/Reveal.jsx';
 import EmailLink from '../components/ui/EmailLink.jsx';
 import { CHAPTERS, EMERGING_CHAPTERS } from '../data/chapters.js';
@@ -22,7 +23,15 @@ export default function Chapters() {
         {TOTALS.chapters} chapters and {TOTALS.members}+ students. Headquarters is the founding
         chapter at the University of Michigan.
       </PageHeader>
-      <section className="section">
+      {/* Signature: every chapter on one map. */}
+      <section className="chapmap-section">
+        <div className="container">
+          <ChapterMap />
+          <p className="chapmap-section__hint">The blue dot is headquarters in Ann Arbor. Select a dot or a school below to see that chapter.</p>
+        </div>
+      </section>
+
+      <section className="section section--tight">
         <div className="container">
           <ChaptersList />
 
@@ -34,16 +43,20 @@ export default function Chapters() {
               </p>
             </Reveal>
           )}
+        </div>
+      </section>
 
-          <Reveal className="note-row" delay={0.1}>
-            <div>
-              <h2>Don’t see your school?</h2>
-              <p>
-                Start one. An expansion manager from headquarters meets with new chapters every
-                week.
-              </p>
-            </div>
-            <Link to="/get-involved#chapter" className="btn btn--dark">Start a chapter</Link>
+      <section className="band-navy">
+        <div className="container band-navy__split">
+          <Reveal className="band-navy__text">
+            <h2>Don’t see your school?</h2>
+            <p>
+              Start a chapter. An expansion manager from headquarters meets with new chapters every
+              week.
+            </p>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <Link to="/get-involved#chapter" className="btn btn--light btn--lg">Start a chapter</Link>
           </Reveal>
         </div>
       </section>
