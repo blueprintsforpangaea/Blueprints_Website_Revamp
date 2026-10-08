@@ -40,7 +40,7 @@ const TIMELINE = [
   },
   {
     year: '2025',
-    text: 'Sent more than 60 pallets, worth over $573,000, to Nigeria. The University of Nebraska Omaha became our eleventh chapter.',
+    text: 'Sent more than 60 pallets, worth over $573,000, to Nigeria. The University of Nebraska Omaha and UC Berkeley started chapters.',
   },
 ];
 

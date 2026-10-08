@@ -4,7 +4,7 @@ import ChaptersList from '../components/sections/ChaptersList.jsx';
 import ChapterMap from '../components/pangaea/ChapterMap.jsx';
 import Reveal from '../components/ui/Reveal.jsx';
 import EmailLink from '../components/ui/EmailLink.jsx';
-import { CHAPTERS, EMERGING_CHAPTERS } from '../data/chapters.js';
+import { CHAPTERS } from '../data/chapters.js';
 import { logoFor } from '../assets/chapters/logos.js';
 import { TOTALS } from '../data/stats.js';
 
@@ -26,8 +26,11 @@ export default function Chapters() {
       {/* Signature: every chapter on one map. */}
       <section className="chapmap-section">
         <div className="container">
+          <p className="chapmap-section__hint">
+            <span className="chapmap-section__wide">Click a school’s name to see its chapter page.</span>
+            <span className="chapmap-section__narrow">The blue dot is headquarters. Tap a school below to see its chapter page.</span>
+          </p>
           <ChapterMap />
-          <p className="chapmap-section__hint">The blue dot is headquarters in Ann Arbor. Select a dot or a school below to see that chapter.</p>
         </div>
       </section>
 
@@ -35,14 +38,6 @@ export default function Chapters() {
         <div className="container">
           <ChaptersList />
 
-          {EMERGING_CHAPTERS.length > 0 && (
-            <Reveal className="emerging" delay={0.1}>
-              <span className="emerging__label">In formation</span>
-              <p>
-                {EMERGING_CHAPTERS.map((c) => `${c.name} (${c.since})`).join(' · ')}
-              </p>
-            </Reveal>
-          )}
         </div>
       </section>
 

@@ -21,6 +21,7 @@ export default function ChaptersList() {
             <h3>{chapter.name}</h3>
             <span className="chapter-card__loc">{chapter.location}</span>
             {chapter.lead && <span className="chapter-card__lead">{chapter.lead}</span>}
+            <span className="chapter-card__more">See chapter <span className="arrow">→</span></span>
           </Link>
         </Reveal>
       ))}
