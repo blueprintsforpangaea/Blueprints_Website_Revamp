@@ -5,6 +5,15 @@ import { LEADERSHIP_GROUPS } from '../data/team.js';
 import { headshotFor } from '../assets/team/headshots.js';
 import { TOTALS } from '../data/stats.js';
 import { ORG } from '../data/site.js';
+import groupPhoto from '../assets/images/img-2457.jpg';
+import tablePhoto from '../assets/images/dsc06350.jpg';
+import sortPhoto from '../assets/images/eae28d10-7a69-40e0-af54-3d146010a570-1-105-c.jpg';
+
+const STRIP = [
+  { src: groupPhoto, alt: 'A large group of Blueprints members in matching shirts' },
+  { src: tablePhoto, alt: 'Members at a Blueprints information table' },
+  { src: sortPhoto, alt: 'Three members in the warehouse among boxes of supplies' },
+];
 
 // Every entry maps to a documented shipment, partnership, or chapter
 // founding on the live site.
@@ -53,34 +62,46 @@ export default function AboutUs() {
         supplies out of the trash.
       </PageHeader>
 
-      <section className="section">
-        <div className="container split split--top">
-          <Reveal className="prose">
-            <h2 className="section-title">
-              Run by students
-            </h2>
-            <p>
-              Students handle every step: they set up hospital partnerships, keep the warehouse
-              inventory, check what’s safe to ship, arrange transport, and track the numbers.
-            </p>
-            <p>
-              We have {TOTALS.chapters} chapters and {TOTALS.members}+ members, and we’ve
-              shipped to {TOTALS.countries}+ countries.
-            </p>
-            <Link to="/get-involved" className="link-arrow">
-              Join us <span className="arrow">→</span>
-            </Link>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <ol className="timeline">
-              {TIMELINE.map((t) => (
-                <li className="timeline__item" key={t.year}>
-                  <span className="timeline__year">{t.year}</span>
-                  <p>{t.text}</p>
-                </li>
-              ))}
-            </ol>
-          </Reveal>
+      {/* Signature: our history, one year at a time, in large type. */}
+      <section className="years-section" aria-label="Our history">
+        <div className="container">
+          <ol className="years">
+            {TIMELINE.map((t, i) => (
+              <Reveal as="li" className="years__item" key={t.year} delay={Math.min(i, 2) * 0.05}>
+                <span className="years__year">{t.year}</span>
+                <p>{t.text}</p>
+              </Reveal>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section className="band-navy">
+        <div className="container">
+          <div className="band-navy__split band-navy__split--top">
+            <Reveal className="band-navy__text">
+              <h2>Run by students</h2>
+              <p>
+                Students handle every step: they set up hospital partnerships, keep the warehouse
+                inventory, check what’s safe to ship, arrange transport, and track the numbers.
+              </p>
+              <Link to="/get-involved" className="btn btn--light" style={{ marginTop: '1.5rem' }}>
+                Join us
+              </Link>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <ul className="figures">
+                <li><strong>{TOTALS.chapters}</strong> chapters</li>
+                <li><strong>{TOTALS.members}+</strong> members</li>
+                <li><strong>{TOTALS.countries}+</strong> countries shipped to</li>
+              </ul>
+            </Reveal>
+          </div>
+          <div className="photo-strip">
+            {STRIP.map((p) => (
+              <img key={p.src} src={p.src} alt={p.alt} loading="lazy" />
+            ))}
+          </div>
         </div>
       </section>
 

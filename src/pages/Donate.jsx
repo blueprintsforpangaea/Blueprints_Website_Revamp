@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import PageHeader from '../components/layout/PageHeader.jsx';
 import Reveal from '../components/ui/Reveal.jsx';
 import { DONATE_URL, ORG } from '../data/site.js';
 import { TOTALS } from '../data/stats.js';
@@ -26,12 +25,20 @@ export default function Donate() {
 
   return (
     <article>
-      <PageHeader title="Donate">
-        {ORG.name} is a {ORG.taxStatus}, so your donation is tax-deductible.
-      </PageHeader>
-
-      <section className="section">
-        <div className="container donate-grid">
+      {/* Signature: the page opens on one navy band with the running
+          total beside the gift form. */}
+      <section className="band-navy donate-band">
+        <div className="container band-navy__split band-navy__split--top">
+          <div>
+            <h1 className="donate-band__title">Donate</h1>
+            <p className="big-figure">
+              <strong>{TOTALS.suppliesValueShort}</strong>
+              <span>in medical supplies redistributed so far, by students, to clinics in {TOTALS.countries}+ countries.</span>
+            </p>
+            <p className="donate-band__note">
+              {ORG.name} is a {ORG.taxStatus}, so your donation is tax-deductible.
+            </p>
+          </div>
           <Reveal as="div" className="donate-card">
             <h2 className="donate-card__title">Choose an amount</h2>
             <p className="muted small">
@@ -82,11 +89,13 @@ export default function Donate() {
             </p>
           </Reveal>
 
-          <Reveal delay={0.12}>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container">
+          <Reveal>
             <h2 className="section-title section-title--sm">Some of our larger shipments</h2>
-            <p className="muted" style={{ margin: '0.75rem 0 1.75rem' }}>
-              {TOTALS.suppliesValueExact} worth of supplies redistributed so far.
-            </p>
 
             <div className="donate-impact-list">
               {FUNDED.map((s) => (

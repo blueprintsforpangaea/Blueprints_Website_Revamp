@@ -19,20 +19,30 @@ const pathway = (id) => PATHWAYS.find((p) => p.id === id);
 const chapterFormUrl = pathway('chapter').url;
 const volunteer = pathway('volunteer');
 
-// A short index instead of a full list: each option below already
-// has its own section, so the top of the page only points to them.
-const INDEX = [
+// Three starting points at the top of the page, one per kind of
+// visitor. Each link goes to its section below or straight to the form.
+const CHOICES = [
   {
-    who: 'Students',
+    who: 'I’m a student',
+    body: 'Join the team at headquarters, start a chapter at your school, or spend a summer with us in high school.',
     links: [
-      { label: 'Join headquarters', to: '#recruitment' },
-      { label: 'Start a chapter', to: '#chapter' },
-      { label: 'High school internship', to: '#internship' },
+      { label: 'Join headquarters', href: '#recruitment' },
+      { label: 'Start a chapter', href: '#chapter' },
+      { label: 'High school internship', href: '#internship' },
     ],
   },
   {
-    who: 'Hospitals and clinics',
-    links: [{ label: 'Donate supplies', to: '#supplies' }],
+    who: 'I work at a hospital or clinic',
+    body: 'Have unused supplies? We’ll pick them up and get them to clinics that need them.',
+    links: [{ label: 'What we accept', href: '#supplies' }],
+  },
+  {
+    who: 'I want to help',
+    body: 'Sort supplies at our Ann Arbor warehouse (no experience needed), or give money.',
+    links: [
+      { label: 'Sign up for a shift', href: volunteer.url, external: true },
+      { label: 'Donate', to: '/donate' },
+    ],
   },
 ];
 
@@ -54,32 +64,28 @@ export default function GetInvolved() {
     <article>
       <PageHeader title="Get involved" />
 
-      <section className="section section--tight">
-        <div className="container">
-          <Reveal className="gi-index">
-            {INDEX.map((group) => (
-              <div className="gi-index__group" key={group.who}>
-                <h2 className="label">{group.who}</h2>
-                <ul>
-                  {group.links.map((l) => (
-                    <li key={l.label}>
-                      <a href={l.to} className="link-arrow">
+      {/* Signature: pick who you are, and go straight to your part. */}
+      <section className="choose-section" aria-label="Choose how to help">
+        <div className="container choose">
+          {CHOICES.map((c, i) => (
+            <Reveal as="div" className={`choose__card ${i === 0 ? 'choose__card--dark' : ''}`} key={c.who} delay={i * 0.08}>
+              <h2 className="choose__who">{c.who}</h2>
+              <p className="choose__body">{c.body}</p>
+              <ul className="choose__links">
+                {c.links.map((l) => (
+                  <li key={l.label}>
+                    {l.href ? (
+                      <a href={l.href} target={l.external ? '_blank' : undefined} rel={l.external ? 'noreferrer' : undefined}>
                         {l.label} <span className="arrow">→</span>
                       </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-            <div className="gi-index__group">
-              <h2 className="label">Anyone</h2>
-              <p>
-                {volunteer.body}{' '}
-                <a href={volunteer.url} target="_blank" rel="noreferrer">Sign up for a shift</a>.
-              </p>
-              <Link to="/donate" className="btn btn--primary btn--sm">Donate</Link>
-            </div>
-          </Reveal>
+                    ) : (
+                      <Link to={l.to}>{l.label} <span className="arrow">→</span></Link>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+          ))}
         </div>
       </section>
 

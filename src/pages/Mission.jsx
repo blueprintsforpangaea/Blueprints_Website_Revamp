@@ -3,7 +3,19 @@ import PageHeader from '../components/layout/PageHeader.jsx';
 import Reveal from '../components/ui/Reveal.jsx';
 import { DEPARTMENTS, PIPELINE } from '../data/departments.js';
 import { TOTALS } from '../data/stats.js';
-import vanPhoto from '../assets/images/efd3cc03-681e-468b-8608-f746800f9dc2dsc-0260.jpg';
+import { motion, useReducedMotion } from 'framer-motion';
+import partnerPhoto from '../assets/images/12dd519c-c348-407b-b191-8031453d39c2-1-105-c.jpg';
+import collectPhoto from '../assets/images/726a596d-3249-43ff-a5c2-4c5e01be5098.jpg';
+import verifyPhoto from '../assets/images/img-2540.jpg';
+import shipPhoto from '../assets/images/9fdcc1e7-5bd6-44dc-8afe-dd642b4a08cadsc-0258.jpg';
+
+// One real photo per step of the route, in PIPELINE order.
+const STEP_PHOTOS = [
+  { src: partnerPhoto, alt: 'Two people at Hope Clinic holding a box of donated supplies' },
+  { src: collectPhoto, alt: 'A volunteer among stacked boxes in the warehouse' },
+  { src: verifyPhoto, alt: 'Hands sealing a box of checked supplies' },
+  { src: shipPhoto, alt: 'Volunteers loading boxes into a van' },
+];
 
 // Departments with published copy get a card; the rest are named in
 // one line until their teams write a description.
@@ -11,6 +23,7 @@ const DESCRIBED = DEPARTMENTS.filter((d) => d.charter);
 const UNDESCRIBED = DEPARTMENTS.filter((d) => !d.charter);
 
 export default function Mission() {
+  const reduce = useReducedMotion();
   return (
     <article>
       <PageHeader title="What we do">
@@ -18,48 +31,51 @@ export default function Mission() {
         essential medical supplies from areas of surplus to communities in need.
       </PageHeader>
 
-      <section className="section">
-        <div className="container split">
-          <Reveal className="prose">
-            <h2 className="section-title">The problem</h2>
-            <p>
-              Billions of people around the world lack basic medical supplies and equipment. At the
-              same time, the U.S. healthcare system discards over{' '}
-              <strong>{(TOTALS.wasteTons / 1_000_000).toFixed(0)} million tons</strong> of unused
-              medical supplies every year. That’s roughly{' '}
-              {(TOTALS.wastePounds / 1_000_000_000).toFixed(0)} billion pounds.
-            </p>
-            <p>
-              Our university chapters and high school clubs collect some of that surplus and ship
-              it to clinics and hospitals, in the U.S. and overseas.
-            </p>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <figure className="photo">
-              <img
-                src={vanPhoto}
-                alt="Three Blueprints volunteers sitting in a van loaded with boxes of supplies"
-                loading="lazy"
-              />
-            </figure>
-          </Reveal>
-        </div>
-      </section>
-
-      <section className="section section--soft">
+      {/* Signature: the supply chain as one route, hospital to clinic. */}
+      <section className="route-section" aria-labelledby="route-title">
         <div className="container">
-          <Reveal className="section-head">
-            <h2 className="section-title">How a shipment happens</h2>
-          </Reveal>
-          <ol className="steps">
+          <h2 id="route-title" className="section-title section-title--sm">How a shipment happens</h2>
+          <ol className="route">
+            <motion.span
+              className="route__line"
+              aria-hidden="true"
+              initial={reduce ? false : { scaleX: 0, scaleY: 0 }}
+              whileInView={{ scaleX: 1, scaleY: 1 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
+            />
             {PIPELINE.map((s, i) => (
-              <Reveal as="li" className="step" key={s.num} delay={i * 0.06}>
-                <span className="step__num">{i + 1}</span>
-                <h3>{s.title}</h3>
-                <p>{s.body}</p>
+              <Reveal as="li" className="route__stop" key={s.num} delay={0.25 + i * 0.25}>
+                <figure className="route__photo">
+                  <img src={STEP_PHOTOS[i].src} alt={STEP_PHOTOS[i].alt} loading="lazy" />
+                </figure>
+                <span className="route__node">{i + 1}</span>
+                <h3 className="route__title">{s.title}</h3>
+                <p>{s.short}</p>
               </Reveal>
             ))}
           </ol>
+        </div>
+      </section>
+
+      {/* One dark band: the size of the problem, as one large number. */}
+      <section className="band-navy">
+        <div className="container band-navy__split">
+          <Reveal>
+            <p className="big-figure">
+              <strong>{(TOTALS.wasteTons / 1_000_000).toFixed(0)} million tons</strong>
+              <span>of unused medical supplies thrown away by U.S. healthcare every year</span>
+            </p>
+          </Reveal>
+          <Reveal className="band-navy__text" delay={0.1}>
+            <h2>The problem</h2>
+            <p>
+              Billions of people around the world lack basic medical supplies and equipment, while
+              roughly {(TOTALS.wastePounds / 1_000_000_000).toFixed(0)} billion pounds go to waste here.
+              Our university chapters and high school clubs collect some of that surplus and ship it
+              to clinics and hospitals, in the U.S. and overseas.
+            </p>
+          </Reveal>
         </div>
       </section>
 

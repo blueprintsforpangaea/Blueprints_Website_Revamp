@@ -8,7 +8,7 @@ const RAD = Math.PI / 180;
 const INK = '0, 14, 63';
 const SKY = '55, 60, 130';
 const PAPER = '246, 244, 240';
-const FONT = 'Lexend, system-ui, sans-serif';
+const FONT = '"Public Sans", system-ui, sans-serif';
 const SPIN_SPEED = 5; // degrees per second on the spinning steps
 const GRATICULE = geoGraticule10();
 // The logo's grid: wider spacing, drawn in white over the land only.
