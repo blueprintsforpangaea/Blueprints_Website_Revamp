@@ -1,8 +1,11 @@
 
 // ============================================================
-// 11 active chapters. Every `since` year, member count, blurb,
+// 12 active chapters. Every `since` year, member count, blurb,
 // partner list, and contact below is taken from that chapter's
-// own page on blueprintsforpangaea.org.
+// own page on blueprintsforpangaea.org (rechecked Oct. 2026).
+// A chapter lead is listed only where that page names one with a
+// title. UC Berkeley (2025) has no page yet, so it carries only
+// its name, city, and year; its email is headquarters'.
 //
 // Note: Rutgers is not a separate chapter — Rutgers students run
 // the Greater New Jersey chapter. UC Berkeley is an emerging
@@ -42,8 +45,7 @@ export const CHAPTERS = [
     location: 'East Lansing, MI',
     since: 2016,
     members: '15–20',
-    lead: 'Maya Marina, President',
-    email: 'blueprintsforpangaea-michiganstate@b4pglobal.org',
+    email: 'blueprintsforpangaea.msu@gmail.com',
     instagram: 'blueprints4pangaea_msu',
     blurb:
       'The Michigan State chapter is currently focused on building up its operations through fundraising, inventorying, and member engagement.',
@@ -55,8 +57,7 @@ export const CHAPTERS = [
     location: 'Columbus, OH',
     since: 2016,
     members: '25–30',
-    lead: 'Siddharth Varman & Naomi Mukka, Presidents',
-    email: 'blueprintsforpangaea-ohiostate@b4pglobal.org',
+    email: 'blueprintsforpangaea.osu@gmail.com',
     instagram: 'b4posu',
     blurb:
       'Committed to addressing global and local healthcare disparities through sustainable medical redistribution and educational outreach. The chapter runs monthly supply shipments to Honduras and supports free clinics locally.',
@@ -70,7 +71,7 @@ export const CHAPTERS = [
     location: 'Detroit, MI',
     since: 2017,
     members: '~50',
-    lead: 'Deidre Nicole Crockett, President',
+    lead: 'Tamanna Garu, President',
     email: 'blueprintsforpangaea-waynestate@b4pglobal.org',
     instagram: 'blueprints4pangaea_wsu',
     blurb:
@@ -99,7 +100,6 @@ export const CHAPTERS = [
     location: 'St. Louis, MO',
     since: 2022,
     members: '~40',
-    lead: 'Alina Alqazaha, President',
     email: 'b4pangaea@gmail.com',
     instagram: 'b4p_washu',
     blurb:
@@ -112,7 +112,7 @@ export const CHAPTERS = [
     since: 2023,
     members: '~20',
     lead: 'Senit Ghile, President',
-    email: 'sghile@scu.edu',
+    email: 'blueprintsforpangaea.scu@gmail.com',
     instagram: 'blueprints4pangaea_scu',
     blurb:
       'Located in the heart of Silicon Valley, the SCU chapter is dedicated to addressing healthcare accessibility challenges in Santa Clara and its surrounding communities.',
@@ -123,8 +123,7 @@ export const CHAPTERS = [
     name: 'New York University',
     location: 'New York, NY',
     since: 2024,
-    lead: 'Keya Chhabra, President',
-    email: 'kc5125@nyu.edu',
+    email: 'contact@b4pglobal.org',
     instagram: 'blueprints4pangaea_nyu',
   },
   {
@@ -133,8 +132,8 @@ export const CHAPTERS = [
     location: 'Miami, FL',
     since: 2023,
     members: '9',
-    lead: 'Alex Pedowitz, President',
-    email: 'ajp365@med.miami.edu',
+    lead: 'Vivian Gao, Project Lead',
+    email: 'blueprintsforpangaea.umiami@gmail.com',
     instagram: 'blueprints4pangaea_umiami',
     blurb:
       'The Miami Medical School chapter has two primary aims: to establish partnerships with health systems and organize medical supply shipments, and to conduct donation drives.',
@@ -147,9 +146,15 @@ export const CHAPTERS = [
     name: 'University of Nebraska Omaha',
     location: 'Omaha, NE',
     since: 2025,
-    lead: 'Abby Lauder & Amina Hussain, Presidents',
     email: 'contact@b4pglobal.org',
     instagram: 'blueprints4pangaea_unomaha',
+  },
+  {
+    slug: 'berkeley',
+    name: 'UC Berkeley',
+    location: 'Berkeley, CA',
+    since: 2025,
+    email: 'contact@b4pglobal.org',
   },
   {
     slug: 'greater-nj',
@@ -157,8 +162,7 @@ export const CHAPTERS = [
     location: 'New Jersey',
     since: 2020,
     valueShipped: '$15,000+',
-    lead: 'Pranav Manchiraju, President',
-    email: 'b4p-rutgers@b4pglobal.org',
+    email: 'contact@b4pglobal.org',
     instagram: 'blueprints4pangaea_gnj',
     blurb:
       'Led by students at Rutgers University, the Greater New Jersey chapter has run several local shipments using supplies donated by St. Peter’s Hospital and Robert Wood Johnson Hospital.',
@@ -168,6 +172,4 @@ export const CHAPTERS = [
 
 // Chapters in formation — listed on the network page but not yet
 // counted in TOTALS.chapters and without a public page of their own.
-export const EMERGING_CHAPTERS = [
-  { name: 'UC Berkeley', location: 'Berkeley, CA', since: 2025 },
-];
+export const EMERGING_CHAPTERS = [];

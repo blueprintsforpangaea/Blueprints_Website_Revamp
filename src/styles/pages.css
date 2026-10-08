@@ -66,26 +66,54 @@
 
 /* ---------- Chapters: the U.S. map ---------- */
 .chapmap-section { padding: clamp(1.5rem, 4vw, 3rem) 0 0; }
-.chapmap-section__hint { margin-top: 0.75rem; color: var(--muted); }
+.chapmap-section__hint { margin-bottom: 1rem; font-size: 1.15rem; font-weight: 600; color: var(--text); }
+.chapmap-section__narrow { display: none; }
 .chapmap { margin: 0 auto; max-width: 980px; }
 .chapmap svg { width: 100%; height: auto; display: block; overflow: visible; --u: 1; }
 .chapmap__grid { fill: none; stroke: rgba(255, 255, 255, 0.35); stroke-width: 0.8; vector-effect: non-scaling-stroke; }
-.chapmap__pin { r: calc(7px * var(--u)); fill: var(--c-white); stroke: var(--c-navy); stroke-width: 3; vector-effect: non-scaling-stroke; }
+.chapmap { position: relative; }
+.chapmap__pin { r: calc(7px * var(--u)); fill: var(--c-white); stroke: var(--c-navy); stroke-width: 3; vector-effect: non-scaling-stroke; cursor: pointer; }
 .chapmap__pin--hq { r: calc(10px * var(--u)); fill: var(--c-blue); stroke: var(--c-white); }
-.chapmap__leader { stroke: var(--c-navy); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
-.chapmap__label {
-  font-size: calc(17px * var(--u)); font-weight: 700; fill: var(--c-navy);
-  paint-order: stroke; stroke: var(--bg); stroke-width: calc(5px * var(--u)); stroke-linejoin: round;
+
+/* Name tags over the map. Each sits beside its dot. */
+.chapmap__tags { position: absolute; inset: 0; pointer-events: none; }
+.chapmap__tag { position: absolute; width: 0; height: 0; }
+.chapmap__tag a {
+  position: absolute; pointer-events: auto; white-space: nowrap;
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  padding: 0.3rem 0.7rem; border-radius: 999px;
+  background: var(--c-white); color: var(--c-navy); border: 1.5px solid var(--c-navy);
+  font-size: 0.95rem; font-weight: 700; line-height: 1.2;
+  box-shadow: 0 2px 6px rgba(0, 14, 63, 0.18);
+  text-decoration: none; transition: background 0.15s, color 0.15s;
 }
-.chapmap__place { cursor: pointer; }
-.chapmap__place:hover .chapmap__label, .chapmap__place:focus-visible .chapmap__label { text-decoration: underline; }
-.chapmap__place:hover .chapmap__pin { fill: var(--c-blue-light); }
-.chapmap__place:focus-visible { outline: none; }
-@media (max-width: 700px) {
-  /* Too tight for every name on a phone; the list below names them. */
-  .chapmap__label, .chapmap__leader { display: none; }
+.chapmap__tag a::after { content: '→'; }
+.chapmap__tag a:hover, .chapmap__tag a:focus-visible { background: var(--c-navy); color: var(--c-white); }
+.chapmap__tag a.is-hq { background: var(--c-blue); border-color: var(--c-blue); color: var(--c-white); }
+.chapmap__tag a.is-hq:hover { background: var(--c-blue-dark); border-color: var(--c-blue-dark); }
+.chapmap__tag--right a { left: 14px; top: 0; transform: translateY(-50%); }
+.chapmap__tag--left a { right: 14px; top: 0; transform: translateY(-50%); }
+.chapmap__tag--above a { left: 0; bottom: 14px; transform: translateX(-50%); }
+.chapmap__tag--below a { left: 0; top: 16px; transform: translateX(-50%); }
+/* Near the map's edges, tags run inward instead of centering. */
+.chapmap__tag--above-right a { left: -12px; bottom: 14px; }
+.chapmap__tag--below-left a { right: -12px; top: 14px; }
+
+/* Chapter cards: make it obvious each one opens a page. */
+.chapter-card__more { margin-top: 1rem; font-weight: 700; color: var(--c-navy); }
+.chapter-card__lead + .chapter-card__more { margin-top: 0.75rem; }
+.chapter-card:not(:has(.chapter-card__lead)) .chapter-card__more { margin-top: auto; padding-top: 1rem; }
+.chapter-card:hover .chapter-card__more { text-decoration: underline; text-underline-offset: 3px; }
+.chapter-card:hover .chapter-card__more .arrow { transform: translateX(3px); }
+.chapter-card__more .arrow { display: inline-block; transition: transform 0.15s; }
+
+@media (max-width: 760px) {
+  /* Too tight for every name on a phone; the cards below name them. */
+  .chapmap__tags { display: none; }
   .chapmap-section .container { padding-inline: 0.5rem; }
   .chapmap-section__hint { padding-inline: 1rem; }
+  .chapmap-section__wide { display: none; }
+  .chapmap-section__narrow { display: inline; }
 }
 
 /* ---------- About: the years ---------- */

@@ -10,10 +10,10 @@
 //    department-scoped and older, so it is not used as the total.
 //  · chapters: the About Us page states "11 Active Chapters &
 //    150+ Members". The home page's "10+ National Chapters" is
-//    the older, rounded-down phrasing. 11 is used.
-//    Rutgers is not a 12th chapter — Rutgers students lead the
-//    Greater New Jersey chapter. UC Berkeley is an emerging 2025
-//    chapter and is tracked in chapters.js, not in this count.
+//    the older, rounded-down phrasing. UC Berkeley (2025) is
+//    now active too, per leadership, so the count is 12.
+//    Rutgers is not a separate chapter — Rutgers students lead
+//    the Greater New Jersey chapter.
 //  · wasteTons: 5 million tons ≈ 10 billion pounds of unused
 //    medical supplies discarded by the U.S. system each year.
 // ============================================================
@@ -23,7 +23,7 @@ export const TOTALS = {
   suppliesValueExact: '$9,077,500.09',
   suppliesValueShort: '$9 million+',
   countries: 15,
-  chapters: 11,
+  chapters: 12,
   members: 150,
   founded: 2013,
   wasteTons: 5_000_000,

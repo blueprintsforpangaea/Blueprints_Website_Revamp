@@ -24,21 +24,21 @@ const US = (() => {
   return { type: 'Feature', geometry: { type: 'MultiPolygon', coordinates: polys } };
 })();
 
-// Where each name sits relative to its dot, [dx, dy, anchor], so the
-// Michigan and New York clusters don't overlap. Names set well away
-// from their dot get a short leader line.
-const LABEL = {
-  umich: [-14, 26, 'end'],
-  msu: [-14, -14, 'end'],
-  'wayne-state': [12, -16, 'start'],
-  osu: [12, 22, 'start'],
-  nyu: [12, -14, 'start'],
-  'greater-nj': [12, 20, 'start'],
-  usc: [12, 22, 'start'],
-  'santa-clara': [12, 5, 'start'],
-  washu: [0, 26, 'middle'],
-  unomaha: [0, -16, 'middle'],
-  'miami-med': [-12, 5, 'end'],
+// Which side of its dot each name sits on, so the Michigan, New
+// York, and Bay Area clusters don't overlap.
+const SIDE = {
+  umich: 'left',
+  msu: 'above',
+  'wayne-state': 'right',
+  osu: 'below',
+  nyu: 'above',
+  'greater-nj': 'below',
+  berkeley: 'above-right',
+  'santa-clara': 'right',
+  usc: 'right',
+  washu: 'below',
+  unomaha: 'left',
+  'miami-med': 'left',
 };
 
 const NAME = Object.fromEntries(CHAPTERS.map((c) => [c.slug, c]));
@@ -56,7 +56,7 @@ export default function ChapterMap() {
     return { proj, path, h: Math.ceil(y1 - y0 + 60) };
   }, []);
 
-  // Keep names and dots one size on screen as the map scales.
+  // Keep dots one size on screen as the map scales.
   useEffect(() => {
     const svg = svgRef.current;
     if (!svg) return undefined;
@@ -89,37 +89,38 @@ export default function ChapterMap() {
         <path d={geo.path(US)} fill={LOGO.dark} />
         <path d={geo.path(grid)} clipPath="url(#chapmap-land)" className="chapmap__grid" />
 
-        {CHAPTER_PINS.map((pin, i) => {
+        {CHAPTER_PINS.map((pin) => {
           const [x, y] = geo.proj([pin.lng, pin.lat]);
-          const [dx, dy, anchor] = LABEL[pin.id] || [12, 5, 'start'];
-          const chapter = NAME[pin.id];
           return (
-            <motion.g
-              key={pin.id}
-              initial={reduce ? false : { opacity: 0, scale: 0.6 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 + i * 0.07 }}
-              style={{ transformOrigin: `${x}px ${y}px` }}
-            >
-              <Link to={`/chapters/${pin.id}`} className={`chapmap__place ${pin.hq ? 'chapmap__place--hq' : ''}`} aria-label={chapter.name}>
-                {Math.abs(dy) > 20 && (
-                  <line
-                    x1={x} y1={y}
-                    x2={x + dx * 0.7} y2={y + dy * 0.62}
-                    className="chapmap__leader"
-                  />
-                )}
-                <circle cx={x} cy={y} className={`chapmap__pin ${pin.hq ? 'chapmap__pin--hq' : ''}`} />
-                {/* Offsets in em so they track the name's on-screen size. */}
-                <text x={x} y={y} dx={`${dx / 16}em`} dy={`${(dy + 5) / 16}em`} textAnchor={anchor} className="chapmap__label">
-                  {pin.short}
-                </text>
-              </Link>
-            </motion.g>
+            <Link key={pin.id} to={`/chapters/${pin.id}`} tabIndex={-1} aria-hidden="true">
+              <circle cx={x} cy={y} className={`chapmap__pin ${pin.hq ? 'chapmap__pin--hq' : ''}`} />
+            </Link>
           );
         })}
       </svg>
+
+      {/* School names are real links laid over the map, styled as
+          buttons so it's clear they can be clicked. */}
+      <ul className="chapmap__tags">
+        {CHAPTER_PINS.map((pin, i) => {
+          const [x, y] = geo.proj([pin.lng, pin.lat]);
+          return (
+            <motion.li
+              key={pin.id}
+              className={`chapmap__tag chapmap__tag--${SIDE[pin.id] || 'right'}`}
+              style={{ left: `${(x / W) * 100}%`, top: `${(y / geo.h) * 100}%` }}
+              initial={reduce ? false : { opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.2 + i * 0.05 }}
+            >
+              <Link to={`/chapters/${pin.id}`} className={pin.hq ? 'is-hq' : ''}>
+                {NAME[pin.id].name === 'University of Michigan' ? 'Michigan (HQ)' : pin.short}
+              </Link>
+            </motion.li>
+          );
+        })}
+      </ul>
     </figure>
   );
 }
