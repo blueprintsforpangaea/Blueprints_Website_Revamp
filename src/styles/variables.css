@@ -35,10 +35,10 @@
   --line-strong:    rgba(0, 14, 63, 0.4);
 
   /* ---------- Type ---------- */
-  /* Lexend everywhere: designed for easier reading, with plain,
-     wide letterforms. Headlines use its 700–800 weights. */
-  --font-sans:    'Lexend', 'Source Sans 3', system-ui, sans-serif;
-  --font-display: 'Lexend', 'Source Sans 3', system-ui, sans-serif;
+  /* Public Sans everywhere: a plain, highly legible typeface made for
+     public-service sites (U.S. Web Design System). */
+  --font-sans:    'Public Sans', system-ui, sans-serif;
+  --font-display: 'Public Sans', system-ui, sans-serif;
 
   /* ---------- Layout ---------- */
   --nav-h: 4.5rem;
