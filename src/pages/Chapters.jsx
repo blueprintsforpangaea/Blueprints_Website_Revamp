@@ -5,9 +5,10 @@ import ChapterMap from '../components/pangaea/ChapterMap.jsx';
 import Reveal from '../components/ui/Reveal.jsx';
 import EmailLink from '../components/ui/EmailLink.jsx';
 import { CHAPTERS } from '../data/chapters.js';
-import { logoFor } from '../assets/chapters/logos.js';
+import { logoFor, campusFor } from '../assets/chapters/logos.js';
 import { chapterPhotos } from '../assets/photos.js';
 import Photo from '../components/ui/Photo.jsx';
+import Recruitment from '../components/sections/Recruitment.jsx';
 import { TOTALS } from '../data/stats.js';
 
 export default function Chapters() {
@@ -30,7 +31,7 @@ export default function Chapters() {
         <div className="container">
           <p className="chapmap-section__hint">
             <span className="chapmap-section__wide">Click a school’s logo to see its chapter page.</span>
-            <span className="chapmap-section__narrow">The blue dot is headquarters. Tap a school below to see its chapter page.</span>
+            <span className="chapmap-section__narrow">Tap a school’s logo to see its chapter page.</span>
           </p>
           <ChapterMap />
         </div>
@@ -75,6 +76,12 @@ function ChapterDetail({ chapter }) {
       >
         {chapter.location}
       </PageHeader>
+
+      {campusFor(chapter.slug) && (
+        <div className="container">
+          <img className="chapter-detail__campus" src={campusFor(chapter.slug)} alt={`${chapter.name} campus`} />
+        </div>
+      )}
 
       <section className="section">
         <div className="container split split--top">
@@ -153,6 +160,14 @@ function ChapterDetail({ chapter }) {
             )}
           </Reveal>
         </div>
+        {/* Headquarters recruits at U-M each semester. */}
+        {chapter.isHQ && (
+          <div className="container chapter-recruit" id="recruitment">
+            <h2 className="section-title section-title--sm">Join headquarters</h2>
+            <Recruitment />
+          </div>
+        )}
+
         {chapter.sections?.length > 0 && (
           <div className="container chapter-sections">
             {chapter.sections.map((sec) => (

@@ -3,6 +3,27 @@ import Reveal from '../components/ui/Reveal.jsx';
 import ShipmentMapSection from '../components/sections/ShipmentMapSection.jsx';
 import { IMPACT_STATS } from '../data/stats.js';
 import { ORG } from '../data/site.js';
+import PhotoMarquee from '../components/ui/PhotoMarquee.jsx';
+import hopeClinic from '../assets/images/12dd519c-c348-407b-b191-8031453d39c2-1-105-c.jpg';
+import vanLoad from '../assets/images/9fdcc1e7-5bd6-44dc-8afe-dd642b4a08cadsc-0258.jpg';
+import vanCrew from '../assets/images/efd3cc03-681e-468b-8608-f746800f9dc2dsc-0260.jpg';
+import gnj from '../assets/images/chapters/greater-nj/img-5664.jpg';
+import wsu from '../assets/images/chapters/wayne-state/img-2328.jpg';
+import boxes from '../assets/images/238939e5-8c3b-4744-bfd5-5a90886e10a3dsc-0252.jpg';
+import warehouse from '../assets/images/726a596d-3249-43ff-a5c2-4c5e01be5098.jpg';
+import packing from '../assets/images/img-2753.jpg';
+
+// Our members with the supplies, from pickups to deliveries.
+const PHOTOS = [
+  { src: hopeClinic, alt: 'A delivery of donated supplies at Hope Clinic', caption: 'Hope Clinic' },
+  { src: vanLoad, alt: 'Volunteers loading boxes of supplies into a van' },
+  { src: gnj, alt: 'Greater New Jersey members with donated supplies', caption: 'Greater New Jersey' },
+  { src: vanCrew, alt: 'Three members sitting in a van full of boxes' },
+  { src: wsu, alt: 'Wayne State members packing supplies', caption: 'Wayne State' },
+  { src: boxes, alt: 'Members in front of stacked boxes of supplies' },
+  { src: warehouse, alt: 'A member among stacked boxes in the warehouse' },
+  { src: packing, alt: 'Two members next to a wrapped pallet of supplies' },
+];
 
 export default function Impact() {
   return (
@@ -25,6 +46,13 @@ export default function Impact() {
       </section>
 
       <ShipmentMapSection />
+
+      <section className="impact-photos" aria-labelledby="impact-photos-title">
+        <div className="container">
+          <h2 id="impact-photos-title" className="section-title section-title--sm">Our members at work</h2>
+        </div>
+        <PhotoMarquee photos={PHOTOS} label="Photos of our members with supplies" />
+      </section>
 
       <section className="band-navy">
         <div className="container band-navy__split">

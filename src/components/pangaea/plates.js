@@ -203,3 +203,17 @@ export const PLATE_COLOR = {
   afr: LOGO.navy, nam: LOGO.dark, sam: LOGO.bright, eur: LOGO.bright,
   ant: LOGO.dark, ind: LOGO.bright, aus: LOGO.navy, mad: LOGO.dark,
 };
+
+// Maps (globe, wall map, shipment cards) give every continent its own
+// colour so they're easy to tell apart. All are blues and indigos
+// from the brand family. The logo redraw keeps PLATE_COLOR.
+export const CONTINENT_COLOR = {
+  nam: '#0038a3', // North America
+  sam: '#0069f2', // South America
+  afr: '#001a49', // Africa
+  eur: '#5b9cff', // Europe and Asia
+  ind: '#373c82', // India
+  aus: '#6b74d6', // Australia
+  mad: '#373c82', // Madagascar
+  ant: '#a9c4f5', // Antarctica
+};

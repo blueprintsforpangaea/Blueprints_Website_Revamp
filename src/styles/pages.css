@@ -76,8 +76,6 @@
 .chapmap__pin--hq { r: calc(10px * var(--u)); fill: var(--c-blue); stroke: var(--c-white); }
 
 @media (max-width: 760px) {
-  /* Too tight for every name on a phone; the cards below name them. */
-  .chapmap__tags { display: none; }
   .chapmap-section .container { padding-inline: 0.5rem; }
   .chapmap-section__hint { padding-inline: 1rem; }
   .chapmap-section__wide { display: none; }
@@ -356,27 +354,8 @@
 @media (max-width: 700px) { .chapter-gallery__grid { grid-template-columns: 1fr 1fr; } }
 
 /* ============================================================
-   SIDE-SCROLLING ROWS (About: photos and the timeline)
+   ABOUT — photo strip
    ============================================================ */
-.scroll-row { position: relative; }
-.scroll-row__track {
-  display: flex; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
-  padding: 0.25rem max(1.5rem, calc((100% - var(--max-content-width)) / 2 + 1.5rem)) 1rem;
-  scroll-padding-inline: max(1.5rem, calc((100% - var(--max-content-width)) / 2 + 1.5rem));
-  scrollbar-width: thin;
-}
-.scroll-row__track > * { flex: none; scroll-snap-align: start; }
-.scroll-row__nav {
-  display: flex; justify-content: flex-end; gap: 0.5rem;
-  max-width: var(--max-content-width); margin: 0.5rem auto 0; padding: 0 1.5rem;
-}
-.scroll-row__nav button {
-  width: 2.75rem; height: 2.75rem; border-radius: 50%; cursor: pointer;
-  font-size: 1.2rem; font-weight: 700; border: 1.5px solid currentColor; background: none; color: var(--c-navy);
-}
-.scroll-row__nav button:disabled { opacity: 0.3; cursor: default; }
-.band-navy .scroll-row__nav button { color: var(--c-white); }
-
 .photo-strip { margin-top: clamp(2.5rem, 5vw, 3.5rem); }
 .photo-strip__item { position: relative; width: clamp(240px, 30vw, 360px); }
 .photo-strip__item img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius); }
@@ -384,24 +363,6 @@
   position: absolute; left: 0.6rem; bottom: 0.6rem; padding: 0.2rem 0.6rem; border-radius: var(--radius);
   background: var(--c-white); color: var(--c-navy); font-weight: 700; font-size: 0.9rem;
 }
-
-/* The timeline runs left to right along one line. */
-.years-section { padding: clamp(3.5rem, 7vw, 5rem) 0 clamp(4rem, 8vw, 6rem); }
-.years-section .section-title { margin-bottom: 1.5rem; }
-.years .scroll-row__track { gap: 0; }
-.years__item {
-  position: relative; width: clamp(240px, 26vw, 300px); padding: 0 1.75rem 0 0;
-  border-top: 3px solid var(--c-navy); padding-top: 1.5rem;
-}
-.years__item::before {
-  content: ''; position: absolute; left: 0; top: -9px; width: 15px; height: 15px; border-radius: 50%;
-  background: var(--c-navy); box-shadow: 0 0 0 4px var(--bg);
-}
-.years__year {
-  display: block; font-weight: 800; color: var(--c-navy); line-height: 1; letter-spacing: -0.02em;
-  font-size: clamp(2.6rem, 5vw, 3.6rem); font-variant-numeric: tabular-nums;
-}
-.years__item p { margin-top: 0.75rem; font-size: 1.05rem; color: var(--text); }
 
 /* ============================================================
    GET INVOLVED — recruitment, themed per cycle
@@ -478,10 +439,6 @@
   .person__photo--empty { font-size: 1.4rem; }
   .person__name { font-size: 0.95rem; }
   .person__role { font-size: 0.85rem; }
-  /* Swiping is enough on a phone; the arrows just add clutter. */
-  .scroll-row__nav { display: none; }
-  .photo-strip__item { width: 78vw; }
-  .years__item { width: 78vw; }
 
   /* Get involved: the schedule as a compact list. */
   .recruit__events { grid-template-columns: 1fr; gap: 0; background: var(--surface); border: 1px solid var(--line-strong); border-radius: var(--radius); }
@@ -539,4 +496,186 @@
 @media (max-width: 700px) {
   .impact-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem 1.25rem; }
   .figures { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+}
+
+/* Shipment cards without a photo: a small route globe in the frame. */
+.ship__photo--globe {
+  display: block; aspect-ratio: 4 / 3; border-radius: var(--radius); overflow: hidden;
+  background: color-mix(in srgb, var(--c-blue-light) 45%, var(--c-white));
+}
+.pg-recent__card .ship__photo--globe { aspect-ratio: 4 / 3; }
+.shipglobe { width: 100%; height: 100%; }
+.shipmap__pop .ship__photo { display: none; }
+
+/* Chapter pages open on a campus photo. */
+.chapter-detail__campus {
+  width: 100%; aspect-ratio: 21 / 8; object-fit: cover; border-radius: var(--radius-lg);
+  margin-top: clamp(1.5rem, 3vw, 2.5rem);
+}
+@media (max-width: 700px) { .chapter-detail__campus { aspect-ratio: 16 / 9; } }
+.pg-recent__card .ship__photo { margin-bottom: 0; }
+
+/* About: the photo strip scrolls by itself, in a seamless loop. */
+.photo-strip { overflow: hidden; }
+.photo-strip__track {
+  display: flex; gap: 1rem; width: max-content;
+  animation: photo-strip 70s linear infinite;
+}
+.photo-strip__track > * { flex: none; }
+.photo-strip:hover .photo-strip__track { animation-play-state: paused; }
+/* The track holds two copies; moving it by half (plus half a gap)
+   brings the second copy exactly where the first began. */
+@keyframes photo-strip { to { transform: translateX(calc(-50% - 0.5rem)); } }
+@media (max-width: 700px) { .photo-strip__item { width: 70vw; } .photo-strip__track { animation-duration: 55s; } }
+/* Reduced motion: no drifting; swipe or scroll by hand instead. */
+@media (prefers-reduced-motion: reduce) {
+  .photo-strip { overflow-x: auto; }
+  .photo-strip__track { animation: none; padding-inline: 1.5rem; }
+  .photo-strip__item[aria-hidden='true'] { display: none; }
+}
+
+/* ============================================================
+   ABOUT — the timeline
+   ============================================================ */
+.years-section { padding: clamp(3.5rem, 7vw, 5rem) 0 clamp(4rem, 8vw, 6rem); }
+.years-section .section-title { margin-bottom: clamp(2rem, 4vw, 3rem); }
+
+/* One line, a stop for every year. */
+.tl-line { position: relative; padding-top: 0.5rem; }
+.tl-line__track {
+  position: absolute; left: 0; right: 0; top: calc(0.5rem + 11px); height: 4px;
+  background: color-mix(in srgb, var(--c-navy) 18%, transparent); border-radius: 2px;
+}
+.tl-line__fill { display: block; height: 100%; background: var(--c-navy); border-radius: 2px; transition: width 0.5s var(--ease); }
+.tl-line__stops { position: relative; display: flex; justify-content: space-between; }
+.tl-stop {
+  display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
+  background: none; border: 0; padding: 0; cursor: pointer; font: inherit; color: var(--muted);
+}
+.tl-line__stops li:first-child .tl-stop { align-items: flex-start; }
+.tl-line__stops li:last-child .tl-stop { align-items: flex-end; }
+.tl-stop__dot {
+  width: 26px; height: 26px; border-radius: 50%; background: var(--bg);
+  border: 4px solid color-mix(in srgb, var(--c-navy) 30%, transparent);
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+}
+.tl-stop__year { font-weight: 800; font-size: 1.15rem; font-variant-numeric: tabular-nums; transition: color 0.2s; }
+.tl-stop.is-past .tl-stop__dot { border-color: var(--c-navy); background: var(--c-navy); }
+.tl-stop.is-current .tl-stop__dot { border-color: var(--c-navy); background: var(--c-white); transform: scale(1.25); box-shadow: 0 0 0 5px var(--c-blue-light); }
+.tl-stop.is-current .tl-stop__year { color: var(--c-navy); }
+.tl-stop:hover .tl-stop__year { color: var(--c-navy); }
+.tl-stop:hover .tl-stop__dot { border-color: var(--c-navy); }
+
+/* The chosen year, read below the line. */
+.tl-panel {
+  margin-top: 2rem; padding: clamp(1.5rem, 3vw, 2.25rem) clamp(1.5rem, 3vw, 2.5rem);
+  background: var(--surface); border: 1px solid var(--line); border-top: 4px solid var(--c-navy);
+  border-radius: var(--radius-lg); min-height: 15rem; display: flex; flex-direction: column;
+}
+.tl-panel__body { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 3rem); align-items: start; }
+.tl-panel__year {
+  font-weight: 800; color: var(--c-navy); line-height: 0.9; letter-spacing: -0.02em;
+  font-size: clamp(3.5rem, 7vw, 5.5rem); font-variant-numeric: tabular-nums;
+}
+.tl-panel__text { font-size: clamp(1.15rem, 1.7vw, 1.35rem); color: var(--text); max-width: 44rem; }
+.tl-panel__nav { display: flex; justify-content: space-between; margin-top: auto; padding-top: 1.5rem; }
+.tl-panel__nav button {
+  font: inherit; font-weight: 700; color: var(--c-navy); background: none; cursor: pointer;
+  border: 1.5px solid var(--c-navy); border-radius: var(--radius); padding: 0.5rem 1rem;
+}
+.tl-panel__nav button:hover:not(:disabled) { background: var(--c-navy); color: var(--c-white); }
+.tl-panel__nav button:disabled { opacity: 0.3; cursor: default; }
+
+/* Chapters open by that year, as filled dots. */
+.tl-dots { margin-top: 1.25rem; display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.9rem; }
+.tl-dots__row { display: inline-flex; gap: 5px; }
+.tl-dots__row span { width: 12px; height: 12px; border-radius: 50%; border: 2px solid color-mix(in srgb, var(--c-navy) 30%, transparent); }
+.tl-dots__row span.is-on { background: var(--c-blue); border-color: var(--c-blue); }
+.tl-dots__label { font-size: 0.95rem; font-weight: 700; color: var(--muted); }
+
+/* Phones: a plain list running down the page. */
+.tl-list { position: relative; padding-left: 2rem; }
+.tl-list::before { content: ''; position: absolute; left: 7px; top: 0.6rem; bottom: 0.6rem; width: 3px; background: var(--c-navy); border-radius: 2px; }
+.tl-list__item { position: relative; padding-bottom: 2rem; }
+.tl-list__item:last-child { padding-bottom: 0; }
+.tl-list__item::before {
+  content: ''; position: absolute; left: calc(-2rem + 1px); top: 0.55rem; width: 15px; height: 15px;
+  border-radius: 50%; background: var(--c-navy); box-shadow: 0 0 0 4px var(--bg);
+}
+.tl-list__year { display: block; font-weight: 800; color: var(--c-navy); font-size: 2.2rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.tl-list__item p { margin-top: 0.35rem; font-size: 1.05rem; }
+.tl-list .tl-dots { margin-top: 0.6rem; }
+.tl-list .tl-dots__row span { width: 10px; height: 10px; }
+
+/* Impact map: hovering or opening a dot lights its route and dims the rest. */
+.shipmap__line { transition: opacity 0.2s; }
+.shipmap__line.is-dim { opacity: 0.15; }
+.shipmap__line.is-lit .shipmap__route { stroke: var(--c-blue); stroke-width: calc(3.5px * var(--u)); }
+.shipmap__line.is-lit .shipmap__casing { stroke-width: calc(7px * var(--u)); }
+.impact-photos { padding: clamp(2.5rem, 5vw, 3.5rem) 0 clamp(3rem, 6vw, 4.5rem); background: var(--bg-soft); }
+.impact-photos .photo-strip { margin-top: 1.25rem; }
+
+/* Chapters map: state lines and the Great Lakes. */
+.chapmap__states { fill: none; stroke: rgba(255, 255, 255, 0.45); stroke-width: 0.8; vector-effect: non-scaling-stroke; }
+.chapmap__lakes { fill: var(--bg); stroke: rgba(255, 255, 255, 0.9); stroke-width: 0.8; vector-effect: non-scaling-stroke; }
+/* Phones: smaller logos, still on the map. */
+@media (max-width: 760px) {
+  .chapmap__badge { --s: 28px; padding: 2px; border-width: 1.5px; }
+  .chapmap__badge--text span { font-size: 0.45rem; }
+  .chapmap__tag--right .chapmap__badge { left: 6px; }
+  .chapmap__tag--left .chapmap__badge { right: 6px; }
+  .chapmap__tag--above .chapmap__badge { bottom: 6px; }
+  .chapmap__tag--below .chapmap__badge { top: 6px; }
+  .chapmap__badge::after { display: none; }
+}
+
+/* Get involved: the three choices are buttons; the chosen one is navy. */
+.choose > div { display: flex; }
+button.choose__card { width: 100%; text-align: left; font: inherit; color: inherit; cursor: pointer; transition: background 0.2s, border-color 0.2s, transform 0.15s; }
+button.choose__card:hover { border-color: var(--c-navy); transform: translateY(-2px); }
+.choose__who, .choose__body { display: block; }
+.choose__cta { display: block; margin-top: auto; padding-top: 1.25rem; font-weight: 700; color: var(--c-navy); }
+.choose__card.is-chosen { background: var(--c-navy); border-color: var(--c-navy); }
+.choose__card.is-chosen .choose__who { color: var(--c-white); }
+.choose__card.is-chosen .choose__body { color: var(--on-dark); }
+.choose__card.is-chosen .choose__cta { color: var(--c-blue-light); }
+@media (max-width: 900px) {
+  .choose { gap: 0.6rem; }
+  button.choose__card { padding: 1rem 1.1rem; }
+  .choose__who { font-size: 1.3rem; }
+  .choose__body { font-size: 0.98rem; margin-top: 0.35rem; }
+  .choose__cta { padding-top: 0.6rem; }
+}
+
+.help-split { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+.help-card { padding: clamp(1.5rem, 3vw, 2.25rem); background: var(--surface); border: 1px solid var(--line); border-top: 4px solid var(--c-navy); border-radius: var(--radius-lg); }
+.help-card p { margin: 0.75rem 0 1.25rem; }
+@media (max-width: 760px) { .help-split { grid-template-columns: 1fr; } }
+
+/* U-M chapter page: this semester's recruitment. */
+.chapter-recruit { margin-top: clamp(2.5rem, 5vw, 3.5rem); }
+.chapter-recruit .recruit { margin-top: 1.25rem; }
+/* Donate: the page title stands on its own, and the total is labelled. */
+.donate-band__title { font-size: clamp(2.4rem, 5vw, 3.5rem); color: var(--c-white); font-weight: 800; margin-bottom: 1.75rem; }
+.big-figure .donate-band__label { margin: 0 0 0.5rem; font-size: 1.1rem; font-weight: 700; color: var(--c-blue-light); }
+
+/* ============================================================
+   BIG AND ULTRAWIDE SCREENS — everything is sized in rem, so the
+   whole site grows with the screen past 1600px instead of sitting
+   in a narrow strip. The home page's text and globe stay together.
+   ============================================================ */
+@media (min-width: 1600px) {
+  html { font-size: clamp(16px, calc(0.7vw + 5px), 24px); }
+}
+.pg-story { max-width: 100rem; margin-inline: auto; }
+.pg-recent > * { max-width: 100rem; margin-inline: auto; }
+.pg-recent__head { margin-inline: auto; }
+.photo-strip__item { width: clamp(240px, 22rem, 520px); }
+@media (max-width: 700px) { .photo-strip__item { width: 70vw; } }
+.chapmap { max-width: 62rem; }
+.navbar__logo { height: 3.1rem; }
+.footer__logo { height: 3.5rem; }
+.page-header__globe { width: clamp(200px, 24vw, 20rem); }
+@media (min-width: 901px) {
+  .page-header { min-height: calc(clamp(200px, 24vw, 20rem) + 4rem); }
 }

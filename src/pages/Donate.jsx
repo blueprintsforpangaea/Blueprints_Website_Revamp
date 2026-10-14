@@ -37,8 +37,9 @@ export default function Donate() {
           <div>
             <h1 className="donate-band__title">Donate</h1>
             <p className="big-figure">
+              <span className="donate-band__label">Donated so far</span>
               <strong>{TOTALS.suppliesValueShort}</strong>
-              <span>in medical supplies sent to clinics in {TOTALS.countries}+ countries so far.</span>
+              <span>in medical supplies, to clinics in {TOTALS.countries}+ countries.</span>
             </p>
             <p className="donate-band__note">
               {ORG.name} is a {ORG.taxStatus}, so your donation is tax-deductible.

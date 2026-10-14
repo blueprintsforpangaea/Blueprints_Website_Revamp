@@ -70,14 +70,15 @@ export const FILM = [
   { at: 5, drift: 1, lon: -40, lat: 22, scale: 1 },
   { at: 7.5, drift: 1, lon: -90, lat: 37, scale: 2.1, pins: 1 },
   { at: 9, drift: 1, lon: -90, lat: 37, scale: 2.1, pins: 1 },
-  { at: 12, drift: 1, lon: -32, lat: 24, scale: 1, pins: 0.7, arcs: ALL_ARCS, focus: ['hon', 'nga-usc', 'nga-wsu'] },
-  { at: 14, drift: 1, lon: -32, lat: 24, scale: 1, pins: 0.7, arcs: ALL_ARCS, focus: ['hon', 'nga-usc', 'nga-wsu'], spin: 0.4 },
+  { at: 12, drift: 0, lon: -20, lat: 14, scale: 1, pins: 0.7, arcs: ALL_ARCS, focus: ['hon', 'nga-usc', 'nga-wsu'] },
+  { at: 14, drift: 0, lon: -20, lat: 14, scale: 1, pins: 0.7, arcs: ALL_ARCS, focus: ['hon', 'nga-usc', 'nga-wsu'], spin: 0.4 },
 ];
 
 export const STEPS = [
   { id: 'hero', drift: 0, lon: -5, lat: 6, scale: 1, spin: 1 },
   { id: 'how', drift: 1, lon: -90, lat: 37, scale: 2.3, pins: 1 },
-  { id: 'where', drift: 1, lon: -32, lat: 24, scale: 1, pins: 0.7, arcs: ALL_ARCS, focus: ['hon', 'nga-usc', 'nga-wsu'] },
+  // The continents come back together as the shipments connect them.
+  { id: 'where', drift: 0, lon: -25, lat: 16, scale: 1.1, pins: 0.7, arcs: ALL_ARCS, focus: ['hon', 'nga-usc', 'nga-wsu'] },
   { id: 'help', drift: 0, lon: -5, lat: 6, scale: 1, pins: 0.7, arcs: ALL_ARCS, spin: 1 },
 ];
 

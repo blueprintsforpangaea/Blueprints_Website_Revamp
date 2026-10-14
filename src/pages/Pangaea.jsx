@@ -2,15 +2,13 @@ import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import DriftGlobe from '../components/pangaea/DriftGlobe.jsx';
 import CountUp from '../components/ui/CountUp.jsx';
-import Photo from '../components/ui/Photo.jsx';
 import Reveal from '../components/ui/Reveal.jsx';
-import { shipmentHeadline } from '../components/ui/ShipmentCard.jsx';
+import { shipmentHeadline, ShipmentVisual } from '../components/ui/ShipmentCard.jsx';
 import useMediaQuery from '../hooks/useMediaQuery.js';
 import { TOTALS } from '../data/stats.js';
 import { ORG } from '../data/site.js';
 import { VOLUNTEER_URL } from '../data/involvement.js';
 import { RECENT_SHIPMENTS } from '../data/shipments.js';
-import { shipmentPhoto } from '../assets/photos.js';
 import '../styles/pangaea.css';
 
 // The four steps from the Mission page, in plain words.
@@ -51,16 +49,17 @@ export default function Pangaea() {
                 Play again
               </button>
             )}
-            <p className="pg-wide-only"><strong>Scroll and learn more about Blueprints.</strong></p>
+            <p className="pg-wide-only"><strong>Scroll and learn more about Blueprints.</strong> Drag the globe to spin it.</p>
           </div>
         </aside>
 
         <div className="pg-steps" ref={stepsRef}>
           <section className="pg-step pg-step--hero">
-            <h1 className="pg-title">We send unused medical supplies to clinics that need them</h1>
+            <h1 className="pg-title">Saving lives one box at a time</h1>
             <p>
-              Blueprints for Pangaea is a nonprofit run by college students. We started at the
-              University of Michigan in {TOTALS.founded}.
+              We send unused medical supplies to clinics that need them. Blueprints for Pangaea is a
+              nonprofit run by college students, started at the University of Michigan in{' '}
+              {TOTALS.founded}.
             </p>
             <ul className="pg-facts">
               <li className="pg-facts__lead">
@@ -132,7 +131,7 @@ export default function Pangaea() {
         <Reveal className="pg-recent__grid">
           {RECENT_SHIPMENTS.map((s) => (
             <article className="pg-recent__card" key={s.id}>
-              <Photo src={shipmentPhoto(s.id)} alt="" label="Shipment photo coming soon" />
+              <ShipmentVisual shipment={s} />
               <h3>{s.place}</h3>
               {shipmentHeadline(s) && <p className="pg-recent__figure">{shipmentHeadline(s)}</p>}
               {s.detail && <p>{s.detail}</p>}

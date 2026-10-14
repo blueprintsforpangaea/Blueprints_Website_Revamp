@@ -25,7 +25,7 @@ export const RECRUITMENT = {
   theme: {
     accent: 'navy',
     tagline: '',
-    photo: '',
+    photo: 'info-table',
   },
   events: [
     { name: 'Festifall', date: 'Sept. 2', time: '6–8 PM', place: 'Central Campus' },

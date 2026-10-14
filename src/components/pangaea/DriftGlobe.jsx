@@ -1,7 +1,9 @@
 import { useEffect, useRef } from 'react';
 import { geoOrthographic, geoPath, geoGraticule, geoGraticule10, geoInterpolate, geoDistance } from 'd3-geo';
-import { plateMatrices, plateGeometry, movePoint, LOGO, PLATE_COLOR } from './plates.js';
+import { plateMatrices, plateGeometry, movePoint, LOGO, CONTINENT_COLOR } from './plates.js';
 import { STEPS, FILM, ROUTES, OTHER_ROUTES, CHAPTER_PINS } from './story.js';
+import GREAT_LAKES from '../../data/great-lakes.json';
+import STATE_BORDERS from '../../data/us-state-borders.json';
 
 const RAD = Math.PI / 180;
 // Navy ink on warm drafting paper.
@@ -14,6 +16,27 @@ const GRATICULE = geoGraticule10();
 // The logo's grid: wider spacing, drawn in white over the land only.
 const LAND_GRID = geoGraticule().step([20, 20])();
 
+
+// Move every coordinate of a North American shape along with its plate.
+const onNam = (coords, mats) =>
+  Array.isArray(coords[0]) ? coords.map((c) => onNam(c, mats)) : movePoint(coords[0], coords[1], 'nam', mats);
+
+// A small cardboard box, drawn where each shipment lands.
+function drawBox(ctx, x, y, s) {
+  ctx.fillStyle = '#c8955a';
+  ctx.strokeStyle = '#fff';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.rect(x - s, y - s * 0.8, s * 2, s * 1.6);
+  ctx.fill();
+  ctx.stroke();
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.85)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(x, y - s * 0.8);
+  ctx.lineTo(x, y + s * 0.8);
+  ctx.stroke();
+}
 
 const ALL_ROUTES = [...ROUTES, ...OTHER_ROUTES.map((r) => ({ ...r, group: 'all' }))];
 
@@ -95,6 +118,36 @@ export default function DriftGlobe({ stepsRef, yearsRef, film = false, playKey =
     let filmStart = null;
     const cur = blend(STEPS[0], STEPS[0], 0);
 
+    // Drag to spin. The offset stays while you're on a section and
+    // eases away when you scroll to the next one, so the story's own
+    // views still line up.
+    const drag = { lon: 0, lat: 0, vLon: 0, vLat: 0, down: false, x: 0, y: 0, step: 0, release: false };
+    const onDown = (e) => {
+      drag.down = true;
+      drag.release = false;
+      drag.x = e.clientX;
+      drag.y = e.clientY;
+      drag.vLon = drag.vLat = 0;
+      canvas.setPointerCapture?.(e.pointerId);
+    };
+    const onMove = (e) => {
+      if (!drag.down) return;
+      const k = 180 / Math.max(200, Math.min(w, h) * 0.8 * cur.scale);
+      const dx = (e.clientX - drag.x) * k;
+      const dy = (e.clientY - drag.y) * k;
+      drag.x = e.clientX;
+      drag.y = e.clientY;
+      drag.lon -= dx;
+      drag.lat = Math.max(-60, Math.min(60, drag.lat + dy));
+      drag.vLon = -dx * 60;
+      drag.vLat = dy * 60;
+    };
+    const onUp = () => { drag.down = false; };
+    canvas.addEventListener('pointerdown', onDown);
+    window.addEventListener('pointermove', onMove);
+    window.addEventListener('pointerup', onUp);
+    window.addEventListener('pointercancel', onUp);
+
     const measure = () => {
       const rect = canvas.parentElement.getBoundingClientRect();
       w = rect.width;
@@ -132,6 +185,8 @@ export default function DriftGlobe({ stepsRef, yearsRef, film = false, playKey =
       let i = 0;
       while (i < n - 1 && y >= anchors[i + 1]) i++;
       const span = Math.max(1, anchors[i + 1] - anchors[i]);
+      const nearest = (y - anchors[i]) / span > 0.5 ? i + 1 : i;
+      if (nearest !== drag.step) { drag.step = nearest; drag.release = true; }
       return blend(STEPS[i], STEPS[i + 1], smooth((y - anchors[i]) / span));
     };
 
@@ -154,9 +209,28 @@ export default function DriftGlobe({ stepsRef, yearsRef, film = false, playKey =
       if (!reduce && tg.spin > 0.02) spinOffset += dt * SPIN_SPEED * tg.spin;
       else spinOffset += (Math.round(spinOffset / 360) * 360 - spinOffset) * Math.min(1, dt * 2.5);
 
-      const k = reduce ? 1 : 1 - Math.exp(-dt * 5);
-      cur.lon += angleDiff(cur.lon, tg.lon + spinOffset) * k;
-      for (const key of ['drift', 'lat', 'scale', 'pins']) cur[key] += (tg[key] - cur[key]) * k;
+      // Fling, then settle; let go of the offset on a new section.
+      if (!drag.down) {
+        drag.lon += drag.vLon * dt;
+        drag.lat = Math.max(-60, Math.min(60, drag.lat + drag.vLat * dt));
+        const f = Math.exp(-dt * 4);
+        drag.vLon *= f;
+        drag.vLat *= f;
+        if (drag.release) {
+          const r = 1 - Math.exp(-dt * 3);
+          drag.lon -= drag.lon * r;
+          drag.lat -= drag.lat * r;
+          if (Math.abs(drag.lon) < 0.05 && Math.abs(drag.lat) < 0.05) { drag.lon = drag.lat = 0; drag.release = false; }
+        }
+      }
+
+      // Catch up faster the further behind the globe is, so a quick
+      // scroll doesn't leave it lagging.
+      const behind = Math.min(1, Math.abs(tg.drift - cur.drift) + Math.abs(tg.scale - cur.scale) * 0.5 + Math.abs(angleDiff(cur.lon, tg.lon + spinOffset)) / 90);
+      const k = reduce ? 1 : 1 - Math.exp(-dt * (5 + 6 * behind));
+      cur.lon += angleDiff(cur.lon, tg.lon + spinOffset + drag.lon) * (drag.down ? 1 : k);
+      cur.lat += (tg.lat + drag.lat - cur.lat) * (drag.down ? 1 : k);
+      for (const key of ['drift', 'scale', 'pins']) cur[key] += (tg[key] - cur[key]) * k;
       const arcs = {};
       for (const key of new Set([...Object.keys(cur.arcs), ...Object.keys(tg.arcs)])) {
         const a = cur.arcs[key] || 0;
@@ -197,16 +271,22 @@ export default function DriftGlobe({ stepsRef, yearsRef, film = false, playKey =
       ctx.stroke();
 
       // ---- land ----
-      const driftKey = Math.round(cur.drift * 2000) / 2000;
+      const driftKey = Math.round(cur.drift * 500) / 500;
       if (geoCache.drift !== driftKey) {
         const mats = plateMatrices(driftKey);
-        geoCache = { drift: driftKey, mats, geo: plateGeometry(mats) };
+        geoCache = {
+          drift: driftKey,
+          mats,
+          geo: plateGeometry(mats),
+          lakes: GREAT_LAKES.features.map((f) => ({ type: f.geometry.type, coordinates: onNam(f.geometry.coordinates, mats) })),
+          borders: { type: 'MultiLineString', coordinates: onNam(STATE_BORDERS.coordinates, mats) },
+        };
       }
       const { geo, mats } = geoCache;
       for (const g of geo) {
         ctx.beginPath();
         path(g);
-        ctx.fillStyle = PLATE_COLOR[g.id] || LOGO.navy;
+        ctx.fillStyle = CONTINENT_COLOR[g.id] || LOGO.navy;
         ctx.fill();
       }
       ctx.save();
@@ -225,6 +305,20 @@ export default function DriftGlobe({ stepsRef, yearsRef, film = false, playKey =
       ctx.strokeStyle = '#fff';
       ctx.lineWidth = 1.2;
       ctx.lineJoin = 'round';
+      ctx.stroke();
+
+      // U.S. state lines and the Great Lakes.
+      ctx.beginPath();
+      path(geoCache.borders);
+      ctx.strokeStyle = `rgba(255, 255, 255, ${0.25 + 0.35 * Math.min(1, Math.max(0, cur.scale - 1))})`;
+      ctx.lineWidth = 0.8;
+      ctx.stroke();
+      ctx.beginPath();
+      for (const l of geoCache.lakes) path(l);
+      ctx.fillStyle = '#eef3fc';
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.9)';
+      ctx.lineWidth = 0.8;
       ctx.stroke();
 
       const at = (p, hgt = 0) => {
@@ -264,8 +358,10 @@ export default function DriftGlobe({ stepsRef, yearsRef, film = false, playKey =
         ctx.strokeStyle = focus ? `rgb(${INK})` : `rgba(${INK}, 0.6)`;
         ctx.lineWidth = lineW;
         ctx.stroke();
-        if (head) {
-          const rr = prog > 0.98 ? 3 : 2.4;
+        if (head && prog > 0.98) {
+          drawBox(ctx, head.x, head.y, 4.5);
+        } else if (head) {
+          const rr = 2.4;
           ctx.fillStyle = '#fff';
           ctx.beginPath();
           ctx.arc(head.x, head.y, rr + 1.5, 0, Math.PI * 2);
@@ -330,6 +426,10 @@ export default function DriftGlobe({ stepsRef, yearsRef, film = false, playKey =
 
     return () => {
       cancelAnimationFrame(raf);
+      canvas.removeEventListener('pointerdown', onDown);
+      window.removeEventListener('pointermove', onMove);
+      window.removeEventListener('pointerup', onUp);
+      window.removeEventListener('pointercancel', onUp);
       ro.disconnect();
       io.disconnect();
       window.removeEventListener('resize', measure);

@@ -43,8 +43,8 @@
 
   /* ---------- Layout ---------- */
   --nav-h: 4.5rem;
-  --max-content-width: 1200px;
-  --max-narrow: 720px;
+  --max-content-width: 75rem;
+  --max-narrow: 45rem;
   --radius-sm: 2px;
   --radius:    3px;
   --radius-lg: 4px;

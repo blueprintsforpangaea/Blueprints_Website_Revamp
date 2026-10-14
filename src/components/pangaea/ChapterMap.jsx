@@ -8,6 +8,8 @@ import { CHAPTER_PINS } from './story.js';
 import { CHAPTERS } from '../../data/chapters.js';
 import { LOGO } from './plates.js';
 import { logoFor } from '../../assets/chapters/logos.js';
+import GREAT_LAKES from '../../data/great-lakes.json';
+import STATE_BORDERS from '../../data/us-state-borders.json';
 
 // The Chapters page's signature: the lower 48 states in the logo's
 // blue, with each chapter's school logo beside its dot. Each logo
@@ -89,6 +91,8 @@ export default function ChapterMap() {
         </defs>
         <path d={geo.path(US)} fill={LOGO.dark} />
         <path d={geo.path(grid)} clipPath="url(#chapmap-land)" className="chapmap__grid" />
+        <path d={geo.path(STATE_BORDERS)} clipPath="url(#chapmap-land)" className="chapmap__states" />
+        <path d={geo.path(GREAT_LAKES)} className="chapmap__lakes" />
 
         {CHAPTER_PINS.map((pin) => {
           const [x, y] = geo.proj([pin.lng, pin.lat]);

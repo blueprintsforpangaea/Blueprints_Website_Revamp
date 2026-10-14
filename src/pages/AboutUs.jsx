@@ -1,12 +1,15 @@
 import { Link } from 'react-router-dom';
 import PageHeader from '../components/layout/PageHeader.jsx';
 import Reveal from '../components/ui/Reveal.jsx';
-import ScrollRow from '../components/ui/ScrollRow.jsx';
+import Timeline from '../components/sections/Timeline.jsx';
+import PhotoMarquee from '../components/ui/PhotoMarquee.jsx';
 import { LEADERSHIP_GROUPS } from '../data/team.js';
 import { headshotFor } from '../assets/team/headshots.js';
 import { TOTALS } from '../data/stats.js';
 import { ORG } from '../data/site.js';
 import { CHAPTERS } from '../data/chapters.js';
+import { GALA } from '../data/gala.js';
+import { RECRUITMENT } from '../data/recruitment.js';
 import groupPhoto from '../assets/images/img-2457.jpg';
 import tablePhoto from '../assets/images/dsc06350.jpg';
 import sortPhoto from '../assets/images/eae28d10-7a69-40e0-af54-3d146010a570-1-105-c.jpg';
@@ -78,6 +81,10 @@ const TIMELINE = [
     year: '2025',
     text: `Sent more than 60 pallets, worth over $573,000, to Nigeria. ${startedIn(2025)} started chapters, making ${TOTALS.chapters}.`,
   },
+  {
+    year: String(GALA.year),
+    text: `Hosted the ${GALA.name} at Michigan Ross on ${GALA.date.replace(/, \d{4}$/, '')}. ${RECRUITMENT.term} recruitment ran at headquarters.`,
+  },
 ];
 
 // A photo when team.js has one, otherwise the person's initials in
@@ -121,29 +128,17 @@ export default function AboutUs() {
             </Reveal>
           </div>
         </div>
-        <ScrollRow className="photo-strip" label="Photos from headquarters and our chapters">
-          {STRIP.map((p) => (
-            <figure key={p.src} className="photo-strip__item">
-              <img src={p.src} alt={p.alt} loading="lazy" />
-              {p.caption && <figcaption>{p.caption}</figcaption>}
-            </figure>
-          ))}
-        </ScrollRow>
+        <PhotoMarquee photos={STRIP} label="Photos from headquarters and our chapters" />
       </section>
 
-      {/* Signature: our history, left to right. */}
+      {/* Signature: our history, one stop per year. */}
       <section className="years-section" aria-labelledby="years-title">
         <div className="container">
           <h2 id="years-title" className="section-title">Our history</h2>
         </div>
-        <ScrollRow className="years" label="Timeline">
-          {TIMELINE.map((t) => (
-            <div className="years__item" key={t.year + t.text}>
-              <span className="years__year">{t.year}</span>
-              <p>{t.text}</p>
-            </div>
-          ))}
-        </ScrollRow>
+        <div className="container">
+          <Timeline items={TIMELINE} />
+        </div>
       </section>
 
       <section className="section section--soft">

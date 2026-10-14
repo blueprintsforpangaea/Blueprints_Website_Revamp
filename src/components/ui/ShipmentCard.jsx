@@ -2,12 +2,21 @@ import Reveal from './Reveal.jsx';
 import Photo from './Photo.jsx';
 import useMediaQuery from '../../hooks/useMediaQuery.js';
 import { shipmentPhoto } from '../../assets/photos.js';
+import ShipmentGlobe from '../pangaea/ShipmentGlobe.jsx';
 
 // The headline figure for a shipment. Dollar values are the worth of
 // the supplies themselves, not the cost of shipping them.
 export const shipmentHeadline = (s) => (s.value ? `${s.value} worth of supplies` : s.figure);
 
 const chapterName = (c) => c && `${c} ${c.includes('&') ? 'chapters' : 'chapter'}`;
+
+// A shipment's photo, or until one exists, a small globe with the
+// route from the chapter that sent it.
+export function ShipmentVisual({ shipment: s }) {
+  const photo = shipmentPhoto(s.id);
+  if (photo) return <Photo src={photo} alt="" className="ship__photo" />;
+  return <span className="ship__photo ship__photo--globe"><ShipmentGlobe shipment={s} /></span>;
+}
 
 // The same four facts for every shipment, in the same order, so no
 // card looks like it's missing a record.
@@ -58,7 +67,7 @@ export default function ShipmentCard({ shipment: s, delay = 0 }) {
           <span className="ship__place">{s.place}</span>
           {headline && <span className="ship__figure">{headline}</span>}
         </summary>
-        <Photo src={shipmentPhoto(s.id)} alt="" className="ship__photo" label="Shipment photo coming soon" />
+        <ShipmentVisual shipment={s} />
         <Body s={s} />
       </details>
     );
@@ -66,7 +75,7 @@ export default function ShipmentCard({ shipment: s, delay = 0 }) {
 
   return (
     <Reveal as="article" className="ship" delay={delay}>
-      <Photo src={shipmentPhoto(s.id)} alt="" className="ship__photo" label="Shipment photo coming soon" />
+      <ShipmentVisual shipment={s} />
       <h3 className="ship__place">{s.place}</h3>
       {headline && <p className="ship__figure">{headline}</p>}
       <Body s={s} />
