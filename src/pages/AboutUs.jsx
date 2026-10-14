@@ -1,22 +1,50 @@
 import { Link } from 'react-router-dom';
 import PageHeader from '../components/layout/PageHeader.jsx';
 import Reveal from '../components/ui/Reveal.jsx';
+import ScrollRow from '../components/ui/ScrollRow.jsx';
 import { LEADERSHIP_GROUPS } from '../data/team.js';
 import { headshotFor } from '../assets/team/headshots.js';
 import { TOTALS } from '../data/stats.js';
 import { ORG } from '../data/site.js';
+import { CHAPTERS } from '../data/chapters.js';
 import groupPhoto from '../assets/images/img-2457.jpg';
 import tablePhoto from '../assets/images/dsc06350.jpg';
 import sortPhoto from '../assets/images/eae28d10-7a69-40e0-af54-3d146010a570-1-105-c.jpg';
+import boxesPhoto from '../assets/images/238939e5-8c3b-4744-bfd5-5a90886e10a3dsc-0252.jpg';
+import vanPhoto from '../assets/images/efd3cc03-681e-468b-8608-f746800f9dc2dsc-0260.jpg';
+import blanketPhoto from '../assets/images/44785d8d-ef05-4297-97c2-434536b603a8.jpg';
+import classPhoto from '../assets/images/dsc07300.jpg';
+import suitsPhoto from '../assets/images/dsc04424.jpg';
+import osuPhoto from '../assets/images/chapters/osu/b4p-eboard.jpg';
+import gnjPhoto from '../assets/images/chapters/greater-nj/img-5664.jpg';
+import wsuPhoto from '../assets/images/chapters/wayne-state/img-2328.jpg';
 
+// A side-scrolling strip of photos from headquarters and the chapters.
 const STRIP = [
   { src: groupPhoto, alt: 'A large group of Blueprints members in matching shirts' },
+  { src: osuPhoto, alt: 'Ohio State chapter members', caption: 'Ohio State' },
+  { src: boxesPhoto, alt: 'Four members in front of stacked boxes of supplies' },
   { src: tablePhoto, alt: 'Members at a Blueprints information table' },
+  { src: gnjPhoto, alt: 'Greater New Jersey members with donated supplies', caption: 'Greater New Jersey' },
+  { src: vanPhoto, alt: 'Three members sitting in a van loaded with boxes' },
+  { src: blanketPhoto, alt: 'Members making blankets at Day of Service' },
+  { src: wsuPhoto, alt: 'Wayne State members packing supplies', caption: 'Wayne State' },
+  { src: classPhoto, alt: 'Members leading a supply-sorting lesson in a classroom' },
   { src: sortPhoto, alt: 'Three members in the warehouse among boxes of supplies' },
+  { src: suitsPhoto, alt: 'Members dressed up at a Blueprints event' },
 ];
 
+// Chapters by the year they started, read from chapters.js so the
+// milestones stay in step with the chapter list.
+const startedIn = (year) =>
+  new Intl.ListFormat('en').format(
+    CHAPTERS.filter((c) => c.since === year && !c.isHQ).map((c) => c.name),
+  );
+const BY_START = [...CHAPTERS].sort((a, b) => a.since - b.since);
+const TENTH = BY_START[9];
+
 // Every entry maps to a documented shipment, partnership, or chapter
-// founding on the live site.
+// founding on the live site, or to the chapter list.
 const TIMELINE = [
   {
     year: '2013',
@@ -24,23 +52,31 @@ const TIMELINE = [
   },
   {
     year: '2016',
-    text: 'First international partnership, with Seeds of Hope in the Dominican Republic. Michigan State and Ohio State became the first chapters outside Ann Arbor.',
+    text: `First international partnership, with Seeds of Hope in the Dominican Republic. ${startedIn(2016)} became the first chapters outside Ann Arbor.`,
   },
   {
     year: '2017',
-    text: 'Expanded our partnerships, which helped us ship more, and more often.',
+    text: `Expanded our partnerships, which let us ship more often. ${startedIn(2017)} started a chapter.`,
   },
   {
     year: '2020',
-    text: 'During COVID-19, we sent PPE to Michigan hospitals, supplies to India, and face shields to Ann Arbor healthcare facilities.',
+    text: `During COVID-19, we sent PPE and face shields to Michigan hospitals and a 12-pallet shipment to India. ${startedIn(2020)} started chapters.`,
+  },
+  {
+    year: '2022',
+    text: `${startedIn(2022)} started a chapter.`,
   },
   {
     year: '2023',
-    text: 'Santa Clara University and the University of Miami Medical School started chapters.',
+    text: `${startedIn(2023)} started chapters.`,
+  },
+  {
+    year: String(TENTH.since),
+    text: `${TENTH.name} became our tenth chapter.`,
   },
   {
     year: '2025',
-    text: 'Sent more than 60 pallets, worth over $573,000, to Nigeria. The University of Nebraska Omaha and UC Berkeley started chapters.',
+    text: `Sent more than 60 pallets, worth over $573,000, to Nigeria. ${startedIn(2025)} started chapters, making ${TOTALS.chapters}.`,
   },
 ];
 
@@ -62,20 +98,6 @@ export default function AboutUs() {
         supplies out of the trash.
       </PageHeader>
 
-      {/* Signature: our history, one year at a time, in large type. */}
-      <section className="years-section" aria-label="Our history">
-        <div className="container">
-          <ol className="years">
-            {TIMELINE.map((t, i) => (
-              <Reveal as="li" className="years__item" key={t.year} delay={Math.min(i, 2) * 0.05}>
-                <span className="years__year">{t.year}</span>
-                <p>{t.text}</p>
-              </Reveal>
-            ))}
-          </ol>
-        </div>
-      </section>
-
       <section className="band-navy">
         <div className="container">
           <div className="band-navy__split band-navy__split--top">
@@ -94,15 +116,34 @@ export default function AboutUs() {
                 <li><strong>{TOTALS.chapters}</strong> chapters</li>
                 <li><strong>{TOTALS.members}+</strong> members</li>
                 <li><strong>{TOTALS.countries}+</strong> countries shipped to</li>
+                <li><strong>${Math.floor(TOTALS.suppliesValue / 1_000_000)}M+</strong> in supplies shipped</li>
               </ul>
             </Reveal>
           </div>
-          <div className="photo-strip">
-            {STRIP.map((p) => (
-              <img key={p.src} src={p.src} alt={p.alt} loading="lazy" />
-            ))}
-          </div>
         </div>
+        <ScrollRow className="photo-strip" label="Photos from headquarters and our chapters">
+          {STRIP.map((p) => (
+            <figure key={p.src} className="photo-strip__item">
+              <img src={p.src} alt={p.alt} loading="lazy" />
+              {p.caption && <figcaption>{p.caption}</figcaption>}
+            </figure>
+          ))}
+        </ScrollRow>
+      </section>
+
+      {/* Signature: our history, left to right. */}
+      <section className="years-section" aria-labelledby="years-title">
+        <div className="container">
+          <h2 id="years-title" className="section-title">Our history</h2>
+        </div>
+        <ScrollRow className="years" label="Timeline">
+          {TIMELINE.map((t) => (
+            <div className="years__item" key={t.year + t.text}>
+              <span className="years__year">{t.year}</span>
+              <p>{t.text}</p>
+            </div>
+          ))}
+        </ScrollRow>
       </section>
 
       <section className="section section--soft">

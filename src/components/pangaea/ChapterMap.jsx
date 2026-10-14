@@ -7,10 +7,11 @@ import world from 'world-atlas/countries-110m.json';
 import { CHAPTER_PINS } from './story.js';
 import { CHAPTERS } from '../../data/chapters.js';
 import { LOGO } from './plates.js';
+import { logoFor } from '../../assets/chapters/logos.js';
 
 // The Chapters page's signature: the lower 48 states in the logo's
-// blue, with a dot for every chapter. Each dot and name links to
-// that chapter's page.
+// blue, with each chapter's school logo beside its dot. Each logo
+// links to that chapter's page; its name shows on hover.
 
 const W = 1000;
 
@@ -99,23 +100,31 @@ export default function ChapterMap() {
         })}
       </svg>
 
-      {/* School names are real links laid over the map, styled as
-          buttons so it's clear they can be clicked. */}
+      {/* School logos are real links laid over the map, each tied to
+          its dot by a short line. */}
       <ul className="chapmap__tags">
         {CHAPTER_PINS.map((pin, i) => {
           const [x, y] = geo.proj([pin.lng, pin.lat]);
+          const chapter = NAME[pin.id];
+          const logo = logoFor(pin.id);
+          const label = chapter.isHQ ? 'Michigan (HQ)' : pin.short;
           return (
             <motion.li
               key={pin.id}
               className={`chapmap__tag chapmap__tag--${SIDE[pin.id] || 'right'}`}
               style={{ left: `${(x / W) * 100}%`, top: `${(y / geo.h) * 100}%` }}
-              initial={reduce ? false : { opacity: 0 }}
-              whileInView={{ opacity: 1 }}
+              initial={reduce ? false : { opacity: 0, scale: 0.6 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: 0.2 + i * 0.05 }}
             >
-              <Link to={`/chapters/${pin.id}`} className={pin.hq ? 'is-hq' : ''}>
-                {NAME[pin.id].name === 'University of Michigan' ? 'Michigan (HQ)' : pin.short}
+              <Link
+                to={`/chapters/${pin.id}`}
+                className={`chapmap__badge ${pin.hq ? 'is-hq' : ''} ${logo ? '' : 'chapmap__badge--text'}`}
+                aria-label={chapter.name}
+                data-name={label}
+              >
+                {logo ? <img src={logo} alt="" /> : <span>{pin.short}</span>}
               </Link>
             </motion.li>
           );

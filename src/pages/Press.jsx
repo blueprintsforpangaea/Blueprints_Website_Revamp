@@ -1,16 +1,21 @@
 import PageHeader from '../components/layout/PageHeader.jsx';
 import Reveal from '../components/ui/Reveal.jsx';
 import PressList from '../components/ui/PressList.jsx';
-import { PRESS_ITEMS, PRESS_UPDATES } from '../data/press.js';
+import { PRESS_ITEMS, PRESS_UPDATES, PUBLICATIONS } from '../data/press.js';
 import { ORG } from '../data/site.js';
 
 const FEATURED = PRESS_ITEMS.find((p) => p.featured);
 const REST = PRESS_ITEMS.filter((p) => !p.featured);
+const PAPERS = PUBLICATIONS.map((p) => ({
+  id: p.id, outlet: p.venue, date: p.date, headline: p.title, byline: p.authors, excerpt: p.summary, url: p.url,
+}));
 
 export default function Press() {
   return (
     <article>
-      <PageHeader title="Press" />
+      <PageHeader title="Press">
+        News coverage of our work, and papers and articles written by our members.
+      </PageHeader>
 
       {/* ---------- Featured story ---------- */}
       {FEATURED && (
@@ -37,6 +42,18 @@ export default function Press() {
           </div>
         </section>
       )}
+
+      {/* ---------- Written by our members ---------- */}
+      <section className="section section--soft section--tight">
+        <div className="container">
+          <Reveal className="section-head">
+            <h2 className="section-title">Our publications</h2>
+          </Reveal>
+          <Reveal delay={0.08}>
+            <PressList items={PAPERS} />
+          </Reveal>
+        </div>
+      </section>
 
       {/* ---------- Full coverage list ---------- */}
       <section className="section">

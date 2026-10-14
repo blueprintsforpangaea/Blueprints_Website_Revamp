@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import Reveal from '../components/ui/Reveal.jsx';
 import ShipmentMapSection from '../components/sections/ShipmentMapSection.jsx';
 import { IMPACT_STATS } from '../data/stats.js';
+import { ORG } from '../data/site.js';
 
 export default function Impact() {
   return (
@@ -11,8 +12,8 @@ export default function Impact() {
           <Reveal className="globe-hero">
             <h1 className="globe-hero__title">Where our supplies have gone</h1>
             <p className="globe-hero__lead">
-              The map shows the shipments we have records for. Each line runs from the chapter
-              that sent it; the dots in the U.S. are our chapters.
+              The map shows our recorded shipments. Each line runs from the chapter that sent it,
+              and the dots in the U.S. are our chapters. Click or tap a dot to see what we sent there.
             </p>
             <ul className="impact-facts">
               {IMPACT_STATS.map((stat) => (
@@ -25,15 +26,18 @@ export default function Impact() {
 
       <ShipmentMapSection />
 
-      <section className="section section--soft section--tight">
-        <div className="container">
-          <Reveal className="prose">
-            <h2 className="section-title section-title--sm">Have supplies to donate?</h2>
-            <p>Email us and we’ll arrange a pickup.</p>
-            <div className="btn-row">
-              <Link to="/get-involved#supplies" className="btn btn--dark">Donate supplies</Link>
-              <Link to="/donate" className="link-arrow">Or donate money <span className="arrow">→</span></Link>
-            </div>
+      <section className="band-navy">
+        <div className="container band-navy__split">
+          <Reveal className="band-navy__text">
+            <h2>Have supplies to give?</h2>
+            <p>
+              We’d love to work with you. If your hospital or company has unused inventory, email{' '}
+              <a href={`mailto:${ORG.email}`}>{ORG.email}</a> and we’ll arrange a pickup.
+            </p>
+          </Reveal>
+          <Reveal delay={0.1} className="btn-row">
+            <Link to="/get-involved#supplies" className="btn btn--light btn--lg">What we accept</Link>
+            <Link to="/donate" className="btn btn--ghost btn--lg">Donate money</Link>
           </Reveal>
         </div>
       </section>

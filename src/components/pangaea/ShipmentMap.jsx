@@ -1,38 +1,21 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { geoNaturalEarth1, geoPath, geoGraticule } from 'd3-geo';
 import { plateMatrices, plateGeometry, PLATE_COLOR, LOGO } from './plates.js';
 import { ROUTES, OTHER_ROUTES, CHAPTER_PINS } from './story.js';
 import { DESTINATIONS } from '../../data/destinations.js';
+import { SHIPMENTS } from '../../data/shipments.js';
+import { shipmentHeadline, ShipmentFacts } from '../ui/ShipmentCard.jsx';
 
 // A flat wall map of today's world in the logo's colours, with every
 // documented international shipment drawn from the chapter that ran
-// it (headquarters otherwise). The Impact page's counterpart to the
-// home page globe.
-//
+// it (headquarters otherwise). Countries aren't named on the map;
+// click a dot to see what was shipped there.
 
 const W = 1000;
 const ALL = [...ROUTES, ...OTHER_ROUTES];
 const LAND = plateGeometry(plateMatrices(1)).filter((g) => g.id !== 'ant');
 const LAND_FC = { type: 'FeatureCollection', features: LAND.map((g) => ({ type: 'Feature', geometry: g })) };
-
-// Where each country's label sits relative to its pin, so the
-// Caribbean cluster doesn't overlap. [dx, dy, anchor]. Labels set
-// well away from their pin get a short leader line.
-const LABEL = {
-  Mexico: [-10, 3, 'end'],
-  Guatemala: [-10, 17, 'end'],
-  Honduras: [0, 32, 'middle'],
-  Jamaica: [6, 26, 'start'],
-  'Dominican Republic': [12, -26, 'start'],
-  'Puerto Rico': [10, 6, 'start'],
-  Ecuador: [-10, 5, 'end'],
-  Ghana: [-10, 16, 'end'],
-  Nigeria: [10, 16, 'start'],
-  Ukraine: [10, -4, 'start'],
-  India: [10, 5, 'start'],
-  Myanmar: [10, 5, 'start'],
-};
 
 const PLACES = [
   ...new Map(
@@ -40,9 +23,25 @@ const PLACES = [
   ).values(),
 ];
 
+const shipmentsTo = (country) => SHIPMENTS.filter((s) => s.place === country);
+
 export default function ShipmentMap() {
   const reduce = useReducedMotion();
   const svgRef = useRef(null);
+  const [open, setOpen] = useState(null);
+
+  // Close the pop-up with Escape or a click anywhere else.
+  useEffect(() => {
+    if (!open) return undefined;
+    const onKey = (e) => e.key === 'Escape' && setOpen(null);
+    const onDown = (e) => !e.target.closest('.shipmap__dot, .shipmap__pop') && setOpen(null);
+    window.addEventListener('keydown', onKey);
+    window.addEventListener('pointerdown', onDown);
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      window.removeEventListener('pointerdown', onDown);
+    };
+  }, [open]);
 
   const geo = useMemo(() => {
     const proj = geoNaturalEarth1().fitWidth(W, LAND_FC);
@@ -127,26 +126,49 @@ export default function ShipmentMap() {
 
         {PLACES.map((d) => {
           const [x, y] = geo.project(d.lng, d.lat);
-          const [dx, dy, anchor] = LABEL[d.country] || [10, 5, 'start'];
+          return <circle key={d.country} cx={x} cy={y} className={`shipmap__pin ${open === d.country ? 'is-open' : ''}`} />;
+        })}
+      </svg>
+
+      {/* Click targets laid over the dots, and the pop-up for the open one. */}
+      <ul className="shipmap__dots">
+        {PLACES.map((d) => {
+          const [x, y] = geo.project(d.lng, d.lat);
+          const left = (x / W) * 100;
+          const top = (y / geo.h) * 100;
+          const isOpen = open === d.country;
           return (
-            <g key={d.country} className="shipmap__place">
-              {Math.abs(dy) > 20 && (
-                <line
-                  x1={x} y1={y}
-                  x2={x + dx * 0.8} y2={y + dy + (dy < 0 ? 4 : -14)}
-                  className="shipmap__leader"
-                />
+            <li key={d.country} style={{ left: `${left}%`, top: `${top}%` }}>
+              <button
+                type="button"
+                className="shipmap__dot"
+                aria-label={`Shipments to ${d.country}`}
+                aria-expanded={isOpen}
+                onClick={() => setOpen(isOpen ? null : d.country)}
+              />
+              {isOpen && (
+                <div
+                  className={`shipmap__pop ${left > 55 ? 'shipmap__pop--left' : ''} ${top > 55 ? 'shipmap__pop--up' : ''}`}
+                  role="dialog"
+                  aria-label={d.country}
+                >
+                  <div className="shipmap__pop-head">
+                    <h3>{d.country}</h3>
+                    <button type="button" className="shipmap__close" onClick={() => setOpen(null)} aria-label="Close">×</button>
+                  </div>
+                  {shipmentsTo(d.country).map((s) => (
+                    <div className="shipmap__pop-item" key={s.id}>
+                      {shipmentHeadline(s) && <p className="ship__figure">{shipmentHeadline(s)}</p>}
+                      {s.detail && <p className="ship__detail">{s.detail}</p>}
+                      <ShipmentFacts shipment={s} />
+                    </div>
+                  ))}
+                </div>
               )}
-              <circle cx={x} cy={y} className="shipmap__pin" />
-              {/* Offsets in em so they track the label's on-screen size. */}
-              <text x={x} y={y} dx={`${dx / 15}em`} dy={`${dy / 15}em`} textAnchor={anchor} className="shipmap__label">
-                {d.country}
-              </text>
-            </g>
+            </li>
           );
         })}
-
-      </svg>
+      </ul>
     </figure>
   );
 }

@@ -6,6 +6,11 @@
 // Fill in `charter`, `responsibilities`, and `projects` once the
 // teams provide real copy. Never write placeholder descriptions.
 //
+// `summary`: one plain line for the front of the department's card.
+// `video` (optional): a link to the department's explainer video
+// (YouTube, Drive, etc.). Its card shows a "Watch the video" link.
+// Photos live in src/assets/images/departments/<id>.jpg.
+//
 // `leads` are exact role titles from team.js. Only confirmed
 // leadership is listed: the CTO leads Technology (confirmed by the
 // CTO), and each other department lists only its VP until its
@@ -22,6 +27,7 @@ export const DEPARTMENTS = [
     id: 'operations',
     leads: ['VP of Operations'],
     name: 'Operations',
+    summary: 'Runs our supply chain, from the warehouse shelves to each shipment.',
     charter:
       'Operations manages the backbone of Blueprints for Pangaea: our supply chain. From sourcing and storing medical supplies to ensuring they reach communities in need, Operations turns our mission into measurable impact.',
     responsibilities: [
@@ -48,6 +54,7 @@ export const DEPARTMENTS = [
     id: 'development',
     leads: ['VP of Development'],
     name: 'Development',
+    summary: 'Runs our social media and outreach, and works with high schools.',
     charter:
       "Development leads Blueprints for Pangaea's public image, outreach, and engagement. We focus on growing awareness of our mission through creative storytelling, digital strategy, and community collaboration.",
     responsibilities: [
@@ -74,6 +81,7 @@ export const DEPARTMENTS = [
     id: 'expansion',
     leads: ['VP of Expansion'],
     name: 'Expansion',
+    summary: 'Helps new chapters get started and supports the ones we have.',
     charter:
       "Expansion drives Blueprints for Pangaea's national growth and sustainability. We ensure that each chapter — current or emerging — has the tools, structure, and guidance to operate effectively and uphold Blueprints' mission.",
     responsibilities: [
@@ -100,6 +108,7 @@ export const DEPARTMENTS = [
     id: 'finance',
     leads: ['VP of Finance'],
     name: 'Finance',
+    summary: 'Raises money for Blueprints through grants and sponsorships.',
     charter:
       'Finance ensures the long-term sustainability and growth of Blueprints for Pangaea by securing the resources that power our mission. Through fundraising, partnerships, and data-driven strategy, Finance maintains the financial foundation that allows every chapter to thrive.',
     responsibilities: [

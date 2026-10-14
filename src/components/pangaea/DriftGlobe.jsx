@@ -172,7 +172,6 @@ export default function DriftGlobe({ stepsRef, yearsRef, film = false, playKey =
       }
 
       // ---- layout ----
-      const wide = w >= 520;
       const cx = w / 2;
       const cy = h / 2;
       const r = Math.min(w, h) * 0.4 * cur.scale;
@@ -303,8 +302,9 @@ export default function DriftGlobe({ stepsRef, yearsRef, film = false, playKey =
           }
           ctx.globalAlpha = 1;
           const labelAlpha = Math.max(0, Math.min(1, (cur.scale - 1.9) / 0.5)) * Math.max(0, (cur.pins - 0.7) / 0.3);
-          // Narrow screens only have room to name headquarters.
-          if (labelAlpha > 0.01 && (wide || pin.hq)) {
+          // Only headquarters is named, so the map stays readable as
+          // chapters are added; the Chapters page names the rest.
+          if (labelAlpha > 0.01 && pin.hq) {
             ctx.globalAlpha = labelAlpha;
             ctx.font = `${pin.hq ? 700 : 400} 15px ${FONT}`;
             ctx.textAlign = pin.dx < 0 ? 'right' : 'left';

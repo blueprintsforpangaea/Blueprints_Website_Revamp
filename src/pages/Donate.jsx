@@ -3,6 +3,11 @@ import Reveal from '../components/ui/Reveal.jsx';
 import { DONATE_URL, ORG } from '../data/site.js';
 import { TOTALS } from '../data/stats.js';
 import { SHIPMENTS } from '../data/shipments.js';
+import { SPONSORS } from '../data/sponsors.js';
+
+const sponsorLogos = import.meta.glob('../assets/sponsors/*.{png,jpg,jpeg,svg,webp}', { eager: true, import: 'default' });
+const sponsorLogo = (name) =>
+  name && Object.entries(sponsorLogos).find(([p]) => p.replace(/^.*\/|\.[a-z]+$/g, '') === name)?.[1];
 
 // The live site's own suggested amounts.
 const PRESET_AMOUNTS = [10, 20, 30];
@@ -33,7 +38,7 @@ export default function Donate() {
             <h1 className="donate-band__title">Donate</h1>
             <p className="big-figure">
               <strong>{TOTALS.suppliesValueShort}</strong>
-              <span>in medical supplies redistributed so far, by students, to clinics in {TOTALS.countries}+ countries.</span>
+              <span>in medical supplies sent to clinics in {TOTALS.countries}+ countries so far.</span>
             </p>
             <p className="donate-band__note">
               {ORG.name} is a {ORG.taxStatus}, so your donation is tax-deductible.
@@ -96,11 +101,14 @@ export default function Donate() {
         <div className="container">
           <Reveal>
             <h2 className="section-title section-title--sm">Some of our larger shipments</h2>
+            <p className="muted" style={{ marginTop: '0.75rem', maxWidth: '40rem' }}>
+              Each figure is the estimated value of the supplies in that shipment.
+            </p>
 
             <div className="donate-impact-list">
               {FUNDED.map((s) => (
                 <div className="donate-impact-item" key={s.id}>
-                  <span className="amt">{s.value}</span>
+                  <span className="amt">{s.value}<small>worth of supplies</small></span>
                   <p>
                     <strong>{s.place}</strong>
                     {s.partner ? `, with ${s.partner}. ` : '. '}
@@ -117,6 +125,25 @@ export default function Donate() {
           </Reveal>
         </div>
       </section>
+
+      {SPONSORS.length > 0 && (
+        <section className="section section--soft section--tight">
+          <div className="container">
+            <h2 className="section-title section-title--sm">Our supporters</h2>
+            <ul className="sponsors">
+              {SPONSORS.map((sp) => {
+                const logo = sponsorLogo(sp.logo);
+                const inner = logo ? <img src={logo} alt={sp.name} /> : <span>{sp.name}</span>;
+                return (
+                  <li key={sp.name}>
+                    {sp.url ? <a href={sp.url} target="_blank" rel="noreferrer">{inner}</a> : inner}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </section>
+      )}
     </article>
   );
 }

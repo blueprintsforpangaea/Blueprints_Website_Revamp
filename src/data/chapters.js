@@ -1,8 +1,9 @@
 
 // ============================================================
-// 12 active chapters. Every `since` year, member count, blurb,
-// partner list, and contact below is taken from that chapter's
-// own page on blueprintsforpangaea.org (rechecked Oct. 2026).
+// 12 active chapters. Every `since` year, member count, partner
+// list, and contact below is taken from that chapter's own page on
+// blueprintsforpangaea.org (rechecked Oct. 2026). Blurbs keep each
+// page's facts in plainer wording.
 // A chapter lead is listed only where that page names one with a
 // title. UC Berkeley (2025) has no page yet, so it carries only
 // its name, city, and year; its email is headquarters'.
@@ -17,6 +18,15 @@
 // Fields are intentionally optional: a chapter that has not
 // published a member count or shipment value simply omits it
 // rather than carrying a placeholder.
+//
+// Chapters can add their own content without touching any code:
+//   photos   — drop any number of photos in
+//              src/assets/images/chapters/<slug>/
+//   sections — extra blocks for the chapter page, in order:
+//              sections: [
+//                { title: 'Our first shipment', body: 'Text…' },
+//                { title: 'Day of Service', body: ['Paragraph one', 'Paragraph two'] },
+//              ]
 // ============================================================
 export const CHAPTERS = [
   {
@@ -28,7 +38,7 @@ export const CHAPTERS = [
     lead: 'Aakash Gummidela, Chief Executive Officer',
     email: 'contact@b4pglobal.org',
     blurb:
-      'Our founding chapter and national headquarters. The Ann Arbor warehouse receives, inventories, and stages supplies for every outbound shipment, and the HQ team supports all other chapters.',
+      'Our founding chapter and national headquarters. The team here runs the Ann Arbor warehouse and supports the other chapters.',
     partners: [
       'Hope Clinic',
       'Packard Health',
@@ -48,7 +58,7 @@ export const CHAPTERS = [
     email: 'blueprintsforpangaea.msu@gmail.com',
     instagram: 'blueprints4pangaea_msu',
     blurb:
-      'The Michigan State chapter is currently focused on building up its operations through fundraising, inventorying, and member engagement.',
+      'The Michigan State chapter is building up its operations right now, with a focus on fundraising and inventory.',
     partners: ['UNICEF', 'Global Brigades'],
   },
   {
@@ -60,7 +70,7 @@ export const CHAPTERS = [
     email: 'blueprintsforpangaea.osu@gmail.com',
     instagram: 'b4posu',
     blurb:
-      'Committed to addressing global and local healthcare disparities through sustainable medical redistribution and educational outreach. The chapter runs monthly supply shipments to Honduras and supports free clinics locally.',
+      'The Ohio State chapter sends medical supplies to Honduras every month and supports free clinics in Columbus.',
     highlight:
       'Wellness Within Reach, a mental health awareness project started at Ohio State. It produces brochures listing local clinics and resources, and other chapters have since adopted it.',
     partners: ['Ronald McDonald House', 'Island Pacific Academy alumni'],
@@ -75,7 +85,7 @@ export const CHAPTERS = [
     email: 'blueprintsforpangaea-waynestate@b4pglobal.org',
     instagram: 'blueprints4pangaea_wsu',
     blurb:
-      'The Wayne State chapter is dedicated to addressing medical supply waste and improving healthcare access both locally and globally.',
+      'The Wayne State chapter works on medical supply waste and access to care, in Detroit and overseas.',
     partners: ['University of Southern California chapter (joint Nigeria shipment)'],
   },
   {
@@ -89,7 +99,7 @@ export const CHAPTERS = [
     email: 'blueprintsforpangaea-usc@b4pglobal.org',
     instagram: 'blueprints4pangaea_usc',
     blurb:
-      'The USC chapter bridges healthcare gaps by reallocating surplus medical supplies to underserved communities, with a focus on sustainability and social responsibility.',
+      'The USC chapter sends surplus medical supplies to underserved communities in Los Angeles and overseas.',
     highlight:
       'July 2025 Nigeria shipment: more than 60 pallets of medical supplies, PPE, and sanitary products valued at over $573,000.',
     partners: ['Keck Medicine of USC', 'Connect With Africa', 'Claris Health', 'Shelter Partnership'],
@@ -115,7 +125,7 @@ export const CHAPTERS = [
     email: 'blueprintsforpangaea.scu@gmail.com',
     instagram: 'blueprints4pangaea_scu',
     blurb:
-      'Located in the heart of Silicon Valley, the SCU chapter is dedicated to addressing healthcare accessibility challenges in Santa Clara and its surrounding communities.',
+      'The Santa Clara chapter works on access to healthcare in Santa Clara and nearby communities.',
     partners: ['MedCycle'],
   },
   {

@@ -13,6 +13,8 @@ import {
 } from '../data/involvement.js';
 import { ORG } from '../data/site.js';
 import { RECRUITMENT } from '../data/recruitment.js';
+import { recruitmentPhoto } from '../assets/photos.js';
+import Photo from '../components/ui/Photo.jsx';
 import { DEPARTMENT_COUNT_WORD, DEPARTMENT_LIST } from '../data/departments.js';
 
 const pathway = (id) => PATHWAYS.find((p) => p.id === id);
@@ -24,7 +26,7 @@ const volunteer = pathway('volunteer');
 const CHOICES = [
   {
     who: 'I’m a student',
-    body: 'Join the team at headquarters, start a chapter at your school, or spend a summer with us in high school.',
+    body: 'College students can join headquarters at U-M or start a chapter at their own school. High school students can apply for our summer internship.',
     links: [
       { label: 'Join headquarters', href: '#recruitment' },
       { label: 'Start a chapter', href: '#chapter' },
@@ -33,7 +35,7 @@ const CHOICES = [
   },
   {
     who: 'I work at a hospital or clinic',
-    body: 'Have unused supplies? We’ll pick them up and get them to clinics that need them.',
+    body: 'If you have unused supplies, we’ll come and pick them up.',
     links: [{ label: 'What we accept', href: '#supplies' }],
   },
   {
@@ -111,16 +113,26 @@ export default function GetInvolved() {
           </div>
 
           {/* Recruitment events: edit src/data/recruitment.js each semester. */}
-          <Reveal className="recruit">
-            <div className="recruit__head">
-              <h3 className="recruit__title">{RECRUITMENT.term} recruitment</h3>
-              {RECRUITMENT.open && RECRUITMENT.applyUrl ? (
-                <a href={RECRUITMENT.applyUrl} target="_blank" rel="noreferrer" className="btn btn--dark">
-                  Apply now
-                </a>
-              ) : (
-                <p className="recruit__status">{RECRUITMENT.closedNote}</p>
-              )}
+          <Reveal className={`recruit recruit--${RECRUITMENT.theme?.accent || 'navy'}`}>
+            <div className="recruit__banner">
+              <div className="recruit__head">
+                <h3 className="recruit__title">{RECRUITMENT.term} recruitment</h3>
+                {RECRUITMENT.theme?.tagline && <p className="recruit__tagline">{RECRUITMENT.theme.tagline}</p>}
+                {RECRUITMENT.open && RECRUITMENT.applyUrl ? (
+                  <a href={RECRUITMENT.applyUrl} target="_blank" rel="noreferrer" className="btn btn--light">
+                    Apply now
+                  </a>
+                ) : (
+                  <p className="recruit__status">{RECRUITMENT.closedNote}</p>
+                )}
+                {RECRUITMENT.eligibility && <p className="recruit__foot">{RECRUITMENT.eligibility}</p>}
+              </div>
+              <Photo
+                src={recruitmentPhoto(RECRUITMENT.theme?.photo)}
+                alt=""
+                className="recruit__photo"
+                label="Recruitment photo coming soon"
+              />
             </div>
             <ol className="recruit__events">
               {RECRUITMENT.events.map((e) => (
@@ -137,7 +149,6 @@ export default function GetInvolved() {
                 </li>
               ))}
             </ol>
-            {RECRUITMENT.eligibility && <p className="recruit__foot">{RECRUITMENT.eligibility}</p>}
           </Reveal>
         </div>
       </section>

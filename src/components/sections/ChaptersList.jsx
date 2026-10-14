@@ -3,28 +3,41 @@ import Reveal from '../ui/Reveal.jsx';
 import { CHAPTERS } from '../../data/chapters.js';
 import { logoFor } from '../../assets/chapters/logos.js';
 
+// Initials stand in for a chapter that doesn't have a logo file yet.
+const initials = (name) =>
+  name
+    .split(/\s+/)
+    .filter((w) => !['of', 'in', 'the'].includes(w))
+    .map((w) => (w === w.toUpperCase() ? w : w[0]))
+    .join('')
+    .slice(0, 3);
+
 export default function ChaptersList() {
   return (
-    <div className="grid-3">
-      {CHAPTERS.map((chapter, i) => (
-        <Reveal key={chapter.slug} delay={(i % 3) * 0.06}>
-          <Link
-            to={`/chapters/${chapter.slug}`}
-            className={`chapter-card ${chapter.isHQ ? 'chapter-card--hq' : ''}`}
-          >
-            {chapter.isHQ && <span className="chapter-card__badge">HQ</span>}
-            {logoFor(chapter.slug) && (
+    <ul className="chapter-grid">
+      {CHAPTERS.map((chapter, i) => {
+        const logo = logoFor(chapter.slug);
+        return (
+          <Reveal as="li" key={chapter.slug} delay={(i % 3) * 0.06}>
+            <Link
+              to={`/chapters/${chapter.slug}`}
+              className={`chapter-card ${chapter.isHQ ? 'chapter-card--hq' : ''}`}
+            >
               <span className="chapter-card__seal">
-                <img src={logoFor(chapter.slug)} alt="" loading="lazy" />
+                {logo ? <img src={logo} alt="" loading="lazy" /> : <span>{initials(chapter.name)}</span>}
               </span>
-            )}
-            <h3>{chapter.name}</h3>
-            <span className="chapter-card__loc">{chapter.location}</span>
-            {chapter.lead && <span className="chapter-card__lead">{chapter.lead}</span>}
-            <span className="chapter-card__more">See chapter <span className="arrow">→</span></span>
-          </Link>
-        </Reveal>
-      ))}
-    </div>
+              <span className="chapter-card__text">
+                <h3>
+                  {chapter.name}
+                  {chapter.isHQ && <span className="chapter-card__badge">HQ</span>}
+                </h3>
+                <span className="chapter-card__loc">{chapter.location} · since {chapter.since}</span>
+              </span>
+              <span className="chapter-card__more" aria-hidden="true">→</span>
+            </Link>
+          </Reveal>
+        );
+      })}
+    </ul>
   );
 }

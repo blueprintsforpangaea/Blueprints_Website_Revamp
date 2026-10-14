@@ -7,6 +7,11 @@
 //   closedNote — shown in place of the apply button when open is false
 //   applyUrl — the application form (shown only while open)
 //   events   — in date order; `required` marks must-attend events
+//   theme    — how this cycle looks:
+//                accent  'navy' | 'indigo' | 'blue' (brand colors only)
+//                tagline one line under the heading (optional)
+//                photo   file name in src/assets/images/recruitment/,
+//                        without the extension, e.g. 'fa26'
 //
 // Fall 2026 schedule is from blueprintsforpangaea.org/recruitment.
 // ============================================================
@@ -17,6 +22,11 @@ export const RECRUITMENT = {
   closedNote: 'Recruitment is closed for FA26. Come back during WN27.',
   applyUrl: '',
   eligibility: 'Open to University of Michigan students only.',
+  theme: {
+    accent: 'navy',
+    tagline: '',
+    photo: '',
+  },
   events: [
     { name: 'Festifall', date: 'Sept. 2', time: '6–8 PM', place: 'Central Campus' },
     { name: 'Meet the Clubs', date: 'Sept. 8', time: '5:30–7:30 PM', place: 'Ross Winter Garden' },

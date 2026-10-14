@@ -14,7 +14,7 @@ export const GALA = {
   venue: 'Tauber Colloquium, Ross School of Business',
   city: 'Ann Arbor, MI',
   intro:
-    'An evening for students to meet business and healthcare professionals. There’s a reception, a pitch competition, and a research showcase.',
+    'An evening where students meet business and healthcare professionals. The program has a reception, a Shark Tank pitch competition, and a research symposium.',
 };
 
 export const GALA_TRACKS = [
@@ -23,7 +23,7 @@ export const GALA_TRACKS = [
     num: '01',
     name: 'Attend',
     body:
-      'Reserve your spot to attend the 2026 Blueprints Gala and network with business and healthcare professionals.',
+      'Reserve a seat at the 2026 Blueprints Gala.',
     cta: 'RSVP',
     url: 'https://forms.gle/4vzqD7BvhJ5LSbzdA',
     primary: true,
@@ -33,7 +33,7 @@ export const GALA_TRACKS = [
     num: '02',
     name: 'Shark Tank',
     body:
-      'Pitch your innovative healthcare solutions to Eli Lilly executives for $850 in prizes.',
+      'Pitch a healthcare idea to Eli Lilly executives. Prizes total $850.',
     deadline: 'March 20, 2026 · 11:59 PM',
     cta: 'Apply to pitch',
     url: 'https://docs.google.com/forms/d/e/1FAIpQLSd63llIPawVSYO_EaHAm9LwHG6QM6M9i7mQNbjZQ3c5AzL_uQ/viewform',
@@ -43,7 +43,7 @@ export const GALA_TRACKS = [
     num: '03',
     name: 'Research Symposium',
     body:
-      'Present your work at the gala and meet industry professionals from Michigan Medicine and beyond.',
+      'Present your research at the gala. Professionals from Michigan Medicine will be there.',
     deadline: 'March 20, 2026 · 11:59 PM',
     cta: 'Submit research',
     url: 'https://forms.gle/6xC3jg1fUeAYaQ3u6',

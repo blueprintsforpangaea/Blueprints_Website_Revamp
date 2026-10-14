@@ -48,6 +48,10 @@ export const IMPACT_STATS = [
     sub: 'Across five continents',
   },
   {
+    value: String(TOTALS.chapters),
+    label: 'University chapters',
+  },
+  {
     value: `${yearsOfImpact}+`,
     label: 'Years of impact',
     sub: `Founded ${TOTALS.founded} at the University of Michigan`,
