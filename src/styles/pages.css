@@ -224,7 +224,6 @@
 .ship__story { margin-top: 0.75rem; }
 .ship__story summary { cursor: pointer; font-weight: 700; color: var(--link); }
 .ship__story p { margin-top: 0.5rem; font-size: 0.98rem; }
-.tour__more { margin-top: 2rem; }
 
 /* Phones: each shipment folds into a dropdown. */
 .ship--fold { border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--surface); padding: 0; }

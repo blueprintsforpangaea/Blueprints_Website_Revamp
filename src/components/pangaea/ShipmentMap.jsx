@@ -4,7 +4,7 @@ import { geoNaturalEarth1, geoPath, geoGraticule } from 'd3-geo';
 import { plateMatrices, plateGeometry, CONTINENT_COLOR, LOGO } from './plates.js';
 import { ROUTES, OTHER_ROUTES, CHAPTER_PINS } from './story.js';
 import { DESTINATIONS } from '../../data/destinations.js';
-import { SHIPMENTS } from '../../data/shipments.js';
+import { SHIPMENTS, FEATURED_SHIPMENTS } from '../../data/shipments.js';
 import { shipmentHeadline, ShipmentFacts } from '../ui/ShipmentCard.jsx';
 
 // A flat wall map of today's world in the logo's colours, with every
@@ -23,7 +23,11 @@ const PLACES = [
   ).values(),
 ];
 
-const shipmentsTo = (country) => SHIPMENTS.filter((s) => s.place === country);
+// One shipment per place: the featured one if there is one.
+const shipmentTo = (country) => {
+  const all = SHIPMENTS.filter((s) => s.place === country);
+  return all.find((s) => FEATURED_SHIPMENTS.includes(s)) || all[0];
+};
 
 export default function ShipmentMap() {
   const reduce = useReducedMotion();
@@ -175,7 +179,7 @@ export default function ShipmentMap() {
                     <h3>{d.country}</h3>
                     <button type="button" className="shipmap__close" onClick={() => setOpen(null)} aria-label="Close">×</button>
                   </div>
-                  {shipmentsTo(d.country).map((s) => (
+                  {[shipmentTo(d.country)].filter(Boolean).map((s) => (
                     <div className="shipmap__pop-item" key={s.id}>
                       {shipmentHeadline(s) && <p className="ship__figure">{shipmentHeadline(s)}</p>}
                       {s.detail && <p className="ship__detail">{s.detail}</p>}
