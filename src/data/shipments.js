@@ -4,6 +4,18 @@
 // them — entries without a figure omit it rather than estimate.
 // `figure` is the headline number for shipments with no dollar
 // value; it restates the published detail, never a new estimate.
+//
+// Every shipment is shown with the same four facts: when, which
+// chapter, which partner, and the value of the supplies (what the
+// supplies are worth, not what shipping them cost). Fill in any
+// that are missing as records come in.
+//
+//   date    — month and year, e.g. 'July 2025'
+//   chapter — the chapter that ran it, e.g. 'USC & Wayne State'
+//   partner — the receiving or delivery partner
+//   value   — estimated value of the supplies, e.g. '$573,000+'
+//   story   — (optional) a longer write-up, shown under "Read more"
+//   photo   — drop a file at src/assets/images/shipments/<id>.jpg
 // ============================================================
 
 export const SHIPMENTS = [
@@ -112,7 +124,7 @@ export const SHIPMENTS = [
     region: 'Europe',
     partner: 'U-M Ukrainian Club',
     value: '$40,000+',
-    detail: 'Wartime medical aid.',
+    detail: 'Wartime medical aid, sent together with the U-M Ukrainian Club.',
   },
 
   // ---------- United States ----------
@@ -195,8 +207,8 @@ export const SHIPMENTS = [
 
 const byId = (ids) => ids.map((id) => SHIPMENTS.find((s) => s.id === id));
 
-// The home page shows three. The Impact page highlights these six.
-export const RECENT_SHIPMENTS = byId(['nigeria-2025', 'ghana', 'ukraine']);
+// The home page shows four. The Impact page highlights these six.
+export const RECENT_SHIPMENTS = byId(['nigeria-2025', 'ghana', 'ukraine', 'food-gatherers']);
 export const FEATURED_SHIPMENTS = byId([
   'nigeria-2025', 'honduras', 'ghana', 'food-gatherers', 'ukraine', 'mexico',
 ]);

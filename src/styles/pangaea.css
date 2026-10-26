@@ -98,3 +98,7 @@
   }
   .pg-globe { flex: none; aspect-ratio: 1; margin: 0 calc(-1 * var(--pg-gutter)); -webkit-mask-image: none; mask-image: none; }
 }
+
+/* Drag the globe to spin it. Vertical swipes still scroll the page. */
+.pg-canvas { cursor: grab; touch-action: pan-y; }
+.pg-canvas:active { cursor: grabbing; }

@@ -13,9 +13,11 @@
 // stand in for a paleogeographic reconstruction.
 // ============================================================
 
-import { feature, merge } from 'topojson-client';
+import { feature, merge, mesh } from 'topojson-client';
 import { geoCentroid } from 'd3-geo';
 import world from 'world-atlas/countries-110m.json';
+import GREAT_LAKES from '../../data/great-lakes.json';
+import STATE_BORDERS from '../../data/us-state-borders.json';
 
 const RAD = Math.PI / 180;
 
@@ -195,11 +197,52 @@ export function movePoint(lon, lat, plate, mats) {
 
 export { FIT_BY_ID };
 
-// Land is coloured like the logo: each continent one of its three
-// blues (sampled from blueprints-logo-4.png), with neighbours never
-// sharing a shade. Used by the globe and the flat map.
+// The logo's three blues, for outlines and fallbacks.
 export const LOGO = { navy: '#001a49', dark: '#0038a3', bright: '#0069f2' };
-export const PLATE_COLOR = {
-  afr: LOGO.navy, nam: LOGO.dark, sam: LOGO.bright, eur: LOGO.bright,
-  ant: LOGO.dark, ind: LOGO.bright, aus: LOGO.navy, mad: LOGO.dark,
+
+// Every map (home globe, header globes, wall map, shipment cards)
+// gives each continent its own colour so they're easy to tell apart.
+// All are blues and indigos from the brand family.
+export const CONTINENT_COLOR = {
+  nam: '#0038a3', // North America
+  sam: '#0069f2', // South America
+  afr: '#001a49', // Africa
+  eur: '#5b9cff', // Europe and Asia
+  ind: '#373c82', // India
+  aus: '#6b74d6', // Australia
+  mad: '#373c82', // Madagascar
+  ant: '#a9c4f5', // Antarctica
 };
+
+// ---------- borders and lakes ----------
+// Borders between countries on the same continent, grouped by
+// continent so each set moves with its land as the continents drift.
+const PLATE_BY_COUNTRY = new Map(
+  world.objects.countries.geometries.map((g) => {
+    const [lon, lat] = geoCentroid(feature(world, g));
+    return [g, plateOf(g.properties?.name ?? '', lon, lat)];
+  }),
+);
+const COUNTRY_BORDERS = [...new Set(PLATE_BY_COUNTRY.values())].map((plate) => ({
+  plate,
+  coordinates: mesh(world, world.objects.countries, (a, b) =>
+    a !== b && PLATE_BY_COUNTRY.get(a) === plate && PLATE_BY_COUNTRY.get(b) === plate).coordinates,
+}));
+const onPlate = (coords, plate, mats) =>
+  Array.isArray(coords[0]) ? coords.map((c) => onPlate(c, plate, mats)) : movePoint(coords[0], coords[1], plate, mats);
+
+// Country borders everywhere plus U.S. state lines, at the given drift.
+export function borderLines(mats) {
+  return {
+    type: 'MultiLineString',
+    coordinates: [
+      ...onPlate(STATE_BORDERS.coordinates, 'nam', mats),
+      ...COUNTRY_BORDERS.flatMap((b) => onPlate(b.coordinates, b.plate, mats)),
+    ],
+  };
+}
+
+// The Great Lakes, at the given drift.
+export function greatLakes(mats) {
+  return GREAT_LAKES.features.map((f) => ({ type: f.geometry.type, coordinates: onPlate(f.geometry.coordinates, 'nam', mats) }));
+}

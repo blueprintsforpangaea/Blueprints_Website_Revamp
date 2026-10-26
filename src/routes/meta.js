@@ -23,7 +23,7 @@ const ROUTES = {
   },
   '/about': {
     title: `About us — ${SUFFIX}`,
-    description: `Founded ${TOTALS.founded} at the University of Michigan. ${TOTALS.chapters} chapters, ${TOTALS.members}+ students, and the leadership team behind them.`,
+    description: `Founded ${TOTALS.founded} at the University of Michigan. Our history and our leadership team.`,
   },
   '/chapters': {
     title: `Our chapters — ${SUFFIX}`,
@@ -32,7 +32,7 @@ const ROUTES = {
   '/press': {
     title: `Press — ${SUFFIX}`,
     description:
-      'News coverage of our students, our shipments, and medical waste.',
+      'News coverage of Blueprints for Pangaea, and papers written by our members.',
   },
   '/get-involved': {
     title: `Get involved — ${SUFFIX}`,

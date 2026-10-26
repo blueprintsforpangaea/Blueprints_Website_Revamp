@@ -13,7 +13,7 @@ export const PRESS_ITEMS = [
     byline: 'Liya Berry and Ruhi Gulati',
     date: '2025',
     excerpt:
-      'Students intercept pallets of unopened, perfect-condition supplies from Michigan Medicine that were headed to the landfill — saving over $250,000 worth of equipment.',
+      'Students took pallets of unopened supplies from Michigan Medicine that were headed to the landfill. The equipment was worth over $250,000.',
     url: 'https://sph.umich.edu/pursuit/2025posts/where-healthcare-and-sustainability-intersect-the-fight-against-medical-waste.html',
     featured: true,
   },
@@ -31,7 +31,7 @@ export const PRESS_ITEMS = [
     outlet: 'The Michigan Daily',
     headline: 'Op-Ed: Medical supply reallocation, saving lives and the environment',
     excerpt:
-      'On service trips, healthcare access inequities, and why surplus belongs in clinics rather than landfills.',
+      'On service trips, unequal access to healthcare, and sending surplus supplies to clinics.',
     url: 'https://michigandaily.com/section/viewpoints/op-ed-medical-supply-reallocation-saving-lives-and-environment',
   },
   {
@@ -99,13 +99,31 @@ export const PRESS_UPDATES = [
     kind: 'High school internship',
     title: 'Summer interns and their passion projects',
     detail:
-      'Arya, Ayaan, and Shruthika spent the summer exploring health equity and launching projects of their own design.',
+      'Our high school interns each designed a health equity project over the summer and ran it.',
   },
   {
     id: 'recruitment',
     kind: 'Recruitment',
-    title: 'Blueprints for Pangaea is recruiting',
+    title: 'Recruiting at the University of Michigan',
     detail:
-      'Mass meetings are held each semester at the University of Michigan. See the recruitment page for the current timeline.',
+      'We recruit every semester. The current dates are on the Get involved page.',
+  },
+];
+
+// ============================================================
+// Papers, articles, and reports written by our own members. Add
+// new ones at the top. `url` can point to a PDF in /public, e.g.
+// '/papers/2026-medical-waste.pdf'.
+//
+//   { id, title, authors, venue, date, url, summary }
+// ============================================================
+export const PUBLICATIONS = [
+  {
+    id: 'pursuit-medical-waste',
+    title: 'Where healthcare and sustainability intersect: The fight against medical waste',
+    authors: 'Liya Berry and Ruhi Gulati',
+    venue: 'The Pursuit · U-M School of Public Health',
+    date: '2025',
+    url: 'https://sph.umich.edu/pursuit/2025posts/where-healthcare-and-sustainability-intersect-the-fight-against-medical-waste.html',
   },
 ];

@@ -18,7 +18,9 @@
      sections; bright blue is reserved for Donate buttons. */
   /* Warm drafting paper, from the Pangaea redesign. */
   --bg:             #f6f4f0;
-  --bg-soft:        #ece8df;
+  /* Soft sections take a pale tint of the brand blue, so the blue
+     theme runs through the body of each page, not only the graphics. */
+  --bg-soft:        #e3ebfb;
   --bg-tint:        color-mix(in srgb, var(--c-blue-light) 32%, var(--c-white));
   --surface:        var(--c-white);
 
@@ -41,8 +43,8 @@
 
   /* ---------- Layout ---------- */
   --nav-h: 4.5rem;
-  --max-content-width: 1200px;
-  --max-narrow: 720px;
+  --max-content-width: 75rem;
+  --max-narrow: 45rem;
   --radius-sm: 2px;
   --radius:    3px;
   --radius-lg: 4px;

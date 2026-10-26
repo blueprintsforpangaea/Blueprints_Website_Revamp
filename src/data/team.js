@@ -45,12 +45,11 @@ export const BOARD = [
   { name: 'Maya Nassif',    role: 'Director' },
 ];
 
-// Grouped for rendering. Headquarters groups show headshots
-// (photos live in src/assets/team, see headshots.js); the board
-// is a plain list.
+// Grouped for rendering. Headshots live in src/assets/team (see
+// headshots.js).
 export const LEADERSHIP_GROUPS = [
-  { id: 'c-suite',   title: 'C-Suite',            people: C_SUITE, headshots: true },
-  { id: 'vps',       title: 'Vice Presidents',    people: VICE_PRESIDENTS, headshots: true },
-  { id: 'expansion', title: 'Expansion Managers', people: EXPANSION_MANAGERS, headshots: true },
+  { id: 'c-suite',   title: 'C-Suite',            people: C_SUITE },
+  { id: 'vps',       title: 'Vice Presidents',    people: VICE_PRESIDENTS },
+  { id: 'expansion', title: 'Expansion Managers', people: EXPANSION_MANAGERS },
   { id: 'board',     title: 'Board of Directors', people: BOARD },
 ];

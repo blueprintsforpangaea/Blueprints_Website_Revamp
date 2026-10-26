@@ -267,14 +267,6 @@ h1, h2, h3, h4 {
   position: relative; overflow: hidden;
   padding: clamp(3.5rem, 8vw, 6rem) 0 clamp(2.5rem, 5vw, 3.5rem); border-bottom: 1px solid var(--line);
 }
-/* The logo's Pangaea globe, faded, in the corner of every page
-   header. */
-.page-header__globe {
-  position: absolute; pointer-events: none;
-  width: clamp(200px, 24vw, 320px); height: auto;
-  right: max(1.5rem, calc((100% - var(--max-content-width)) / 2 + 1.5rem)); top: 50%; transform: translateY(-50%);
-  opacity: 0.5;
-}
 .page-header .container { position: relative; }
 .page-header__inner { max-width: 46rem; }
 .page-header h1 {
@@ -342,19 +334,11 @@ h1, h2, h3, h4 {
 .shipmap__casing { fill: none; stroke: rgba(255, 255, 255, 0.9); stroke-width: calc(5px * var(--u)); stroke-linecap: round; }
 .shipmap__route { fill: none; stroke: var(--ink); stroke-width: calc(2px * var(--u)); stroke-linecap: round; }
 .shipmap__pin { r: calc(4.5px * var(--u)); fill: var(--ink); stroke: #fff; stroke-width: 2; vector-effect: non-scaling-stroke; }
-.shipmap__pin--hq { r: calc(6px * var(--u)); }
-.shipmap__leader { stroke: var(--ink); stroke-width: 1.2; vector-effect: non-scaling-stroke; }
-.shipmap__label {
-  font-family: var(--font-sans); font-size: calc(15px * var(--u)); font-weight: 700; fill: var(--ink);
-  paint-order: stroke; stroke: var(--bg); stroke-width: calc(4px * var(--u)); stroke-linejoin: round;
-}
-@media (max-width: 700px) { .shipmap__label { display: none; } }
 
 /* Impact: the shipment map, then the list. */
 .tour { position: relative; }
 .tour__list { padding-top: 2rem; padding-bottom: clamp(2.5rem, 5vw, 3.5rem); }
 .tour__heading { margin-bottom: 1.5rem; }
-.tour__countries { margin-top: 1.5rem; }
 .impact-facts {
   display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem;
   margin-top: 1.75rem; max-width: 46rem;
@@ -392,13 +376,6 @@ h1, h2, h3, h4 {
 /* ============================================================
    ABOUT
    ============================================================ */
-.timeline { border-top: 1px solid var(--line-strong); }
-.timeline__item {
-  display: grid; grid-template-columns: 4.5rem 1fr; gap: 1rem;
-  padding: 1.1rem 0; border-bottom: 1px solid var(--line);
-}
-.timeline__year { font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; }
-.timeline__item p { color: var(--muted); font-size: 0.96rem; }
 
 .team-group { margin-bottom: 3rem; }
 .team-group:last-child { margin-bottom: 0; }
@@ -419,13 +396,6 @@ h1, h2, h3, h4 {
 }
 .person__name { font-weight: 700; color: var(--heading); line-height: 1.3; }
 .person__role { color: var(--muted); font-size: 0.95rem; line-height: 1.35; }
-.roster { display: grid; grid-template-columns: 1fr 1fr; gap: 0 clamp(2rem, 5vw, 4rem); border-top: 1px solid var(--line); }
-.roster__row {
-  display: flex; align-items: baseline; justify-content: space-between; gap: 1.25rem;
-  padding: 0.8rem 0; border-bottom: 1px solid var(--line);
-}
-.roster__name { font-weight: 600; color: var(--heading); }
-.roster__role { text-align: right; color: var(--muted); font-size: 0.9rem; }
 
 /* Recruitment events (Get Involved). */
 .recruit { margin-top: clamp(2.5rem, 5vw, 3.5rem); padding-top: 1.5rem; border-top: 3px solid var(--c-navy); }
@@ -477,22 +447,6 @@ h1, h2, h3, h4 {
    CHAPTERS
    ============================================================ */
 .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-.chapter-card {
-  position: relative; display: flex; flex-direction: column; height: 100%;
-  padding: 1.5rem; border: 1px solid var(--line); border-radius: var(--radius-lg); background: #fff;
-  transition: border-color 0.18s;
-}
-.chapter-card:hover { border-color: var(--ink); }
-.chapter-card__seal { width: 48px; height: 48px; margin-bottom: 1.1rem; }
-.chapter-card__seal img { width: 100%; height: 100%; object-fit: contain; }
-.chapter-card h3 { font-size: 1.08rem; }
-.chapter-card__loc { margin-top: 0.25rem; color: var(--muted); font-size: 0.92rem; }
-.chapter-card__lead { margin-top: auto; padding-top: 1rem; font-size: 0.88rem; color: var(--muted); }
-.chapter-card__badge {
-  position: absolute; top: 1.25rem; right: 1.25rem;
-  font-size: 0.9rem; font-weight: 600; color: var(--muted);
-}
-.chapter-card--hq { border-color: var(--line-strong); }
 
 .emerging { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; margin-top: 1.5rem; color: var(--muted); font-size: 0.94rem; }
 .emerging__label { font-weight: 600; color: var(--text); }
@@ -679,7 +633,6 @@ h1, h2, h3, h4 {
     padding: 1.5rem 0; border-left: none; border-bottom: 1px solid var(--line);
   }
   .gi-index { grid-template-columns: 1fr; }
-  .roster { grid-template-columns: 1fr; }
   .people { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .globe-stage { min-height: 320px; }
 }
@@ -690,6 +643,4 @@ h1, h2, h3, h4 {
   .step, .step + .step { padding: 1.25rem 0; border-left: none; border-bottom: 1px solid var(--line); margin-top: 0; }
   .footer__cols { grid-template-columns: 1fr 1fr; }
   .hero__ctas .btn, .closing__ctas .btn { flex: 1 1 auto; }
-  .timeline__item { grid-template-columns: 1fr; gap: 0.2rem; }
 }
-@media (max-width: 900px) { .page-header__globe { display: none; } }

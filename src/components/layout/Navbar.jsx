@@ -3,10 +3,12 @@ import { NavLink, Link, useLocation } from 'react-router-dom';
 import logoFull from '../../assets/logos/blueprints-logo-1.png';
 
 const NAV_ITEMS = [
+  { to: '/', label: 'Home', end: true },
   { to: '/mission', label: 'What we do' },
   { to: '/impact', label: 'Impact' },
   { to: '/chapters', label: 'Chapters' },
   { to: '/about', label: 'About' },
+  { to: '/press', label: 'Press' },
   { to: '/get-involved', label: 'Get involved' },
 ];
 
@@ -34,7 +36,7 @@ export default function Navbar() {
 
         <nav className="navbar__links" aria-label="Main">
           {NAV_ITEMS.map((item) => (
-            <NavLink key={item.to} to={item.to} className="navbar__link">
+            <NavLink key={item.to} to={item.to} end={item.end} className="navbar__link">
               {item.label}
             </NavLink>
           ))}
@@ -56,9 +58,8 @@ export default function Navbar() {
       {open && (
         <nav className="mobile-menu" aria-label="Main">
           {NAV_ITEMS.map((item) => (
-            <NavLink key={item.to} to={item.to}>{item.label}</NavLink>
+            <NavLink key={item.to} to={item.to} end={item.end}>{item.label}</NavLink>
           ))}
-          <NavLink to="/press">Press</NavLink>
         </nav>
       )}
     </header>

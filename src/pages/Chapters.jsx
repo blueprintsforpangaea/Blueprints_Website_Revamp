@@ -5,7 +5,10 @@ import ChapterMap from '../components/pangaea/ChapterMap.jsx';
 import Reveal from '../components/ui/Reveal.jsx';
 import EmailLink from '../components/ui/EmailLink.jsx';
 import { CHAPTERS } from '../data/chapters.js';
-import { logoFor } from '../assets/chapters/logos.js';
+import { logoFor, campusFor } from '../assets/chapters/logos.js';
+import { chapterPhotos } from '../assets/photos.js';
+import Photo from '../components/ui/Photo.jsx';
+import Recruitment from '../components/sections/Recruitment.jsx';
 import { TOTALS } from '../data/stats.js';
 
 export default function Chapters() {
@@ -27,8 +30,8 @@ export default function Chapters() {
       <section className="chapmap-section">
         <div className="container">
           <p className="chapmap-section__hint">
-            <span className="chapmap-section__wide">Click a school’s name to see its chapter page.</span>
-            <span className="chapmap-section__narrow">The blue dot is headquarters. Tap a school below to see its chapter page.</span>
+            <span className="chapmap-section__wide">Click a school’s logo to see its chapter page.</span>
+            <span className="chapmap-section__narrow">Tap a school’s logo to see its chapter page.</span>
           </p>
           <ChapterMap />
         </div>
@@ -74,6 +77,12 @@ function ChapterDetail({ chapter }) {
         {chapter.location}
       </PageHeader>
 
+      {campusFor(chapter.slug) && (
+        <div className="container">
+          <img className="chapter-detail__campus" src={campusFor(chapter.slug)} alt={`${chapter.name} campus`} />
+        </div>
+      )}
+
       <section className="section">
         <div className="container split split--top">
           <Reveal className="prose">
@@ -87,8 +96,8 @@ function ChapterDetail({ chapter }) {
               <p className="lead">{chapter.blurb}</p>
             ) : (
               <p className="lead">
-                {chapter.name} joined the Blueprints network in {chapter.since}. Reach out to the
-                chapter directly to learn what they're working on.
+                {chapter.name} started a chapter in {chapter.since}. Email the chapter to hear what
+                they’re working on.
               </p>
             )}
 
@@ -151,11 +160,50 @@ function ChapterDetail({ chapter }) {
             )}
           </Reveal>
         </div>
+        {/* Headquarters recruits at U-M each semester. */}
+        {chapter.isHQ && (
+          <div className="container chapter-recruit" id="recruitment">
+            <h2 className="section-title section-title--sm">Join headquarters</h2>
+            <Recruitment />
+          </div>
+        )}
+
+        {chapter.sections?.length > 0 && (
+          <div className="container chapter-sections">
+            {chapter.sections.map((sec) => (
+              <Reveal as="section" className="chapter-section" key={sec.title}>
+                <h2 className="section-title section-title--sm">{sec.title}</h2>
+                {[].concat(sec.body).map((para) => <p key={para}>{para}</p>)}
+              </Reveal>
+            ))}
+          </div>
+        )}
+
+        <div className="container">
+          <ChapterGallery chapter={chapter} />
+        </div>
+
         <div className="container page-next">
           <Link to="/chapters" className="link-arrow">See all chapters <span className="arrow">→</span></Link>
         </div>
       </section>
     </article>
+  );
+}
+
+// The chapter's photos, from src/assets/images/chapters/<slug>/.
+// Until a chapter sends some, empty frames mark where they'll go.
+function ChapterGallery({ chapter }) {
+  const photos = chapterPhotos(chapter.slug);
+  return (
+    <Reveal className="chapter-gallery">
+      <h2 className="section-title section-title--sm">Photos</h2>
+      <div className="chapter-gallery__grid">
+        {photos.length > 0
+          ? photos.map((src) => <Photo key={src} src={src} alt={`${chapter.name} chapter members`} />)
+          : [0, 1, 2].map((n) => <Photo key={n} label="Chapter photo coming soon" />)}
+      </div>
+    </Reveal>
   );
 }
 
