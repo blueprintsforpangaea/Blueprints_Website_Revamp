@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion, useReducedMotion } from 'framer-motion';
 import { geoAlbers, geoPath, geoGraticule, geoCentroid } from 'd3-geo';
 import { feature } from 'topojson-client';
-import world from 'world-atlas/countries-110m.json';
+import world from '../../data/world-110m.json';
 import { CHAPTER_PINS } from './story.js';
 import { CHAPTERS } from '../../data/chapters.js';
 import { LOGO } from './plates.js';

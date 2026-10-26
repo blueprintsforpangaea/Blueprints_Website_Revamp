@@ -1,7 +1,8 @@
 // ============================================================
 // Continental drift on a sphere.
 //
-// Land comes from Natural Earth (world-atlas, 110m). Each polygon
+// Land comes from Natural Earth (world-atlas, 110m), via the trimmed
+// copy in data/world-110m.json (scripts/trim-world.mjs). Each polygon
 // is assigned to a plate, and each plate has one rotation that
 // carries it from today's position back to roughly where it sat
 // in Pangaea (~200 million years ago), with Africa held still.
@@ -15,7 +16,7 @@
 
 import { feature, merge, mesh } from 'topojson-client';
 import { geoCentroid } from 'd3-geo';
-import world from 'world-atlas/countries-110m.json';
+import world from '../../data/world-110m.json';
 import GREAT_LAKES from '../../data/great-lakes.json';
 import STATE_BORDERS from '../../data/us-state-borders.json';
 
