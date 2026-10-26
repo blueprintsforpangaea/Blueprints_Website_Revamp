@@ -63,7 +63,7 @@ export default function Pangaea() {
             </p>
             <ul className="pg-facts">
               <li className="pg-facts__lead">
-                <strong><CountUp to={Math.round(TOTALS.suppliesValue)} prefix="$" duration={1.4} /></strong>
+                <strong><CountUp to={Math.floor(TOTALS.suppliesValue / 1_000_000)} prefix="$" suffix=" million+" /></strong>
                 in medical supplies redistributed
               </li>
               <li><strong><CountUp to={TOTALS.countries} suffix="+" /></strong> countries</li>
