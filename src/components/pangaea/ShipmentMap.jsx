@@ -136,7 +136,7 @@ export default function ShipmentMap() {
 
         {CHAPTER_PINS.map((c) => {
           const [x, y] = geo.project(c.lng, c.lat);
-          return <circle key={c.id} cx={x} cy={y} className={`shipmap__pin ${c.hq ? 'shipmap__pin--hq' : ''}`} />;
+          return <circle key={c.id} cx={x} cy={y} className="shipmap__pin" />;
         })}
 
         {PLACES.map((d) => {

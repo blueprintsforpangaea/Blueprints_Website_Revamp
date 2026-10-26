@@ -98,7 +98,7 @@ export default function ChapterMap() {
           const [x, y] = geo.proj([pin.lng, pin.lat]);
           return (
             <Link key={pin.id} to={`/chapters/${pin.id}`} tabIndex={-1} aria-hidden="true">
-              <circle cx={x} cy={y} className={`chapmap__pin ${pin.hq ? 'chapmap__pin--hq' : ''}`} />
+              <circle cx={x} cy={y} className="chapmap__pin" />
             </Link>
           );
         })}
@@ -124,11 +124,11 @@ export default function ChapterMap() {
             >
               <Link
                 to={`/chapters/${pin.id}`}
-                className={`chapmap__badge ${pin.hq ? 'is-hq' : ''} ${logo ? '' : 'chapmap__badge--text'}`}
+                className={`chapmap__badge ${logo ? '' : 'chapmap__badge--text'}`}
                 aria-label={chapter.name}
                 data-name={label}
               >
-                {logo ? <img src={logo} alt="" /> : <span>{pin.short}</span>}
+                {logo ? <img src={logo} alt="" loading="lazy" decoding="async" /> : <span>{pin.short}</span>}
               </Link>
             </motion.li>
           );

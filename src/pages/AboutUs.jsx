@@ -1,15 +1,11 @@
 import { Link } from 'react-router-dom';
 import PageHeader from '../components/layout/PageHeader.jsx';
 import Reveal from '../components/ui/Reveal.jsx';
-import Timeline from '../components/sections/Timeline.jsx';
 import PhotoMarquee from '../components/ui/PhotoMarquee.jsx';
 import { LEADERSHIP_GROUPS } from '../data/team.js';
 import { headshotFor } from '../assets/team/headshots.js';
 import { TOTALS } from '../data/stats.js';
 import { ORG } from '../data/site.js';
-import { CHAPTERS } from '../data/chapters.js';
-import { GALA } from '../data/gala.js';
-import { RECRUITMENT } from '../data/recruitment.js';
 import groupPhoto from '../assets/images/img-2457.jpg';
 import tablePhoto from '../assets/images/dsc06350.jpg';
 import sortPhoto from '../assets/images/eae28d10-7a69-40e0-af54-3d146010a570-1-105-c.jpg';
@@ -37,61 +33,11 @@ const STRIP = [
   { src: suitsPhoto, alt: 'Members dressed up at a Blueprints event' },
 ];
 
-// Chapters by the year they started, read from chapters.js so the
-// milestones stay in step with the chapter list.
-const startedIn = (year) =>
-  new Intl.ListFormat('en').format(
-    CHAPTERS.filter((c) => c.since === year && !c.isHQ).map((c) => c.name),
-  );
-const BY_START = [...CHAPTERS].sort((a, b) => a.since - b.since);
-const TENTH = BY_START[9];
-
-// Every entry maps to a documented shipment, partnership, or chapter
-// founding on the live site, or to the chapter list.
-const TIMELINE = [
-  {
-    year: '2013',
-    text: 'Ben Rathi started Blueprints at U-M after visiting a hospital in Nepal that was short on basic supplies, and then seeing the same supplies thrown out at home.',
-  },
-  {
-    year: '2016',
-    text: `First international partnership, with Seeds of Hope in the Dominican Republic. ${startedIn(2016)} became the first chapters outside Ann Arbor.`,
-  },
-  {
-    year: '2017',
-    text: `Expanded our partnerships, which let us ship more often. ${startedIn(2017)} started a chapter.`,
-  },
-  {
-    year: '2020',
-    text: `During COVID-19, we sent PPE and face shields to Michigan hospitals and a 12-pallet shipment to India. ${startedIn(2020)} started chapters.`,
-  },
-  {
-    year: '2022',
-    text: `${startedIn(2022)} started a chapter.`,
-  },
-  {
-    year: '2023',
-    text: `${startedIn(2023)} started chapters.`,
-  },
-  {
-    year: String(TENTH.since),
-    text: `${TENTH.name} became our tenth chapter.`,
-  },
-  {
-    year: '2025',
-    text: `Sent more than 60 pallets, worth over $573,000, to Nigeria. ${startedIn(2025)} started chapters, making ${TOTALS.chapters}.`,
-  },
-  {
-    year: String(GALA.year),
-    text: `Hosted the ${GALA.name} at Michigan Ross on ${GALA.date.replace(/, \d{4}$/, '')}. ${RECRUITMENT.term} recruitment ran at headquarters.`,
-  },
-];
-
 // A photo when team.js has one, otherwise the person's initials in
 // the same frame, so the grid looks finished while photos come in.
 function Headshot({ person }) {
   const src = headshotFor(person.name);
-  if (src) return <img className="person__photo" src={src} alt="" loading="lazy" />;
+  if (src) return <img className="person__photo" src={src} alt="" loading="lazy" decoding="async" />;
   const initials = person.name.split(/\s+/).map((w) => w[0]).slice(0, 2).join('');
   return <span className="person__photo person__photo--empty" aria-hidden="true">{initials}</span>;
 }
@@ -131,16 +77,6 @@ export default function AboutUs() {
         <PhotoMarquee photos={STRIP} label="Photos from headquarters and our chapters" />
       </section>
 
-      {/* Signature: our history, one stop per year. */}
-      <section className="years-section" aria-labelledby="years-title">
-        <div className="container">
-          <h2 id="years-title" className="section-title">Our history</h2>
-        </div>
-        <div className="container">
-          <Timeline items={TIMELINE} />
-        </div>
-      </section>
-
       <section className="section section--soft">
         <div className="container">
           <Reveal className="section-head">
@@ -152,26 +88,15 @@ export default function AboutUs() {
               <Reveal className="team-group__head" delay={gi * 0.05}>
                 <h3>{group.title}</h3>
               </Reveal>
-              {group.headshots ? (
-                <ul className="people">
-                  {group.people.map((m, i) => (
-                    <Reveal as="li" className="person" key={m.name} delay={Math.min(i, 6) * 0.04} y={14}>
-                      <Headshot person={m} />
-                      <span className="person__name">{m.name}</span>
-                      <span className="person__role">{m.role}</span>
-                    </Reveal>
-                  ))}
-                </ul>
-              ) : (
-                <ul className="roster">
-                  {group.people.map((m, i) => (
-                    <Reveal as="li" className="roster__row" key={m.name} delay={Math.min(i, 6) * 0.04} y={14}>
-                      <span className="roster__name">{m.name}</span>
-                      <span className="roster__role">{m.role}</span>
-                    </Reveal>
-                  ))}
-                </ul>
-              )}
+              <ul className="people">
+                {group.people.map((m, i) => (
+                  <Reveal as="li" className="person" key={m.name} delay={Math.min(i, 6) * 0.04} y={14}>
+                    <Headshot person={m} />
+                    <span className="person__name">{m.name}</span>
+                    <span className="person__role">{m.role}</span>
+                  </Reveal>
+                ))}
+              </ul>
             </div>
           ))}
         </div>

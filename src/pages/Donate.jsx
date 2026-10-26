@@ -134,7 +134,7 @@ export default function Donate() {
             <ul className="sponsors">
               {SPONSORS.map((sp) => {
                 const logo = sponsorLogo(sp.logo);
-                const inner = logo ? <img src={logo} alt={sp.name} /> : <span>{sp.name}</span>;
+                const inner = logo ? <img src={logo} alt={sp.name} loading="lazy" decoding="async" /> : <span>{sp.name}</span>;
                 return (
                   <li key={sp.name}>
                     {sp.url ? <a href={sp.url} target="_blank" rel="noreferrer">{inner}</a> : inner}

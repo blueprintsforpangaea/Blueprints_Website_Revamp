@@ -2,7 +2,7 @@
    PAGE SIGNATURES — each interior page leads with one element
    only it has, so the pages don't read as copies of each other.
    What we do: the route. Chapters: the U.S. map. About: the
-   timeline. Get involved: the "I am a…" choices. Donate: the
+   leadership headshots. Get involved: the "I am a…" choices. Donate: the
    navy band with the running total.
    ============================================================ */
 
@@ -73,7 +73,6 @@
 .chapmap__grid { fill: none; stroke: rgba(255, 255, 255, 0.35); stroke-width: 0.8; vector-effect: non-scaling-stroke; }
 .chapmap { position: relative; }
 .chapmap__pin { r: calc(7px * var(--u)); fill: var(--c-white); stroke: var(--c-navy); stroke-width: 3; vector-effect: non-scaling-stroke; cursor: pointer; }
-.chapmap__pin--hq { r: calc(10px * var(--u)); fill: var(--c-blue); stroke: var(--c-white); }
 
 @media (max-width: 760px) {
   .chapmap-section .container { padding-inline: 0.5rem; }
@@ -146,11 +145,6 @@
   .navbar__link { font-size: 1rem; }
 }
 
-/* ---------- Page header: leave room for the corner globe even when
-   there's no intro line under the title. ---------- */
-@media (min-width: 901px) {
-  .page-header { min-height: calc(clamp(200px, 24vw, 320px) + 4rem); display: flex; align-items: center; }
-}
 
 /* ============================================================
    HOME — big figures and recent shipments
@@ -294,7 +288,6 @@
 }
 .chapmap__badge img { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; }
 .chapmap__badge--text span { font-size: 0.68rem; font-weight: 800; color: var(--c-navy); text-align: center; line-height: 1.05; }
-.chapmap__badge.is-hq { border-color: var(--c-blue); border-width: 3px; }
 .chapmap__badge:hover, .chapmap__badge:focus-visible { transform: scale(1.12); z-index: 3; }
 /* The school's name on hover. */
 .chapmap__badge::after {
@@ -534,79 +527,6 @@
   .photo-strip__item[aria-hidden='true'] { display: none; }
 }
 
-/* ============================================================
-   ABOUT — the timeline
-   ============================================================ */
-.years-section { padding: clamp(3.5rem, 7vw, 5rem) 0 clamp(4rem, 8vw, 6rem); }
-.years-section .section-title { margin-bottom: clamp(2rem, 4vw, 3rem); }
-
-/* One line, a stop for every year. */
-.tl-line { position: relative; padding-top: 0.5rem; }
-.tl-line__track {
-  position: absolute; left: 0; right: 0; top: calc(0.5rem + 11px); height: 4px;
-  background: color-mix(in srgb, var(--c-navy) 18%, transparent); border-radius: 2px;
-}
-.tl-line__fill { display: block; height: 100%; background: var(--c-navy); border-radius: 2px; transition: width 0.5s var(--ease); }
-.tl-line__stops { position: relative; display: flex; justify-content: space-between; }
-.tl-stop {
-  display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
-  background: none; border: 0; padding: 0; cursor: pointer; font: inherit; color: var(--muted);
-}
-.tl-line__stops li:first-child .tl-stop { align-items: flex-start; }
-.tl-line__stops li:last-child .tl-stop { align-items: flex-end; }
-.tl-stop__dot {
-  width: 26px; height: 26px; border-radius: 50%; background: var(--bg);
-  border: 4px solid color-mix(in srgb, var(--c-navy) 30%, transparent);
-  transition: border-color 0.2s, background 0.2s, transform 0.2s;
-}
-.tl-stop__year { font-weight: 800; font-size: 1.15rem; font-variant-numeric: tabular-nums; transition: color 0.2s; }
-.tl-stop.is-past .tl-stop__dot { border-color: var(--c-navy); background: var(--c-navy); }
-.tl-stop.is-current .tl-stop__dot { border-color: var(--c-navy); background: var(--c-white); transform: scale(1.25); box-shadow: 0 0 0 5px var(--c-blue-light); }
-.tl-stop.is-current .tl-stop__year { color: var(--c-navy); }
-.tl-stop:hover .tl-stop__year { color: var(--c-navy); }
-.tl-stop:hover .tl-stop__dot { border-color: var(--c-navy); }
-
-/* The chosen year, read below the line. */
-.tl-panel {
-  margin-top: 2rem; padding: clamp(1.5rem, 3vw, 2.25rem) clamp(1.5rem, 3vw, 2.5rem);
-  background: var(--surface); border: 1px solid var(--line); border-top: 4px solid var(--c-navy);
-  border-radius: var(--radius-lg); min-height: 15rem; display: flex; flex-direction: column;
-}
-.tl-panel__body { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 3rem); align-items: start; }
-.tl-panel__year {
-  font-weight: 800; color: var(--c-navy); line-height: 0.9; letter-spacing: -0.02em;
-  font-size: clamp(3.5rem, 7vw, 5.5rem); font-variant-numeric: tabular-nums;
-}
-.tl-panel__text { font-size: clamp(1.15rem, 1.7vw, 1.35rem); color: var(--text); max-width: 44rem; }
-.tl-panel__nav { display: flex; justify-content: space-between; margin-top: auto; padding-top: 1.5rem; }
-.tl-panel__nav button {
-  font: inherit; font-weight: 700; color: var(--c-navy); background: none; cursor: pointer;
-  border: 1.5px solid var(--c-navy); border-radius: var(--radius); padding: 0.5rem 1rem;
-}
-.tl-panel__nav button:hover:not(:disabled) { background: var(--c-navy); color: var(--c-white); }
-.tl-panel__nav button:disabled { opacity: 0.3; cursor: default; }
-
-/* Chapters open by that year, as filled dots. */
-.tl-dots { margin-top: 1.25rem; display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.9rem; }
-.tl-dots__row { display: inline-flex; gap: 5px; }
-.tl-dots__row span { width: 12px; height: 12px; border-radius: 50%; border: 2px solid color-mix(in srgb, var(--c-navy) 30%, transparent); }
-.tl-dots__row span.is-on { background: var(--c-blue); border-color: var(--c-blue); }
-.tl-dots__label { font-size: 0.95rem; font-weight: 700; color: var(--muted); }
-
-/* Phones: a plain list running down the page. */
-.tl-list { position: relative; padding-left: 2rem; }
-.tl-list::before { content: ''; position: absolute; left: 7px; top: 0.6rem; bottom: 0.6rem; width: 3px; background: var(--c-navy); border-radius: 2px; }
-.tl-list__item { position: relative; padding-bottom: 2rem; }
-.tl-list__item:last-child { padding-bottom: 0; }
-.tl-list__item::before {
-  content: ''; position: absolute; left: calc(-2rem + 1px); top: 0.55rem; width: 15px; height: 15px;
-  border-radius: 50%; background: var(--c-navy); box-shadow: 0 0 0 4px var(--bg);
-}
-.tl-list__year { display: block; font-weight: 800; color: var(--c-navy); font-size: 2.2rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
-.tl-list__item p { margin-top: 0.35rem; font-size: 1.05rem; }
-.tl-list .tl-dots { margin-top: 0.6rem; }
-.tl-list .tl-dots__row span { width: 10px; height: 10px; }
-
 /* Impact map: hovering or opening a dot lights its route and dims the rest. */
 .shipmap__line { transition: opacity 0.2s; }
 .shipmap__line.is-dim { opacity: 0.15; }
@@ -675,7 +595,3 @@ button.choose__card:hover { border-color: var(--c-navy); transform: translateY(-
 .chapmap { max-width: 62rem; }
 .navbar__logo { height: 3.1rem; }
 .footer__logo { height: 3.5rem; }
-.page-header__globe { width: clamp(200px, 24vw, 20rem); }
-@media (min-width: 901px) {
-  .page-header { min-height: calc(clamp(200px, 24vw, 20rem) + 4rem); }
-}

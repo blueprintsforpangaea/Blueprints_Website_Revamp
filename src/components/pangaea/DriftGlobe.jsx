@@ -1,9 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { geoOrthographic, geoPath, geoGraticule, geoGraticule10, geoInterpolate, geoDistance } from 'd3-geo';
-import { plateMatrices, plateGeometry, movePoint, LOGO, CONTINENT_COLOR } from './plates.js';
+import { plateMatrices, plateGeometry, movePoint, borderLines, greatLakes, LOGO, CONTINENT_COLOR } from './plates.js';
 import { STEPS, FILM, ROUTES, OTHER_ROUTES, CHAPTER_PINS } from './story.js';
-import GREAT_LAKES from '../../data/great-lakes.json';
-import STATE_BORDERS from '../../data/us-state-borders.json';
 
 const RAD = Math.PI / 180;
 // Navy ink on warm drafting paper.
@@ -16,10 +14,6 @@ const GRATICULE = geoGraticule10();
 // The logo's grid: wider spacing, drawn in white over the land only.
 const LAND_GRID = geoGraticule().step([20, 20])();
 
-
-// Move every coordinate of a North American shape along with its plate.
-const onNam = (coords, mats) =>
-  Array.isArray(coords[0]) ? coords.map((c) => onNam(c, mats)) : movePoint(coords[0], coords[1], 'nam', mats);
 
 // A small cardboard box, drawn where each shipment lands.
 function drawBox(ctx, x, y, s) {
@@ -107,13 +101,28 @@ export default function DriftGlobe({ stepsRef, yearsRef, film = false, playKey =
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const proj = geoOrthographic().clipAngle(90).precision(0.4);
+    // Precision 0.8 px is finer than the eye can see on a globe this
+    // size and half the work of 0.4.
+    const proj = geoOrthographic().clipAngle(90).precision(0.8);
     const path = geoPath(proj, ctx);
+    // Project a shape once into a Path2D, then fill, clip, and stroke
+    // it as often as needed without projecting it again.
+    const shapeGen = geoPath(proj);
+    const shape = (geom) => {
+      const p = new Path2D();
+      shapeGen.context(p)(geom);
+      return p;
+    };
+    // Rendering quality. Starts at up to 1.5x pixel density (1x on
+    // computers with few cores) and steps down on its own if frames
+    // take too long: first to 1x, then to about 30 frames a second.
+    const fewCores = (navigator.hardwareConcurrency || 8) <= 4;
+    const quality = { dprCap: fewCores ? 1 : 1.5, cost: 0, lastDraw: 0, minGap: 0 };
 
     let w = 0, h = 0, dpr = 1, raf = 0, last = performance.now();
     // A film waits for its visibility check before starting.
     let visible = !film;
-    let anchors = [], spinOffset = 0, yearsShown = '';
+    let anchors = [], spinOffset = 0, yearsShown = '', resized = true;
     let geoCache = { drift: -1, geo: null, mats: null };
     let filmStart = null;
     const cur = blend(STEPS[0], STEPS[0], 0);
@@ -152,9 +161,10 @@ export default function DriftGlobe({ stepsRef, yearsRef, film = false, playKey =
       const rect = canvas.parentElement.getBoundingClientRect();
       w = rect.width;
       h = rect.height;
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      dpr = Math.min(window.devicePixelRatio || 1, quality.dprCap);
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
+      resized = true;
       // A step is "reached" when its middle crosses the middle of the
       // screen. Clamp to the bottom of the page so the last step is
       // always reachable, however short it is.
@@ -224,6 +234,7 @@ export default function DriftGlobe({ stepsRef, yearsRef, film = false, playKey =
         }
       }
 
+      const before = cur.lon + cur.lat * 3 + cur.drift * 7 + cur.scale * 11 + cur.pins * 13;
       // Catch up faster the further behind the globe is, so a quick
       // scroll doesn't leave it lagging.
       const behind = Math.min(1, Math.abs(tg.drift - cur.drift) + Math.abs(tg.scale - cur.scale) * 0.5 + Math.abs(angleDiff(cur.lon, tg.lon + spinOffset)) / 90);
@@ -236,8 +247,20 @@ export default function DriftGlobe({ stepsRef, yearsRef, film = false, playKey =
         const a = cur.arcs[key] || 0;
         arcs[key] = a + ((tg.arcs[key] || 0) - a) * k;
       }
+      let arcMove = 0;
+      for (const key of Object.keys(arcs)) arcMove += Math.abs(arcs[key] - (cur.arcs[key] || 0));
       cur.arcs = arcs;
       cur.focus = tg.focus;
+
+      // Nothing moving? Skip the frame.
+      const after = cur.lon + cur.lat * 3 + cur.drift * 7 + cur.scale * 11 + cur.pins * 13;
+      const still = Math.abs(after - before) < 1e-3 && arcMove < 1e-4 && !drag.down
+        && Math.abs(drag.vLon) + Math.abs(drag.vLat) < 0.01 && !(tg.spin > 0.02) && !resized;
+      if (still) return;
+      if (now - quality.lastDraw < quality.minGap && !resized) return;
+      resized = false;
+      quality.lastDraw = now;
+      const t0 = performance.now();
 
       const years = cur.drift > 0.995 ? 'Today' : `About ${Math.round((1 - cur.drift) * 200)} million years ago`;
       if (years !== yearsShown && yearsRef?.current) {
@@ -264,55 +287,60 @@ export default function DriftGlobe({ stepsRef, yearsRef, film = false, playKey =
       ctx.lineWidth = 1.2;
       ctx.stroke();
 
-      ctx.beginPath();
-      path(GRATICULE);
+      proj.precision(2.5);
       ctx.strokeStyle = `rgba(${SKY}, 0.13)`;
       ctx.lineWidth = 0.7;
-      ctx.stroke();
+      ctx.stroke(shape(GRATICULE));
+      const landGrid = shape(LAND_GRID);
+      proj.precision(0.8);
 
       // ---- land ----
-      const driftKey = Math.round(cur.drift * 500) / 500;
+      // Rebuild the drifted continents only every 1/250th of the drift;
+      // smaller steps don't show.
+      const driftKey = Math.round(cur.drift * 250) / 250;
       if (geoCache.drift !== driftKey) {
         const mats = plateMatrices(driftKey);
         geoCache = {
           drift: driftKey,
           mats,
           geo: plateGeometry(mats),
-          lakes: GREAT_LAKES.features.map((f) => ({ type: f.geometry.type, coordinates: onNam(f.geometry.coordinates, mats) })),
-          borders: { type: 'MultiLineString', coordinates: onNam(STATE_BORDERS.coordinates, mats) },
+          lakes: greatLakes(mats),
+          // Borders are only drawn once the continents have settled
+          // (all together, or today's map), which keeps the drift
+          // itself light. They fade back in as it settles.
+          borders: driftKey < 0.02 || driftKey > 0.98 ? borderLines(mats) : null,
         };
       }
       const { geo, mats } = geoCache;
+      const land = new Path2D();
       for (const g of geo) {
-        ctx.beginPath();
-        path(g);
+        const p = shape(g);
+        land.addPath(p);
         ctx.fillStyle = CONTINENT_COLOR[g.id] || LOGO.navy;
-        ctx.fill();
+        ctx.fill(p);
       }
       ctx.save();
-      ctx.beginPath();
-      for (const g of geo) path(g);
-      ctx.clip();
-      ctx.beginPath();
-      path(LAND_GRID);
+      ctx.clip(land);
       ctx.strokeStyle = 'rgba(255, 255, 255, 0.85)';
       ctx.lineWidth = 1.1;
-      ctx.stroke();
+      ctx.stroke(landGrid);
       ctx.restore();
       // White seams between continents, as in the logo.
-      ctx.beginPath();
-      for (const g of geo) path(g);
       ctx.strokeStyle = '#fff';
       ctx.lineWidth = 1.2;
       ctx.lineJoin = 'round';
-      ctx.stroke();
+      ctx.stroke(land);
 
-      // U.S. state lines and the Great Lakes.
-      ctx.beginPath();
-      path(geoCache.borders);
-      ctx.strokeStyle = `rgba(255, 255, 255, ${0.25 + 0.35 * Math.min(1, Math.max(0, cur.scale - 1))})`;
-      ctx.lineWidth = 0.8;
-      ctx.stroke();
+      // Country borders everywhere, U.S. state lines, and the Great Lakes.
+      if (geoCache.borders) {
+        const settle = Math.max(0, 1 - Math.min(cur.drift, 1 - cur.drift) / 0.02);
+        ctx.strokeStyle = `rgba(255, 255, 255, ${(0.3 + 0.3 * Math.min(1, Math.max(0, cur.scale - 1))) * settle})`;
+        ctx.lineWidth = 0.8;
+        // Thin lines: coarser curve tracing doesn't show and is cheaper.
+        proj.precision(2.5);
+        ctx.stroke(shape(geoCache.borders));
+        proj.precision(0.8);
+      }
       ctx.beginPath();
       for (const l of geoCache.lakes) path(l);
       ctx.fillStyle = '#eef3fc';
@@ -375,12 +403,11 @@ export default function DriftGlobe({ stepsRef, yearsRef, film = false, playKey =
 
       // ---- chapter pins ----
       if (cur.pins > 0.01) {
-        const pulse = reduce ? 0.5 : (Math.sin(now / 600) + 1) / 2;
         for (const pin of CHAPTER_PINS) {
           const p = at(pin);
           if (!p.visible) continue;
           ctx.globalAlpha = cur.pins;
-          const pr = pin.hq ? 5 : 3.2;
+          const pr = 3.2;
           ctx.fillStyle = '#fff';
           ctx.beginPath();
           ctx.arc(p.x, p.y, pr + 1.8, 0, Math.PI * 2);
@@ -389,13 +416,6 @@ export default function DriftGlobe({ stepsRef, yearsRef, film = false, playKey =
           ctx.beginPath();
           ctx.arc(p.x, p.y, pr, 0, Math.PI * 2);
           ctx.fill();
-          if (pin.hq) {
-            ctx.strokeStyle = `rgba(${INK}, ${0.25 + 0.5 * (1 - pulse)})`;
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, 7 + pulse * 7, 0, Math.PI * 2);
-            ctx.stroke();
-          }
           ctx.globalAlpha = 1;
           const labelAlpha = Math.max(0, Math.min(1, (cur.scale - 1.9) / 0.5)) * Math.max(0, (cur.pins - 0.7) / 0.3);
           // Only headquarters is named, so the map stays readable as
@@ -410,6 +430,18 @@ export default function DriftGlobe({ stepsRef, yearsRef, film = false, playKey =
             ctx.globalAlpha = 1;
           }
         }
+      }
+
+      // If drawing keeps taking more than ~9 ms, this computer is
+      // struggling: drop to 1x pixel density (a quarter fewer pixels
+      // than 1.5x squared) and keep it there. Still over ~14 ms at 1x,
+      // draw every other frame.
+      quality.cost = quality.cost * 0.9 + (performance.now() - t0) * 0.1;
+      if (quality.cost > 9 && quality.dprCap > 1 && now > 2000) {
+        quality.dprCap = 1;
+        measure();
+      } else if (quality.cost > 14 && quality.dprCap === 1 && !quality.minGap && now > 4000) {
+        quality.minGap = 30;
       }
     };
 

@@ -4,7 +4,7 @@
 export default function Photo({ src, alt = '', label = 'Photo coming soon', ratio, className = '' }) {
   const style = ratio ? { aspectRatio: ratio } : undefined;
   if (src) {
-    return <img className={`ph ${className}`} src={src} alt={alt} loading="lazy" style={style} />;
+    return <img className={`ph ${className}`} src={src} alt={alt} loading="lazy" decoding="async" style={style} />;
   }
   return (
     <span className={`ph ph--empty ${className}`} style={style} role="img" aria-label={label}>

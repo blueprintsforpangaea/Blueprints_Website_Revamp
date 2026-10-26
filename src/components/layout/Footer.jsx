@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="container">
         <div className="footer__top">
           <div>
-            <img className="footer__logo" src={logo} alt="Blueprints for Pangaea" />
+            <img className="footer__logo" src={logo} alt="Blueprints for Pangaea" loading="lazy" decoding="async" />
             <p className="footer__about">
               {ORG.name} is a student-led {ORG.taxStatus} based in {ORG.hq}. Founded in{' '}
               {ORG.founded} at the {ORG.foundedAt}.

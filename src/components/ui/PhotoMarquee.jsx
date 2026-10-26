@@ -8,7 +8,7 @@ export default function PhotoMarquee({ photos, label, className = '' }) {
         {[0, 1].map((copy) =>
           photos.map((p) => (
             <figure key={`${copy}-${p.src}`} className="photo-strip__item" aria-hidden={copy === 1 || undefined}>
-              <img src={p.src} alt={copy === 0 ? p.alt : ''} loading="lazy" />
+              <img src={p.src} alt={copy === 0 ? p.alt : ''} loading="lazy" decoding="async" />
               {p.caption && <figcaption>{p.caption}</figcaption>}
             </figure>
           )),
