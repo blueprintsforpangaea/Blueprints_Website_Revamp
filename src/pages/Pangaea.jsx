@@ -9,7 +9,6 @@ import { TOTALS } from '../data/stats.js';
 import { ORG } from '../data/site.js';
 import { VOLUNTEER_URL } from '../data/involvement.js';
 import { RECENT_SHIPMENTS } from '../data/shipments.js';
-import '../styles/pangaea.css';
 
 // The four steps from the Mission page, in plain words.
 const PROCESS = [
@@ -63,7 +62,7 @@ export default function Pangaea() {
             </p>
             <ul className="pg-facts">
               <li className="pg-facts__lead">
-                <strong><CountUp to={Math.floor(TOTALS.suppliesValue / 1_000_000)} prefix="$" suffix=" million+" /></strong>
+                <strong><CountUp to={Math.floor(TOTALS.suppliesValue / 1_000_000)} prefix="$" suffix="M+" /></strong>
                 in medical supplies redistributed
               </li>
               <li><strong><CountUp to={TOTALS.countries} suffix="+" /></strong> countries</li>
