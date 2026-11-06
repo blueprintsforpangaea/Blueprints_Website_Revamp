@@ -12,8 +12,8 @@
 //    150+ Members". The home page's "10+ National Chapters" is
 //    the older, rounded-down phrasing. UC Berkeley (2025) is
 //    now active too, per leadership, so the count is 12.
-//    Rutgers is not a separate chapter — Rutgers students lead
-//    the Greater New Jersey chapter.
+//    Rutgers is the former Greater New Jersey chapter (renamed
+//    after it gained Rutgers affiliation), not a 13th chapter.
 //  · wasteTons: 5 million tons ≈ 10 billion pounds of unused
 //    medical supplies discarded by the U.S. system each year.
 // ============================================================

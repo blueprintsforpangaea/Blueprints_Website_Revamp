@@ -35,7 +35,7 @@ const SIDE = {
   'wayne-state': 'right',
   osu: 'below',
   nyu: 'above',
-  'greater-nj': 'below',
+  rutgers: 'below',
   berkeley: 'above-right',
   'santa-clara': 'right',
   usc: 'right',

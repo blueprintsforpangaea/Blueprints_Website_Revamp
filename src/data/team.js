@@ -27,7 +27,7 @@ export const VICE_PRESIDENTS = [
 
 // Each expansion manager supports named chapters week to week.
 export const EXPANSION_MANAGERS = [
-  { name: 'Jia Anand',       role: 'Greater New Jersey' },
+  { name: 'Jia Anand',       role: 'Rutgers' },
   { name: 'Timothy Jho',     role: 'Ohio State & WashU' },
   { name: 'Aditya Chada',    role: 'U-Miami Medical' },
   { name: 'Aisha Tokovic',   role: 'NYU & Nebraska Omaha' },
@@ -42,7 +42,35 @@ export const BOARD = [
   { name: 'Anurag Bolneni', role: 'Director' },
   { name: 'Sana Shah',      role: 'Director' },
   { name: 'Hadi Juratli',   role: 'Director' },
+  { name: 'Grant Veldhuis', role: 'Director' },
   { name: 'Maya Nassif',    role: 'Director' },
+];
+
+// Analysts at headquarters (Ann Arbor), from the fall 2026 roster
+// leadership sent. Names only. Members on a semester off (Divya
+// Balaji, Lexy Aguirre) are left off until they're back.
+export const SENIOR_ANALYSTS = [
+  'Philip Hadiwidjaja', 'Rishi Garigipati', 'Samaria Noel', 'Rajas Visal',
+  'Jacqueline Suarez', 'Lasya Kolli',
+];
+
+export const ANALYSTS = [
+  'Vishnav Ramesh', 'Stacey Liu', 'Yug Patel', 'LolaRose Song', 'Anjali Kakarla',
+  'Arnav Akhaury', 'Caleb Knickerbocker', 'Navya Yerrapu', 'Addison Richmond',
+  'Devarshi Dalal', 'Yusuf Halilovic', 'Missole Doe', 'Max Hampel', 'Ritvik Sampath',
+];
+
+export const NEW_ANALYSTS = [
+  'Ansh Khosa', 'Neel Bangera', 'Sonia Patel', 'Madi Ashmead', 'Prisha Shah',
+  'Rhea Chokhalingam', 'Daniel Su', 'Clinton Brenner', 'Gemma Galdon Ordas',
+  'Ayush Patel', 'Sai Tallapally',
+];
+
+// Shown as plain name lists under the headshot groups.
+export const ANALYST_GROUPS = [
+  { id: 'senior-analysts', title: 'Senior Analysts', names: SENIOR_ANALYSTS },
+  { id: 'analysts', title: 'Analysts', names: ANALYSTS },
+  { id: 'new-analysts', title: 'New Analysts', names: NEW_ANALYSTS },
 ];
 
 // Grouped for rendering. Headshots live in src/assets/team (see

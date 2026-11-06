@@ -8,8 +8,9 @@
 // title. UC Berkeley (2025) has no page yet, so it carries only
 // its name, city, and year; its email is headquarters'.
 //
-// Note: Rutgers is not a separate chapter — Rutgers students run
-// the Greater New Jersey chapter. UC Berkeley is an emerging
+// Note: the Greater New Jersey chapter is now affiliated with
+// Rutgers and goes by Rutgers (per the team, Oct. 2026); its old
+// /chapters/greater-nj link redirects. UC Berkeley is an emerging
 // 2025 chapter with no page yet (see EMERGING_CHAPTERS).
 //
 // Seals live in src/assets/chapters/logos.js, keyed by slug, so this
@@ -167,16 +168,16 @@ export const CHAPTERS = [
     email: 'contact@b4pglobal.org',
   },
   {
-    slug: 'greater-nj',
-    name: 'Greater New Jersey',
-    location: 'New Jersey',
+    slug: 'rutgers',
+    name: 'Rutgers University',
+    location: 'New Brunswick, NJ',
     since: 2020,
     valueShipped: '$15,000+',
     email: 'contact@b4pglobal.org',
     instagram: 'blueprints4pangaea_gnj',
     blurb:
-      'Led by students at Rutgers University, the Greater New Jersey chapter has run several local shipments using supplies donated by St. Peter’s Hospital and Robert Wood Johnson Hospital.',
-    partners: ['St. Peter’s Hospital', 'Robert Wood Johnson Hospital', 'Local GNJ clinics'],
+      'Formerly the Greater New Jersey chapter, now affiliated with Rutgers University. It has run several local shipments using supplies donated by St. Peter’s Hospital and Robert Wood Johnson Hospital.',
+    partners: ['St. Peter’s Hospital', 'Robert Wood Johnson Hospital', 'Local New Jersey clinics'],
   },
 ];
 

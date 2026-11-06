@@ -21,7 +21,7 @@ const CAMPUS = {
   nyu: { lat: 40.7295, lng: -73.9965, short: 'NYU', dy: -1 },
   'miami-med': { lat: 25.79, lng: -80.21, short: 'Miami' },
   unomaha: { lat: 41.2587, lng: -96.0067, short: 'Nebraska Omaha', dx: -1 },
-  'greater-nj': { lat: 40.5008, lng: -74.4474, short: 'Greater NJ', dy: 1 },
+  rutgers: { lat: 40.5008, lng: -74.4474, short: 'Rutgers', dy: 1 },
   berkeley: { lat: 37.8719, lng: -122.2585, short: 'UC Berkeley', dx: -1, dy: -1 },
 };
 

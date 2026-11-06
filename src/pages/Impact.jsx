@@ -7,7 +7,7 @@ import PhotoMarquee from '../components/ui/PhotoMarquee.jsx';
 import hopeClinic from '../assets/images/12dd519c-c348-407b-b191-8031453d39c2-1-105-c.jpg';
 import vanLoad from '../assets/images/9fdcc1e7-5bd6-44dc-8afe-dd642b4a08cadsc-0258.jpg';
 import vanCrew from '../assets/images/efd3cc03-681e-468b-8608-f746800f9dc2dsc-0260.jpg';
-import gnj from '../assets/images/chapters/greater-nj/img-5664.jpg';
+import gnj from '../assets/images/chapters/rutgers/img-5664.jpg';
 import wsu from '../assets/images/chapters/wayne-state/img-2328.jpg';
 import boxes from '../assets/images/238939e5-8c3b-4744-bfd5-5a90886e10a3dsc-0252.jpg';
 import warehouse from '../assets/images/726a596d-3249-43ff-a5c2-4c5e01be5098.jpg';
@@ -17,7 +17,7 @@ import packing from '../assets/images/img-2753.jpg';
 const PHOTOS = [
   { src: hopeClinic, alt: 'A delivery of donated supplies at Hope Clinic', caption: 'Hope Clinic' },
   { src: vanLoad, alt: 'Volunteers loading boxes of supplies into a van' },
-  { src: gnj, alt: 'Greater New Jersey members with donated supplies', caption: 'Greater New Jersey' },
+  { src: gnj, alt: 'Rutgers members with donated supplies', caption: 'Rutgers' },
   { src: vanCrew, alt: 'Three members sitting in a van full of boxes' },
   { src: wsu, alt: 'Wayne State members packing supplies', caption: 'Wayne State' },
   { src: boxes, alt: 'Members in front of stacked boxes of supplies' },
@@ -33,8 +33,9 @@ export default function Impact() {
           <Reveal className="globe-hero">
             <h1 className="globe-hero__title">Where our supplies have gone</h1>
             <p className="globe-hero__lead">
-              The map shows our recorded shipments. Each line runs from the chapter that sent it,
-              and the dots in the U.S. are our chapters. Click or tap a dot to see what we sent there.
+              The map shows our recorded shipments. Each line runs from the chapter that sent it (a
+              ring) to where the supplies went (a blue dot). Click or tap a blue dot to see what we
+              sent there.
             </p>
             <ul className="impact-facts">
               {IMPACT_STATS.map((stat) => (

@@ -8,7 +8,7 @@ import santaClara from './santa-clara.png';
 import nyu from './nyu.png';
 import miamiMed from './miami-med.png';
 import unomaha from './unomaha.png';
-import greaterNj from './greater-nj.png';
+import rutgers from './rutgers.png';
 import berkeley from './berkeley.png';
 
 // Slug -> university seal. Kept out of src/data/chapters.js so that
@@ -25,7 +25,7 @@ export const CHAPTER_LOGOS = {
   'nyu': nyu,
   'miami-med': miamiMed,
   'unomaha': unomaha,
-  'greater-nj': greaterNj,
+  rutgers,
   // UC Berkeley seal from Wikimedia Commons.
   'berkeley': berkeley,
 };

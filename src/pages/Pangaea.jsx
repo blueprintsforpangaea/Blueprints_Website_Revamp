@@ -3,12 +3,33 @@ import { Link } from 'react-router-dom';
 import DriftGlobe from '../components/pangaea/DriftGlobe.jsx';
 import CountUp from '../components/ui/CountUp.jsx';
 import Reveal from '../components/ui/Reveal.jsx';
-import { shipmentHeadline, ShipmentVisual } from '../components/ui/ShipmentCard.jsx';
+import { shipmentHeadline, shipmentTitle, ShipmentVisual } from '../components/ui/ShipmentCard.jsx';
+import PhotoMarquee from '../components/ui/PhotoMarquee.jsx';
 import useMediaQuery from '../hooks/useMediaQuery.js';
 import { TOTALS } from '../data/stats.js';
 import { ORG } from '../data/site.js';
 import { VOLUNTEER_URL } from '../data/involvement.js';
 import { RECENT_SHIPMENTS } from '../data/shipments.js';
+import groupPhoto from '../assets/images/img-2457.jpg';
+import boxesPhoto from '../assets/images/238939e5-8c3b-4744-bfd5-5a90886e10a3dsc-0252.jpg';
+import vanPhoto from '../assets/images/efd3cc03-681e-468b-8608-f746800f9dc2dsc-0260.jpg';
+import packingPhoto from '../assets/images/img-2753.jpg';
+import sortPhoto from '../assets/images/eae28d10-7a69-40e0-af54-3d146010a570-1-105-c.jpg';
+import tablePhoto from '../assets/images/dsc06350.jpg';
+import osuPhoto from '../assets/images/chapters/osu/b4p-eboard.jpg';
+import wsuPhoto from '../assets/images/chapters/wayne-state/img-2328.jpg';
+
+// Our members, so the home page shows the students behind the work.
+const PEOPLE = [
+  { src: groupPhoto, alt: 'A large group of Blueprints members in matching shirts' },
+  { src: boxesPhoto, alt: 'Four members in front of stacked boxes of supplies' },
+  { src: osuPhoto, alt: 'Ohio State chapter members', caption: 'Ohio State' },
+  { src: packingPhoto, alt: 'Two members next to a wrapped pallet of supplies' },
+  { src: vanPhoto, alt: 'Three members sitting in a van loaded with boxes' },
+  { src: wsuPhoto, alt: 'Wayne State members packing supplies', caption: 'Wayne State' },
+  { src: sortPhoto, alt: 'Three members in the warehouse among boxes of supplies' },
+  { src: tablePhoto, alt: 'Members at a Blueprints information table' },
+];
 
 // The four steps from the Mission page, in plain words.
 const PROCESS = [
@@ -40,8 +61,9 @@ export default function Pangaea() {
           </div>
           <div className="pg-caption">
             <p>
-              Our name comes from Pangaea, the single landmass that once held every continent. The
-              lines show where our chapters have shipped supplies.
+              Our name comes from Pangaea, when every continent was joined as one landmass. Our
+              shipments link those places again: the lines show where our chapters have sent
+              supplies.
             </p>
             {isPhone && (
               <button type="button" className="pg-replay" onClick={() => setPlayKey((k) => k + 1)}>
@@ -56,9 +78,9 @@ export default function Pangaea() {
           <section className="pg-step pg-step--hero">
             <h1 className="pg-title">Saving lives one box at a time</h1>
             <p>
-              We send unused medical supplies to clinics that need them. Blueprints for Pangaea is a
-              nonprofit run by college students, started at the University of Michigan in{' '}
-              {TOTALS.founded}.
+              Blueprints for Pangaea is a student-run nonprofit that redistributes unused medical
+              supplies from U.S. hospitals to communities in need around the world. It started at
+              the University of Michigan in {TOTALS.founded}.
             </p>
             <ul className="pg-facts">
               <li className="pg-facts__lead">
@@ -76,7 +98,7 @@ export default function Pangaea() {
           </section>
 
           <section className="pg-step">
-            <h2>How it works</h2>
+            <h2>How we operate</h2>
             <p>
               U.S. hospitals throw away over {(TOTALS.wasteTons / 1_000_000).toFixed(0)} million tons
               of medical supplies a year, much of it never opened. Students at our{' '}
@@ -119,7 +141,16 @@ export default function Pangaea() {
         </div>
       </div>
 
-      {/* Recent work, with photos, once the globe story ends. */}
+      {/* The people behind it, once the globe story ends. */}
+      <section className="pg-people" aria-labelledby="pg-people-title">
+        <div className="pg-recent__head">
+          <h2 id="pg-people-title">Run by students</h2>
+          <Link to="/about" className="pg-link">Meet the team →</Link>
+        </div>
+        <PhotoMarquee photos={PEOPLE} label="Photos of our members" className="pg-people__strip" />
+      </section>
+
+      {/* Recent work. */}
       <section className="pg-recent">
         <div className="pg-recent__head">
           <h2>Recent shipments</h2>
@@ -131,7 +162,7 @@ export default function Pangaea() {
           {RECENT_SHIPMENTS.map((s) => (
             <article className="pg-recent__card" key={s.id}>
               <ShipmentVisual shipment={s} />
-              <h3>{s.place}</h3>
+              <h3>{shipmentTitle(s)}</h3>
               {shipmentHeadline(s) && <p className="pg-recent__figure">{shipmentHeadline(s)}</p>}
               {s.detail && <p>{s.detail}</p>}
             </article>

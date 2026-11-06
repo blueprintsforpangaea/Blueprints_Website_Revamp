@@ -1,4 +1,4 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, Navigate } from 'react-router-dom';
 import PageHeader from '../components/layout/PageHeader.jsx';
 import ChaptersList from '../components/sections/ChaptersList.jsx';
 import ChapterMap from '../components/pangaea/ChapterMap.jsx';
@@ -13,6 +13,9 @@ import { TOTALS } from '../data/stats.js';
 
 export default function Chapters() {
   const { chapterSlug } = useParams();
+
+  // Greater New Jersey became the Rutgers chapter; keep old links working.
+  if (chapterSlug === 'greater-nj') return <Navigate to="/chapters/rutgers" replace />;
 
   if (chapterSlug) {
     const chapter = CHAPTERS.find((c) => c.slug === chapterSlug);

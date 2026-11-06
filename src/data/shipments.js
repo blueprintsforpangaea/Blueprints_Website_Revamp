@@ -2,13 +2,11 @@
 // The real shipment record, from the Impact and chapter pages.
 // Values and weights are quoted only where the site publishes
 // them — entries without a figure omit it rather than estimate.
-// `figure` is the headline number for shipments with no dollar
-// value; it restates the published detail, never a new estimate.
+// Headlines are dollar values only, so cards read in one unit;
+// weights and pallet counts go in `detail`.
 //
-// Every shipment is shown with the same four facts: when, which
-// chapter, which partner, and the value of the supplies (what the
-// supplies are worth, not what shipping them cost). Fill in any
-// that are missing as records come in.
+// Cards show when, which chapter, and which partner, and leave out
+// any we don't have. Fill them in as records come in.
 //
 //   date    — month and year, e.g. 'July 2025'
 //   chapter — the chapter that ran it, e.g. 'USC & Wayne State'
@@ -45,8 +43,7 @@ export const SHIPMENTS = [
     place: 'Ghana',
     region: 'Africa',
     partner: 'Ghana Ministry of Health',
-    figure: 'A 20-foot container',
-    detail: 'A full container of medical aid, delivered through a partnership with the Ministry of Health.',
+    detail: 'A 20-foot container of medical aid, delivered through a partnership with the Ministry of Health.',
   },
 
   // ---------- The Americas ----------
@@ -62,8 +59,7 @@ export const SHIPMENTS = [
     place: 'Mexico',
     region: 'The Americas',
     partner: 'Colgate-Palmolive & Chiricahua Community Health',
-    figure: '2,000+ lbs',
-    detail: 'Supplies for Chiricahua Community Health, including deliveries to Hospital General de México.',
+    detail: 'More than 2,000 lbs of supplies for Chiricahua Community Health, including deliveries to Hospital General de México.',
   },
   {
     id: 'guatemala',
@@ -207,9 +203,12 @@ export const SHIPMENTS = [
 
 const byId = (ids) => ids.map((id) => SHIPMENTS.find((s) => s.id === id));
 
-// The home page shows four. The Impact page shows only these six,
-// each a different place.
+// The home page shows four. The Impact page has two tabs of six:
+// around the world (each a different country) and in Michigan.
 export const RECENT_SHIPMENTS = byId(['nigeria-2025', 'ghana', 'ukraine', 'food-gatherers']);
 export const FEATURED_SHIPMENTS = byId([
-  'nigeria-2025', 'honduras', 'ghana', 'food-gatherers', 'ukraine', 'mexico',
+  'nigeria-2025', 'honduras', 'ghana', 'ukraine', 'mexico', 'puerto-rico',
+]);
+export const LOCAL_SHIPMENTS = byId([
+  'food-gatherers', 'delonis', 'hope-clinic', 'packard', 'umsrfc', 'wolverine',
 ]);

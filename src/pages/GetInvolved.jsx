@@ -11,6 +11,7 @@ import {
   CHAPTER_FAQ,
   CHAPTER_STEPS,
   EXPANSION_CONTACT,
+  VOLUNTEER_CTA,
 } from '../data/involvement.js';
 import { ORG } from '../data/site.js';
 import { RECRUITMENT } from '../data/recruitment.js';
@@ -23,10 +24,16 @@ const volunteer = pathway('volunteer');
 // Pick who you are and the page shows only what applies to you.
 const CHOICES = [
   {
-    id: 'student',
-    who: 'I’m a student',
-    body: 'College students can join headquarters at U-M or start a chapter at their own school. High school students can apply for our summer internship.',
-    sections: ['recruitment', 'chapter', 'internship'],
+    id: 'college',
+    who: 'I’m in college',
+    body: 'Start a Blueprints chapter at your school. University of Michigan students can join headquarters instead.',
+    sections: ['chapter', 'recruitment'],
+  },
+  {
+    id: 'highschool',
+    who: 'I’m in high school',
+    body: 'Apply for our summer internship with the analysts at headquarters.',
+    sections: ['internship'],
   },
   {
     id: 'hospital',
@@ -44,7 +51,7 @@ const CHOICES = [
 
 // Which choice a link like /get-involved#supplies belongs to.
 const choiceFor = (hash) =>
-  CHOICES.find((c) => c.sections.includes(hash.replace('#', '')))?.id || 'student';
+  CHOICES.find((c) => c.sections.includes(hash.replace('#', '')))?.id || 'college';
 
 function Faq({ items }) {
   return (
@@ -97,42 +104,12 @@ export default function GetInvolved() {
         </div>
       </section>
 
-      {/* ---------- Membership at HQ ---------- */}
-      {show('recruitment') && (
-      <section className="section section--soft" id="recruitment">
-        <div className="container">
-          <div className="split">
-            <Reveal className="prose">
-              <h2 className="section-title">Become a member at headquarters</h2>
-              <p>
-                Members join one of {DEPARTMENT_COUNT_WORD} departments ({DEPARTMENT_LIST}) and put in
-                about 5 to 7 hours a week. Recruitment runs each semester at the University of
-                Michigan.
-              </p>
-              <div className="btn-row">
-                <Link to="/chapters/umich#recruitment" className="btn btn--dark">
-                  {RECRUITMENT.term} recruitment dates
-                </Link>
-                <Link to="/mission" className="link-arrow">
-                  Read about the departments <span className="arrow">→</span>
-                </Link>
-              </div>
-            </Reveal>
-            <Reveal delay={0.12}>
-              <h3 className="label">Common questions</h3>
-              <Faq items={MEMBER_FAQ} />
-            </Reveal>
-          </div>
-        </div>
-      </section>
-      )}
-
       {/* ---------- Start a chapter ---------- */}
       {show('chapter') && (
-      <section className="section" id="chapter">
+      <section className="section section--soft" id="chapter">
         <div className="container split split--top">
           <Reveal className="prose">
-            <h2 className="section-title">Start a chapter</h2>
+            <h2 className="section-title">Start a chapter at your school</h2>
             <p>
               The application has four stages and takes one to two months. Once you launch, an
               expansion manager meets with your chapter every week.
@@ -158,6 +135,37 @@ export default function GetInvolved() {
               <a href={`mailto:${EXPANSION_CONTACT}`}>{EXPANSION_CONTACT}</a>.
             </p>
           </Reveal>
+        </div>
+      </section>
+      )}
+
+      {/* ---------- Membership at HQ ---------- */}
+      {show('recruitment') && (
+      <section className="section" id="recruitment">
+        <div className="container">
+          <div className="split">
+            <Reveal className="prose">
+              <h2 className="section-title">Join headquarters at U-M</h2>
+              <p className="recruit__status">For University of Michigan students only.</p>
+              <p>
+                Members join one of {DEPARTMENT_COUNT_WORD} departments ({DEPARTMENT_LIST}) and put in
+                about 5 to 7 hours a week. Recruitment runs each semester at the University of
+                Michigan.
+              </p>
+              <div className="btn-row">
+                <Link to="/chapters/umich#recruitment" className="btn btn--dark">
+                  {RECRUITMENT.term} recruitment dates
+                </Link>
+                <Link to="/mission" className="link-arrow">
+                  Read about the departments <span className="arrow">→</span>
+                </Link>
+              </div>
+            </Reveal>
+            <Reveal delay={0.12}>
+              <h3 className="label">Common questions</h3>
+              <Faq items={MEMBER_FAQ} />
+            </Reveal>
+          </div>
         </div>
       </section>
       )}
@@ -249,7 +257,7 @@ export default function GetInvolved() {
             <h2 className="section-title section-title--sm">Volunteer at the warehouse</h2>
             <p>{volunteer.body}</p>
             <a href={volunteer.url} target="_blank" rel="noreferrer" className="btn btn--dark">
-              Sign up for a shift
+              {VOLUNTEER_CTA}
             </a>
           </Reveal>
           <Reveal className="help-card" delay={0.08}>
