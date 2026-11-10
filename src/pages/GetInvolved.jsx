@@ -11,22 +11,31 @@ import {
   CHAPTER_FAQ,
   CHAPTER_STEPS,
   EXPANSION_CONTACT,
+  VOLUNTEER_CTA,
+  CHAPTER_APPLY_PATH,
+  CHAPTER_APPLICATION_URL,
+  CHAPTER_GOOGLE_FORM_URL,
 } from '../data/involvement.js';
 import { ORG } from '../data/site.js';
 import { RECRUITMENT } from '../data/recruitment.js';
 import { DEPARTMENT_COUNT_WORD, DEPARTMENT_LIST } from '../data/departments.js';
 
 const pathway = (id) => PATHWAYS.find((p) => p.id === id);
-const chapterFormUrl = pathway('chapter').url;
 const volunteer = pathway('volunteer');
 
 // Pick who you are and the page shows only what applies to you.
 const CHOICES = [
   {
-    id: 'student',
-    who: 'I’m a student',
-    body: 'College students can join headquarters at U-M or start a chapter at their own school. High school students can apply for our summer internship.',
-    sections: ['recruitment', 'chapter', 'internship'],
+    id: 'college',
+    who: 'I’m in college',
+    body: 'Start a Blueprints chapter at your school. University of Michigan students can join headquarters instead.',
+    sections: ['chapter', 'recruitment'],
+  },
+  {
+    id: 'highschool',
+    who: 'I’m in high school',
+    body: 'Apply for our summer internship with the analysts at headquarters.',
+    sections: ['internship'],
   },
   {
     id: 'hospital',
@@ -44,7 +53,7 @@ const CHOICES = [
 
 // Which choice a link like /get-involved#supplies belongs to.
 const choiceFor = (hash) =>
-  CHOICES.find((c) => c.sections.includes(hash.replace('#', '')))?.id || 'student';
+  CHOICES.find((c) => c.sections.includes(hash.replace('#', '')))?.id || 'college';
 
 function Faq({ items }) {
   return (
@@ -97,13 +106,53 @@ export default function GetInvolved() {
         </div>
       </section>
 
+      {/* ---------- Start a chapter ---------- */}
+      {show('chapter') && (
+      <section className="section section--soft" id="chapter">
+        <div className="container split split--top">
+          <Reveal className="prose">
+            <h2 className="section-title">Start a chapter at your school</h2>
+            <p>
+              The application has four stages and takes one to two months. Once you launch, an
+              expansion manager meets with your chapter every week.
+            </p>
+            <ol className="mini-steps">
+              {CHAPTER_STEPS.map((s) => (
+                <li key={s.num}>
+                  <strong>{s.title}.</strong> {s.body}
+                </li>
+              ))}
+            </ol>
+            <div className="btn-row">
+              {CHAPTER_APPLICATION_URL ? (
+                <Link to={CHAPTER_APPLY_PATH} className="btn btn--dark">Apply to start a chapter</Link>
+              ) : (
+                <a href={CHAPTER_GOOGLE_FORM_URL} target="_blank" rel="noreferrer" className="btn btn--dark">
+                  Apply to start a chapter
+                </a>
+              )}
+            </div>
+          </Reveal>
+          <Reveal delay={0.12}>
+            <h3 className="label">Common questions</h3>
+            <Faq items={CHAPTER_FAQ} />
+            <p className="muted small" style={{ marginTop: '1rem' }}>
+              Anything else goes to{' '}
+              <a href={`mailto:${EXPANSION_CONTACT}`}>{EXPANSION_CONTACT}</a>.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+      )}
+
       {/* ---------- Membership at HQ ---------- */}
       {show('recruitment') && (
-      <section className="section section--soft" id="recruitment">
+      <section className="section" id="recruitment">
         <div className="container">
           <div className="split">
             <Reveal className="prose">
-              <h2 className="section-title">Become a member at headquarters</h2>
+              <h2 className="section-title">Join headquarters at U-M</h2>
+              <p className="recruit__status">For University of Michigan students only.</p>
               <p>
                 Members join one of {DEPARTMENT_COUNT_WORD} departments ({DEPARTMENT_LIST}) and put in
                 about 5 to 7 hours a week. Recruitment runs each semester at the University of
@@ -123,41 +172,6 @@ export default function GetInvolved() {
               <Faq items={MEMBER_FAQ} />
             </Reveal>
           </div>
-        </div>
-      </section>
-      )}
-
-      {/* ---------- Start a chapter ---------- */}
-      {show('chapter') && (
-      <section className="section" id="chapter">
-        <div className="container split split--top">
-          <Reveal className="prose">
-            <h2 className="section-title">Start a chapter</h2>
-            <p>
-              The application has four stages and takes one to two months. Once you launch, an
-              expansion manager meets with your chapter every week.
-            </p>
-            <ol className="mini-steps">
-              {CHAPTER_STEPS.map((s) => (
-                <li key={s.num}>
-                  <strong>{s.title}.</strong> {s.body}
-                </li>
-              ))}
-            </ol>
-            <div className="btn-row">
-              <a href={chapterFormUrl} target="_blank" rel="noreferrer" className="btn btn--dark">
-                Start a chapter
-              </a>
-            </div>
-          </Reveal>
-          <Reveal delay={0.12}>
-            <h3 className="label">Common questions</h3>
-            <Faq items={CHAPTER_FAQ} />
-            <p className="muted small" style={{ marginTop: '1rem' }}>
-              Anything else goes to{' '}
-              <a href={`mailto:${EXPANSION_CONTACT}`}>{EXPANSION_CONTACT}</a>.
-            </p>
-          </Reveal>
         </div>
       </section>
       )}
@@ -249,7 +263,7 @@ export default function GetInvolved() {
             <h2 className="section-title section-title--sm">Volunteer at the warehouse</h2>
             <p>{volunteer.body}</p>
             <a href={volunteer.url} target="_blank" rel="noreferrer" className="btn btn--dark">
-              Sign up for a shift
+              {VOLUNTEER_CTA}
             </a>
           </Reveal>
           <Reveal className="help-card" delay={0.08}>

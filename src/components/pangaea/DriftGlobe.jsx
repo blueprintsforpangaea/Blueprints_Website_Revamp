@@ -15,22 +15,23 @@ const GRATICULE = geoGraticule10();
 const LAND_GRID = geoGraticule().step([20, 20])();
 
 
-// A small cardboard box, drawn where each shipment lands.
-function drawBox(ctx, x, y, s) {
-  ctx.fillStyle = '#c8955a';
-  ctx.strokeStyle = '#fff';
-  ctx.lineWidth = 1.5;
+// A plain dot where each shipment lands, the same blue as the
+// destination dots on the Impact map.
+function drawDot(ctx, x, y, s) {
+  ctx.fillStyle = '#fff';
   ctx.beginPath();
-  ctx.rect(x - s, y - s * 0.8, s * 2, s * 1.6);
+  ctx.arc(x, y, s + 2, 0, Math.PI * 2);
   ctx.fill();
-  ctx.stroke();
-  ctx.strokeStyle = 'rgba(255, 255, 255, 0.85)';
-  ctx.lineWidth = 1;
+  ctx.fillStyle = LOGO.bright;
   ctx.beginPath();
-  ctx.moveTo(x, y - s * 0.8);
-  ctx.lineTo(x, y + s * 0.8);
-  ctx.stroke();
+  ctx.arc(x, y, s, 0, Math.PI * 2);
+  ctx.fill();
 }
+
+// Most pixels the canvas is drawn at. Small canvases (phones) get
+// full 2x sharpness; big ones are held to about this many pixels so
+// fill cost stays flat however large the screen.
+const PIXEL_BUDGET = 1.4e6;
 
 const ALL_ROUTES = [...ROUTES, ...OTHER_ROUTES.map((r) => ({ ...r, group: 'all' }))];
 
@@ -113,11 +114,12 @@ export default function DriftGlobe({ stepsRef, yearsRef, film = false, playKey =
       shapeGen.context(p)(geom);
       return p;
     };
-    // Rendering quality. Starts at up to 1.5x pixel density (1x on
-    // computers with few cores) and steps down on its own if frames
-    // take too long: first to 1x, then to about 30 frames a second.
+    // Rendering quality. Starts at up to 2x pixel density (1.5x on
+    // devices with few cores), within PIXEL_BUDGET, and steps down on
+    // its own if frames take too long: to 1.5x, to 1x, then to about
+    // 30 frames a second.
     const fewCores = (navigator.hardwareConcurrency || 8) <= 4;
-    const quality = { dprCap: fewCores ? 1 : 1.5, cost: 0, lastDraw: 0, minGap: 0 };
+    const quality = { dprCap: fewCores ? 1.5 : 2, cost: 0, lastDraw: 0, minGap: 0 };
 
     let w = 0, h = 0, dpr = 1, raf = 0, last = performance.now();
     // A film waits for its visibility check before starting.
@@ -161,7 +163,8 @@ export default function DriftGlobe({ stepsRef, yearsRef, film = false, playKey =
       const rect = canvas.parentElement.getBoundingClientRect();
       w = rect.width;
       h = rect.height;
-      dpr = Math.min(window.devicePixelRatio || 1, quality.dprCap);
+      const fit = Math.max(1, Math.sqrt(PIXEL_BUDGET / Math.max(1, w * h)));
+      dpr = Math.min(window.devicePixelRatio || 1, quality.dprCap, fit);
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
       resized = true;
@@ -283,9 +286,6 @@ export default function DriftGlobe({ stepsRef, yearsRef, film = false, playKey =
       path({ type: 'Sphere' });
       ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
       ctx.fill();
-      ctx.strokeStyle = `rgba(${INK}, 0.7)`;
-      ctx.lineWidth = 1.2;
-      ctx.stroke();
 
       proj.precision(2.5);
       ctx.strokeStyle = `rgba(${SKY}, 0.13)`;
@@ -349,6 +349,14 @@ export default function DriftGlobe({ stepsRef, yearsRef, film = false, playKey =
       ctx.lineWidth = 0.8;
       ctx.stroke();
 
+      // The globe's outline goes on last, so the white seams along the
+      // land's edge never show through it.
+      ctx.beginPath();
+      path({ type: 'Sphere' });
+      ctx.strokeStyle = `rgba(${INK}, 0.7)`;
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+
       const at = (p, hgt = 0) => {
         const [lon, lat] = movePoint(p.lng, p.lat, p.plate, mats);
         return { ...lift(lon, lat, hgt, view), lon, lat };
@@ -366,7 +374,10 @@ export default function DriftGlobe({ stepsRef, yearsRef, film = false, playKey =
         const peak = Math.min(0.3, (dist / Math.PI) * 0.55);
         const focus = cur.focus?.includes(route.id);
         const n = 72;
-        const lineW = focus ? 2.4 : 1.3;
+        // The many lines from headquarters stay thin and light, so the
+        // named routes read first.
+        const minor = route.group === 'all';
+        const lineW = focus ? 2.4 : minor ? 1 : 1.3;
         ctx.beginPath();
         let pen = false, head = null;
         for (let i = 0; i <= n; i++) {
@@ -381,13 +392,13 @@ export default function DriftGlobe({ stepsRef, yearsRef, film = false, playKey =
         }
         // White casing first, so the line reads over blue land and paper alike.
         ctx.strokeStyle = 'rgba(255, 255, 255, 0.9)';
-        ctx.lineWidth = lineW + 2.5;
+        ctx.lineWidth = lineW + (minor ? 1.5 : 2.5);
         ctx.stroke();
-        ctx.strokeStyle = focus ? `rgb(${INK})` : `rgba(${INK}, 0.6)`;
+        ctx.strokeStyle = focus ? `rgb(${INK})` : `rgba(${INK}, ${minor ? 0.4 : 0.6})`;
         ctx.lineWidth = lineW;
         ctx.stroke();
         if (head && prog > 0.98) {
-          drawBox(ctx, head.x, head.y, 4.5);
+          drawDot(ctx, head.x, head.y, minor ? 3 : 4);
         } else if (head) {
           const rr = 2.4;
           ctx.fillStyle = '#fff';
@@ -438,7 +449,8 @@ export default function DriftGlobe({ stepsRef, yearsRef, film = false, playKey =
       // draw every other frame.
       quality.cost = quality.cost * 0.9 + (performance.now() - t0) * 0.1;
       if (quality.cost > 9 && quality.dprCap > 1 && now > 2000) {
-        quality.dprCap = 1;
+        quality.dprCap = quality.dprCap > 1.5 ? 1.5 : 1;
+        quality.cost = 0;
         measure();
       } else if (quality.cost > 14 && quality.dprCap === 1 && !quality.minGap && now > 4000) {
         quality.minGap = 30;

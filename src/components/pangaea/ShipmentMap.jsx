@@ -140,12 +140,12 @@ export default function ShipmentMap() {
 
         {CHAPTER_PINS.map((c) => {
           const [x, y] = geo.project(c.lng, c.lat);
-          return <circle key={c.id} cx={x} cy={y} className="shipmap__pin" />;
+          return <circle key={c.id} cx={x} cy={y} className="shipmap__pin shipmap__pin--from" />;
         })}
 
         {PLACES.map((d) => {
           const [x, y] = geo.project(d.lng, d.lat);
-          return <circle key={d.country} cx={x} cy={y} className={`shipmap__pin ${open === d.country ? 'is-open' : ''}`} />;
+          return <circle key={d.country} cx={x} cy={y} className={`shipmap__pin shipmap__pin--to ${lit === d.country ? 'is-open' : ''}`} />;
         })}
       </svg>
 
@@ -169,6 +169,9 @@ export default function ShipmentMap() {
                 onFocus={() => setHover(d.country)}
                 onBlur={() => setHover(null)}
               />
+              {hover === d.country && !isOpen && (
+                <span className={`shipmap__tip ${left > 55 ? 'shipmap__tip--left' : ''}`} aria-hidden="true">{d.country}</span>
+              )}
               {isOpen && (
                 <div
                   className={`shipmap__pop ${left > 55 ? 'shipmap__pop--left' : ''} ${top > 55 ? 'shipmap__pop--up' : ''}`}
@@ -192,6 +195,11 @@ export default function ShipmentMap() {
           );
         })}
       </ul>
+
+      <figcaption className="shipmap__legend">
+        <span><i className="shipmap__key shipmap__key--from" aria-hidden="true" /> Chapter that sent it</span>
+        <span><i className="shipmap__key shipmap__key--to" aria-hidden="true" /> Where it went (hover or tap for details)</span>
+      </figcaption>
     </figure>
   );
 }

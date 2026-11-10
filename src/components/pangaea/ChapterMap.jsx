@@ -35,13 +35,14 @@ const SIDE = {
   'wayne-state': 'right',
   osu: 'below',
   nyu: 'above',
-  'greater-nj': 'below',
+  rutgers: 'below',
   berkeley: 'above-right',
   'santa-clara': 'right',
   usc: 'right',
   washu: 'below',
   unomaha: 'left',
   'miami-med': 'left',
+  'utah-med': 'above',
 };
 
 const NAME = Object.fromEntries(CHAPTERS.map((c) => [c.slug, c]));

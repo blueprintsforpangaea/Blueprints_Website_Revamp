@@ -1,11 +1,12 @@
 import PageHeader from '../components/layout/PageHeader.jsx';
 import Reveal from '../components/ui/Reveal.jsx';
 import PressList from '../components/ui/PressList.jsx';
-import { PRESS_ITEMS, PRESS_UPDATES, PUBLICATIONS } from '../data/press.js';
+import { PRESS_ITEMS, PUBLICATIONS } from '../data/press.js';
 import { ORG } from '../data/site.js';
 
 const FEATURED = PRESS_ITEMS.find((p) => p.featured);
-const REST = PRESS_ITEMS.filter((p) => !p.featured);
+// Stories with a link first; the few we only have as clippings go last.
+const REST = PRESS_ITEMS.filter((p) => !p.featured).sort((a, b) => Boolean(b.url) - Boolean(a.url));
 const PAPERS = PUBLICATIONS.map((p) => ({
   id: p.id, outlet: p.venue, date: p.date, headline: p.title, byline: p.authors, excerpt: p.summary, url: p.url,
 }));
@@ -67,23 +68,9 @@ export default function Press() {
         </div>
       </section>
 
-      {/* ---------- Chapter updates ---------- */}
+      {/* ---------- Media inquiries ---------- */}
       <section className="section section--soft">
         <div className="container">
-          <Reveal className="section-head">
-            <h2 className="section-title">Chapter news</h2>
-          </Reveal>
-          <div className="grid-3">
-            {PRESS_UPDATES.map((u, i) => (
-              <Reveal as="article" className="update-card" key={u.id} delay={(i % 3) * 0.08}>
-                <span className="update-card__kind">{u.kind}</span>
-                <h3>{u.title}</h3>
-                <p>{u.detail}</p>
-                {u.date && <span className="update-card__date">{u.date}</span>}
-              </Reveal>
-            ))}
-          </div>
-
           <Reveal className="note-row" delay={0.1}>
             <div>
               <h2>Media inquiries</h2>

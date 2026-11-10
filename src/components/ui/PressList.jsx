@@ -14,7 +14,9 @@ export default function PressList({ items }) {
             <span className="press-item__headline">{item.headline}</span>
             {item.byline && <span className="press-item__byline">{item.byline}</span>}
             {item.excerpt && <span className="press-item__excerpt">{item.excerpt}</span>}
-            {item.url && <span className="press-item__cue">Read the story</span>}
+            {item.url
+              ? <span className="press-item__cue">Read the story</span>
+              : <span className="press-item__nolink">No online link available</span>}
           </>
         );
 

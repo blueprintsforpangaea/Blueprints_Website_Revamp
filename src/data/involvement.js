@@ -3,10 +3,24 @@ import { DEPARTMENT_LIST } from './departments.js';
 
 // Where volunteers sign up for a warehouse shift. Every volunteer
 // link on the site reads this one value. Paste the Calendly link
-// here; until then it falls back to the old SignUpGenius page.
+// here. Until then volunteers email us: the old SignUpGenius page
+// (signupgenius.com/go/10C054BA4AA2AA1FBCF8-58352664-blueprints) is
+// closed, per team feedback Nov. 2026.
 export const CALENDLY_URL = '';
-const SIGNUPGENIUS_URL = 'https://www.signupgenius.com/go/10C054BA4AA2AA1FBCF8-58352664-blueprints#/';
-export const VOLUNTEER_URL = CALENDLY_URL || SIGNUPGENIUS_URL;
+export const VOLUNTEER_URL =
+  CALENDLY_URL || `mailto:${ORG.email}?subject=${encodeURIComponent('Volunteering at the warehouse')}`;
+// Button text to match: a sign-up page, or an email.
+export const VOLUNTEER_CTA = CALENDLY_URL ? 'Sign up for a shift' : 'Email us to volunteer';
+
+// Chapter founder application. The form lives on this site at
+// /apply/chapter and sends each answer to a Google Sheet through
+// the Apps Script in google-apps-script/chapter-application.gs.
+// Paste that script's Web app URL (ends in /exec) here. Until it is
+// set, the page sends people to the old Google Form instead.
+export const CHAPTER_APPLICATION_URL = '';
+export const CHAPTER_GOOGLE_FORM_URL =
+  'https://docs.google.com/forms/d/e/1FAIpQLScuMFnvbCJuHMaKY-ZKl95_i69SFd-hoTTkD82A9nFxw3UGJw/viewform';
+export const CHAPTER_APPLY_PATH = '/apply/chapter';
 
 // ============================================================
 // The six real ways in, with the actual application forms.
@@ -32,7 +46,7 @@ export const PATHWAYS = [
     body:
       'Three interviews over one to two months. Once you launch, an expansion manager meets with your chapter every week.',
     cta: 'Start a chapter',
-    url: 'https://docs.google.com/forms/d/e/1FAIpQLScuMFnvbCJuHMaKY-ZKl95_i69SFd-hoTTkD82A9nFxw3UGJw/viewform',
+    ...(CHAPTER_APPLICATION_URL ? { to: CHAPTER_APPLY_PATH } : { url: CHAPTER_GOOGLE_FORM_URL }),
   },
   {
     id: 'volunteer',
@@ -41,7 +55,7 @@ export const PATHWAYS = [
     title: 'Volunteer with us',
     body:
       'Sort and catalog donated supplies at the warehouse. No experience needed, and B4P members run every session. Dress warmly.',
-    cta: 'Sign up to volunteer',
+    cta: VOLUNTEER_CTA,
     url: VOLUNTEER_URL,
   },
   {
@@ -133,7 +147,7 @@ export const MEMBER_FAQ = [
 export const CHAPTER_FAQ = [
   {
     q: 'What does the application process look like?',
-    a: 'Three interviews: personality, chapter viability, and leadership. The full process takes one to two months.',
+    a: 'Three interviews: culture, chapter viability, and leadership. The full process takes one to two months.',
   },
   {
     q: 'How much contact will we have with HQ?',
@@ -152,7 +166,7 @@ export const CHAPTER_FAQ = [
 // Steps in the chapter application, from /start-a-chapter.
 export const CHAPTER_STEPS = [
   { num: '01', title: 'Apply', body: 'Submit the Start a Chapter form to open your application.' },
-  { num: '02', title: 'Personality', body: 'A conversation about your fit with the Blueprints mission. Invite only.' },
+  { num: '02', title: 'Culture', body: 'A conversation about how you and your team fit with the Blueprints mission. Invite only.' },
   { num: '03', title: 'Viability', body: 'An assessment of the chapter’s ability to succeed in your location. Invite only.' },
   { num: '04', title: 'Leadership', body: 'A review of your leadership experience and plan for launching. Invite only.' },
 ];

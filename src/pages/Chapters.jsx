@@ -1,4 +1,4 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, Navigate } from 'react-router-dom';
 import PageHeader from '../components/layout/PageHeader.jsx';
 import ChaptersList from '../components/sections/ChaptersList.jsx';
 import ChapterMap from '../components/pangaea/ChapterMap.jsx';
@@ -13,6 +13,9 @@ import { TOTALS } from '../data/stats.js';
 
 export default function Chapters() {
   const { chapterSlug } = useParams();
+
+  // Greater New Jersey became the Rutgers chapter; keep old links working.
+  if (chapterSlug === 'greater-nj') return <Navigate to="/chapters/rutgers" replace />;
 
   if (chapterSlug) {
     const chapter = CHAPTERS.find((c) => c.slug === chapterSlug);
@@ -192,16 +195,15 @@ function ChapterDetail({ chapter }) {
 }
 
 // The chapter's photos, from src/assets/images/chapters/<slug>/.
-// Until a chapter sends some, empty frames mark where they'll go.
+// A chapter with no real photos yet shows no gallery at all.
 function ChapterGallery({ chapter }) {
   const photos = chapterPhotos(chapter.slug);
+  if (photos.length === 0) return null;
   return (
     <Reveal className="chapter-gallery">
       <h2 className="section-title section-title--sm">Photos</h2>
       <div className="chapter-gallery__grid">
-        {photos.length > 0
-          ? photos.map((src) => <Photo key={src} src={src} alt={`${chapter.name} chapter members`} />)
-          : [0, 1, 2].map((n) => <Photo key={n} label="Chapter photo coming soon" />)}
+        {photos.map((src) => <Photo key={src} src={src} alt={`${chapter.name} chapter members`} />)}
       </div>
     </Reveal>
   );

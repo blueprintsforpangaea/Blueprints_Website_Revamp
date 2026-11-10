@@ -86,6 +86,8 @@ export const PRESS_ITEMS = [
 ];
 
 // Chapter-side updates the live press page carries alongside coverage.
+// Not shown on the Press page any more (team feedback: too thin);
+// kept here in case a fuller news section comes back.
 export const PRESS_UPDATES = [
   {
     id: 'delonis',

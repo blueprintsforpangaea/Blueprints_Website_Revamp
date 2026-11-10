@@ -4,10 +4,10 @@ import logoFull from '../../assets/logos/blueprints-logo-1.png';
 
 const NAV_ITEMS = [
   { to: '/', label: 'Home', end: true },
+  { to: '/about', label: 'About' },
   { to: '/mission', label: 'What we do' },
   { to: '/impact', label: 'Impact' },
   { to: '/chapters', label: 'Chapters' },
-  { to: '/about', label: 'About' },
   { to: '/press', label: 'Press' },
   { to: '/get-involved', label: 'Get involved' },
 ];

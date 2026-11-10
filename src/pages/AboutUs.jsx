@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import PageHeader from '../components/layout/PageHeader.jsx';
 import Reveal from '../components/ui/Reveal.jsx';
 import PhotoMarquee from '../components/ui/PhotoMarquee.jsx';
-import { LEADERSHIP_GROUPS } from '../data/team.js';
+import { LEADERSHIP_GROUPS, ANALYST_GROUPS } from '../data/team.js';
 import { headshotFor } from '../assets/team/headshots.js';
 import { TOTALS } from '../data/stats.js';
 import { ORG } from '../data/site.js';
@@ -15,7 +15,7 @@ import blanketPhoto from '../assets/images/44785d8d-ef05-4297-97c2-434536b603a8.
 import classPhoto from '../assets/images/dsc07300.jpg';
 import suitsPhoto from '../assets/images/dsc04424.jpg';
 import osuPhoto from '../assets/images/chapters/osu/b4p-eboard.jpg';
-import gnjPhoto from '../assets/images/chapters/greater-nj/img-5664.jpg';
+import gnjPhoto from '../assets/images/chapters/rutgers/img-5664.jpg';
 import wsuPhoto from '../assets/images/chapters/wayne-state/img-2328.jpg';
 
 // A side-scrolling strip of photos from headquarters and the chapters.
@@ -24,7 +24,7 @@ const STRIP = [
   { src: osuPhoto, alt: 'Ohio State chapter members', caption: 'Ohio State' },
   { src: boxesPhoto, alt: 'Four members in front of stacked boxes of supplies' },
   { src: tablePhoto, alt: 'Members at a Blueprints information table' },
-  { src: gnjPhoto, alt: 'Greater New Jersey members with donated supplies', caption: 'Greater New Jersey' },
+  { src: gnjPhoto, alt: 'Rutgers members with donated supplies', caption: 'Rutgers' },
   { src: vanPhoto, alt: 'Three members sitting in a van loaded with boxes' },
   { src: blanketPhoto, alt: 'Members making blankets at Day of Service' },
   { src: wsuPhoto, alt: 'Wayne State members packing supplies', caption: 'Wayne State' },
@@ -99,6 +99,25 @@ export default function AboutUs() {
               </ul>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Everyone else at headquarters, by name. */}
+      <section className="section" aria-labelledby="analysts-title">
+        <div className="container">
+          <Reveal className="section-head">
+            <h2 id="analysts-title" className="section-title">Analysts at headquarters</h2>
+          </Reveal>
+          <div className="roster">
+            {ANALYST_GROUPS.map((group) => (
+              <Reveal className="roster__group" key={group.id}>
+                <h3>{group.title}</h3>
+                <ul>
+                  {group.names.map((name) => <li key={name}>{name}</li>)}
+                </ul>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
     </article>
