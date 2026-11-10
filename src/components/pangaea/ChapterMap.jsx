@@ -42,6 +42,7 @@ const SIDE = {
   washu: 'below',
   unomaha: 'left',
   'miami-med': 'left',
+  'utah-med': 'above',
 };
 
 const NAME = Object.fromEntries(CHAPTERS.map((c) => [c.slug, c]));

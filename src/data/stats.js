@@ -11,7 +11,9 @@
 //  · chapters: the About Us page states "11 Active Chapters &
 //    150+ Members". The home page's "10+ National Chapters" is
 //    the older, rounded-down phrasing. UC Berkeley (2025) is
-//    now active too, per leadership, so the count is 12.
+//    now active too, per leadership, so the count is 12. The
+//    University of Utah School of Medicine (2026) joined in
+//    Nov. 2026, per Rohan, making it 13.
 //    Rutgers is the former Greater New Jersey chapter (renamed
 //    after it gained Rutgers affiliation), not a 13th chapter.
 //  · wasteTons: 5 million tons ≈ 10 billion pounds of unused
@@ -23,7 +25,7 @@ export const TOTALS = {
   suppliesValueExact: '$9,077,500.09',
   suppliesValueShort: '$9 million+',
   countries: 15,
-  chapters: 12,
+  chapters: 13,
   members: 150,
   founded: 2013,
   wasteTons: 5_000_000,

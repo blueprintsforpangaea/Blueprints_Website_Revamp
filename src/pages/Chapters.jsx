@@ -195,16 +195,15 @@ function ChapterDetail({ chapter }) {
 }
 
 // The chapter's photos, from src/assets/images/chapters/<slug>/.
-// Until a chapter sends some, empty frames mark where they'll go.
+// A chapter with no real photos yet shows no gallery at all.
 function ChapterGallery({ chapter }) {
   const photos = chapterPhotos(chapter.slug);
+  if (photos.length === 0) return null;
   return (
     <Reveal className="chapter-gallery">
       <h2 className="section-title section-title--sm">Photos</h2>
       <div className="chapter-gallery__grid">
-        {photos.length > 0
-          ? photos.map((src) => <Photo key={src} src={src} alt={`${chapter.name} chapter members`} />)
-          : [0, 1, 2].map((n) => <Photo key={n} label="Chapter photo coming soon" />)}
+        {photos.map((src) => <Photo key={src} src={src} alt={`${chapter.name} chapter members`} />)}
       </div>
     </Reveal>
   );

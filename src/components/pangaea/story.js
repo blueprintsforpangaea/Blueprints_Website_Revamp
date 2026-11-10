@@ -9,7 +9,7 @@ import { CHAPTERS } from '../../data/chapters.js';
 import { DESTINATIONS, HQ } from '../../data/destinations.js';
 import { plateOf } from './plates.js';
 
-// Campus cities for the 12 chapters, keyed by chapters.js slug.
+// Campus cities for the 13 chapters, keyed by chapters.js slug.
 const CAMPUS = {
   umich: { lat: 42.2808, lng: -83.743, short: 'Michigan · HQ', dx: -1 },
   msu: { lat: 42.737, lng: -84.4839, short: 'Michigan State', dx: -1, dy: -1 },
@@ -23,6 +23,7 @@ const CAMPUS = {
   unomaha: { lat: 41.2587, lng: -96.0067, short: 'Nebraska Omaha', dx: -1 },
   rutgers: { lat: 40.5008, lng: -74.4474, short: 'Rutgers', dy: 1 },
   berkeley: { lat: 37.8719, lng: -122.2585, short: 'UC Berkeley', dx: -1, dy: -1 },
+  'utah-med': { lat: 40.7708, lng: -111.8382, short: 'Utah Medicine', dy: -1 },
 };
 
 export const CHAPTER_PINS = CHAPTERS.filter((c) => CAMPUS[c.slug]).map((c) => ({

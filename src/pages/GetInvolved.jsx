@@ -12,13 +12,15 @@ import {
   CHAPTER_STEPS,
   EXPANSION_CONTACT,
   VOLUNTEER_CTA,
+  CHAPTER_APPLY_PATH,
+  CHAPTER_APPLICATION_URL,
+  CHAPTER_GOOGLE_FORM_URL,
 } from '../data/involvement.js';
 import { ORG } from '../data/site.js';
 import { RECRUITMENT } from '../data/recruitment.js';
 import { DEPARTMENT_COUNT_WORD, DEPARTMENT_LIST } from '../data/departments.js';
 
 const pathway = (id) => PATHWAYS.find((p) => p.id === id);
-const chapterFormUrl = pathway('chapter').url;
 const volunteer = pathway('volunteer');
 
 // Pick who you are and the page shows only what applies to you.
@@ -122,9 +124,13 @@ export default function GetInvolved() {
               ))}
             </ol>
             <div className="btn-row">
-              <a href={chapterFormUrl} target="_blank" rel="noreferrer" className="btn btn--dark">
-                Start a chapter
-              </a>
+              {CHAPTER_APPLICATION_URL ? (
+                <Link to={CHAPTER_APPLY_PATH} className="btn btn--dark">Apply to start a chapter</Link>
+              ) : (
+                <a href={CHAPTER_GOOGLE_FORM_URL} target="_blank" rel="noreferrer" className="btn btn--dark">
+                  Apply to start a chapter
+                </a>
+              )}
             </div>
           </Reveal>
           <Reveal delay={0.12}>

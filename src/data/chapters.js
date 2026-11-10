@@ -1,12 +1,14 @@
 
 // ============================================================
-// 12 active chapters. Every `since` year, member count, partner
+// 13 active chapters. Every `since` year, member count, partner
 // list, and contact below is taken from that chapter's own page on
 // blueprintsforpangaea.org (rechecked Oct. 2026). Blurbs keep each
 // page's facts in plainer wording.
 // A chapter lead is listed only where that page names one with a
-// title. UC Berkeley (2025) has no page yet, so it carries only
-// its name, city, and year; its email is headquarters'.
+// title. UC Berkeley (2025) and the University of Utah School of
+// Medicine (2026, added per Rohan Nov. 2026) have no page yet, so
+// they carry only their name, city, and year; their email is
+// headquarters'.
 //
 // Note: the Greater New Jersey chapter is now affiliated with
 // Rutgers and goes by Rutgers (per the team, Oct. 2026); its old
@@ -165,6 +167,13 @@ export const CHAPTERS = [
     name: 'UC Berkeley',
     location: 'Berkeley, CA',
     since: 2025,
+    email: 'contact@b4pglobal.org',
+  },
+  {
+    slug: 'utah-med',
+    name: 'University of Utah School of Medicine',
+    location: 'Salt Lake City, UT',
+    since: 2026,
     email: 'contact@b4pglobal.org',
   },
   {
