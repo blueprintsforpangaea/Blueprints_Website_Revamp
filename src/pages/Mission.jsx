@@ -23,7 +23,7 @@ const STEP_PHOTOS = [
 
 
 // A department as a postcard: photo and name on the front; what the
-// team is responsible for and its projects on the back. Click to flip.
+// team is responsible for on the back. Click to flip.
 function DeptCard({ dept }) {
   const [flipped, setFlipped] = useState(false);
   const reduce = useReducedMotion();
@@ -37,7 +37,7 @@ function DeptCard({ dept }) {
       <div className="postcard__body">
         <h3 className="postcard__name">{dept.name}</h3>
         {dept.summary && <p className="postcard__line">{dept.summary}</p>}
-        {hasBack && <span className="postcard__turn">See their projects <span aria-hidden="true">↻</span></span>}
+        {hasBack && <span className="postcard__turn">See what they do <span aria-hidden="true">↻</span></span>}
       </div>
     </>
   );
@@ -71,13 +71,6 @@ function DeptCard({ dept }) {
         </summary>
         <div className="deptrow__more">
           {dept.responsibilities && <p className="postcard__resp">{dept.responsibilities.join(' · ')}</p>}
-          {dept.projects && (
-            <ul className="postcard__projects">
-              {dept.projects.map((p) => (
-                <li key={p.name}><strong>{p.name}</strong>{p.detail}</li>
-              ))}
-            </ul>
-          )}
           {dept.video && <a className="postcard__video" href={dept.video} target="_blank" rel="noreferrer">Watch the video →</a>}
         </div>
       </details>
@@ -90,20 +83,13 @@ function DeptCard({ dept }) {
       className={`postcard postcard--flips ${flipped ? 'is-flipped' : ''} ${reduce ? 'postcard--still' : ''}`}
       onClick={() => setFlipped((f) => !f)}
       aria-pressed={flipped}
-      aria-label={`${dept.name}: ${flipped ? 'show photo' : 'show projects'}`}
+      aria-label={`${dept.name}: ${flipped ? 'show photo' : 'show what they do'}`}
     >
       <div className="postcard__face postcard__face--front" aria-hidden={flipped}>{front}</div>
       <div className="postcard__face postcard__face--back" aria-hidden={!flipped}>
         <h3 className="postcard__name">{dept.name}</h3>
         {dept.responsibilities && (
           <p className="postcard__resp">{dept.responsibilities.join(' · ')}</p>
-        )}
-        {dept.projects && (
-          <ul className="postcard__projects">
-            {dept.projects.map((p) => (
-              <li key={p.name}><strong>{p.name}</strong>{p.detail}</li>
-            ))}
-          </ul>
         )}
         {dept.video && (
           <a
