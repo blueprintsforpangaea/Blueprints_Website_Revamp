@@ -102,22 +102,27 @@ export default function AboutUs() {
         </div>
       </section>
 
-      {/* Everyone else at headquarters, by name. */}
+      {/* Everyone else at headquarters, with photos where we have them. */}
       <section className="section" aria-labelledby="analysts-title">
         <div className="container">
           <Reveal className="section-head">
             <h2 id="analysts-title" className="section-title">Analysts at headquarters</h2>
           </Reveal>
-          <div className="roster">
-            {ANALYST_GROUPS.map((group) => (
-              <Reveal className="roster__group" key={group.id}>
+          {ANALYST_GROUPS.map((group) => (
+            <div className="team-group" key={group.id}>
+              <Reveal className="team-group__head">
                 <h3>{group.title}</h3>
-                <ul>
-                  {group.names.map((name) => <li key={name}>{name}</li>)}
-                </ul>
               </Reveal>
-            ))}
-          </div>
+              <ul className="people">
+                {group.names.map((name, i) => (
+                  <Reveal as="li" className="person" key={name} delay={Math.min(i, 6) * 0.04} y={14}>
+                    <Headshot person={{ name }} />
+                    <span className="person__name">{name}</span>
+                  </Reveal>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
       </section>
     </article>

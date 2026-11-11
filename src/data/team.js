@@ -66,7 +66,8 @@ export const NEW_ANALYSTS = [
   'Ayush Patel', 'Sai Tallapally',
 ];
 
-// Shown as plain name lists under the headshot groups.
+// Shown as headshot grids under leadership; initials until a photo
+// is added to src/assets/team.
 export const ANALYST_GROUPS = [
   { id: 'senior-analysts', title: 'Senior Analysts', names: SENIOR_ANALYSTS },
   { id: 'analysts', title: 'Analysts', names: ANALYSTS },
