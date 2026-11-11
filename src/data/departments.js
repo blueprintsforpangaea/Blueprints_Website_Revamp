@@ -3,6 +3,7 @@
 // them. Operations, Development, Expansion, and Finance are
 // verbatim from the Mission page. Technology and Internal are not
 // described on the live site yet, so they carry only a name.
+// (`projects` is kept for reference but not shown on the site.)
 // Fill in `charter`, `responsibilities`, and `projects` once the
 // teams provide real copy. Never write placeholder descriptions.
 //
