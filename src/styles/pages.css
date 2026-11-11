@@ -123,9 +123,8 @@
 .donate-band__note { margin-top: 2rem; color: var(--on-dark-muted); font-size: 1.05rem; }
 .donate-band .donate-card { background: var(--surface); color: var(--text); border-color: transparent; }
 .donate-band .donate-card h2 { color: var(--heading); }
-.donate-impact-list { margin-top: 1.5rem; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 clamp(2rem, 5vw, 4rem); }
+.donate-impact-list { margin-top: 1.5rem; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem; }
 @media (max-width: 820px) { .donate-impact-list { grid-template-columns: 1fr; } }
-.donate-band .big-figure strong { white-space: nowrap; font-size: clamp(2.8rem, 6.5vw, 5.5rem); }
 
 /* ============================================================
    PHOTOS — a real photo, or an empty frame where one belongs.
@@ -569,7 +568,13 @@ button.choose__card:hover { border-color: var(--c-navy); transform: translateY(-
 .chapter-recruit .recruit { margin-top: 1.25rem; }
 /* Donate: the page title stands on its own, and the total is labelled. */
 .donate-band__title { font-size: clamp(2.4rem, 5vw, 3.5rem); color: var(--c-white); font-weight: 800; margin-bottom: 1.75rem; }
-.big-figure .donate-band__label { margin: 0 0 0.5rem; font-size: 1.1rem; font-weight: 700; color: var(--c-blue-light); }
+.donate-band__intro { display: flex; flex-direction: column; }
+.donate-band__lede { font-size: clamp(1.3rem, 2vw, 1.6rem); line-height: 1.45; color: var(--c-white); max-width: 30rem; }
+.donate-band__lede strong { font-weight: 800; white-space: nowrap; }
+.donate-band__intro .donate-band__note { margin-top: 1rem; max-width: 30rem; }
+.donate-band .band-navy__split { align-items: stretch; }
+.donate-band__photo { margin-top: 2rem; width: 100%; flex: 1 1 0; min-height: 12rem; object-fit: cover; object-position: center 60%; border-radius: var(--radius); }
+@media (max-width: 899px) { .donate-band__photo { display: none; } }
 
 /* ============================================================
    BIG AND ULTRAWIDE SCREENS — everything is sized in rem, so the

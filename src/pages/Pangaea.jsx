@@ -106,7 +106,7 @@ export default function Pangaea() {
             </p>
             <ol className="pg-list pg-list--num">
               {PROCESS.map((text, i) => (
-                <li key={text}><span className="pg-list__num">{i + 1}</span>{text}</li>
+                <li key={text}><span className="pg-list__num">{i + 1}</span><span className="pg-list__text">{text}</span></li>
               ))}
             </ol>
           </section>

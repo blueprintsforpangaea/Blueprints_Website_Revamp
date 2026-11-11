@@ -4,6 +4,7 @@ import { DONATE_URL, ORG } from '../data/site.js';
 import { TOTALS } from '../data/stats.js';
 import { SHIPMENTS } from '../data/shipments.js';
 import { SPONSORS } from '../data/sponsors.js';
+import boxesPhoto from '../assets/images/238939e5-8c3b-4744-bfd5-5a90886e10a3dsc-0252.jpg';
 
 const sponsorLogos = import.meta.glob('../assets/sponsors/*.{png,jpg,jpeg,svg,webp}', { eager: true, import: 'default' });
 const sponsorLogo = (name) =>
@@ -34,16 +35,23 @@ export default function Donate() {
           total beside the gift form. */}
       <section className="band-navy donate-band">
         <div className="container band-navy__split band-navy__split--top">
-          <div>
+          <div className="donate-band__intro">
             <h1 className="donate-band__title">Donate</h1>
-            <p className="big-figure">
-              <span className="donate-band__label">Donated so far</span>
-              <strong>{TOTALS.suppliesValueShort}</strong>
-              <span>in medical supplies, to clinics in {TOTALS.countries}+ countries.</span>
+            <p className="donate-band__lede">
+              We’ve shipped more than{' '}
+              <strong>${Math.floor(TOTALS.suppliesValue / 1_000_000)} million</strong> in medical supplies to
+              clinics in {TOTALS.countries}+ countries.
             </p>
             <p className="donate-band__note">
               {ORG.name} is a {ORG.taxStatus}, so your donation is tax-deductible.
             </p>
+            <img
+              className="donate-band__photo"
+              src={boxesPhoto}
+              alt="Four members in front of stacked boxes of supplies"
+              loading="lazy"
+              decoding="async"
+            />
           </div>
           <Reveal as="div" className="donate-card">
             <h2 className="donate-card__title">Choose an amount</h2>
