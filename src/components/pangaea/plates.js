@@ -19,6 +19,7 @@ import { geoCentroid } from 'd3-geo';
 import world from '../../data/world-110m.json';
 import GREAT_LAKES from '../../data/great-lakes.json';
 import STATE_BORDERS from '../../data/us-state-borders.json';
+import { prepareRing, toVectors } from './sphere.js';
 
 const RAD = Math.PI / 180;
 
@@ -229,21 +230,19 @@ const COUNTRY_BORDERS = [...new Set(PLATE_BY_COUNTRY.values())].map((plate) => (
   coordinates: mesh(world, world.objects.countries, (a, b) =>
     a !== b && PLATE_BY_COUNTRY.get(a) === plate && PLATE_BY_COUNTRY.get(b) === plate).coordinates,
 }));
-const onPlate = (coords, plate, mats) =>
-  Array.isArray(coords[0]) ? coords.map((c) => onPlate(c, plate, mats)) : movePoint(coords[0], coords[1], plate, mats);
 
-// Country borders everywhere plus U.S. state lines, at the given drift.
-export function borderLines(mats) {
-  return {
-    type: 'MultiLineString',
-    coordinates: [
-      ...onPlate(STATE_BORDERS.coordinates, 'nam', mats),
-      ...COUNTRY_BORDERS.flatMap((b) => onPlate(b.coordinates, b.plate, mats)),
-    ],
-  };
-}
-
-// The Great Lakes, at the given drift.
-export function greatLakes(mats) {
-  return GREAT_LAKES.features.map((f) => ({ type: f.geometry.type, coordinates: onPlate(f.geometry.coordinates, 'nam', mats) }));
-}
+// ---------- ready for the fast globe (sphere.js) ----------
+// Every shape as 3D unit vectors, prepared once, so drawing a frame
+// never goes back through longitude and latitude.
+export const LAND_RINGS = PLATES.map((p) => ({
+  id: p.id,
+  rings: p.polys.flatMap((poly) => poly.map((buf) => prepareRing(buf))),
+}));
+export const LAKE_RINGS = GREAT_LAKES.features.flatMap((f) =>
+  (f.geometry.type === 'Polygon' ? [f.geometry.coordinates] : f.geometry.coordinates)
+    .flatMap((poly) => poly.map((ring) => prepareRing(ring))));
+// Border lines grouped by the plate they ride on.
+export const BORDER_LINES = [
+  { plate: 'nam', lines: STATE_BORDERS.coordinates.map(toVectors) },
+  ...COUNTRY_BORDERS.map((b) => ({ plate: b.plate, lines: b.coordinates.map(toVectors) })),
+];
