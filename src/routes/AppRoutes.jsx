@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 // Each page is its own download, so the first visit only loads the
 // page it lands on. Once the browser is idle the rest load in the
@@ -16,7 +16,6 @@ const pages = {
   Chapters: () => import('../pages/Chapters.jsx'),
   NotFound: () => import('../pages/NotFound.jsx'),
   Pangaea: () => import('../pages/Pangaea.jsx'),
-  ChapterApplication: () => import('../pages/ChapterApplication.jsx'),
 };
 const Home = lazy(pages.Home);
 const Mission = lazy(pages.Mission);
@@ -29,7 +28,6 @@ const Donate = lazy(pages.Donate);
 const Chapters = lazy(pages.Chapters);
 const NotFound = lazy(pages.NotFound);
 const Pangaea = lazy(pages.Pangaea);
-const ChapterApplication = lazy(pages.ChapterApplication);
 
 function usePrefetchPages() {
   useEffect(() => {
@@ -58,7 +56,7 @@ export default function AppRoutes() {
         <Route path="/chapters" element={<Chapters />} />
         <Route path="/chapters/:chapterSlug" element={<Chapters />} />
         <Route path="/pangaea" element={<Pangaea />} />
-        <Route path="/apply/chapter" element={<ChapterApplication />} />
+        <Route path="/apply/chapter" element={<Navigate to="/get-involved#chapter" replace />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>

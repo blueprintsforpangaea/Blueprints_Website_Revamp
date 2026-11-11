@@ -12,15 +12,13 @@ export const VOLUNTEER_URL =
 // Button text to match: a sign-up page, or an email.
 export const VOLUNTEER_CTA = CALENDLY_URL ? 'Sign up for a shift' : 'Email us to volunteer';
 
-// Chapter founder application. The form lives on this site at
-// /apply/chapter and sends each answer to a Google Sheet through
-// the Apps Script in google-apps-script/chapter-application.gs.
-// Paste that script's Web app URL (ends in /exec) here. Until it is
-// set, the page sends people to the old Google Form instead.
-export const CHAPTER_APPLICATION_URL = '';
+// Chapter founder application: the expansion team's Google Form,
+// opened in a new tab. It has a resume upload, which needs a Google
+// sign-in, so it can't be embedded in the page (Google's sign-in
+// won't load inside another site). Swap the link here if the team
+// makes a new form.
 export const CHAPTER_GOOGLE_FORM_URL =
-  'https://docs.google.com/forms/d/e/1FAIpQLScuMFnvbCJuHMaKY-ZKl95_i69SFd-hoTTkD82A9nFxw3UGJw/viewform';
-export const CHAPTER_APPLY_PATH = '/apply/chapter';
+  'https://docs.google.com/forms/d/e/1FAIpQLSfJcp6-dBTzLKnaxEwfbsov1_tS81WlMABZSeIYmKfd55jbeg/viewform';
 
 // ============================================================
 // The six real ways in, with the actual application forms.
@@ -46,7 +44,7 @@ export const PATHWAYS = [
     body:
       'Three interviews over one to two months. Once you launch, an expansion manager meets with your chapter every week.',
     cta: 'Start a chapter',
-    ...(CHAPTER_APPLICATION_URL ? { to: CHAPTER_APPLY_PATH } : { url: CHAPTER_GOOGLE_FORM_URL }),
+    url: CHAPTER_GOOGLE_FORM_URL,
   },
   {
     id: 'volunteer',

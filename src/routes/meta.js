@@ -39,10 +39,6 @@ const ROUTES = {
     description:
       'Join at headquarters, start a chapter, volunteer at the warehouse, apply for the high school internship, or donate supplies.',
   },
-  '/apply/chapter': {
-    title: `Apply to start a chapter — ${SUFFIX}`,
-    description: `Apply to found a ${ORG.name} chapter at your university.`,
-  },
   '/gala': {
     title: `Blueprints Healthcare Business Gala — ${SUFFIX}`,
     description:
