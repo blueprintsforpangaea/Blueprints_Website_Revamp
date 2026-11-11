@@ -12,8 +12,6 @@ import {
   CHAPTER_STEPS,
   EXPANSION_CONTACT,
   VOLUNTEER_CTA,
-  CHAPTER_APPLY_PATH,
-  CHAPTER_APPLICATION_URL,
   CHAPTER_GOOGLE_FORM_URL,
 } from '../data/involvement.js';
 import { ORG } from '../data/site.js';
@@ -124,13 +122,9 @@ export default function GetInvolved() {
               ))}
             </ol>
             <div className="btn-row">
-              {CHAPTER_APPLICATION_URL ? (
-                <Link to={CHAPTER_APPLY_PATH} className="btn btn--dark">Apply to start a chapter</Link>
-              ) : (
-                <a href={CHAPTER_GOOGLE_FORM_URL} target="_blank" rel="noreferrer" className="btn btn--dark">
-                  Apply to start a chapter
-                </a>
-              )}
+              <a href={CHAPTER_GOOGLE_FORM_URL} target="_blank" rel="noreferrer" className="btn btn--dark">
+                Apply to start a chapter
+              </a>
             </div>
           </Reveal>
           <Reveal delay={0.12}>
