@@ -95,7 +95,7 @@ export const SHIPMENTS = [
     place: 'Honduras',
     region: 'The Americas',
     chapter: 'Ohio State',
-    detail: 'Monthly medical supply shipments run by the Ohio State chapter.',
+    detail: 'Medical supply shipments sent by the Ohio State chapter.',
   },
 
   // ---------- Asia ----------

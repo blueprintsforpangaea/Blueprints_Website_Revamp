@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PageHeader from '../components/layout/PageHeader.jsx';
 import Reveal from '../components/ui/Reveal.jsx';
@@ -6,7 +5,6 @@ import Photo from '../components/ui/Photo.jsx';
 import { DEPARTMENTS, PIPELINE } from '../data/departments.js';
 import { TOTALS } from '../data/stats.js';
 import { departmentPhoto } from '../assets/photos.js';
-import useMediaQuery from '../hooks/useMediaQuery.js';
 import { motion, useReducedMotion } from 'framer-motion';
 import partnerPhoto from '../assets/images/12dd519c-c348-407b-b191-8031453d39c2-1-105-c.jpg';
 import collectPhoto from '../assets/images/726a596d-3249-43ff-a5c2-4c5e01be5098.jpg';
@@ -22,89 +20,27 @@ const STEP_PHOTOS = [
 ];
 
 
-// A department as a postcard: photo and name on the front; what the
-// team is responsible for on the back. Click to flip.
+// A department card: photo, name, what the team does. The same for every
+// department, and nothing to click.
 function DeptCard({ dept }) {
-  const [flipped, setFlipped] = useState(false);
-  const reduce = useReducedMotion();
-  const phone = useMediaQuery('(max-width: 600px)');
-  const hasBack = Boolean(dept.charter);
-  const photo = departmentPhoto(dept.id);
-
-  const front = (
-    <>
-      <Photo src={photo} alt="" className="postcard__photo" label="Department photo coming soon" />
-      <div className="postcard__body">
-        <h3 className="postcard__name">{dept.name}</h3>
-        {dept.summary && <p className="postcard__line">{dept.summary}</p>}
-        {hasBack && <span className="postcard__turn">See what they do <span aria-hidden="true">↻</span></span>}
-      </div>
-    </>
-  );
-
-  if (!hasBack && phone) {
-    return (
-      <div className="deptrow">
-        <div className="deptrow__head">
-          <Photo src={photo} alt="" className="deptrow__photo" label="Photo soon" />
-          <span className="deptrow__text"><span className="postcard__name">{dept.name}</span></span>
-        </div>
-      </div>
-    );
-  }
-
-  if (!hasBack) {
-    return <div className="postcard"><div className="postcard__face postcard__face--front">{front}</div></div>;
-  }
-
-  // Phones: a compact row that opens downward. A flipping card would
-  // have to be as tall as its longest side, which wastes a phone screen.
-  if (phone) {
-    return (
-      <details className="deptrow">
-        <summary>
-          <Photo src={photo} alt="" className="deptrow__photo" label="Photo soon" />
-          <span className="deptrow__text">
-            <span className="postcard__name">{dept.name}</span>
-            <span className="deptrow__line">{dept.summary}</span>
-          </span>
-        </summary>
-        <div className="deptrow__more">
-          {dept.responsibilities && <p className="postcard__resp">{dept.responsibilities.join(' · ')}</p>}
-          {dept.video && <a className="postcard__video" href={dept.video} target="_blank" rel="noreferrer">Watch the video →</a>}
-        </div>
-      </details>
-    );
-  }
-
   return (
-    <button
-      type="button"
-      className={`postcard postcard--flips ${flipped ? 'is-flipped' : ''} ${reduce ? 'postcard--still' : ''}`}
-      onClick={() => setFlipped((f) => !f)}
-      aria-pressed={flipped}
-      aria-label={`${dept.name}: ${flipped ? 'show photo' : 'show what they do'}`}
-    >
-      <div className="postcard__face postcard__face--front" aria-hidden={flipped}>{front}</div>
-      <div className="postcard__face postcard__face--back" aria-hidden={!flipped}>
-        <h3 className="postcard__name">{dept.name}</h3>
-        {dept.responsibilities && (
-          <p className="postcard__resp">{dept.responsibilities.join(' · ')}</p>
-        )}
-        {dept.video && (
-          <a
-            className="postcard__video"
-            href={dept.video}
-            target="_blank"
-            rel="noreferrer"
-            onClick={(e) => e.stopPropagation()}
-          >
-            Watch the video →
-          </a>
-        )}
-        <span className="postcard__turn">Back to photo <span aria-hidden="true">↻</span></span>
+    <div className="postcard">
+      <div className="postcard__face postcard__face--front">
+        <Photo src={departmentPhoto(dept.id)} alt="" className="postcard__photo" label="Department photo coming soon" />
+        <div className="postcard__body">
+          <h3 className="postcard__name">{dept.name}</h3>
+          <p className="postcard__line">{dept.about}</p>
+          <ul className="postcard__work">
+            {dept.work.map((item) => <li key={item}>{item}</li>)}
+          </ul>
+          {dept.video && (
+            <a className="postcard__video" href={dept.video} target="_blank" rel="noreferrer">
+              Watch the video →
+            </a>
+          )}
+        </div>
       </div>
-    </button>
+    </div>
   );
 }
 
@@ -123,16 +59,17 @@ export default function Mission() {
           <Reveal>
             <p className="big-figure">
               <strong>{(TOTALS.wasteTons / 1_000_000).toFixed(0)} million tons</strong>
-              <span>of unused medical supplies thrown away by U.S. healthcare every year</span>
+              <span>of waste produced by U.S. hospitals every year</span>
             </p>
           </Reveal>
           <Reveal className="band-navy__text" delay={0.1}>
             <h2>The problem and our solution</h2>
             <p>
               Billions of people around the world lack basic medical supplies and equipment, while
-              roughly {(TOTALS.wastePounds / 1_000_000_000).toFixed(0)} billion pounds go to waste here.
-              Our university chapters and high school clubs collect some of that surplus and ship it
-              to clinics and hospitals, in the U.S. and overseas.
+              U.S. hospitals throw out roughly {(TOTALS.wastePounds / 1_000_000_000).toFixed(0)} billion
+              pounds of waste a year, including supplies that were never opened. Our university
+              chapters and high school clubs collect some of that surplus and ship it to clinics and
+              hospitals, in the U.S. and overseas.
             </p>
           </Reveal>
         </div>
@@ -169,7 +106,7 @@ export default function Mission() {
         <div className="container">
           <Reveal className="section-head">
             <h2 className="section-title">Our departments</h2>
-            <p>Click or tap a department to see what the team works on.</p>
+            <p>Every member joins one department and works with all of them.</p>
           </Reveal>
 
           <div className="postcards">

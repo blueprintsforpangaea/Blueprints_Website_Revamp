@@ -15,7 +15,7 @@ const ROUTES = {
   '/mission': {
     title: `What we do — ${SUFFIX}`,
     description:
-      'The U.S. healthcare system discards over 5 million tons of unused medical supplies a year. Our chapters collect some of it and ship it to clinics that are short on supplies.',
+      'U.S. hospitals produce over 5 million tons of waste a year, including unopened medical supplies. Our chapters collect some of them and ship them to clinics that are short on supplies.',
   },
   '/impact': {
     title: `Impact — ${SUFFIX}`,

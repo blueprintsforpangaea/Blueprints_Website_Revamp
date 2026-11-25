@@ -69,7 +69,6 @@ function ChapterDetail({ chapter }) {
   const facts = [
     chapter.since && { label: 'Established', value: chapter.since },
     chapter.members && { label: 'Members', value: chapter.members },
-    chapter.valueShipped && { label: 'Supplies shipped', value: chapter.valueShipped },
   ].filter(Boolean);
 
   return (

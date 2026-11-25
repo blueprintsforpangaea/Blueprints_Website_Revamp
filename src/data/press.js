@@ -77,12 +77,6 @@ export const PRESS_ITEMS = [
     excerpt:
       'Coverage of our shipments to hospitals overseas, including Hospital General de México.',
   },
-  {
-    id: 'college-towns',
-    headline: 'College towns are the next big thing for startups',
-    excerpt:
-      'On entrepreneurship outside Silicon Valley, with Ohio State, Washington University, and the University of Denver named as emerging hubs.',
-  },
 ];
 
 // Chapter-side updates the live press page carries alongside coverage.

@@ -42,7 +42,6 @@ const PROCESS = [
 
 const SHIPMENTS = [
   ['Nigeria', 'More than 60 pallets, worth over $573,000, in July 2025.'],
-  ['Honduras', 'A shipment every month, run by our Ohio State chapter.'],
 ];
 
 export default function Pangaea() {
@@ -63,9 +62,8 @@ export default function Pangaea() {
           </div>
           <div className="pg-caption">
             <p>
-              Our name comes from Pangaea, when every continent was joined as one landmass. Our
-              shipments link those places again: the lines show where our chapters have sent
-              supplies.
+              Our name comes from Pangaea, the supercontinent that once joined every landmass. The
+              lines on this map show where our chapters have sent supplies.
             </p>
             {isPhone && (
               <button type="button" className="pg-replay" onClick={() => setPlayKey((k) => k + 1)}>
@@ -102,8 +100,8 @@ export default function Pangaea() {
           <section className="pg-step">
             <h2>How we operate</h2>
             <p>
-              U.S. hospitals throw away over {(TOTALS.wasteTons / 1_000_000).toFixed(0)} million tons
-              of medical supplies a year, much of it never opened. Students at our{' '}
+              U.S. hospitals produce over {(TOTALS.wasteTons / 1_000_000).toFixed(0)} million tons
+              of waste a year, and some of it is medical supplies that were never opened. Students at our{' '}
               {TOTALS.chapters} chapters, the dots on the map, collect some of it:
             </p>
             <ol className="pg-list pg-list--num">
@@ -117,7 +115,7 @@ export default function Pangaea() {
             <h2>Where the supplies go</h2>
             <p>
               Clinics and hospitals in more than {TOTALS.countries} countries. Each line on the map
-              is a shipment, for example:
+              is a shipment. One example:
             </p>
             <ul className="pg-list">
               {SHIPMENTS.map(([place, text]) => (

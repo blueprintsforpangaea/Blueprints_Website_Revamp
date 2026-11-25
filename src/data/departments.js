@@ -1,21 +1,20 @@
 // ============================================================
 // The six headquarters departments, in the order leadership lists
-// them. Operations, Development, Expansion, and Finance are
-// verbatim from the Mission page. Technology and Internal are not
-// described on the live site yet, so they carry only a name.
-// (`projects` is kept for reference but not shown on the site.)
-// Fill in `charter`, `responsibilities`, and `projects` once the
-// teams provide real copy. Never write placeholder descriptions.
+// them. Every card shows the same three things, with no flipping:
+// a photo, `about` (one or two plain sentences), and `work` (what
+// the team does day to day). Keep both short and specific; never
+// write placeholder or marketing copy.
 //
-// `summary`: one plain line for the front of the department's card.
-// `video` (optional): a link to the department's explainer video
-// (YouTube, Drive, etc.). Its card shows a "Watch the video" link.
+// Sources (Nov. 2026): Technology from what the team has built
+// (the member Hub, the dashboards, the Medical Supply Request
+// System). Internal and Expansion's high school work per Rohan
+// (CTO). Operations, Development and Finance from the old Mission
+// page's lists, minus the marketing wording. Development does not
+// work with high schools; Expansion does.
+//
+// `video` (optional): a link to the department's explainer video.
 // Photos live in src/assets/images/departments/<id>.jpg.
-//
-// `leads` are exact role titles from team.js. Only confirmed
-// leadership is listed: the CTO leads Technology (confirmed by the
-// CTO), and each other department lists only its VP until its
-// chief is confirmed.
+// `leads` are exact role titles from team.js.
 // ============================================================
 
 export const DEPARTMENTS = [
@@ -23,118 +22,68 @@ export const DEPARTMENTS = [
     id: 'technology',
     leads: ['Chief Technology Officer', 'VP of Technology'],
     name: 'Technology',
+    about:
+      'Builds and runs the software Blueprints uses, from the member Hub to the site clinics use to request supplies.',
+    work: [
+      'The member Hub',
+      'Inventory, shipment and finance dashboards',
+      'The Medical Supply Request System',
+    ],
   },
   {
     id: 'operations',
     leads: ['VP of Operations'],
     name: 'Operations',
-    summary: 'Runs our supply chain, from the warehouse shelves to each shipment.',
-    charter:
-      'Operations manages the backbone of Blueprints for Pangaea: our supply chain. From sourcing and storing medical supplies to ensuring they reach communities in need, Operations turns our mission into measurable impact.',
-    responsibilities: [
-      'Supplier & recipient relations',
-      'Inventory management',
+    about: 'Runs our supply chain, from taking in donated supplies to sending each shipment.',
+    work: [
+      'Supplier and recipient relations',
+      'Warehouse inventory',
       'Shipment coordination',
-      'Process optimization',
-      'Technology & innovation',
-    ],
-    projects: [
-      {
-        name: 'Infrastructure Overhaul',
-        detail:
-          'Reorganized the warehouse workflow, with categorized inventory and a shelving system that shows what’s in stock at a glance.',
-      },
-      {
-        name: 'App Development',
-        detail:
-          'Automated supply labeling through Google Apps Script and added AI-assisted item recognition to speed up intake.',
-      },
     ],
   },
   {
     id: 'development',
     leads: ['VP of Development'],
     name: 'Development',
-    summary: 'Runs our social media and outreach, and works with high schools.',
-    charter:
-      "Development leads Blueprints for Pangaea's public image, outreach, and engagement. We focus on growing awareness of our mission through creative storytelling, digital strategy, and community collaboration.",
-    responsibilities: [
-      'High school engagement & expansion',
-      'Digital operations & branding',
-      'News, media & publications',
-      'Community outreach & partnerships',
-      'Professional development',
-    ],
-    projects: [
-      {
-        name: 'Day of Service',
-        detail:
-          'A volunteer event combining medical supply sorting, food drives, hygiene-kit assembly, and blanket and card making.',
-      },
-      {
-        name: 'Social Media Transformation',
-        detail:
-          'Built an Instagram series of reels and branded posts to reach people beyond our own campuses.',
-      },
+    about: 'Runs our social media, publications and community outreach.',
+    work: [
+      'Social media and branding',
+      'News, media and publications',
+      'Community outreach and partnerships',
     ],
   },
   {
     id: 'expansion',
     leads: ['VP of Expansion'],
     name: 'Expansion',
-    summary: 'Helps new chapters get started and supports the ones we have.',
-    charter:
-      "Expansion drives Blueprints for Pangaea's national growth and sustainability. We ensure that each chapter — current or emerging — has the tools, structure, and guidance to operate effectively and uphold Blueprints' mission.",
-    responsibilities: [
-      'Chapter oversight & support',
-      'Chapter recruitment & onboarding',
-      'Cross-chapter coordination',
-      'Public policy and advocacy',
-      'Standardization & resources',
-    ],
-    projects: [
-      {
-        name: 'Project Elevate',
-        detail:
-          'A chapter performance rubric with KPI tracking across engagement, shipment output, fundraising, and partnerships.',
-      },
-      {
-        name: 'Public Policy Project',
-        detail:
-          'An op-ed on healthcare sustainability, new faculty connections, and mental-health resource distribution at Ohio State.',
-      },
+    about: 'Starts new university chapters and high school clubs, and supports the ones we have.',
+    work: [
+      'Chapter recruitment and onboarding',
+      'Chapter support and coordination',
+      'High school clubs',
     ],
   },
   {
     id: 'finance',
     leads: ['VP of Finance'],
     name: 'Finance',
-    summary: 'Raises money for Blueprints through grants and sponsorships.',
-    charter:
-      'Finance ensures the long-term sustainability and growth of Blueprints for Pangaea by securing the resources that power our mission. Through fundraising, partnerships, and data-driven strategy, Finance maintains the financial foundation that allows every chapter to thrive.',
-    responsibilities: [
+    about: 'Raises money for Blueprints and keeps track of how it’s spent.',
+    work: [
       'Grants (10 to 12 a year)',
-      'Fundraising',
-      'Corporate sponsorships & partnerships',
-      'Financial planning & reporting',
-    ],
-    projects: [
-      {
-        name: 'Impact Dashboard',
-        detail:
-          'A unified Tableau data-visualization layer showing shipment value, volume, and geographic distribution in one place.',
-      },
-      {
-        name: 'Charity Week',
-        detail:
-          'A restaurant partnership model where partners pledge up to 50% of revenue on designated days.',
-      },
+      'Fundraising and corporate sponsorships',
+      'Financial planning and reporting',
     ],
   },
   {
     id: 'internal',
     leads: ['VP of Internal'],
     name: 'Internal',
+    about: 'Looks after our members, from recruitment to member events.',
+    work: [
+      'Recruitment and onboarding',
+      'Socials and member events',
+      'Bigs and littles',
+    ],
   },
 ];
 
