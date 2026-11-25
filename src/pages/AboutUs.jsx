@@ -5,6 +5,7 @@ import PhotoMarquee from '../components/ui/PhotoMarquee.jsx';
 import { LEADERSHIP_GROUPS, ANALYST_GROUPS } from '../data/team.js';
 import { headshotFor } from '../assets/team/headshots.js';
 import { TOTALS } from '../data/stats.js';
+import useImpactTotals from '../hooks/useImpactTotals.js';
 import { ORG } from '../data/site.js';
 import groupPhoto from '../assets/images/img-2457.jpg';
 import tablePhoto from '../assets/images/dsc06350.jpg';
@@ -43,6 +44,7 @@ function Headshot({ person }) {
 }
 
 export default function AboutUs() {
+  const impact = useImpactTotals();
   return (
     <article>
       <PageHeader title="About us">
@@ -69,7 +71,7 @@ export default function AboutUs() {
                 <li><strong>{TOTALS.chapters}</strong> chapters</li>
                 <li><strong>{TOTALS.members}+</strong> members</li>
                 <li><strong>{TOTALS.countries}+</strong> countries shipped to</li>
-                <li><strong>${Math.floor(TOTALS.suppliesValue / 1_000_000)}M+</strong> in supplies shipped</li>
+                <li><strong>${Math.floor(impact.suppliesValue / 1_000_000)}M+</strong> in supplies shipped</li>
               </ul>
             </Reveal>
           </div>

@@ -206,7 +206,7 @@ h1, h2, h3, h4 {
 
 /* ---- Counters ---- */
 .counters { padding: clamp(3rem, 6vw, 4.5rem) 0 0; }
-.counters__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem 1.5rem; }
+.counters__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem 1.5rem; }
 .counter { padding-top: 1.1rem; border-top: 1px solid var(--line-strong); }
 .counter__value {
   display: block; font-family: var(--font-display); font-weight: 700;

@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import Reveal from '../components/ui/Reveal.jsx';
 import ShipmentMapSection from '../components/sections/ShipmentMapSection.jsx';
-import { IMPACT_STATS } from '../data/stats.js';
+import { impactStats } from '../data/stats.js';
+import useImpactTotals from '../hooks/useImpactTotals.js';
 import { ORG } from '../data/site.js';
 import PhotoMarquee from '../components/ui/PhotoMarquee.jsx';
 import hopeClinic from '../assets/images/12dd519c-c348-407b-b191-8031453d39c2-1-105-c.jpg';
@@ -26,6 +27,7 @@ const PHOTOS = [
 ];
 
 export default function Impact() {
+  const IMPACT_STATS = impactStats(useImpactTotals());
   return (
     <article>
       <section className="globe-section">
