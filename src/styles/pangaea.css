@@ -50,10 +50,13 @@
 .pg-caption p + p { margin-top: 0.3rem; }
 .pg-caption__row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 .pg-replay {
-  font: inherit; font-size: 1rem; font-weight: 700; color: var(--pg-ink); flex: none;
-  background: none; border: 1.5px solid var(--pg-ink); border-radius: var(--radius);
-  padding: 0.5rem 0.9rem; cursor: pointer;
+  position: absolute; right: calc(var(--pg-gutter) + 0.25rem); bottom: 0.75rem; z-index: 2;
+  display: grid; place-items: center; width: 2.5rem; height: 2.5rem; padding: 0;
+  color: var(--pg-ink); background: rgba(255, 255, 255, 0.9); border: 1px solid var(--line-strong);
+  border-radius: 50%; box-shadow: 0 2px 8px rgba(0, 14, 63, 0.15); cursor: pointer;
+  animation: pg-replay-in 0.4s ease both;
 }
+@keyframes pg-replay-in { from { opacity: 0; transform: scale(0.8); } }
 .pg-caption__time strong { color: var(--pg-ink); font-variant-numeric: tabular-nums; }
 
 .pg-steps { grid-column: 1; grid-row: 1; }

@@ -100,8 +100,11 @@ function haloText(ctx, text, x, y) {
  * intercepted, and the page is only as long as its text.
  */
 // `film`: play FILM once on first view instead of following scroll
-// (phones). Changing `playKey` replays it.
-export default function DriftGlobe({ stepsRef, yearsRef, film = false, playKey = 0 }) {
+// (phones). Changing `playKey` replays it; `onFilmEnd` is called once
+// each time the film finishes.
+export default function DriftGlobe({ stepsRef, yearsRef, film = false, playKey = 0, onFilmEnd }) {
+  const onFilmEndRef = useRef(onFilmEnd);
+  onFilmEndRef.current = onFilmEnd;
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -120,6 +123,7 @@ export default function DriftGlobe({ stepsRef, yearsRef, film = false, playKey =
     let visible = !film;
     let anchors = [], spinOffset = 0, yearsShown = '', resized = true;
     let filmStart = null;
+    let filmEnded = false;
     const cur = blend(STEPS[0], STEPS[0], 0);
 
     // Drag to spin. The offset stays while you're on a section and
@@ -205,7 +209,12 @@ export default function DriftGlobe({ stepsRef, yearsRef, film = false, playKey =
       let tg;
       if (film) {
         if (filmStart === null) filmStart = now;
-        tg = filmAt((now - filmStart) / 1000);
+        const t = (now - filmStart) / 1000;
+        tg = filmAt(t);
+        if (!filmEnded && (reduce || t >= FILM[FILM.length - 1].at)) {
+          filmEnded = true;
+          onFilmEndRef.current?.();
+        }
       } else {
         tg = target();
       }

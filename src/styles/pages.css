@@ -400,7 +400,6 @@
 /* ============================================================
    PHONES — second pass. Short, thumb-friendly, nothing cramped.
    ============================================================ */
-.pg-replay { margin-top: 0.75rem; }
 .shipmap-hint { display: none; }
 .deptrow { display: block; }
 
@@ -656,3 +655,7 @@ button.choose__card:hover { border-color: var(--c-navy); transform: translateY(-
 .pg-recent__card h3 { margin-top: 0; }
 .pg-recent__card .ship__photo + h3 { margin-top: 1rem; }
 .ship__facts > div:last-child:nth-child(odd) { grid-column: 1 / -1; }
+
+/* Chapter page: the shipments the chapter ran. */
+.chapter-shipments { margin-top: clamp(2.5rem, 5vw, 3.5rem); }
+.chapter-shipments .ships { margin-top: 1.25rem; }
