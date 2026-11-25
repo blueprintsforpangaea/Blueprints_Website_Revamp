@@ -5,9 +5,9 @@
 // the team does day to day). Keep both short and specific; never
 // write placeholder or marketing copy.
 //
-// Sources (Nov. 2026): Technology from what the team has built
-// (the member Hub, the dashboards, the Medical Supply Request
-// System). Internal and Expansion's high school work per Rohan
+// Sources (Nov. 2026): Technology from the tech team's own notes,
+// Internal from its F26 core team scope and project docs in the HQ
+// Drive (both via Ansh). Expansion's high school work per Rohan
 // (CTO). Operations, Development and Finance from the old Mission
 // page's lists, minus the marketing wording. Development does not
 // work with high schools; Expansion does.
@@ -22,12 +22,11 @@ export const DEPARTMENTS = [
     id: 'technology',
     leads: ['Chief Technology Officer', 'VP of Technology'],
     name: 'Technology',
-    about:
-      'Builds and runs the software Blueprints uses, from the member Hub to the site clinics use to request supplies.',
+    about: 'Builds the tools that run Blueprints, from inventory tracking to this website.',
     work: [
-      'The member Hub',
-      'Inventory, shipment and finance dashboards',
-      'The Medical Supply Request System',
+      'The Blueprints Hub and this website',
+      'Inventory tracking and the Medical Supply Request System',
+      'Shipment, impact and chapter data',
     ],
   },
   {
@@ -78,11 +77,11 @@ export const DEPARTMENTS = [
     id: 'internal',
     leads: ['VP of Internal'],
     name: 'Internal',
-    about: 'Looks after our members, from recruitment to member events.',
+    about: 'Looks after our members, from mentorship and socials to feedback.',
     work: [
-      'Recruitment and onboarding',
-      'Socials and member events',
-      'Bigs and littles',
+      'Mentor–mentee program',
+      'Social and study events',
+      'Member feedback and alumni engagement',
     ],
   },
 ];

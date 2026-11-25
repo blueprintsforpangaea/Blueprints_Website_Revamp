@@ -6,24 +6,24 @@ import useImpactTotals from '../hooks/useImpactTotals.js';
 import { ORG } from '../data/site.js';
 import PhotoMarquee from '../components/ui/PhotoMarquee.jsx';
 import hopeClinic from '../assets/images/12dd519c-c348-407b-b191-8031453d39c2-1-105-c.jpg';
-import vanLoad from '../assets/images/9fdcc1e7-5bd6-44dc-8afe-dd642b4a08cadsc-0258.jpg';
 import vanCrew from '../assets/images/efd3cc03-681e-468b-8608-f746800f9dc2dsc-0260.jpg';
 import gnj from '../assets/images/chapters/rutgers/img-5664.jpg';
 import wsu from '../assets/images/chapters/wayne-state/img-2328.jpg';
-import boxes from '../assets/images/238939e5-8c3b-4744-bfd5-5a90886e10a3dsc-0252.jpg';
-import warehouse from '../assets/images/726a596d-3249-43ff-a5c2-4c5e01be5098.jpg';
-import packing from '../assets/images/img-2753.jpg';
+import lebanonTruck from '../assets/images/img-7929.jpg';
+import wrapping from '../assets/images/img-2668.jpg';
+import stacking from '../assets/images/img-2634.jpg';
+import hallway from '../assets/images/dsc07615.jpg';
 
 // Our members with the supplies, from pickups to deliveries.
 const PHOTOS = [
   { src: hopeClinic, alt: 'A delivery of donated supplies at Hope Clinic', caption: 'Hope Clinic' },
-  { src: vanLoad, alt: 'Volunteers loading boxes of supplies into a van' },
+  { src: lebanonTruck, alt: 'A shipping container loaded with boxes of medical supplies', caption: 'Lebanon' },
+  { src: wrapping, alt: 'A member shrink-wrapping a pallet of supplies in the warehouse' },
   { src: gnj, alt: 'Rutgers members with donated supplies', caption: 'Rutgers' },
-  { src: vanCrew, alt: 'Three members sitting in a van full of boxes' },
+  { src: stacking, alt: 'Members stacking boxes of donated supplies' },
   { src: wsu, alt: 'Wayne State members packing supplies', caption: 'Wayne State' },
-  { src: boxes, alt: 'Members in front of stacked boxes of supplies' },
-  { src: warehouse, alt: 'A member among stacked boxes in the warehouse' },
-  { src: packing, alt: 'Two members next to a wrapped pallet of supplies' },
+  { src: hallway, alt: 'A member pulling a Blueprints pallet jack down the warehouse hallway' },
+  { src: vanCrew, alt: 'Three members sitting in a van full of boxes' },
 ];
 
 export default function Impact() {
@@ -36,7 +36,7 @@ export default function Impact() {
             <h1 className="globe-hero__title">Where our supplies have gone</h1>
             <p className="globe-hero__lead">
               The map shows our recorded shipments. Each line runs from the chapter that sent it to
-              where the supplies went. Click or tap a blue dot to see what we sent there.
+              where the supplies went. Click or tap a pin to see what we sent there.
             </p>
             <ul className="impact-facts">
               {IMPACT_STATS.map((stat) => (

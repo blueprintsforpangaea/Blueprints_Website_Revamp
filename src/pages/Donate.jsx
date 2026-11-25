@@ -5,7 +5,7 @@ import { TOTALS } from '../data/stats.js';
 import useImpactTotals from '../hooks/useImpactTotals.js';
 import { SHIPMENTS } from '../data/shipments.js';
 import { SPONSORS } from '../data/sponsors.js';
-import boxesPhoto from '../assets/images/238939e5-8c3b-4744-bfd5-5a90886e10a3dsc-0252.jpg';
+import palletJackPhoto from '../assets/images/img-2565.jpg';
 
 const sponsorLogos = import.meta.glob('../assets/sponsors/*.{png,jpg,jpeg,svg,webp}', { eager: true, import: 'default' });
 const sponsorLogo = (name) =>
@@ -49,8 +49,8 @@ export default function Donate() {
             </p>
             <img
               className="donate-band__photo"
-              src={boxesPhoto}
-              alt="Four members in front of stacked boxes of supplies"
+              src={palletJackPhoto}
+              alt="The Blueprints for Pangaea logo on a pallet jack in the warehouse"
               loading="lazy"
               decoding="async"
             />

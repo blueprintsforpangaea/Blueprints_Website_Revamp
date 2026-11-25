@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import { geoNaturalEarth1, geoPath, geoGraticule } from 'd3-geo';
+import { geoNaturalEarth1, geoPath } from 'd3-geo';
 import { plateMatrices, plateGeometry, CONTINENT_COLOR, LOGO } from './plates.js';
 import { ROUTES, OTHER_ROUTES, CHAPTER_PINS } from './story.js';
 import { DESTINATIONS } from '../../data/destinations.js';
@@ -28,6 +28,21 @@ const shipmentTo = (country) => {
   const all = SHIPMENTS.filter((s) => s.place === country);
   return all.find((s) => FEATURED_SHIPMENTS.includes(s)) || all[0];
 };
+
+// Map pin with a cardboard box in its head: a lid and two sides drawn in
+// three shades so it reads as a box, with tape across the lid and down
+// the front. The tip sits on the spot (0,0).
+function SupplyPin() {
+  return (
+    <>
+      <path className="shipmap__mark-pin" d="M0,0 C-1.5,-5 -8,-9 -8,-15.5 A8,8 0 1 1 8,-15.5 C8,-9 1.5,-5 0,0 Z" />
+      <path className="shipmap__mark-side shipmap__mark-side--left" d="M-5.2,-18.3 L0,-15.7 L0,-10.2 L-5.2,-12.8 Z" />
+      <path className="shipmap__mark-side shipmap__mark-side--right" d="M0,-15.7 L5.2,-18.3 L5.2,-12.8 L0,-10.2 Z" />
+      <path className="shipmap__mark-lid" d="M0,-20.9 L5.2,-18.3 L0,-15.7 L-5.2,-18.3 Z" />
+      <path className="shipmap__mark-tape" d="M-2.6,-19.6 L2.6,-17 L2.6,-11.5" />
+    </>
+  );
+}
 
 export default function ShipmentMap() {
   const reduce = useReducedMotion();
@@ -96,8 +111,6 @@ export default function ShipmentMap() {
     return () => ro.disconnect();
   }, [geo]);
 
-  const grid = geoGraticule().step([20, 20])();
-
   return (
     <figure className="shipmap">
       <svg
@@ -110,17 +123,10 @@ export default function ShipmentMap() {
         <title id="shipmap-title">
           World map with lines from our chapters to the {PLACES.length} places outside the mainland U.S. we have shipped to
         </title>
-        <defs>
-          <clipPath id="shipmap-land">
-            {LAND.map((g) => <path key={g.id} d={geo.path(g)} />)}
-          </clipPath>
-        </defs>
-
-        <path d={geo.path(geoGraticule().step([10, 10])())} className="shipmap__grid" />
+        {/* no grid lines, just land. keeps the routes readable */}
         {LAND.map((g) => (
           <path key={g.id} d={geo.path(g)} fill={CONTINENT_COLOR[g.id] || LOGO.navy} />
         ))}
-        <path d={geo.path(grid)} clipPath="url(#shipmap-land)" className="shipmap__landgrid" />
         {LAND.map((g) => <path key={`s-${g.id}`} d={geo.path(g)} className="shipmap__seam" />)}
 
         {geo.routes.map((r, i) => {
@@ -145,7 +151,15 @@ export default function ShipmentMap() {
 
         {PLACES.map((d) => {
           const [x, y] = geo.project(d.lng, d.lat);
-          return <circle key={d.country} cx={x} cy={y} className={`shipmap__pin shipmap__pin--to ${lit === d.country ? 'is-open' : ''}`} />;
+          return (
+            <g
+              key={d.country}
+              className={`shipmap__mark ${lit === d.country ? 'is-open' : ''}`}
+              style={{ transform: `translate(${x}px, ${y}px) scale(var(--u))` }}
+            >
+              <SupplyPin />
+            </g>
+          );
         })}
       </svg>
 
@@ -200,7 +214,10 @@ export default function ShipmentMap() {
 
       <figcaption className="shipmap__legend">
         <span><i className="shipmap__key shipmap__key--from" aria-hidden="true" /> Chapter that sent it</span>
-        <span><i className="shipmap__key shipmap__key--to" aria-hidden="true" /> Where it went (hover or tap for details)</span>
+        <span>
+          <svg className="shipmap__key-pin" viewBox="-10 -26 20 28" aria-hidden="true"><SupplyPin /></svg>
+          Where it went (hover or tap for details)
+        </span>
       </figcaption>
     </figure>
   );

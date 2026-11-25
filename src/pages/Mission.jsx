@@ -8,14 +8,14 @@ import { departmentPhoto } from '../assets/photos.js';
 import { motion, useReducedMotion } from 'framer-motion';
 import partnerPhoto from '../assets/images/12dd519c-c348-407b-b191-8031453d39c2-1-105-c.jpg';
 import collectPhoto from '../assets/images/726a596d-3249-43ff-a5c2-4c5e01be5098.jpg';
-import verifyPhoto from '../assets/images/img-2540.jpg';
+import verifyPhoto from '../assets/images/img-2673.jpg';
 import shipPhoto from '../assets/images/9fdcc1e7-5bd6-44dc-8afe-dd642b4a08cadsc-0258.jpg';
 
 // One real photo per step of the route, in PIPELINE order.
 const STEP_PHOTOS = [
   { src: partnerPhoto, alt: 'Two people at Hope Clinic holding a box of donated supplies' },
   { src: collectPhoto, alt: 'A volunteer among stacked boxes in the warehouse' },
-  { src: verifyPhoto, alt: 'Hands sealing a box of checked supplies' },
+  { src: verifyPhoto, alt: 'Two members checking a donated pulse oximeter before it is packed' },
   { src: shipPhoto, alt: 'Volunteers loading boxes into a van' },
 ];
 

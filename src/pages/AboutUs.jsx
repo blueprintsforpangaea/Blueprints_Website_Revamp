@@ -8,9 +8,10 @@ import { TOTALS } from '../data/stats.js';
 import useImpactTotals from '../hooks/useImpactTotals.js';
 import { ORG } from '../data/site.js';
 import groupPhoto from '../assets/images/img-2457.jpg';
-import tablePhoto from '../assets/images/dsc06350.jpg';
+import boothPhoto from '../assets/images/img-2806.jpg';
 import sortPhoto from '../assets/images/eae28d10-7a69-40e0-af54-3d146010a570-1-105-c.jpg';
-import boxesPhoto from '../assets/images/238939e5-8c3b-4744-bfd5-5a90886e10a3dsc-0252.jpg';
+import thumbsPhoto from '../assets/images/img-2440.jpg';
+import shirtsPhoto from '../assets/images/img-2444.jpg';
 import vanPhoto from '../assets/images/efd3cc03-681e-468b-8608-f746800f9dc2dsc-0260.jpg';
 import blanketPhoto from '../assets/images/44785d8d-ef05-4297-97c2-434536b603a8.jpg';
 import classPhoto from '../assets/images/dsc07300.jpg';
@@ -23,11 +24,12 @@ import wsuPhoto from '../assets/images/chapters/wayne-state/img-2328.jpg';
 const STRIP = [
   { src: groupPhoto, alt: 'A large group of Blueprints members in matching shirts' },
   { src: osuPhoto, alt: 'Ohio State chapter members', caption: 'Ohio State' },
-  { src: boxesPhoto, alt: 'Four members in front of stacked boxes of supplies' },
-  { src: tablePhoto, alt: 'Members at a Blueprints information table' },
+  { src: thumbsPhoto, alt: 'Two members in Blueprints shirts giving a thumbs-up at a recruiting event' },
+  { src: boothPhoto, alt: 'The Blueprints booth with its display board at a student org fair' },
   { src: gnjPhoto, alt: 'Rutgers members with donated supplies', caption: 'Rutgers' },
   { src: vanPhoto, alt: 'Three members sitting in a van loaded with boxes' },
   { src: blanketPhoto, alt: 'Members making blankets at Day of Service' },
+  { src: shirtsPhoto, alt: 'Two members in Blueprints shirts at a recruiting event' },
   { src: wsuPhoto, alt: 'Wayne State members packing supplies', caption: 'Wayne State' },
   { src: classPhoto, alt: 'Members leading a supply-sorting lesson in a classroom' },
   { src: sortPhoto, alt: 'Three members in the warehouse among boxes of supplies' },
