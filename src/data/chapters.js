@@ -73,7 +73,7 @@ export const CHAPTERS = [
     email: 'blueprintsforpangaea.osu@gmail.com',
     instagram: 'b4posu',
     blurb:
-      'The Ohio State chapter sends medical supplies to Honduras every month and supports free clinics in Columbus.',
+      'The Ohio State chapter supports free clinics in Columbus and has sent medical supplies to Honduras.',
     highlight:
       'Wellness Within Reach, a mental health awareness project started at Ohio State. It produces brochures listing local clinics and resources, and other chapters have since adopted it.',
     partners: ['Ronald McDonald House', 'Island Pacific Academy alumni'],
@@ -193,3 +193,20 @@ export const CHAPTERS = [
 // Chapters in formation — listed on the network page but not yet
 // counted in TOTALS.chapters and without a public page of their own.
 export const EMERGING_CHAPTERS = [];
+
+// How each chapter is named elsewhere, so its page can show its own
+// shipments: `shipments` is the chapter label in src/data/shipments.js,
+// `hub` is the chapter name in the Blueprints Hub's impact totals.
+// A chapter missing here (or a key left out) just shows nothing extra.
+export const CHAPTER_KEYS = {
+  umich: { shipments: 'UMich', hub: 'UMich' },
+  msu: { hub: 'MSU' },
+  osu: { shipments: 'Ohio State', hub: 'OSU' },
+  'wayne-state': { shipments: 'Wayne State', hub: 'WSU' },
+  usc: { shipments: 'USC', hub: 'USC' },
+  'miami-med': { hub: 'UMiami Med' },
+  unomaha: { hub: 'UNO' },
+  berkeley: { hub: 'UC Berkeley' },
+  'utah-med': { hub: 'Utah Med' },
+  rutgers: { hub: 'GNJ' },
+};

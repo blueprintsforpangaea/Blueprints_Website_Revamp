@@ -9,6 +9,12 @@
 /* ---------- shared: one dark band per page ---------- */
 .band-navy { background: var(--c-navy); color: var(--on-dark); padding: clamp(3.5rem, 8vw, 6rem) 0; }
 .band-navy h1, .band-navy h2, .band-navy h3 { color: var(--c-white); }
+.band-navy--photo {
+  background:
+    linear-gradient(rgba(0, 14, 63, 0.84), rgba(0, 14, 63, 0.93)),
+    var(--band-photo) center 30% / cover no-repeat,
+    var(--c-navy);
+}
 .band-navy a:not(.btn) { color: var(--c-blue-light); }
 .band-navy__split { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(2rem, 6vw, 5rem); align-items: center; }
 .band-navy__text h2 { font-size: clamp(1.6rem, 2.6vw, 2.1rem); margin-bottom: 1rem; }
@@ -167,7 +173,7 @@
 }
 
 /* ============================================================
-   WHAT WE DO — departments as postcards that flip over
+   WHAT WE DO — departments as cards (photo, what they do)
    ============================================================ */
 .postcards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
 .postcards > * { display: flex; }
@@ -202,7 +208,10 @@
 .postcard__turn { margin-top: auto; padding-top: 1rem; font-weight: 700; color: var(--c-blue-dark); font-size: 0.98rem; }
 .postcard__face--back .postcard__turn { color: var(--c-blue-light); }
 .postcard__resp { margin-top: 0.5rem; font-size: 0.95rem; color: var(--on-dark-muted); line-height: 1.5; }
-.postcard__video { margin-top: 1rem; font-weight: 700; color: var(--c-white); text-decoration: underline; text-underline-offset: 3px; }
+.postcard__video { margin-top: 1rem; font-weight: 700; color: var(--link); text-decoration: underline; text-underline-offset: 3px; }
+.postcard__work { margin: 0.9rem 0 0; padding: 0.8rem 0 0; list-style: none; border-top: 1px solid var(--line); display: grid; gap: 0.35rem; }
+.postcard__work li { position: relative; padding-left: 1rem; font-size: 0.95rem; color: var(--muted); line-height: 1.4; }
+.postcard__work li::before { content: ''; position: absolute; left: 0; top: 0.55em; width: 0.4rem; height: 0.4rem; border-radius: 50%; background: var(--c-navy); }
 @media (max-width: 980px) { .postcards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 600px) { .postcards { grid-template-columns: 1fr; } }
 
@@ -240,7 +249,7 @@
 
 .shipmap { position: relative; }
 .shipmap__pin.is-open { fill: var(--c-blue); }
-.shipmap__dots { position: absolute; inset: 0; pointer-events: none; }
+.shipmap__dots { position: absolute; top: 0; left: 0; width: 100%; pointer-events: none; }
 .shipmap__dots > li { position: absolute; width: 0; height: 0; }
 .shipmap__dot {
   position: absolute; left: -16px; top: -16px; width: 32px; height: 32px;
@@ -391,7 +400,6 @@
 /* ============================================================
    PHONES — second pass. Short, thumb-friendly, nothing cramped.
    ============================================================ */
-.pg-replay { margin-top: 0.75rem; }
 .shipmap-hint { display: none; }
 .deptrow { display: block; }
 
@@ -499,22 +507,20 @@
 @media (max-width: 700px) { .chapter-detail__campus { aspect-ratio: 16 / 9; } }
 .pg-recent__card .ship__photo { margin-bottom: 0; }
 
-/* About: the photo strip scrolls by itself, in a seamless loop. */
-.photo-strip { overflow: hidden; }
-.photo-strip__track {
-  display: flex; gap: 1rem; width: max-content;
-  animation: photo-strip 70s linear infinite;
+/* About: the photo strip drifts by itself in a seamless loop, and can be
+   dragged, swiped or scrolled by hand (PhotoMarquee.jsx moves it). */
+.photo-strip {
+  overflow-x: auto; overscroll-behavior-x: contain; cursor: grab;
+  scrollbar-width: none; -webkit-overflow-scrolling: touch;
 }
+.photo-strip::-webkit-scrollbar { display: none; }
+.photo-strip.is-dragging { cursor: grabbing; user-select: none; }
+.photo-strip__track { display: flex; gap: 1rem; width: max-content; }
 .photo-strip__track > * { flex: none; }
-
-/* The track holds two copies; moving it by half (plus half a gap)
-   brings the second copy exactly where the first began. */
-@keyframes photo-strip { to { transform: translateX(calc(-50% - 0.5rem)); } }
-@media (max-width: 700px) { .photo-strip__item { width: 70vw; } .photo-strip__track { animation-duration: 55s; } }
+@media (max-width: 700px) { .photo-strip__item { width: 70vw; } }
 /* Reduced motion: no drifting; swipe or scroll by hand instead. */
 @media (prefers-reduced-motion: reduce) {
-  .photo-strip { overflow-x: auto; }
-  .photo-strip__track { animation: none; padding-inline: 1.5rem; }
+  .photo-strip__track { padding-inline: 1.5rem; }
   .photo-strip__item[aria-hidden='true'] { display: none; }
 }
 
@@ -659,3 +665,7 @@ button.choose__card:hover { border-color: var(--c-navy); transform: translateY(-
 .pg-recent__card h3 { margin-top: 0; }
 .pg-recent__card .ship__photo + h3 { margin-top: 1rem; }
 .ship__facts > div:last-child:nth-child(odd) { grid-column: 1 / -1; }
+
+/* Chapter page: the shipments the chapter ran. */
+.chapter-shipments { margin-top: clamp(2.5rem, 5vw, 3.5rem); }
+.chapter-shipments .ships { margin-top: 1.25rem; }

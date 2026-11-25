@@ -4,7 +4,10 @@ import ChaptersList from '../components/sections/ChaptersList.jsx';
 import ChapterMap from '../components/pangaea/ChapterMap.jsx';
 import Reveal from '../components/ui/Reveal.jsx';
 import EmailLink from '../components/ui/EmailLink.jsx';
-import { CHAPTERS } from '../data/chapters.js';
+import { CHAPTERS, CHAPTER_KEYS } from '../data/chapters.js';
+import { SHIPMENTS } from '../data/shipments.js';
+import ShipmentCard from '../components/ui/ShipmentCard.jsx';
+import useImpactTotals from '../hooks/useImpactTotals.js';
 import { logoFor, campusFor } from '../assets/chapters/logos.js';
 import { chapterPhotos } from '../assets/photos.js';
 import Photo from '../components/ui/Photo.jsx';
@@ -65,11 +68,20 @@ export default function Chapters() {
   );
 }
 
+// Shipments the chapter ran (alone or with another chapter), from the record.
+const chapterShipments = (label) =>
+  label ? SHIPMENTS.filter((s) => (s.chapter || '').split('&').map((c) => c.trim()).includes(label)) : [];
+
 function ChapterDetail({ chapter }) {
+  const keys = CHAPTER_KEYS[chapter.slug] || {};
+  const impact = useImpactTotals();
+  // Shipments the Hub has on record for this chapter (live, same source as Impact).
+  const recorded = (impact.byChapter || []).find((c) => c.chapter === keys.hub)?.shipments || 0;
+  const shipments = chapterShipments(keys.shipments);
   const facts = [
     chapter.since && { label: 'Established', value: chapter.since },
     chapter.members && { label: 'Members', value: chapter.members },
-    chapter.valueShipped && { label: 'Supplies shipped', value: chapter.valueShipped },
+    recorded > 0 && { label: 'Shipments recorded', value: recorded },
   ].filter(Boolean);
 
   return (
@@ -179,6 +191,15 @@ function ChapterDetail({ chapter }) {
                 {[].concat(sec.body).map((para) => <p key={para}>{para}</p>)}
               </Reveal>
             ))}
+          </div>
+        )}
+
+        {shipments.length > 0 && (
+          <div className="container chapter-shipments">
+            <h2 className="section-title section-title--sm">Shipments</h2>
+            <div className="ships">
+              {shipments.map((s, i) => <ShipmentCard shipment={s} key={s.id} delay={(i % 3) * 0.06} />)}
+            </div>
           </div>
         )}
 

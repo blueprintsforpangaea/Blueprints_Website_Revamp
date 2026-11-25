@@ -163,8 +163,10 @@ export default function ShipmentMap() {
         })}
       </svg>
 
-      {/* Click targets laid over the dots, and the pop-up for the open one. */}
-      <ul className="shipmap__dots">
+      {/* Click targets laid over the dots, and the pop-up for the open one. The
+          layer is exactly the map's size (not the figure's, which also holds the
+          legend), so a target's percentages land on its dot. */}
+      <ul className="shipmap__dots" style={{ aspectRatio: `${W} / ${geo.h}` }}>
         {PLACES.map((d) => {
           const [x, y] = geo.project(d.lng, d.lat);
           const left = (x / W) * 100;

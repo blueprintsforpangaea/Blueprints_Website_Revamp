@@ -16,7 +16,6 @@ import {
 } from '../data/involvement.js';
 import { ORG } from '../data/site.js';
 import { RECRUITMENT } from '../data/recruitment.js';
-import { DEPARTMENT_COUNT_WORD, DEPARTMENT_LIST } from '../data/departments.js';
 
 const pathway = (id) => PATHWAYS.find((p) => p.id === id);
 const volunteer = pathway('volunteer');
@@ -143,14 +142,13 @@ export default function GetInvolved() {
       {show('recruitment') && (
       <section className="section" id="recruitment">
         <div className="container">
-          <div className="split">
+          <div className="split split--top">
             <Reveal className="prose">
               <h2 className="section-title">Join headquarters at U-M</h2>
               <p className="recruit__status">For University of Michigan students only.</p>
               <p>
-                Members join one of {DEPARTMENT_COUNT_WORD} departments ({DEPARTMENT_LIST}) and put in
-                about 5 to 7 hours a week. Recruitment runs each semester at the University of
-                Michigan.
+                Members join one of our departments and contribute to the work of all of them.
+                Recruitment runs each semester at the University of Michigan.
               </p>
               <div className="btn-row">
                 <Link to="/chapters/umich#recruitment" className="btn btn--dark">

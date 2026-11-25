@@ -42,13 +42,14 @@ const PROCESS = [
 
 const SHIPMENTS = [
   ['Nigeria', 'More than 60 pallets, worth over $573,000, in July 2025.'],
-  ['Honduras', 'A shipment every month, run by our Ohio State chapter.'],
 ];
 
 export default function Pangaea() {
   const impact = useImpactTotals();
   const stepsRef = useRef(null);
   const [playKey, setPlayKey] = useState(0);
+  const [filmDone, setFilmDone] = useState(false);
+  const replay = () => { setFilmDone(false); setPlayKey((k) => k + 1); };
   // Phones get the globe's story as a short film instead of following
   // scroll; same breakpoint as the stylesheet.
   const isPhone = useMediaQuery('(max-width: 899px)');
@@ -59,19 +60,21 @@ export default function Pangaea() {
         {/* The globe stays in view and follows whichever section you're reading. */}
         <aside className="pg-aside" aria-label="Map">
           <div className="pg-globe">
-            <DriftGlobe stepsRef={stepsRef} film={isPhone} playKey={playKey} />
+            <DriftGlobe stepsRef={stepsRef} film={isPhone} playKey={playKey} onFilmEnd={() => setFilmDone(true)} />
+            {/* Phones: a small replay icon on the globe, only once the film has played. */}
+            {isPhone && filmDone && (
+              <button type="button" className="pg-replay" onClick={replay} aria-label="Play the map again">
+                <svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20">
+                  <path d="M12 5V2L7 6l5 4V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7z" fill="currentColor" />
+                </svg>
+              </button>
+            )}
           </div>
           <div className="pg-caption">
             <p>
-              Our name comes from Pangaea, when every continent was joined as one landmass. Our
-              shipments link those places again: the lines show where our chapters have sent
-              supplies.
+              Our name comes from Pangaea, the supercontinent that once joined every landmass. The
+              lines on this map show where our chapters have sent supplies.
             </p>
-            {isPhone && (
-              <button type="button" className="pg-replay" onClick={() => setPlayKey((k) => k + 1)}>
-                Play again
-              </button>
-            )}
             <p className="pg-wide-only"><strong>Scroll and learn more about Blueprints.</strong> Drag the globe to spin it.</p>
           </div>
         </aside>
@@ -102,8 +105,8 @@ export default function Pangaea() {
           <section className="pg-step">
             <h2>How we operate</h2>
             <p>
-              U.S. hospitals throw away over {(TOTALS.wasteTons / 1_000_000).toFixed(0)} million tons
-              of medical supplies a year, much of it never opened. Students at our{' '}
+              U.S. hospitals produce over {(TOTALS.wasteTons / 1_000_000).toFixed(0)} million tons
+              of waste a year, and some of it is medical supplies that were never opened. Students at our{' '}
               {TOTALS.chapters} chapters, the dots on the map, collect some of it:
             </p>
             <ol className="pg-list pg-list--num">
@@ -117,7 +120,7 @@ export default function Pangaea() {
             <h2>Where the supplies go</h2>
             <p>
               Clinics and hospitals in more than {TOTALS.countries} countries. Each line on the map
-              is a shipment, for example:
+              is a shipment. One example:
             </p>
             <ul className="pg-list">
               {SHIPMENTS.map(([place, text]) => (

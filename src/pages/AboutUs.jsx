@@ -55,7 +55,8 @@ export default function AboutUs() {
         supplies out of the trash.
       </PageHeader>
 
-      <section className="band-navy">
+      {/* The whole-org photo sits behind this band, darkened so the text reads. */}
+      <section className="band-navy band-navy--photo" style={{ '--band-photo': `url(${groupPhoto})` }}>
         <div className="container">
           <div className="band-navy__split band-navy__split--top">
             <Reveal className="band-navy__text">
