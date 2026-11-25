@@ -134,7 +134,7 @@ export const MEMBER_FAQ = [
   },
   {
     q: 'What is the time commitment?',
-    a: 'Generally, members commit to 5–7 hours per week.',
+    a: 'Generally, members commit to 8–10 hours per week.',
   },
   {
     q: 'What are you looking for in applicants?',

@@ -20,8 +20,11 @@
 //    Nov. 2026, per Rohan, making it 13.
 //    Rutgers is the former Greater New Jersey chapter (renamed
 //    after it gained Rutgers affiliation), not a 13th chapter.
-//  · wasteTons: 5 million tons ≈ 10 billion pounds of unused
-//    medical supplies discarded by the U.S. system each year.
+//  · wasteTons: U.S. hospitals produce more than 5 million tons
+//    (≈ 10 billion pounds) of waste a year: ALL hospital waste, not
+//    just unused supplies (Practice Greenhealth; APHA 2023 policy
+//    statement puts all U.S. health care waste at 5-6 million tons).
+//    Copy must say "waste", never "unused supplies", for this number.
 // ============================================================
 
 // The Hub's public impact totals: { totalValueUsd, totalPounds, totalShipments, ... }.

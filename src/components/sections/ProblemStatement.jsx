@@ -17,11 +17,11 @@ export default function ProblemStatement() {
 
         <Reveal className="intro__copy" delay={0.08}>
           <h2 className="section-title">
-            Every year, over {(TOTALS.wasteTons / 1_000_000).toFixed(0)} million tons of medical
-            supplies are thrown away
+            U.S. hospitals produce over {(TOTALS.wasteTons / 1_000_000).toFixed(0)} million tons of
+            waste every year
           </h2>
           <p>
-            Much of it was never opened. Our chapters and high school clubs collect it from
+            Some of it is medical supplies that were never opened. Our chapters and high school clubs collect them from
             hospitals and suppliers, check it, and send it to clinics that are running short.
           </p>
           <Link to="/mission" className="link-arrow">
