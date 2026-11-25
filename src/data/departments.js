@@ -2,8 +2,8 @@
 // The six headquarters departments, in the order leadership lists
 // them. Operations, Development, Expansion, and Finance are
 // verbatim from the Mission page. Technology's copy comes from the
-// tech team's own notes (Nov. 2026). Internal is not described
-// anywhere yet, so it carries only a name.
+// tech team's own notes, and Internal's from its F26 core team scope
+// and project docs in the HQ Drive (Nov. 2026).
 // (`projects` is kept for reference but not shown on the site.)
 // Fill in `charter`, `responsibilities`, and `projects` once the
 // teams provide real copy. Never write placeholder descriptions.
@@ -146,6 +146,16 @@ export const DEPARTMENTS = [
     id: 'internal',
     leads: ['VP of Internal'],
     name: 'Internal',
+    summary: 'Looks after our members, from mentorship and socials to feedback.',
+    charter:
+      'Internal keeps Blueprints for Pangaea a place people want to stay. We pair every new analyst with a mentor, plan social and study events throughout the semester, run the feedback forms that help each team improve its projects, and keep our alumni connected to the organization they helped build.',
+    responsibilities: [
+      'Mentor–mentee program',
+      'Social & study events',
+      'Member feedback',
+      'Alumni engagement',
+      'End-of-year report',
+    ],
   },
 ];
 
