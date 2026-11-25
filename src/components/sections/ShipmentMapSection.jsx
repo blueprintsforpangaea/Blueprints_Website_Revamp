@@ -27,7 +27,7 @@ export default function ShipmentMapSection() {
         <div className="shipmap-scroll" ref={scrollRef}>
           <ShipmentMap />
         </div>
-        <p className="shipmap-hint">Rings are our chapters and blue dots are where supplies went. Swipe sideways and tap a blue dot for details.</p>
+        <p className="shipmap-hint">Rings are our chapters and pins are where supplies went. Swipe sideways and tap a pin for details.</p>
       </div>
 
       <div className="container tour__list">

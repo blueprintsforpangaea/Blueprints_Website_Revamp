@@ -418,7 +418,7 @@
   .shipmap-scroll { overflow-x: auto; margin-inline: -1.5rem; padding-bottom: 0.25rem; overscroll-behavior-x: contain; }
   .shipmap-scroll .shipmap { width: 760px; max-width: none; }
   .tour .shipmap-scroll .shipmap { margin-inline: 0; }
-  .shipmap__dot { left: -20px; top: -20px; width: 40px; height: 40px; }
+  .shipmap__dot { left: -20px; top: -38px; width: 40px; height: 40px; }
   .shipmap-hint { display: block; margin-top: 0.5rem; font-size: 0.95rem; font-weight: 600; color: var(--muted); }
   .ship--fold .ship__place { font-size: 1.2rem; font-weight: 800; color: var(--heading); }
 
@@ -521,8 +521,9 @@
 /* Impact map: hovering or opening a dot lights its route and dims the rest. */
 .shipmap__line { transition: opacity 0.2s; }
 .shipmap__line.is-dim { opacity: 0.15; }
-.shipmap__line.is-lit .shipmap__route { stroke: var(--c-blue); stroke-width: calc(3.5px * var(--u)); }
-.shipmap__line.is-lit .shipmap__casing { stroke-width: calc(7px * var(--u)); }
+.shipmap__line.is-dim { opacity: 0.08; }
+.shipmap__line.is-lit .shipmap__route { stroke: var(--c-blue); stroke-opacity: 1; stroke-width: calc(3px * var(--u)); }
+.shipmap__line.is-lit .shipmap__casing { stroke-width: calc(6px * var(--u)); }
 .impact-photos { padding: clamp(2.5rem, 5vw, 3.5rem) 0 clamp(3rem, 6vw, 4.5rem); background: var(--bg-soft); }
 .impact-photos .photo-strip { margin-top: 1.25rem; }
 
@@ -614,14 +615,19 @@ button.choose__card:hover { border-color: var(--c-navy); transform: translateY(-
 .tabs__tab.is-active { background: var(--c-navy); color: var(--c-white); }
 @media (max-width: 700px) { .tabs { width: 100%; } .tabs__tab { flex: 1; } }
 
-/* Impact map: hollow rings for chapters, solid blue dots for destinations. */
-.shipmap__pin--from { r: calc(3.6px * var(--u)); fill: #fff; stroke: var(--ink); stroke-width: 2; }
-.shipmap__pin--to { r: calc(6px * var(--u)); fill: var(--c-blue); stroke: #fff; stroke-width: 2; }
-.shipmap__pin--to.is-open { fill: var(--c-navy); }
-.shipmap__dot { left: -20px; top: -20px; width: 40px; height: 40px; }
-.shipmap__dot::after { inset: 9px; }
+/* Impact map: small hollow rings for chapters, supply-box pins for destinations. */
+.shipmap__pin--from { r: calc(3px * var(--u)); fill: #fff; stroke: var(--ink); stroke-width: 1.5; }
+.shipmap__mark { transform-box: view-box; }
+.shipmap__mark-pin { fill: var(--c-blue); stroke: #fff; stroke-width: 1.5; transition: fill 0.15s; }
+.shipmap__mark-box { fill: #fff; }
+.shipmap__mark-tape { fill: none; stroke: var(--c-blue); stroke-width: 1.2; transition: stroke 0.15s; }
+.shipmap__mark.is-open .shipmap__mark-pin { fill: var(--c-navy); }
+.shipmap__mark.is-open .shipmap__mark-tape { stroke: var(--c-navy); }
+/* hit area sits over the pin's head, which is above the actual spot */
+.shipmap__dot { left: -18px; top: -34px; width: 36px; height: 36px; }
+.shipmap__dot::after { display: none; }
 .shipmap__tip {
-  position: absolute; left: 16px; top: -14px; z-index: 4; white-space: nowrap; pointer-events: none;
+  position: absolute; left: 16px; top: -30px; z-index: 4; white-space: nowrap; pointer-events: none;
   padding: 0.3rem 0.6rem; border-radius: var(--radius); background: var(--c-navy); color: var(--c-white);
   font-size: 0.95rem; font-weight: 700;
 }
@@ -630,7 +636,7 @@ button.choose__card:hover { border-color: var(--c-navy); transform: translateY(-
 .shipmap__legend span { display: inline-flex; align-items: center; gap: 0.5rem; }
 .shipmap__key { display: inline-block; border-radius: 50%; }
 .shipmap__key--from { width: 10px; height: 10px; background: #fff; border: 2px solid var(--ink); }
-.shipmap__key--to { width: 14px; height: 14px; background: var(--c-blue); border: 2px solid #fff; box-shadow: 0 0 0 1px var(--line-strong); }
+.shipmap__key-pin { width: 16px; height: 22px; overflow: visible; }
 @media (max-width: 700px) { .shipmap__legend { display: none; } }
 
 /* Home: the headline leads, the $ figure follows. */

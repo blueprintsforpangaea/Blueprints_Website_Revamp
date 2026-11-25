@@ -325,14 +325,12 @@ h1, h2, h3, h4 {
 /* Flat shipment map (Impact). --u is SVG units per screen pixel, set
    by the map as it resizes, so text and dots keep their size. */
 .shipmap { margin: 0; }
-.shipmap svg { width: 100%; height: auto; display: block; --u: 1; }
-.shipmap__grid { fill: none; stroke: rgba(55, 60, 130, 0.16); stroke-width: 0.6; vector-effect: non-scaling-stroke; }
-.shipmap__landgrid { fill: none; stroke: rgba(255, 255, 255, 0.8); stroke-width: 0.9; vector-effect: non-scaling-stroke; }
+.shipmap > svg { width: 100%; height: auto; display: block; --u: 1; }
 .shipmap__seam { fill: none; stroke: #fff; stroke-width: 1; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
 /* Route widths scale with --u (not non-scaling-stroke) so the draw-in
    animation's dash lengths stay correct. */
-.shipmap__casing { fill: none; stroke: rgba(255, 255, 255, 0.9); stroke-width: calc(5px * var(--u)); stroke-linecap: round; }
-.shipmap__route { fill: none; stroke: var(--ink); stroke-width: calc(2px * var(--u)); stroke-linecap: round; }
+.shipmap__casing { fill: none; stroke: rgba(255, 255, 255, 0.7); stroke-width: calc(3.5px * var(--u)); stroke-linecap: round; }
+.shipmap__route { fill: none; stroke: var(--ink); stroke-opacity: 0.55; stroke-width: calc(1.3px * var(--u)); stroke-linecap: round; }
 .shipmap__pin { r: calc(4.5px * var(--u)); fill: var(--ink); stroke: #fff; stroke-width: 2; vector-effect: non-scaling-stroke; }
 
 /* Impact: the shipment map, then the list. */

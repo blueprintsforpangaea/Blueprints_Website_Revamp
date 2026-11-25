@@ -36,7 +36,7 @@ export default function Impact() {
             <h1 className="globe-hero__title">Where our supplies have gone</h1>
             <p className="globe-hero__lead">
               The map shows our recorded shipments. Each line runs from the chapter that sent it (a
-              ring) to where the supplies went (a blue dot). Click or tap a blue dot to see what we
+              ring) to where the supplies went (a pin). Click or tap a pin to see what we
               sent there.
             </p>
             <ul className="impact-facts">
