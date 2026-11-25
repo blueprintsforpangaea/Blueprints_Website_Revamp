@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { animate, useInView, useReducedMotion } from 'framer-motion';
 import useImpactTotals from '../../hooks/useImpactTotals.js';
+import { roundedPounds, roundedShipments } from '../../data/stats.js';
 
 // Every figure derives from TOTALS (src/data/stats.js); value, pounds and
 // shipments come live from the Blueprints Hub.
 const stats = (t) => [
   { to: Math.round(t.suppliesValue), prefix: '$', label: 'worth of medical supplies redistributed' },
-  { to: t.poundsShipped, label: 'pounds of supplies shipped' },
-  { to: t.shipments, label: 'shipments sent' },
+  { to: roundedPounds(t.poundsShipped), suffix: '+', label: 'pounds of supplies shipped' },
+  { to: roundedShipments(t.shipments), suffix: '+', label: 'shipments sent' },
   { to: t.countries, suffix: '+', label: 'countries have received shipments' },
   { to: t.chapters, label: 'university chapters' },
   { to: t.members, suffix: '+', label: 'student members' },

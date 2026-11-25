@@ -49,6 +49,12 @@ export const TOTALS = {
   projectCureSince: 2017,
 };
 
+// Round down to a clean figure for display, so "+" stays true:
+// 322,650 -> 320,000 (pounds), 164 -> 160 (shipments).
+export const roundDown = (n, step) => Math.floor(n / step) * step;
+export const roundedPounds = (n) => roundDown(n, n >= 100_000 ? 10_000 : 1_000);
+export const roundedShipments = (n) => roundDown(n, 10);
+
 export function formatUsd(value) {
   return `$${value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 }
@@ -81,11 +87,11 @@ export const impactStats = (totals) => [
     sub: `${totals.suppliesValueExact} to date`,
   },
   {
-    value: totals.poundsShipped.toLocaleString('en-US'),
+    value: `${roundedPounds(totals.poundsShipped).toLocaleString('en-US')}+`,
     label: 'Pounds of supplies shipped',
   },
   {
-    value: totals.shipments.toLocaleString('en-US'),
+    value: `${roundedShipments(totals.shipments).toLocaleString('en-US')}+`,
     label: 'Shipments sent',
   },
   {
