@@ -66,6 +66,8 @@ export function withLiveTotals(live) {
     suppliesValueShort: `$${Math.floor(value / 1_000_000)} million+`,
     poundsShipped: ok(live.totalPounds) ? Math.round(live.totalPounds) : TOTALS.poundsShipped,
     shipments: ok(live.totalShipments) ? live.totalShipments : TOTALS.shipments,
+    // [{ chapter, valueUsd, shipments }], by the Hub's chapter names.
+    byChapter: Array.isArray(live.byChapter) ? live.byChapter : [],
   };
 }
 
