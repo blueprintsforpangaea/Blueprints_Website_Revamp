@@ -1,8 +1,9 @@
 // ============================================================
 // The six headquarters departments, in the order leadership lists
 // them. Operations, Development, Expansion, and Finance are
-// verbatim from the Mission page. Technology and Internal are not
-// described on the live site yet, so they carry only a name.
+// verbatim from the Mission page. Technology's copy comes from the
+// tech team's own notes (Nov. 2026). Internal is not described
+// anywhere yet, so it carries only a name.
 // (`projects` is kept for reference but not shown on the site.)
 // Fill in `charter`, `responsibilities`, and `projects` once the
 // teams provide real copy. Never write placeholder descriptions.
@@ -23,6 +24,16 @@ export const DEPARTMENTS = [
     id: 'technology',
     leads: ['Chief Technology Officer', 'VP of Technology'],
     name: 'Technology',
+    summary: 'Builds the tools that run Blueprints, from inventory tracking to this website.',
+    charter:
+      'Technology builds and maintains the software behind Blueprints for Pangaea. Our tools log supplies as they come into the warehouse, let local clinics request what they need, record every shipment, and keep the impact numbers on this website up to date, so the rest of the organization spends less time in spreadsheets and more time moving supplies.',
+    responsibilities: [
+      'The Blueprints Hub & website',
+      'Inventory tracking & classification',
+      'Medical supply request system',
+      'Shipment & impact data',
+      'Chapter health tracking',
+    ],
   },
   {
     id: 'operations',
