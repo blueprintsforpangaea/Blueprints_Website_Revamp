@@ -3,14 +3,14 @@ import Reveal from '../ui/Reveal.jsx';
 import { PIPELINE } from '../../data/departments.js';
 import imgPartner from '../../assets/images/dsc04163.jpg';
 import imgCollect from '../../assets/images/img-2678.jpg';
-import imgVerify from '../../assets/images/img-2753.jpg';
+import imgVerify from '../../assets/images/img-2673.jpg';
 import imgShip from '../../assets/images/9fdcc1e7-5bd6-44dc-8afe-dd642b4a08cadsc-0258.jpg';
 
 // One photo per step, in PIPELINE order.
 const PHOTOS = [
   { src: imgPartner, alt: 'Hospital and community health leaders speaking at a Blueprints event' },
   { src: imgCollect, alt: 'A volunteer wheeling a cart of donated supplies through the warehouse' },
-  { src: imgVerify, alt: 'Volunteers inspecting a wrapped pallet of donated medical supplies' },
+  { src: imgVerify, alt: 'Two members checking a donated pulse oximeter before it is packed' },
   { src: imgShip, alt: 'Volunteers loading boxes of medical supplies into a delivery van' },
 ];
 
