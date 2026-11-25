@@ -619,8 +619,12 @@ button.choose__card:hover { border-color: var(--c-navy); transform: translateY(-
 .shipmap__pin--from { r: calc(3px * var(--u)); fill: #fff; stroke: var(--ink); stroke-width: 1.5; }
 .shipmap__mark { transform-box: view-box; }
 .shipmap__mark-pin { fill: var(--c-blue); stroke: #fff; stroke-width: 1.5; transition: fill 0.15s; }
-.shipmap__mark-box { fill: #fff; }
-.shipmap__mark-tape { fill: none; stroke: var(--c-blue); stroke-width: 1.2; transition: stroke 0.15s; }
+/* The box: light lid, two darker sides, thin outline, blue tape. */
+.shipmap__mark-lid, .shipmap__mark-side { stroke: var(--c-navy); stroke-width: 0.5; stroke-linejoin: round; }
+.shipmap__mark-lid { fill: #fff; }
+.shipmap__mark-side--left { fill: #e3ebff; }
+.shipmap__mark-side--right { fill: #c3d4fb; }
+.shipmap__mark-tape { fill: none; stroke: var(--c-blue); stroke-width: 1.1; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.15s; }
 .shipmap__mark.is-open .shipmap__mark-pin { fill: var(--c-navy); }
 .shipmap__mark.is-open .shipmap__mark-tape { stroke: var(--c-navy); }
 /* hit area sits over the pin's head, which is above the actual spot */

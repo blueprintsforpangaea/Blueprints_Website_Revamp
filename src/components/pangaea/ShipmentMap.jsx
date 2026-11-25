@@ -29,13 +29,17 @@ const shipmentTo = (country) => {
   return all.find((s) => FEATURED_SHIPMENTS.includes(s)) || all[0];
 };
 
-// map pin with a supply box in it, tip sits on the spot (0,0)
+// Map pin with a cardboard box in its head: a lid and two sides drawn in
+// three shades so it reads as a box, with tape across the lid and down
+// the front. The tip sits on the spot (0,0).
 function SupplyPin() {
   return (
     <>
       <path className="shipmap__mark-pin" d="M0,0 C-1.5,-5 -8,-9 -8,-15.5 A8,8 0 1 1 8,-15.5 C8,-9 1.5,-5 0,0 Z" />
-      <rect className="shipmap__mark-box" x="-4.5" y="-19.5" width="9" height="8" rx="1" />
-      <path className="shipmap__mark-tape" d="M-4.5,-16.8 H4.5 M0,-19.5 V-16.8" />
+      <path className="shipmap__mark-side shipmap__mark-side--left" d="M-5.2,-18.3 L0,-15.7 L0,-10.2 L-5.2,-12.8 Z" />
+      <path className="shipmap__mark-side shipmap__mark-side--right" d="M0,-15.7 L5.2,-18.3 L5.2,-12.8 L0,-10.2 Z" />
+      <path className="shipmap__mark-lid" d="M0,-20.9 L5.2,-18.3 L0,-15.7 L-5.2,-18.3 Z" />
+      <path className="shipmap__mark-tape" d="M-2.6,-19.6 L2.6,-17 L2.6,-11.5" />
     </>
   );
 }
