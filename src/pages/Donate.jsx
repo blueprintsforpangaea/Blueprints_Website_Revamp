@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Reveal from '../components/ui/Reveal.jsx';
 import { DONATE_URL, ORG } from '../data/site.js';
 import { TOTALS } from '../data/stats.js';
+import useImpactTotals from '../hooks/useImpactTotals.js';
 import { SHIPMENTS } from '../data/shipments.js';
 import { SPONSORS } from '../data/sponsors.js';
 import boxesPhoto from '../assets/images/238939e5-8c3b-4744-bfd5-5a90886e10a3dsc-0252.jpg';
@@ -18,6 +19,7 @@ const PRESET_AMOUNTS = [10, 20, 30];
 const FUNDED = SHIPMENTS.filter((s) => s.value).slice(0, 4);
 
 export default function Donate() {
+  const impact = useImpactTotals();
   const [amount, setAmount] = useState(20);
   const [custom, setCustom] = useState('');
 
@@ -39,7 +41,7 @@ export default function Donate() {
             <h1 className="donate-band__title">Donate</h1>
             <p className="donate-band__lede">
               We’ve shipped more than{' '}
-              <strong>${Math.floor(TOTALS.suppliesValue / 1_000_000)} million</strong> in medical supplies to
+              <strong>${Math.floor(impact.suppliesValue / 1_000_000)} million</strong> in medical supplies to
               clinics in {TOTALS.countries}+ countries.
             </p>
             <p className="donate-band__note">

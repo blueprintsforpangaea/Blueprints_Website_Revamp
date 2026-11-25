@@ -7,6 +7,7 @@ import { shipmentHeadline, shipmentTitle, ShipmentVisual } from '../components/u
 import PhotoMarquee from '../components/ui/PhotoMarquee.jsx';
 import useMediaQuery from '../hooks/useMediaQuery.js';
 import { TOTALS } from '../data/stats.js';
+import useImpactTotals from '../hooks/useImpactTotals.js';
 import { ORG } from '../data/site.js';
 import { VOLUNTEER_URL } from '../data/involvement.js';
 import { RECENT_SHIPMENTS } from '../data/shipments.js';
@@ -45,6 +46,7 @@ const SHIPMENTS = [
 ];
 
 export default function Pangaea() {
+  const impact = useImpactTotals();
   const stepsRef = useRef(null);
   const [playKey, setPlayKey] = useState(0);
   // Phones get the globe's story as a short film instead of following
@@ -84,7 +86,7 @@ export default function Pangaea() {
             </p>
             <ul className="pg-facts">
               <li className="pg-facts__lead">
-                <strong><CountUp to={Math.floor(TOTALS.suppliesValue / 1_000_000)} prefix="$" suffix="M+" /></strong>
+                <strong><CountUp to={Math.floor(impact.suppliesValue / 1_000_000)} prefix="$" suffix="M+" /></strong>
                 in medical supplies redistributed
               </li>
               <li><strong><CountUp to={TOTALS.countries} suffix="+" /></strong> countries</li>

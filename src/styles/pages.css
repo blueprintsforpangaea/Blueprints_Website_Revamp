@@ -476,8 +476,8 @@
   .recruit__events .recruit__event--due { background: var(--accent); }
 }
 
-/* Four figures and four recent shipments instead of rows of three. */
-.impact-facts { grid-template-columns: repeat(4, minmax(0, 1fr)); max-width: 58rem; }
+/* Six figures in rows of three; four recent shipments instead of rows of three. */
+.impact-facts { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 58rem; }
 .figures { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 2rem; }
 @media (min-width: 900px) { .pg-recent__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 @media (max-width: 700px) {

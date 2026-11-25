@@ -1,13 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
 import { animate, useInView, useReducedMotion } from 'framer-motion';
-import { TOTALS } from '../../data/stats.js';
+import useImpactTotals from '../../hooks/useImpactTotals.js';
 
-// Every figure derives from TOTALS — see src/data/stats.js.
-const STATS = [
-  { to: Math.round(TOTALS.suppliesValue), prefix: '$', label: 'worth of medical supplies redistributed' },
-  { to: TOTALS.countries, suffix: '+', label: 'countries have received shipments' },
-  { to: TOTALS.chapters, label: 'university chapters' },
-  { to: TOTALS.members, suffix: '+', label: 'student members' },
+// Every figure derives from TOTALS (src/data/stats.js); value, pounds and
+// shipments come live from the Blueprints Hub.
+const stats = (t) => [
+  { to: Math.round(t.suppliesValue), prefix: '$', label: 'worth of medical supplies redistributed' },
+  { to: t.poundsShipped, label: 'pounds of supplies shipped' },
+  { to: t.shipments, label: 'shipments sent' },
+  { to: t.countries, suffix: '+', label: 'countries have received shipments' },
+  { to: t.chapters, label: 'university chapters' },
+  { to: t.members, suffix: '+', label: 'student members' },
 ];
 
 function Counter({ to, prefix = '', suffix = '' }) {
@@ -40,6 +43,7 @@ function Counter({ to, prefix = '', suffix = '' }) {
 }
 
 export default function ImpactCounters() {
+  const STATS = stats(useImpactTotals());
   return (
     <section className="counters" aria-label="Our impact so far">
       <div className="container">
