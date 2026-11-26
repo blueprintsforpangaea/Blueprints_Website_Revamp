@@ -15,7 +15,7 @@ const ROUTES = {
   '/mission': {
     title: `What we do — ${SUFFIX}`,
     description:
-      'U.S. hospitals produce over 5 million tons of waste a year, including unopened medical supplies. Our chapters collect some of them and ship them to clinics that are short on supplies.',
+      'U.S. hospitals throw out medical supplies that were never opened. Our chapters collect them and ship them to clinics that are short on supplies.',
   },
   '/impact': {
     title: `Impact — ${SUFFIX}`,

@@ -105,8 +105,7 @@ export default function Pangaea() {
           <section className="pg-step">
             <h2>How we operate</h2>
             <p>
-              U.S. hospitals produce over {(TOTALS.wasteTons / 1_000_000).toFixed(0)} million tons
-              of waste a year, and some of it is medical supplies that were never opened. Students at our{' '}
+              U.S. hospitals throw out medical supplies that were never opened. Students at our{' '}
               {TOTALS.chapters} chapters, the dots on the map, collect some of it:
             </p>
             <ol className="pg-list pg-list--num">
