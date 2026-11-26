@@ -41,14 +41,13 @@ const campus = (slug) => ({ ...CAMPUS[slug], plate: 'nam' });
 
 // Featured routes, each told in its own step.
 export const ROUTES = [
-  { id: 'hon', from: campus('osu'), to: city('Tegucigalpa') },
   { id: 'nga-usc', from: campus('usc'), to: city('Lagos') },
   { id: 'nga-wsu', from: campus('wayne-state'), to: city('Lagos') },
 ];
 
 // Every other international delivery, drawn from headquarters for
 // the overview step.
-const FEATURED_CITIES = new Set(['Tegucigalpa', 'Lagos']);
+const FEATURED_CITIES = new Set(['Lagos']);
 export const OTHER_ROUTES = DESTINATIONS.filter(
   (d) => d.region !== 'United States' && !FEATURED_CITIES.has(d.city),
 ).map((d) => ({
@@ -62,7 +61,7 @@ export const OTHER_ROUTES = DESTINATIONS.filter(
 // moves only as fast as you read. drift: 0 = Pangaea, 1 = today.
 // scale: 1 = whole globe. arcs: how much of each route is drawn.
 // pins: chapter dots. focus: routes that get a label.
-const ALL_ARCS = { hon: 1, 'nga-usc': 1, 'nga-wsu': 1, all: 1 };
+const ALL_ARCS = { 'nga-usc': 1, 'nga-wsu': 1, all: 1 };
 // Phones: the same story played on its own, in seconds, once the
 // globe scrolls into view (a pinned globe doesn't fit a phone).
 export const FILM = [
