@@ -23,7 +23,6 @@ export const DESTINATIONS = [
   { city: 'Santo Domingo',   country: 'Dominican Republic', region: 'The Americas',  lat: 18.4861,  lng: -69.9312 },
   { city: 'Quito',           country: 'Ecuador',            region: 'The Americas',  lat: -0.1807,  lng: -78.4678 },
   { city: 'Kingston',        country: 'Jamaica',            region: 'The Americas',  lat: 17.9714,  lng: -76.7931 },
-  { city: 'Tegucigalpa',     country: 'Honduras',           region: 'The Americas',  lat: 14.0723,  lng: -87.1921 },
 
   // ---------- Asia ----------
   { city: 'Ahmedabad',       country: 'India',              region: 'Asia',          lat: 23.0225,  lng: 72.5714 },

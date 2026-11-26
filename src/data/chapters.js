@@ -73,7 +73,7 @@ export const CHAPTERS = [
     email: 'blueprintsforpangaea.osu@gmail.com',
     instagram: 'b4posu',
     blurb:
-      'The Ohio State chapter supports free clinics in Columbus and has sent medical supplies to Honduras.',
+      'The Ohio State chapter supports free clinics in Columbus.',
     highlight:
       'Wellness Within Reach, a mental health awareness project started at Ohio State. It produces brochures listing local clinics and resources, and other chapters have since adopted it.',
     partners: ['Ronald McDonald House', 'Island Pacific Academy alumni'],

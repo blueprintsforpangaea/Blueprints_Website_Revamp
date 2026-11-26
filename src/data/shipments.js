@@ -90,13 +90,6 @@ export const SHIPMENTS = [
     partner: 'Christian Dental Society',
     detail: 'A collaboration on dental care supplies.',
   },
-  {
-    id: 'honduras',
-    place: 'Honduras',
-    region: 'The Americas',
-    chapter: 'Ohio State',
-    detail: 'Medical supply shipments sent by the Ohio State chapter.',
-  },
 
   // ---------- Asia ----------
   {
@@ -207,7 +200,7 @@ const byId = (ids) => ids.map((id) => SHIPMENTS.find((s) => s.id === id));
 // around the world (each a different country) and in Michigan.
 export const RECENT_SHIPMENTS = byId(['nigeria-2025', 'ghana', 'ukraine', 'food-gatherers']);
 export const FEATURED_SHIPMENTS = byId([
-  'nigeria-2025', 'honduras', 'ghana', 'ukraine', 'mexico', 'puerto-rico',
+  'nigeria-2025', 'ghana', 'ukraine', 'mexico', 'puerto-rico', 'india',
 ]);
 export const LOCAL_SHIPMENTS = byId([
   'food-gatherers', 'delonis', 'hope-clinic', 'packard', 'umsrfc', 'wolverine',
