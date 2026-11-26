@@ -3,7 +3,7 @@ import PageHeader from '../components/layout/PageHeader.jsx';
 import Reveal from '../components/ui/Reveal.jsx';
 import Photo from '../components/ui/Photo.jsx';
 import { DEPARTMENTS, PIPELINE } from '../data/departments.js';
-import { TOTALS } from '../data/stats.js';
+import useImpactTotals from '../hooks/useImpactTotals.js';
 import { departmentPhoto } from '../assets/photos.js';
 import { motion, useReducedMotion } from 'framer-motion';
 import partnerPhoto from '../assets/images/12dd519c-c348-407b-b191-8031453d39c2-1-105-c.jpg';
@@ -45,6 +45,7 @@ function DeptCard({ dept }) {
 }
 
 export default function Mission() {
+  const impact = useImpactTotals();
   const reduce = useReducedMotion();
   return (
     <article>
@@ -58,16 +59,15 @@ export default function Mission() {
         <div className="container band-navy__split">
           <Reveal>
             <p className="big-figure">
-              <strong>{(TOTALS.wasteTons / 1_000_000).toFixed(0)} million tons</strong>
-              <span>of waste produced by U.S. hospitals every year</span>
+              <strong>${Math.floor(impact.suppliesValue / 1_000_000)}M+</strong>
+              <span>in medical supplies our chapters have shipped</span>
             </p>
           </Reveal>
           <Reveal className="band-navy__text" delay={0.1}>
             <h2>The problem and our solution</h2>
             <p>
-              Billions of people around the world lack basic medical supplies and equipment, while
-              U.S. hospitals throw out roughly {(TOTALS.wastePounds / 1_000_000_000).toFixed(0)} billion
-              pounds of waste a year, including supplies that were never opened. Our university
+              Clinics around the world run short of basic medical supplies, while U.S. hospitals
+              throw out supplies that were never opened. Our university
               chapters and high school clubs collect some of that surplus and ship it to clinics and
               hospitals, in the U.S. and overseas.
             </p>
